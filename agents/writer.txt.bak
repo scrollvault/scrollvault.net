@@ -46,15 +46,6 @@ WHEN TO INCLUDE DECKLISTS:
 - News/Spoilers/Set Reviews: Only if directly relevant (e.g., "here's the list that won the tournament")
 
 DECKLIST FORMAT (in <pre> blocks):
-INLINE CARD IMAGES (optional but encouraged):
-- For the first 2-3 key card mentions in the body (after the hook paragraph), add an inline gallery to break up text and boost engagement.
-- Do NOT use full-size images; instead, insert a <div class="decklist-images"> with small card images (same style as the decklist strip). Example:
-  <div class="decklist-images">
-    <a href="AFFILIATE_LINK" target="_blank"><img src="https://cards.scryfall.io/normal/front/..." alt="Card Name" title="Card Name" loading="lazy"></a>
-    ... (2-5 cards)
-  </div>
-- Place this inline gallery after a relevant paragraph (e.g., when discussing those cards). Keep it subtle; do this only once or twice in the article unless the topic heavily references many cards.
-- You may use the same affiliate link format as card-ref links.
 4 Card Name
 4 Card Name
 ...
