@@ -32,3 +32,12 @@
 
 - Fixed duplicate footer appearance on static pages (about.html, contact.html, privacy.html, terms.html) by removing extra closing `</main>` and `<footer>` blocks that appeared after `</html>`.
 - Fixed both live files in `/scrollvault` and source versions to prevent recurrence.
+
+## 2026-02-13 Post Visual Improvements
+
+- Implemented automatic featured-cards injection for posts that lack a decklist but contain card mentions. This adds a horizontal gallery of top card images after the first paragraph, improving visual engagement and reducing text-only appearance.
+- Updated writer agent prompt to encourage inline embedded card image galleries (<div class="decklist-images">) in post body for better visual breaks.
+- Changes are behind a feature flag (ENABLE_FEATURED_CARDS_INJECTION) for easy rollback.
+- All modifications committed on branch `feature/post-visuals-2026-02-13` with backups of original files (.bak).
+- Build verified: 47 posts generated; injection activates only for posts without a <pre> decklist and with at least one resolved card.
+- Rollback: switch to previous commit or disable flag in build.js.
