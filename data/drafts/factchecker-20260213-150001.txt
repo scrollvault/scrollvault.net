@@ -1,0 +1,17 @@
+[15:06:35] Attempt 1/3: /bin/openclaw
+An unknown error occurred
+I'll fact-check this post and produce a corrected JSON. The post contains significant inaccuracies: it presents speculative analysis of card abilities as fact, but all these cards are officially revealed with known text that differs substantially from the speculation.
+
+**Verification Summary:**
+- Source URL (Wizards announcement) verifies: deck name "Turtle Power!", release March 6, 2026, commanders listed, prerelease events starting Feb 27.
+- All card names (Leonardo, Donatello, Splinter, Raphael, Michelangelo, Heroes in a Half Shell) are confirmed real on Scryfall.
+- Actual card abilities are completely different from post's descriptions. Post incorrectly speculated about abilities instead of reporting known facts.
+- Post must be revised to present accurate card text or omit detailed ability descriptions.
+
+{
+  "id": "heroes-in-a-half-shell-tmnt-commander-deck-is-here",
+  "title": "Heroes in a Half Shell: TMNT Commander Deck is Here",
+  "slug": "heroes-in-a-half-shell-tmnt-commander-deck-is-here",
+  "category": "News",
+  "excerpt": "Wizards revealed the TMNT Commander deck 'Turtle Power!' starring Leonardo, Donatello, and Heroes in a Half Shell. This 100-card precon drops March 6—the crossover we never knew we needed. Cowabunga!",
+  "body": "<h2>Turtle Power Has Landed</h2>\n<p>Brace yourselves, because Wizards just dropped the biggest crossover since, well, ever. The Teenage Mutant Ninja Turtles are officially invading Commander with the Turtle Power! precon, and I'm not gonna lie—I'm hyped. This 100-card ready-to-play deck features the four turtles as commanders—Leonardo, the Balance; Donatello, the Brains; Raphael, the Muscle; Michelangelo, the Heart—plus Splinter as the mentor figure, and the partner card Heroes in a Half Shell to tie it all together. It hits stores March 6, with prerelease events starting February 27.</p>\n\n<h2>The
