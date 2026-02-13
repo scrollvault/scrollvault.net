@@ -466,6 +466,8 @@ function footer(rootRel) {
                     <li><a href="${rootRel}/privacy.html">Privacy Policy</a></li>
                     <li><a href="${rootRel}/terms.html">Terms of Service</a></li>
                     <li><a href="${rootRel}/contact.html">Contact</a></li>
+                    <li><a href="${rootRel}/about/authors.html">Authors</a></li>
+                    <li><a href="${rootRel}/about/editorial-policy.html">Editorial Policy</a></li>
                 </ul>
             </div>
         </div>
@@ -1267,7 +1269,61 @@ ${footer('')}
             <h2>Use of This Site</h2>
             <p>You may read, share, and link to our content freely. Reproduction of full articles requires permission. Brief excerpts with attribution and a link back are welcome.</p>`);
 
-  console.log('All pages built successfully.');
+  
+  // New trust and hub pages (feature/hubs-trust-2026-02-13)
+  writePage('guides/mana-bases.html', 'Mana Bases Guide', 'guides', `
+            <p>Building a solid mana base is the foundation of any successful Magic deck. Whether you're in Standard, Modern, Pioneer, or Commander, understanding how many lands you need, how to balance your colors, and when to play special lands is critical.</p>
+            <h2>Key Principles</h2>
+            <p><strong>Color Balance:</strong> Ensure you have enough sources for each color in your mana cost. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to get precise numbers.</p>
+            <p><strong>Mana Curve:</strong> Higher curves need more lands; low curves can shave a few.</p>
+            <p><strong>Format Considerations:</strong> Some formats have fetch lands, shock lands, or fast lands that affect your decisions.</p>
+            <h2>Land Count Guidelines</h2>
+            <ul>
+                <li>Standard: 24-26 lands (depending on curve)</li>
+                <li>Modern: 24-26 lands with mana fixers</li>
+                <li>Pioneer: 24-26 lands</li>
+                <li>Commander: 36-38 lands on average, with 10+ ramp pieces</li>
+            </ul>
+            <h2>Dual Lands and Mana Fixing</h2>
+            <p>Dual lands are the backbone of multicolored decks. Check our <a href="/guides/dual-lands.html">Dual Land Cycles</a> guide for a complete list of fetch, shock, check, and fast lands and which formats they're legal in.</p>
+            <h2>Using the Calculator</h2>
+            <p>Our <a href="/tools/manabase/">Mana Base Calculator</a> lets you input your deck's color distribution and get tailored land recommendations. It's a great starting point, but always playtest and adjust.</p>
+        `);
+  writePage('guides/dual-lands.html', 'Dual Land Cycles', 'guides', `
+            <p>Dual lands are the backbone of multicolored decks. Over the years, Wizards has printed several cycles, each with unique mechanics and format legality.</p>
+            <h2>Major Cycles</h2>
+            <ul>
+                <li><strong>Fetch Lands</strong> (e.g., <em>Scalding Tarn</em>): Search for a land with one of two land types. Legal in Modern, Legacy, Commander; restricted in Pioneer.</li>
+                <li><strong>Shock Lands</strong> (e.g., <em>Bloodstained Mire</em>): Enters tapped unless you take 2 damage. Legal in Standard (some), Pioneer, Modern, Legacy, Commander.</li>
+                <li><strong>Fast Lands</strong> (e.g., <em>Spire of Industry</em>): Enters untapped if you control two or more other lands of the appropriate types. Legal in Modern, Legacy, Commander; not in Standard.</li>
+                <li><strong>Check Lands</strong> (e.g., <em>Glacial Fortress</em>): Enters untapped if you control a basic land of one of its types. Legal in Standard (some), Modern, etc.</li>
+            </ul>
+            <h2>Complete Tables</h2>
+            <p>We are building detailed tables for each cycle with images, manacost, conditions, and format legality. Stay tuned.</p>
+            <h2>Related Tools</h2>
+            <p>Use our <a href="/tools/manabase/">Mana Base Calculator</a> to determine how many duals to play in your deck.</p>
+        `);
+  writePage('about/authors.html', 'Authors', 'about', `
+            <p>ScrollVault is written by a team of dedicated Magic players who have been slinging cardboard since the early days. We combine human passion with AI-assisted research to bring you timely, accurate coverage.</p>
+            <h2>Molts MTG</h2>
+            <p>Founder and lead writer. A long-time Spike who loves breaking the meta. Favorite format: Modern. Follow on Twitter @moltsmtg.</p>
+            <h2>Contributors</h2>
+            <p>We occasionally feature guest writers from the community. If you're interested in contributing, <a href="/contact.html">get in touch</a>.</p>
+        `);
+  writePage('about/editorial-policy.html', 'Editorial Policy', 'about', `
+            <p>At ScrollVault, we are committed to providing accurate, helpful, and transparent content for the Magic: The Gathering community.</p>
+            <h2>Sources</h2>
+            <p>We rely on official sources (Wizards of the Coast announcements, MTG Arena patch notes) and reputable community sites (MTGGoldfish, ChannelFireball, Star City Games) for news and data. Card information is fetched from Scryfall.</p>
+            <h2>Fact-Checking Process</h2>
+            <p>Every article goes through an automated fact-checker that verifies card names, rules text, and basic claims against Scryfall and official documents. Human editors review drafts for clarity and tone.</p>
+            <h2>Corrections</h2>
+            <p>If you spot an error, please <a href="/contact.html">contact us</a>. We will correct the mistake and note the update at the bottom of the article.</p>
+            <h2>Update Cadence</h2>
+            <p>Evergreen guides (e.g., mana bases, dual lands) are reviewed quarterly. News articles are published as events occur.</p>
+            <h2>Affiliate Links</h2>
+            <p>We use TCGplayer affiliate links to support the site. This does not affect your purchase price.</p>
+        `);
+console.log('All pages built successfully.');
 }
 
 main().catch(err => {
