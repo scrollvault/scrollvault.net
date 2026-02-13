@@ -1,0 +1,24 @@
+[09:13:40] === ScrollVault Pipeline - 2026-02-12 ===
+[09:13:40] Recent posts loaded (1327 chars of titles)
+[09:13:40] --- STEP 1: Scout ---
+[09:13:40] Attempt 1/3: /usr/bin/openclaw
+[09:14:59] Scout completed
+[09:14:59] Top story selected: Wizards of the Coast Faces $500M Lawsuit Over Alleged Card Overprinting
+[09:14:59] --- STEP 2: Writer ---
+[09:15:04] Attempt 1/3: /usr/bin/openclaw
+[09:15:30] Writer completed
+[09:15:30] --- STEP 3: Editor ---
+[09:15:35] Attempt 1/3: /usr/bin/openclaw
+[09:16:22] Editor completed
+[09:16:22] --- STEP 4: Fact Checker ---
+[09:16:27] Attempt 1/3: /usr/bin/openclaw
+[09:17:13] Fact Checker completed
+[09:17:13] --- STEP 5: Publisher ---
+[09:17:18] Attempt 1/3: /usr/bin/openclaw
+[09:21:26] Publisher completed
+[09:21:26] --- Verifying ---
+[09:21:26] Total published posts: 46
+[09:21:26] Site HTTP status: 200
+[09:21:26] Note: could not purge nginx cache (may need root)
+[09:21:26] === Pipeline complete! ===
+[09:21:26] Done.

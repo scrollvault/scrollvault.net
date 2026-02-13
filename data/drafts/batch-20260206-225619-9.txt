@@ -1,0 +1,7 @@
+I'll start by checking the memory files to get oriented, then write this MTG blog post.
+I'll write this blog post in the voice of a passionate MTG player. Memory search is currently unavailable, so I'll proceed based on the story brief.
+
+Let me craft a spoilers post about these cards shaking up Modern:
+Wrote the blog post to `/home/degenai/.openclaw/workspace/posts/2026-02-02-orcish-bowmasters-shake-modern.json`.
+
+The post covers all five required cards with strong opinions, concrete examples, and MTG slang. It avoids all banned phrases and comes in at ~600 words.

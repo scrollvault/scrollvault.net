@@ -1,0 +1,26 @@
+[09:00:01] === ScrollVault Pipeline - 2026-02-13 ===
+[09:00:01] Recent posts loaded (1897 chars of titles)
+[09:00:01] --- STEP 1: Scout ---
+[09:03:44] Scout completed
+[09:03:44] Top story selected: Companion App Update: Magic Player Profiles Launching February 16
+[09:03:44] --- STEP 2: Writer ---
+[09:05:04] Writer completed
+[09:05:04] --- STEP 3: Editor ---
+[09:06:50] Editor completed
+[09:06:50] --- STEP 4: Fact Checker ---
+[09:08:11] Fact Checker completed
+[09:08:11] --- Pre-Publish Validation ---
+[09:08:11] Validation: PASS: Post validated (Companion App Update: Player Profiles Are a Lightning Bolt for Players)
+[09:08:11] --- Backing up posts.json ---
+[09:08:11] Backup saved to /home/degenai/scrollvault/data/posts.json.bak
+[09:08:11] --- STEP 5: Publisher ---
+[09:09:55] Publisher completed
+[09:09:55] --- Verifying Build ---
+[09:09:56] Total published posts: 47
+[09:09:56] Note: could not purge nginx cache (may need root)
+[09:09:57] Site HTTP status: 200
+[09:09:57] --- STEP 6: QA ---
+[09:11:41] QA completed
+[09:11:41] WARNING: QA found CRITICAL issues — review /home/degenai/scrollvault/data/drafts/qa-20260213-090001.txt
+[09:11:41] === Pipeline complete! ===
+[09:11:41] Done.

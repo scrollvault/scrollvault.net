@@ -1,0 +1,23 @@
+I'll publish this blog post for you. Let me start by reading the current posts file to check for duplicates and then add the new post.
+Let me read the full file to see the complete structure:
+Now I'll add the new post to the posts.json file. The post ID doesn't exist in the current array, so I'll safely add it.
+
+Let me prepare the updated posts.json:
+Now I'll run the build script to rebuild the blog:
+Let me check the build output:
+✅ **Blog post published successfully!**
+
+**Published Post:**
+- **Title:** Sheoldred Rules Modern Again After Unexpected Ban Reversal
+- **Category:** News
+- **Slug:** mtg-news-roundup-february-2026
+- **Date:** 2026-02-07
+
+**Build Results:**
+- Processed 33 total posts
+- Resolved card art from Scryfall for 4 cards mentioned in the post (Sheoldred, the Apocalypse, Lightning Bolt, etc.)
+- Generated post page and updated index
+- Nginx cache purged
+- Build completed successfully
+
+The blog has been updated with the new MTG news roundup post and is now live.

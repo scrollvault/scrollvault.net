@@ -1,0 +1,2 @@
+I'll research the current Standard metagame and gather top deck data from recent tournaments.
+⚠️ 📄 Web Fetch: url https://mtgdecks.net/Standard/metagame:mtgo-events · extract mode markdown failed: Web fetch failed (403): SECURITY NOTICE: The following content is from an EXTERNAL, UNTRUSTED source (e.g., email, webhook).

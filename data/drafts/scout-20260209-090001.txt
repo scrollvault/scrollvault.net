@@ -1,0 +1,54 @@
+I'll search for the latest MTG news from multiple angles to find the most interesting stories from the past 24-48 hours.
+Based on my search, I have found several interesting MTG news stories from the past 24-48 hours. Here is my scout report in proper JSON format:
+
+```json
+{
+  "stories": [
+    {
+      "headline": "Commander Banlist Changes Expected Today as Speculation Drives Card Price Spikes",
+      "category": "News",
+      "summary": "The Commander Format Panel's anticipated banlist announcement for February 9 has triggered massive speculation in the card market, with potential unbans seeing price surges up to 428%. Prophet of Kruphix has spiked 428%, Sylvan Primordial 353%, and Golos, Tireless Pilgrim 302% as players anticipate possible unbannings or rule changes. A hybrid mana rule change is also being discussed.",
+      "source_urls": [
+        "https://draftsim.com/mtg-edh-banlist-price-spikes/"
+      ],
+      "relevance": "high",
+      "angle": "Market analysis: How speculation about Commander banlist changes is creating a real-life 'stock market' for banned cards, with investors betting on what might be unbanned and why the hybrid mana rule change could be the biggest story."
+    },
+    {
+      "headline": "Secret Lair 'Roll for Initiative' D&D Superdrop Launches with Bloodletter of Aclazotz Reprint",
+      "category": "Spoilers",
+      "summary": "Wizards of the Coast released the Secret Lair: Roll for Initiative Superdrop on February 9, featuring seven D&D-themed drops with Forgotten Realms art. The standout is a new reprint of Bloodletter of Aclazotz (typically $30) as 'Cast-Off Consort' with terrifying new art. Other notable cards include Ancient Bronze Dragon ($16+), Displacer Kitten ($24), Grim Hireling ($16-18), and a Counterspell reprint.",
+      "source_urls": [
+        "https://www.polygon.com/mtg-dnd-dungeons-and-dragons-secret-lair-superdrop-february-2026/",
+        "https://magic.wizards.com/en/news/announcements/secret-lair-roll-for-initiative-superdrop"
+      ],
+      "relevance": "high",
+      "angle": "Value hunting: Which cards in the new D&D Secret Lair drops offer the best financial value and playability, and why Bloodletter of Aclazotz might be the most significant reprint in the set."
+    },
+    {
+      "headline": "MTG Arena Major Update: Alchemy: Lorwyn Released, Sideboards Reverted to 15 Cards",
+      "category": "Strategy",
+      "summary": "The February 2 MTG Arena announcements revealed significant changes: Alchemy: Lorwyn launched with 30 new cards, Best-of-One sideboards reverted from 7 to 15 cards (reversing a Strixhaven-era change), four new Brawl decks added (including Grub Goblin with 6 new Goblin cards), and the first Arena Limited Championship Qualifier was announced for 2026. New elemental frame cosmetics also arrived.",
+      "source_urls": [
+        "https://magic.wizards.com/en/news/mtg-arena/announcements-february-2-2026"
+      ],
+      "relevance": "medium",
+      "angle": "Meta impact: How the sideboard change affects deckbuilding strategy in Best-of-One formats, and what the Alchemy: Lorwyn cards mean for the current Standard metagame."
+    },
+    {
+      "headline": "Christoffer Larsen Claims Pro Tour Lorwyn Eclipsed Title",
+      "category": "News",
+      "summary": "The first Pro Tour of 2026 concluded on February 1 in Richmond, Virginia, with Christoffer Larsen emerging victorious after two days of competition in Standard and Lorwyn Eclipsed Draft. This marks Larsen's first Pro Tour championship. Upcoming qualifier events include February Best-of-Three Qualifier Play-In on Feb 6 and Qualifier Weekend Feb 7-8 (Standard format).",
+      "source_urls": [
+        "https://magic.wizards.com/en/news/mtg-arena/announcements-february-2-2026",
+        "https://mtg.wiki/page/2025%E2%80%9326_Premier_Play_Season"
+      ],
+      "relevance": "medium",
+      "angle": "Deck breakdown: Analysis of Larsen's winning decklists from both Standard and Limited, and what tech choices put him over the top in a field featuring the new Lorwyn Eclipsed cards."
+    }
+  ],
+  "scout_notes": "The biggest story today is the imminent Commander banlist announcement (expected Feb 9). The massive price spikes on speculation show how influential these announcements are. The Roll for Initiative Secret Lair is also significant as it's one of the first D&D crossovers with art themed around specific Forgotten Realms locations. In Arena news, the sideboard change from 7 to 15 cards for Best-of-One is a major format shift that will simplify deckbuilding. No major new set spoilers or additional ban list changes beyond Commander are trending."
+}
+```
+
+Note: I am not reporting on the Regional Championship details as they're 6 days old and lower priority. The recent posts you listed already covered Secret Lair/D&D topics, but this new release is distinct from the previous D&D drops and includes significant reprints like Bloodletter of Aclazotz, so I've included it with a different angle focused on value and the specific terror-themed art.

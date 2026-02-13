@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTG News | scrollvault.net</title>
+    <meta name="description" content="Breaking news, ban updates, tournament results, and announcements from the world of Magic: The Gathering.">
+    <meta property="og:title" content="MTG News">
+    <meta property="og:description" content="Breaking news, ban updates, tournament results, and announcements from the world of Magic: The Gathering.">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:image" content="https://cards.scryfall.io/art_crop/front/6/b/6b95e8bd-2686-4790-afeb-9b17d482f156.jpg?1600995556">
+    <meta property="og:image:width" content="626">
+    <meta property="og:image:height" content="457">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <style>
+:root {
+    --bg-dark: #0f0f0f; --card-bg: #1a1a1a; --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25); --text-primary: #ffffff;
+    --text-secondary: #a1a1aa; --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95); --nav-border: rgba(255,255,255,0.06);
+    --gradient-navy: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --gradient-blue: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    --gradient-green: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+    --gradient-orange: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    --gradient-red: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    --pill-news: #3b82f6; --pill-strategy: #10b981; --pill-spoilers: #a855f7;
+    --pill-deck-guides: #f59e0b; --pill-set-reviews: #ef4444;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+main { margin-top: 64px; min-height: calc(100vh - 64px); }
+footer { border-top: 1px solid var(--card-border); padding: 2rem 0; }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.footer-text { color: var(--text-muted); font-size: 0.875rem; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { color: var(--text-secondary); font-size: 0.875rem; }
+.footer-links a:hover { color: var(--text-primary); }
+.wubrg-dots { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.25rem; }
+.mana-dot { width: 10px; height: 10px; border-radius: 50%; }
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); flex-direction: column; padding: 1rem; gap: 0; }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; display: block; border-bottom: 1px solid var(--card-border); }
+    .nav-links a:last-child { border-bottom: none; }
+    .mobile-menu-btn { display: block; }
+}
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+  font-size: 0.9rem;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+.breadcrumb {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 1rem;
+}
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+.breadcrumb a { color: rgba(255,255,255,0.7); }
+.breadcrumb a:hover { color: #a78bfa; }
+.breadcrumb li:not(:last-child)::after {
+  content: '/';
+  margin-left: 0.5rem;
+  opacity: 0.5;
+}
+.hero-featured { position: relative; min-height: 500px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
+.hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
+.hero-featured .hero-content { position: relative; z-index: 1; padding: 3rem 0; width: 100%; }
+.hero-featured .post-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
+.hero-featured h1 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
+.hero-featured .hero-excerpt { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; line-height: 1.7; margin-bottom: 1.5rem; }
+.hero-cta { display: inline-block; padding: 0.75rem 2rem; background: var(--gradient-purple); border-radius: 8px; font-weight: 600; font-size: 0.95rem; color: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
+.hero-attribution { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
+.featured-section { padding: 2rem 0; }
+.featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.featured-card { position: relative; height: 240px; background-size: cover; background-position: center; border-radius: 12px; overflow: hidden; display: flex; align-items: flex-end; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.featured-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.featured-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); border-radius: 12px; }
+.featured-card-content { position: relative; z-index: 1; padding: 1.25rem; width: 100%; }
+.featured-card .post-category { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+.featured-card h3 { font-size: 1.05rem; line-height: 1.3; margin-bottom: 0.4rem; }
+.featured-card .post-date { font-size: 0.75rem; color: var(--text-muted); }
+.filter-section { padding: 2rem 0; border-bottom: 1px solid var(--card-border); }
+.filter-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; }
+.filter-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); padding: 0.5rem 1.25rem; border-radius: 2rem; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
+.filter-btn:hover { border-color: rgba(139,92,246,0.5); color: var(--text-primary); }
+.filter-btn.active { background: var(--gradient-purple); border-color: transparent; color: white; }
+.content-wrapper { display: grid; grid-template-columns: 1fr; gap: 2rem; padding: 2rem 0 4rem; }
+.posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+.post-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer; }
+.post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.post-card a.card-link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; }
+.post-thumbnail { height: 180px; width: 100%; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.post-thumbnail::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%); }
+.post-content { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
+.post-category { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem; width: fit-content; }
+.category-news { background: var(--pill-news); color: white; }
+.category-strategy { background: var(--pill-strategy); color: white; }
+.category-spoilers { background: var(--pill-spoilers); color: white; }
+.category-deck-guides { background: var(--pill-deck-guides); color: white; }
+.category-set-reviews { background: var(--pill-set-reviews); color: white; }
+.post-title { font-size: 1.125rem; margin-bottom: 0.75rem; line-height: 1.4; }
+.post-excerpt { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem; flex: 1; }
+.post-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.8rem; padding-top: 1rem; border-top: 1px solid var(--card-border); }
+.read-more { color: #a78bfa; font-weight: 600; font-size: 0.875rem; margin-top: 0.75rem; display: inline-flex; align-items: center; gap: 0.25rem; }
+.read-more:hover { color: #c4b5fd; }
+.sidebar { display: none; }
+@media (min-width: 992px) { .content-wrapper { grid-template-columns: 1fr 320px; } .sidebar { display: block; } }
+.sidebar-widget { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.widget-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--card-border); }
+.search-box input { width: 100%; padding: 0.75rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 8px; color: var(--text-primary); font-size: 0.9rem; font-family: inherit; }
+.search-box input:focus { outline: none; border-color: #8b5cf6; }
+.search-box input::placeholder { color: var(--text-muted); }
+.recent-posts { list-style: none; }
+.recent-post-item { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--card-border); }
+.recent-post-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.recent-post-thumb { width: 56px; height: 42px; border-radius: 6px; background-size: cover; background-position: center; flex-shrink: 0; }
+.recent-posts a { font-size: 0.875rem; color: var(--text-secondary); display: block; line-height: 1.4; }
+.recent-posts a:hover { color: var(--text-primary); }
+.recent-post-date { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 0.25rem; }
+.categories-list { list-style: none; }
+.categories-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--card-border); cursor: pointer; }
+.categories-list li:last-child { border-bottom: none; }
+.category-name { display: flex; align-items: center; gap: 0.5rem; }
+.category-dot { width: 8px; height: 8px; border-radius: 50%; }
+.category-count { background: rgba(255,255,255,0.08); padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.75rem; color: var(--text-muted); }
+.about-widget { text-align: center; }
+.about-avatar { width: 80px; height: 80px; margin: 0 auto 1rem; background: var(--gradient-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
+.about-text { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
+.post-card.hidden { display: none; }
+@media (max-width: 768px) {
+    .hero-featured { min-height: 360px; }
+    .hero-featured h1 { font-size: 1.75rem; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .featured-card { height: 180px; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .filter-btn { padding: 0.4rem 1rem; font-size: 0.85rem; }
+}
+@media (min-width: 769px) and (max-width: 991px) {
+    .featured-grid { grid-template-columns: repeat(2, 1fr); }
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 992px) { .posts-grid { grid-template-columns: repeat(3, 1fr); } }</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+    <nav class="nav">
+        <div class="container nav-content">
+            <a href="/" class="nav-logo">ScrollVault</a>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/news/" class="active">News</a></li>
+                <li><a href="/guides/">Guides</a></li>
+                <li><a href="/decks/">Top Decks</a></li>
+                <li><a href="/draft/">Draft</a></li>
+                <li><a href="/tools/lands/">Lands</a></li>
+                <li><a href="/tools/manabase/">Mana Base</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content">
+        <section class="hero-featured" style="background-image: url('https://cards.scryfall.io/art_crop/front/6/b/6b95e8bd-2686-4790-afeb-9b17d482f156.jpg?1600995556'); background-size: cover; background-position: center;">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="container">
+                    <span class="post-category category-news">News</span>
+                    <h1><a href="/posts/companion-app-update-player-profiles-are-finally-here.html">Companion App Update: Player Profiles Are a Lightning Bolt for Players</a></h1>
+                    <p class="hero-excerpt">Wizards just announced Player Profiles for the Companion app, and it's the organized play tracking feature we've been begging for. Finally, you'll be able to see your event history, favorite local stores, and get a personalized inbox. This is a huge win for players who actually go to FNM.</p>
+                    <a href="/posts/companion-app-update-player-profiles-are-finally-here.html" class="hero-cta">Read More &rarr;</a>
+                <p class="hero-attribution">Art: &ldquo;Companion&rdquo; by Dan Murayama Scott</p>
+                </div>
+            </div>
+        </section>
+        <div class="container content-wrapper">
+            <section class="posts-grid" id="postsGrid">
+                <article class="post-card" data-category="news">
+                    <a href="/posts/the-one-ring-hasbro-lawsuit-mtg.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal</h2>
+                            <p class="post-excerpt">Hasbro faces a $500M lawsuit over alleged MTG card overprinting. If true, it could tank your card values overnight. Here's what players need to know.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Today</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/force-negation-returns-historic-shakeup.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1764119635'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Force of Negation Just Returned to Historic and Everything's Different Now</h2>
+                            <p class="post-excerpt">WotC dropped a bomb on Historic: four cards got the banhammer while ten others, including the iconic Force of Negation, are back from the banned list. The format's about to get wild.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Yesterday</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/mtg-arena-february-2026-patch-notes.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes</h2>
+                            <p class="post-excerpt">Wizards of the Coast releases the February 2026 patch for MTG Arena, bringing key balance changes to Standard, new localization options, and important bug fixes. Get the full breakdown.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">2 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/eldrazi-temple-ban-historic-overhaul-necropotence-restricted.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/c/b/cbab7e1f-305e-4733-aa70-b27285740925.jpg?1690006046'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Eldrazi Temple Ban: Historic's Massive Overhaul and Necropotence Restricted</h2>
+                            <p class="post-excerpt">The February B&amp;R announcement didn't just tweak Historic—it nuked it. Eldrazi Temple, Ajani Nacatl Pariah, and Crop Rotation are banned, while seven cards like Force of Negation and Endurance return. And in Timeless, Necropotence finally got restricted after dominating Arena Championship 10. This is the format shakeup we've been waiting for.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">2 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/prophet-of-kruphix-spikes-428-commander-stock-market-goes-wild.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/4/5/45de923f-fdab-460c-96f4-f62aefa9ad73.jpg?1562817436'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Prophet of Kruphix Spikes 428%: Commander 'Stock Market' Goes Wild</h2>
+                            <p class="post-excerpt">Prophet of Kruphix gained 428% in two days while still banned. Sylvan Primordial jumped 353% and Golos 302% as speculators bet on the February 9 banlist announcement. The hybrid mana rule change might be the biggest story yet.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">3 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/lutri-spellchaser-unbanned-commander.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Lutri, the Spellchaser Unbanned: Commander Just Got More Fun</h2>
+                            <p class="post-excerpt">Biorhythm and Lutri are back in Commander, and Lutri's no longer banned as a companion. The panel's also reconsidering Sundering Titan, Iona, and Griselbrand. Here's why these unbans matter and what they mean for your decks.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">3 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/scholar-of-the-lost-trove-banned-historic-shakeup.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/a/a/aa254a86-3c30-408d-9c14-befd472f9740.jpg?1770635117'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Scholar of the Lost Trove Banned: Historic Just Got Nuked</h2>
+                            <p class="post-excerpt">The February B&amp;R hammered Historic: Scholar Combo and Eldrazi decks are dead, but Magus of the Moon, Force of Negation, and Wilderness Reclamation are back. Here's why these changes completely reshape the format and what you should be building now.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">3 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/bloodletter-of-aclazotz-secret-lair-roll-for-initiative.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1699044094'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Bloodletter of Aclazotz Shines in Roll for Initiative Secret Lair</h2>
+                            <p class="post-excerpt">Wizards of the Coast is releasing the 'Roll for Initiative' Secret Lair Superdrop on February 9, featuring seven D&amp;D-themed reprints. The standout card is Bloodletter of Aclazotz, a $30 vampire demon that doubles life loss during your turn. We break down the value and whether these drops are worth buying.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/lightning-bolt-survives-another-day-pro-tour-shakeups-sheoldreds-reign-and-counterspells-comeback.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Lightning Bolt Survives Another Day: Pro Tour Shakeups, Sheoldred's Reign, and Counterspell's Comeback</h2>
+                            <p class="post-excerpt">The Pro Tour is over, Sheoldred, the Apocalypse is still breaking games, and Counterspell is back in force. Wizards announced a Timeless tournament that lets all three cards run wild. Here's your news roundup.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/shadowheart-leads-charge-secret-lairs-dd-roll-initiative.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/1/d1628a06-753c-423a-8eea-e29667dd95f7.jpg?1664728738'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Shadowheart Leads the Charge in Secret Lair's D&amp;D Roll for Initiative</h2>
+                            <p class="post-excerpt">Wizards just announced the Secret Lair x Dungeons &amp; Dragons: Roll for Initiative Superdrop, featuring seven themed drops with D&amp;D characters and reprints. The superdrop releases February 9, with bundles ranging from $199.99 to $464.99. Get the full breakdown and our take on whether it's worth your money.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/remembering-kai-budde-german-juggernaut.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/9/e/9ed2329f-d055-4a60-955b-384722504278.jpg?1562927042'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Remembering Kai Budde: The German Juggernaut's Legendary Legacy</h2>
+                            <p class="post-excerpt">The Magic community mourns the loss of Kai Budde, a five-time Pro Tour champion and four-time Player of the Year. His unmatched accomplishments and humble spirit left an indelible mark on the game.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/nykthos-shrine-to-nyx-pioneer-masters-mtg-arena.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/8/3/834b27a0-dfd7-4f96-8cde-cacac4b24acc.jpg?1594077253'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Nykthos Shrine to Nyx is Coming to MTG Arena - Pioneer Masters Announcement</h2>
+                            <p class="post-excerpt">Arena is finally getting Pioneer! Wizards just announced a curated Pioneer set with Nykthos Shrine to Nyx and Collected Company among the reprints. Modern players are already salivating.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/mana-crypt-banned-commander-rc-update.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/c/9/c96ac326-de44-470b-a592-a4c2a052c091.jpg?1721426418'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Mana Crypt Finally Banned in Commander - The RC Actually Did Something</h2>
+                            <p class="post-excerpt">The Commander Rules Committee actually pulled the trigger. Mana Crypt is banned effective immediately, and the community is losing its collective mind. I've been saying this card needed to go for years - let's talk about what this means for the format.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/wizards-retro-artifacts-reprint-set-2026.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/f/3/f340cbf7-5bbe-45b9-a4bf-d1caa500ff93.jpg?1764119729'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Mana Crypt Is Back: Wizards Drops Retro Artifacts Reprint Set</h2>
+                            <p class="post-excerpt">Wizards finally heard us. Mana Crypt, Chrome Mox, and the whole retro artifact crew are getting a reprint at rare. Commander players, start your engines.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/secret-lair-roll-for-initiative-superdrop.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/6/0/60522839-bcf5-4da9-bab5-ff436269c4a1.jpg?1760365863'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Secret Lair: Roll for Initiative Superdrop Brings D&amp;D Flavor to Magic</h2>
+                            <p class="post-excerpt">Wizards announces a new Secret Lair drop themed around Dungeons &amp; Dragons, releasing February 9, 2026. Here's what to expect from Roll for Initiative.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/mtg-news-roundup-february-2026.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Sheoldred Rules Modern Again After Unexpected Ban Reversal</h2>
+                            <p class="post-excerpt">Wizards unbans Sheoldred, the Apocalypse in a shocking Modern banlist update. Meanwhile, MTG Arena's latest patch breaks combo decks, and Pro Tour Barcelona results are in.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">5 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/dimir-excruciator-deck-slayed-badgermole-cub-horde.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/5/4/542c89b6-48c6-4fcb-8a4c-b5ed2fa1d384.jpg?1726286201'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Dimir Excruciator: The Deck That Slayed the Badgermole Cub Horde</h2>
+                            <p class="post-excerpt">Christoffer Larsen's Dimir Excruciator defied expectations by winning Pro Tour Lorwyn Eclipsed with a 58.1% win rate, despite facing a field dominated by Badgermole Cub decks. The only archetype to appear twice in the Top 8, Dimir Excruciator proves that innovation can crush the metagame's most popular strategies. See how this Dimir control-build outgrinded the horde and what it means for Standard.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">6 days ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/mtg-arena-economy-changes-march.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">MTG Arena Economy Changes Coming in March</h2>
+                            <p class="post-excerpt">Wizards just announced sweeping changes to the Arena economy. Gold rates, pack prices, and wildcard tracks are all getting reworked.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">1 week ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/paper-pro-tour-returns-million-dollar-prize-pool.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/f/2/f26e1f55-284c-4540-bf5c-ebc7ab9687ab.jpg?1720687932'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Tarmogoyf Is Back: Paper Pro Tour Returns with Million Dollar Prize Pool</h2>
+                            <p class="post-excerpt">Wizards just announced the full paper Pro Tour circuit is returning in 2026 with a million dollar prize pool and a new team format. Get ready for Tarmogoyf, Snapcaster Mage, and the rest of the Legends to battle on the big stage again.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">1 week ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="news">
+                    <a href="/posts/commander-banned-list-update-feb-2026.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968'); background-size: cover; background-position: center;"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Commander Banned List Update February 2026</h2>
+                            <p class="post-excerpt">The Commander Rules Committee just shook things up. Three cards banned, one unbanned, and the community has opinions.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">1 week ago</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+            </section>
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Search</h3>
+                    <div class="search-box">
+                        <input type="text" placeholder="Search posts..." id="searchInput" oninput="searchPosts()">
+                    </div>
+                </div>
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Recent Posts</h3>
+                    <ul class="recent-posts">
+                        <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/6/b/6b95e8bd-2686-4790-afeb-9b17d482f156.jpg?1600995556'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <a href="/posts/companion-app-update-player-profiles-are-finally-here.html">Companion App Update: Player Profiles Are a Lightning Bolt for Players</a>
+                                <span class="recent-post-date">-1 days ago</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <a href="/posts/the-one-ring-hasbro-lawsuit-mtg.html">The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal</a>
+                                <span class="recent-post-date">Today</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1764119635'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <a href="/posts/force-negation-returns-historic-shakeup.html">Force of Negation Just Returned to Historic and Everything's Different Now</a>
+                                <span class="recent-post-date">Yesterday</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <a href="/posts/mtg-arena-february-2026-patch-notes.html">MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes</a>
+                                <span class="recent-post-date">2 days ago</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/b/0/b0da67fb-1cb2-4105-ab5c-b7c680b8116c.jpg?1767773855'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <a href="/posts/building-solid-mana-base-commander-budget.html">How to Build a Solid Mana Base on a Budget</a>
+                                <span class="recent-post-date">2 days ago</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li onclick="document.querySelector('[data-filter=news]').click()">
+                            <span class="category-name">
+                                <span class="category-dot" style="background: var(--pill-news);"></span>
+                                News
+                            </span>
+                            <span class="category-count">21</span>
+                        </li>
+                        <li onclick="document.querySelector('[data-filter=strategy]').click()">
+                            <span class="category-name">
+                                <span class="category-dot" style="background: var(--pill-strategy);"></span>
+                                Strategy
+                            </span>
+                            <span class="category-count">10</span>
+                        </li>
+                        <li onclick="document.querySelector('[data-filter=spoilers]').click()">
+                            <span class="category-name">
+                                <span class="category-dot" style="background: var(--pill-spoilers);"></span>
+                                Spoilers
+                            </span>
+                            <span class="category-count">4</span>
+                        </li>
+                        <li onclick="document.querySelector('[data-filter=deck-guides]').click()">
+                            <span class="category-name">
+                                <span class="category-dot" style="background: var(--pill-deck-guides);"></span>
+                                Deck Guides
+                            </span>
+                            <span class="category-count">8</span>
+                        </li>
+                        <li onclick="document.querySelector('[data-filter=set-reviews]').click()">
+                            <span class="category-name">
+                                <span class="category-dot" style="background: var(--pill-set-reviews);"></span>
+                                Set Reviews
+                            </span>
+                            <span class="category-count">4</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-widget about-widget">
+                    <h3 class="widget-title">About</h3>
+                    <div class="about-avatar">M</div>
+                    <p class="about-text">Your go-to spot for Magic: The Gathering news, strategy, and deck tech. Written by players, for players.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ScrollVault</div>
+                <div class="wubrg-dots">
+                    <span class="mana-dot" style="background: #F9FAF4"></span>
+                    <span class="mana-dot" style="background: #0E68AB"></span>
+                    <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                    <span class="mana-dot" style="background: #D3202A"></span>
+                    <span class="mana-dot" style="background: #00733E"></span>
+                </div>
+                <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+                <ul class="footer-links">
+                    <li><a href="/privacy.html">Privacy Policy</a></li>
+                    <li><a href="/terms.html">Terms of Service</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.post-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const f = btn.dataset.filter;
+                cards.forEach(c => c.classList.toggle('hidden', f !== 'all' && c.dataset.category !== f));
+            });
+        });
+        function searchPosts() {
+            const t = document.getElementById('searchInput').value.toLowerCase();
+            cards.forEach(c => {
+                const txt = (c.querySelector('.post-title').textContent + ' ' + c.querySelector('.post-excerpt').textContent).toLowerCase();
+                c.classList.toggle('hidden', t && !txt.includes(t));
+            });
+            if (t) { filterBtns.forEach(b => b.classList.remove('active')); document.querySelector('[data-filter="all"]').classList.add('active'); }
+        }
+    </script>
+</body>
+</html>

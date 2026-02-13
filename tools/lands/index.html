@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dual Lands Reference Guide | scrollvault.net</title>
+<meta name="description" content="Complete searchable reference for all Magic: The Gathering dual lands. Filter by color, cycle, speed, and format.">
+<meta property="og:title" content="Dual Lands Reference Guide">
+<meta property="og:description" content="Complete searchable reference for all Magic: The Gathering dual lands.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ScrollVault">
+<meta property="og:url" content="https://scrollvault.net/tools/lands/">
+<link rel="canonical" href="https://scrollvault.net/tools/lands/">
+    <link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root{
+    --bg-dark: #0f0f0f; --card-bg: #1a1a1a; --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25); --text-primary: #ffffff;
+    --text-secondary: #a1a1aa; --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95); --nav-border: rgba(255,255,255,0.06);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --green:#2ecc71;--green-bg:rgba(46,204,113,0.12);--green-border:rgba(46,204,113,0.3);
+    --yellow:#f1c40f;--yellow-bg:rgba(241,196,15,0.12);--yellow-border:rgba(241,196,15,0.3);
+    --red:#e74c3c;--red-bg:rgba(231,76,60,0.12);--red-border:rgba(231,76,60,0.3);
+    --W:#f9fae5;--U:#0e68ab;--B:#150b00;--R:#d3202a;--G:#00733e;
+    --W-bg:rgba(249,250,229,0.9);--U-bg:rgba(14,104,171,0.9);--B-bg:rgba(21,11,0,0.85);--R-bg:rgba(211,32,42,0.9);--G-bg:rgba(0,115,62,0.9);
+    --radius:8px;--radius-lg:12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+.skip-link { position: absolute; top: -40px; left: 0; background: #000; color: #fff; padding: 8px; z-index: 100; font-size: 0.9rem; transition: top 0.2s; }
+.skip-link:focus { top: 0; }
+
+/* PAGE HEADER */
+.page-header { padding: 4rem 0 2rem; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, transparent 70%); }
+.page-header h1 { font-size: 2.25rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-header p { color: var(--text-secondary); font-size: 1.05rem; margin-top: 0.5rem; }
+
+/* STATS BAR */
+.stats-bar{max-width:1280px;margin:0 auto;padding:0 1rem 24px;display:flex;gap:16px;flex-wrap:wrap}
+.stat-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px 24px;flex:1;min-width:140px}
+.stat-card .num{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-card .label{color:var(--text-secondary);font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+
+/* FILTERS */
+.filters{max-width:1280px;margin:0 auto;padding:0 1rem 24px}
+.filter-panel{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-lg);padding:24px}
+.filter-row{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:16px}
+.filter-row:last-child{margin-bottom:0}
+.filter-group{display:flex;flex-direction:column;gap:8px}
+.filter-label{color:var(--text-secondary);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.8px;font-weight:600}
+.search-input{background:#111;border:1px solid var(--card-border);border-radius:var(--radius);padding:10px 16px 10px 40px;color:var(--text-primary);font-size:0.95rem;width:320px;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s}
+.search-input:focus{border-color:#8b5cf6}
+.search-wrap{position:relative}
+.search-wrap::before{content:"\1F50D";position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:0.9rem;opacity:0.4}
+
+/* COLOR CIRCLES */
+.color-filters{display:flex;gap:8px}
+.color-btn{width:36px;height:36px;border-radius:50%;border:2px solid var(--card-border);cursor:pointer;transition:all 0.2s;position:relative;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;font-family:'Space Grotesk',sans-serif}
+.color-btn.W{background:var(--W-bg);color:#333;border-color:rgba(249,250,229,0.3)}
+.color-btn.U{background:var(--U-bg);color:#fff;border-color:rgba(14,104,171,0.4)}
+.color-btn.B{background:var(--B-bg);color:#aaa;border-color:rgba(100,80,60,0.4)}
+.color-btn.R{background:var(--R-bg);color:#fff;border-color:rgba(211,32,42,0.4)}
+.color-btn.G{background:var(--G-bg);color:#fff;border-color:rgba(0,115,62,0.4)}
+.color-btn:hover{transform:scale(1.1)}
+.color-btn.active{box-shadow:0 0 0 3px #a855f7,0 0 12px rgba(168,85,247,0.4);transform:scale(1.1)}
+
+/* CHIPS */
+.chip-group{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#111;border:1px solid var(--card-border);border-radius:20px;padding:6px 16px;color:var(--text-secondary);font-size:0.82rem;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;white-space:nowrap}
+.chip:hover{border-color:rgba(139,92,246,0.5);color:var(--text-primary)}
+.chip.active{background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a78bfa}
+
+/* RESULTS COUNT */
+.results-bar{max-width:1280px;margin:0 auto;padding:0 1rem 16px;display:flex;justify-content:space-between;align-items:center}
+.results-count{color:var(--text-secondary);font-size:0.9rem}
+.results-count strong{color:var(--text-primary);font-weight:600}
+
+/* CYCLE SECTIONS */
+.cycles{max-width:1280px;margin:0 auto;padding:0 1rem 48px}
+.cycle-section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-lg);margin-bottom:16px;overflow:hidden;transition:border-color 0.2s}
+.cycle-section:hover{border-color:rgba(255,255,255,0.15)}
+.cycle-header{display:flex;align-items:center;gap:12px;padding:20px 24px;cursor:pointer;user-select:none;transition:background 0.2s}
+.cycle-header:hover{background:rgba(255,255,255,0.02)}
+.cycle-toggle{color:var(--text-secondary);font-size:0.9rem;transition:transform 0.3s;flex-shrink:0;width:20px;text-align:center}
+.cycle-section.open .cycle-toggle{transform:rotate(90deg)}
+.cycle-name{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:var(--text-primary);flex:1}
+.cycle-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* SPEED TAGS */
+.speed-tag{font-size:0.72rem;padding:3px 10px;border-radius:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.speed-tag.untapped{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.speed-tag.conditional{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+.speed-tag.tapped{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+
+/* FORMAT BADGES */
+.format-badge{font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.3px;border:1px solid}
+.format-badge.standard{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.1)}
+.format-badge.pioneer{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.1)}
+.format-badge.modern{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.1)}
+.format-badge.legacy{color:#9b59b6;border-color:rgba(155,89,182,0.3);background:rgba(155,89,182,0.1)}
+.format-badge.commander{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.1)}
+
+/* CYCLE BODY */
+.cycle-body{display:none;border-top:1px solid var(--card-border)}
+.cycle-section.open .cycle-body{display:block}
+.cycle-desc{padding:16px 24px;color:var(--text-secondary);font-size:0.9rem;border-bottom:1px solid var(--card-border)}
+
+/* LAND TABLE */
+.land-table{width:100%;border-collapse:collapse}
+.land-table th{padding:10px 16px;text-align:left;font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;font-weight:600;border-bottom:1px solid var(--card-border);background:rgba(0,0,0,0.2)}
+.land-table td{padding:10px 16px;font-size:0.9rem;border-bottom:1px solid rgba(255,255,255,0.03)}
+.land-table tr:last-child td{border-bottom:none}
+.land-table tr:hover td{background:rgba(168,85,247,0.04)}
+.land-table .land-name{font-weight:500;color:var(--text-primary)}
+.land-table .land-colors{display:flex;gap:4px}
+.land-table .land-types{color:var(--text-secondary);font-size:0.85rem}
+.land-table .land-note{color:var(--text-muted);font-size:0.82rem;font-style:italic}
+.land-table .pair-name{color:var(--text-secondary);font-size:0.82rem}
+
+/* COLOR PIPS (small) */
+.cpip{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;font-family:'Space Grotesk',sans-serif;flex-shrink:0}
+.cpip.W{background:#f9fae5;color:#333}
+.cpip.U{background:#0e68ab;color:#fff}
+.cpip.B{background:#2b1a0e;color:#bbb;border:1px solid #444}
+.cpip.R{background:#d3202a;color:#fff}
+.cpip.G{background:#00733e;color:#fff}
+
+/* FOOTER */
+footer{border-top:1px solid var(--card-border);padding:2rem 0}
+.footer-content{display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center}
+.footer-logo{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-text{color:var(--text-muted);font-size:0.875rem}
+.footer-links{display:flex;gap:1.5rem;list-style:none}
+.footer-links a{color:var(--text-secondary);font-size:0.875rem}
+.footer-links a:hover{color:var(--text-primary)}
+.wubrg-dots{display:flex;gap:0.5rem;justify-content:center;margin-top:0.25rem}
+.mana-dot{width:10px;height:10px;border-radius:50%}
+
+/* HIDDEN */
+.hidden{display:none!important}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--nav-bg);border-bottom:1px solid var(--nav-border);flex-direction:column;padding:1rem;gap:0}
+  .nav-links.active{display:flex}
+  .nav-links a{padding:0.75rem 1rem;display:block;border-bottom:1px solid var(--card-border)}
+  .nav-links a:last-child{border-bottom:none}
+  .mobile-menu-btn{display:block}
+  .page-header h1{font-size:1.75rem}
+  .stats-bar{gap:8px}
+  .stat-card{padding:12px 16px;min-width:100px}
+  .stat-card .num{font-size:1.4rem}
+  .search-input{width:100%}
+  .filter-row{gap:12px}
+  .land-table th,.land-table td{padding:8px 10px}
+  .cycle-header{padding:14px 16px}
+  .filter-panel{padding:16px}
+}
+@media(max-width:480px){
+  .land-table .col-pair,.land-table .col-types,.land-table .col-note{display:none}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<nav class="nav">
+  <div class="container nav-content">
+    <a href="/" class="nav-logo">ScrollVault</a>
+    <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/guides/">Guides</a></li>
+      <li><a href="/decks/">Top Decks</a></li>
+      <li><a href="/draft/">Draft</a></li>
+      <li><a href="/tools/lands/" class="active">Lands</a></li>
+      <li><a href="/tools/manabase/">Mana Base</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main-content">
+<header class="page-header">
+  <div class="container">
+    <h1>Dual Lands Reference Guide</h1>
+    <p>Complete searchable reference for every dual land cycle in Magic: The Gathering. Filter by color, speed, format, and more.</p>
+  </div>
+</header>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat-card"><div class="num" id="statLands">0</div><div class="label">Total Lands</div></div>
+  <div class="stat-card"><div class="num" id="statCycles">0</div><div class="label">Cycles</div></div>
+  <div class="stat-card"><div class="num" id="statPairs">10</div><div class="label">Color Pairs</div></div>
+  <div class="stat-card"><div class="num" id="statFormats">5</div><div class="label">Formats</div></div>
+</div>
+
+<div class="filters">
+  <div class="filter-panel">
+    <div class="filter-row">
+      <div class="filter-group">
+        <div class="filter-label">Search</div>
+        <div class="search-wrap">
+          <input type="text" class="search-input" id="searchInput" placeholder="Search land name, type, color pair...">
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Colors</div>
+        <div class="color-filters" id="colorFilters">
+          <button class="color-btn W" data-color="W">W</button>
+          <button class="color-btn U" data-color="U">U</button>
+          <button class="color-btn B" data-color="B">B</button>
+          <button class="color-btn R" data-color="R">R</button>
+          <button class="color-btn G" data-color="G">G</button>
+        </div>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-group">
+        <div class="filter-label">Cycle</div>
+        <div class="chip-group" id="cycleFilters"></div>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-group">
+        <div class="filter-label">Speed</div>
+        <div class="chip-group" id="speedFilters">
+          <button class="chip active" data-speed="all">All</button>
+          <button class="chip" data-speed="untapped">Untapped</button>
+          <button class="chip" data-speed="conditional">Conditional</button>
+          <button class="chip" data-speed="tapped">Tapped</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Format</div>
+        <div class="chip-group" id="formatFilters">
+          <button class="chip active" data-format="all">All</button>
+          <button class="chip" data-format="standard">Standard</button>
+          <button class="chip" data-format="pioneer">Pioneer</button>
+          <button class="chip" data-format="modern">Modern</button>
+          <button class="chip" data-format="legacy">Legacy</button>
+          <button class="chip" data-format="commander">Commander</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="results-bar">
+  <div class="results-count" id="resultsCount">Showing <strong>0</strong> lands across <strong>0</strong> cycles</div>
+</div>
+
+<div class="cycles" id="cyclesContainer"></div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">ScrollVault</div>
+      <div class="wubrg-dots">
+        <span class="mana-dot" style="background: #F9FAF4"></span>
+        <span class="mana-dot" style="background: #0E68AB"></span>
+        <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+        <span class="mana-dot" style="background: #D3202A"></span>
+        <span class="mana-dot" style="background: #00733E"></span>
+      </div>
+      <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+      <ul class="footer-links">
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+const PAIR_NAMES = {
+  'WU':'Azorius','UB':'Dimir','BR':'Rakdos','RG':'Gruul','GW':'Selesnya',
+  'WB':'Orzhov','UR':'Izzet','BG':'Golgari','RW':'Boros','GU':'Simic'
+};
+
+const TRIOME_NAMES = {
+  'WUB':'Esper','UBR':'Grixis','BRG':'Jund','RGW':'Naya','GWU':'Bant',
+  'WBG':'Abzan','URW':'Jeskai','BGU':'Sultai','RWB':'Mardu','GUR':'Temur'
+};
+
+function pairName(colors) {
+  if (colors.length === 3) {
+    for (const k in TRIOME_NAMES) {
+      if (k.split('').sort().join('') === colors.split('').sort().join('')) return TRIOME_NAMES[k];
+    }
+  }
+  for (const k in PAIR_NAMES) {
+    if (k.split('').sort().join('') === colors.split('').sort().join('')) return PAIR_NAMES[k];
+  }
+  return '';
+}
+
+const CYCLES = [
+  {
+    name: "Original Dual Lands",
+    slug: "original-duals",
+    description: "The original ten dual lands from Alpha/Beta/Unlimited/Revised. They have two basic land types with no drawback, making them the gold standard for dual lands. Reserved List prevents reprints.",
+    speed: "untapped",
+    formats: ["legacy","commander"],
+    defaultOpen: true,
+    lands: [
+      {name:"Tundra",colors:"WU",types:"Land \u2014 Plains Island"},
+      {name:"Underground Sea",colors:"UB",types:"Land \u2014 Island Swamp"},
+      {name:"Badlands",colors:"BR",types:"Land \u2014 Swamp Mountain"},
+      {name:"Taiga",colors:"RG",types:"Land \u2014 Mountain Forest"},
+      {name:"Savannah",colors:"GW",types:"Land \u2014 Forest Plains"},
+      {name:"Scrubland",colors:"WB",types:"Land \u2014 Plains Swamp"},
+      {name:"Volcanic Island",colors:"UR",types:"Land \u2014 Island Mountain"},
+      {name:"Bayou",colors:"BG",types:"Land \u2014 Swamp Forest"},
+      {name:"Plateau",colors:"RW",types:"Land \u2014 Mountain Plains"},
+      {name:"Tropical Island",colors:"GU",types:"Land \u2014 Forest Island"}
+    ]
+  },
+  {
+    name: "Fetch Lands",
+    slug: "fetch-lands",
+    description: "Pay 1 life, sacrifice: search your library for a land with one of two basic land types and put it onto the battlefield. Extremely versatile mana fixing that synergizes with dual lands, shuffle effects, and landfall.",
+    speed: "untapped",
+    formats: ["modern","legacy","commander"],
+    defaultOpen: true,
+    lands: [
+      {name:"Flooded Strand",colors:"WU",types:"Land",note:"Fetch Plains or Island"},
+      {name:"Polluted Delta",colors:"UB",types:"Land",note:"Fetch Island or Swamp"},
+      {name:"Bloodstained Mire",colors:"BR",types:"Land",note:"Fetch Swamp or Mountain"},
+      {name:"Wooded Foothills",colors:"RG",types:"Land",note:"Fetch Mountain or Forest"},
+      {name:"Windswept Heath",colors:"GW",types:"Land",note:"Fetch Forest or Plains"},
+      {name:"Marsh Flats",colors:"WB",types:"Land",note:"Fetch Plains or Swamp"},
+      {name:"Scalding Tarn",colors:"UR",types:"Land",note:"Fetch Island or Mountain"},
+      {name:"Verdant Catacombs",colors:"BG",types:"Land",note:"Fetch Swamp or Forest"},
+      {name:"Arid Mesa",colors:"RW",types:"Land",note:"Fetch Mountain or Plains"},
+      {name:"Misty Rainforest",colors:"GU",types:"Land",note:"Fetch Forest or Island"}
+    ]
+  },
+  {
+    name: "Shock Lands",
+    slug: "shock-lands",
+    description: "Dual lands with two basic land types. Enter tapped unless you pay 2 life. The backbone of Modern and Pioneer mana bases, and excellent in Commander. From Ravnica sets.",
+    speed: "conditional",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: true,
+    lands: [
+      {name:"Hallowed Fountain",colors:"WU",types:"Land \u2014 Plains Island",note:"Pay 2 life to enter untapped"},
+      {name:"Watery Grave",colors:"UB",types:"Land \u2014 Island Swamp",note:"Pay 2 life to enter untapped"},
+      {name:"Blood Crypt",colors:"BR",types:"Land \u2014 Swamp Mountain",note:"Pay 2 life to enter untapped"},
+      {name:"Stomping Ground",colors:"RG",types:"Land \u2014 Mountain Forest",note:"Pay 2 life to enter untapped"},
+      {name:"Temple Garden",colors:"GW",types:"Land \u2014 Forest Plains",note:"Pay 2 life to enter untapped"},
+      {name:"Godless Shrine",colors:"WB",types:"Land \u2014 Plains Swamp",note:"Pay 2 life to enter untapped"},
+      {name:"Steam Vents",colors:"UR",types:"Land \u2014 Island Mountain",note:"Pay 2 life to enter untapped"},
+      {name:"Overgrown Tomb",colors:"BG",types:"Land \u2014 Swamp Forest",note:"Pay 2 life to enter untapped"},
+      {name:"Sacred Foundry",colors:"RW",types:"Land \u2014 Mountain Plains",note:"Pay 2 life to enter untapped"},
+      {name:"Breeding Pool",colors:"GU",types:"Land \u2014 Forest Island",note:"Pay 2 life to enter untapped"}
+    ]
+  },
+  {
+    name: "Fast Lands",
+    slug: "fast-lands",
+    description: "Enter tapped unless you control two or fewer other lands. Excellent in aggressive and low-curve decks. Originally from Scars of Mirrodin (enemy) and Kaladesh (ally), with enemy pairs completed in later sets.",
+    speed: "conditional",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: true,
+    lands: [
+      {name:"Seachrome Coast",colors:"WU",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Darkslick Shores",colors:"UB",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Blackcleave Cliffs",colors:"BR",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Copperline Gorge",colors:"RG",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Razorverge Thicket",colors:"GW",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Concealed Courtyard",colors:"WB",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Spirebluff Canal",colors:"UR",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Blooming Marsh",colors:"BG",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Inspiring Vantage",colors:"RW",types:"Land",note:"Untapped if 2 or fewer other lands"},
+      {name:"Botanical Sanctum",colors:"GU",types:"Land",note:"Untapped if 2 or fewer other lands"}
+    ]
+  },
+  {
+    name: "Check Lands",
+    slug: "check-lands",
+    description: "Enter tapped unless you control a land with one of two basic land types. Great with shock lands and other typed duals. From various core sets and Innistrad/Ixalan/Dominaria.",
+    speed: "conditional",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: true,
+    lands: [
+      {name:"Glacial Fortress",colors:"WU",types:"Land",note:"Untapped if you control Plains or Island"},
+      {name:"Drowned Catacomb",colors:"UB",types:"Land",note:"Untapped if you control Island or Swamp"},
+      {name:"Dragonskull Summit",colors:"BR",types:"Land",note:"Untapped if you control Swamp or Mountain"},
+      {name:"Rootbound Crag",colors:"RG",types:"Land",note:"Untapped if you control Mountain or Forest"},
+      {name:"Sunpetal Grove",colors:"GW",types:"Land",note:"Untapped if you control Forest or Plains"},
+      {name:"Isolated Chapel",colors:"WB",types:"Land",note:"Untapped if you control Plains or Swamp"},
+      {name:"Sulfur Falls",colors:"UR",types:"Land",note:"Untapped if you control Island or Mountain"},
+      {name:"Woodland Cemetery",colors:"BG",types:"Land",note:"Untapped if you control Swamp or Forest"},
+      {name:"Clifftop Retreat",colors:"RW",types:"Land",note:"Untapped if you control Mountain or Plains"},
+      {name:"Hinterland Harbor",colors:"GU",types:"Land",note:"Untapped if you control Forest or Island"}
+    ]
+  },
+  {
+    name: "Pain Lands",
+    slug: "pain-lands",
+    description: "Tap for colorless freely, or tap for one of two colors and take 1 damage. Always enter untapped with no conditions. Reprinted across many sets including Brothers' War and Dominaria United.",
+    speed: "untapped",
+    formats: ["modern","pioneer","standard","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Adarkar Wastes",colors:"WU",types:"Land",note:"1 damage for colored mana"},
+      {name:"Underground River",colors:"UB",types:"Land",note:"1 damage for colored mana"},
+      {name:"Sulfurous Springs",colors:"BR",types:"Land",note:"1 damage for colored mana"},
+      {name:"Karplusan Forest",colors:"RG",types:"Land",note:"1 damage for colored mana"},
+      {name:"Brushland",colors:"GW",types:"Land",note:"1 damage for colored mana"},
+      {name:"Caves of Koilos",colors:"WB",types:"Land",note:"1 damage for colored mana"},
+      {name:"Shivan Reef",colors:"UR",types:"Land",note:"1 damage for colored mana"},
+      {name:"Llanowar Wastes",colors:"BG",types:"Land",note:"1 damage for colored mana"},
+      {name:"Battlefield Forge",colors:"RW",types:"Land",note:"1 damage for colored mana"},
+      {name:"Yavimaya Coast",colors:"GU",types:"Land",note:"1 damage for colored mana"}
+    ]
+  },
+  {
+    name: "Slow Lands",
+    slug: "slow-lands",
+    description: "Enter tapped unless you control two or more other lands. The inverse of fast lands \u2014 great in midrange and control decks. From Innistrad: Midnight Hunt and Innistrad: Crimson Vow.",
+    speed: "conditional",
+    formats: ["modern","pioneer","standard","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Deserted Beach",colors:"WU",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Shipwreck Marsh",colors:"UB",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Haunted Ridge",colors:"BR",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Rockfall Vale",colors:"RG",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Overgrown Farmland",colors:"GW",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Shattered Sanctum",colors:"WB",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Stormcarved Coast",colors:"UR",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Deathcap Glade",colors:"BG",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Sundown Pass",colors:"RW",types:"Land",note:"Untapped if 2+ other lands"},
+      {name:"Dreamroot Cascade",colors:"GU",types:"Land",note:"Untapped if 2+ other lands"}
+    ]
+  },
+  {
+    name: "Pathway Lands",
+    slug: "pathway-lands",
+    description: "Modal double-faced cards. Choose which side to play when entering the battlefield. Cannot be changed once played. From Zendikar Rising and Kaldheim.",
+    speed: "untapped",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Hengegate Pathway // Mistgate Pathway",colors:"WU",types:"Land (MDFC)",note:"Choose Plains or Island side"},
+      {name:"Clearwater Pathway // Murkwater Pathway",colors:"UB",types:"Land (MDFC)",note:"Choose Island or Swamp side"},
+      {name:"Blightstep Pathway // Searstep Pathway",colors:"BR",types:"Land (MDFC)",note:"Choose Swamp or Mountain side"},
+      {name:"Cragcrown Pathway // Timbercrown Pathway",colors:"RG",types:"Land (MDFC)",note:"Choose Mountain or Forest side"},
+      {name:"Branchloft Pathway // Boulderloft Pathway",colors:"GW",types:"Land (MDFC)",note:"Choose Forest or Plains side"},
+      {name:"Brightclimb Pathway // Grimclimb Pathway",colors:"WB",types:"Land (MDFC)",note:"Choose Plains or Swamp side"},
+      {name:"Riverglide Pathway // Lavaglide Pathway",colors:"UR",types:"Land (MDFC)",note:"Choose Island or Mountain side"},
+      {name:"Darkbore Pathway // Slitherbore Pathway",colors:"BG",types:"Land (MDFC)",note:"Choose Swamp or Forest side"},
+      {name:"Needleverge Pathway // Pillarverge Pathway",colors:"RW",types:"Land (MDFC)",note:"Choose Mountain or Plains side"},
+      {name:"Barkchannel Pathway // Tidechannel Pathway",colors:"GU",types:"Land (MDFC)",note:"Choose Forest or Island side"}
+    ]
+  },
+  {
+    name: "Horizon / Canopy Lands",
+    slug: "horizon-lands",
+    description: "Tap for one of two colors by paying 1 life. Can sacrifice to draw a card. Named after Horizon Canopy, the original from Future Sight. Six total from Modern Horizons 1 and 2.",
+    speed: "untapped",
+    formats: ["modern","legacy","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Horizon Canopy",colors:"GW",types:"Land",note:"Pay 1 life for mana; sac to draw"},
+      {name:"Silent Clearing",colors:"WB",types:"Land",note:"Pay 1 life for mana; sac to draw"},
+      {name:"Fiery Islet",colors:"UR",types:"Land",note:"Pay 1 life for mana; sac to draw"},
+      {name:"Nurturing Peatland",colors:"BG",types:"Land",note:"Pay 1 life for mana; sac to draw"},
+      {name:"Sunbaked Canyon",colors:"RW",types:"Land",note:"Pay 1 life for mana; sac to draw"},
+      {name:"Waterlogged Grove",colors:"GU",types:"Land",note:"Pay 1 life for mana; sac to draw"}
+    ]
+  },
+  {
+    name: "Filter Lands",
+    slug: "filter-lands",
+    description: "Tap for colorless, or pay one mana of either color to filter into two mana in any combination of those colors. Originally from Odyssey block (enemy) and Shadowmoor/Eventide (ally/enemy). Great for color-intensive spells.",
+    speed: "untapped",
+    formats: ["modern","legacy","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Mystic Gate",colors:"WU",types:"Land",note:"Filter {W/U} into WW, WU, or UU"},
+      {name:"Sunken Ruins",colors:"UB",types:"Land",note:"Filter {U/B} into UU, UB, or BB"},
+      {name:"Graven Cairns",colors:"BR",types:"Land",note:"Filter {B/R} into BB, BR, or RR"},
+      {name:"Fire-Lit Thicket",colors:"RG",types:"Land",note:"Filter {R/G} into RR, RG, or GG"},
+      {name:"Wooded Bastion",colors:"GW",types:"Land",note:"Filter {G/W} into GG, GW, or WW"},
+      {name:"Fetid Heath",colors:"WB",types:"Land",note:"Filter {W/B} into WW, WB, or BB"},
+      {name:"Cascade Bluffs",colors:"UR",types:"Land",note:"Filter {U/R} into UU, UR, or RR"},
+      {name:"Twilight Mire",colors:"BG",types:"Land",note:"Filter {B/G} into BB, BG, or GG"},
+      {name:"Rugged Prairie",colors:"RW",types:"Land",note:"Filter {R/W} into RR, RW, or WW"},
+      {name:"Flooded Grove",colors:"GU",types:"Land",note:"Filter {G/U} into GG, GU, or UU"}
+    ]
+  },
+  {
+    name: "Scry Lands / Temples",
+    slug: "scry-lands",
+    description: "Always enter tapped. When they enter, scry 1. From Theros and Core Set 2020/2021. Useful for smoothing draws in slower formats.",
+    speed: "tapped",
+    formats: ["pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Temple of Enlightenment",colors:"WU",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Deceit",colors:"UB",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Malice",colors:"BR",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Abandon",colors:"RG",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Plenty",colors:"GW",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Silence",colors:"WB",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Epiphany",colors:"UR",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Malady",colors:"BG",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Triumph",colors:"RW",types:"Land",note:"Scry 1 on ETB"},
+      {name:"Temple of Mystery",colors:"GU",types:"Land",note:"Scry 1 on ETB"}
+    ]
+  },
+  {
+    name: "Triomes",
+    slug: "triomes",
+    description: "Three-color lands with three basic land types. Always enter tapped. Can be cycled for 3 mana. Five from Ikoria (Ketria, Raugrin, Savai, Indatha, Zagoth) and five from Streets of New Capenna (Spara's, Raffine's, Xander's, Ziatora's, Jetmir's).",
+    speed: "tapped",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Savai Triome",colors:"RWB",types:"Land \u2014 Mountain Plains Swamp",note:"Cycling {3}; Mardu"},
+      {name:"Ketria Triome",colors:"GUR",types:"Land \u2014 Forest Island Mountain",note:"Cycling {3}; Temur"},
+      {name:"Indatha Triome",colors:"WBG",types:"Land \u2014 Plains Swamp Forest",note:"Cycling {3}; Abzan"},
+      {name:"Raugrin Triome",colors:"URW",types:"Land \u2014 Island Mountain Plains",note:"Cycling {3}; Jeskai"},
+      {name:"Zagoth Triome",colors:"BGU",types:"Land \u2014 Swamp Forest Island",note:"Cycling {3}; Sultai"},
+      {name:"Spara's Headquarters",colors:"GWU",types:"Land \u2014 Forest Plains Island",note:"Cycling {3}; Bant"},
+      {name:"Raffine's Tower",colors:"WUB",types:"Land \u2014 Plains Island Swamp",note:"Cycling {3}; Esper"},
+      {name:"Xander's Lounge",colors:"UBR",types:"Land \u2014 Island Swamp Mountain",note:"Cycling {3}; Grixis"},
+      {name:"Ziatora's Proving Ground",colors:"BRG",types:"Land \u2014 Swamp Mountain Forest",note:"Cycling {3}; Jund"},
+      {name:"Jetmir's Garden",colors:"RGW",types:"Land \u2014 Mountain Forest Plains",note:"Cycling {3}; Naya"}
+    ]
+  },
+  {
+    name: "Bond / Battle Lands",
+    slug: "battle-lands",
+    description: "Have two basic land types. Enter tapped unless you control two or more basic lands. From Battle for Zendikar. Only five ally-colored pairs exist.",
+    speed: "conditional",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Prairie Stream",colors:"WU",types:"Land \u2014 Plains Island",note:"Untapped if 2+ basics"},
+      {name:"Sunken Hollow",colors:"UB",types:"Land \u2014 Island Swamp",note:"Untapped if 2+ basics"},
+      {name:"Smoldering Marsh",colors:"BR",types:"Land \u2014 Swamp Mountain",note:"Untapped if 2+ basics"},
+      {name:"Cinder Glade",colors:"RG",types:"Land \u2014 Mountain Forest",note:"Untapped if 2+ basics"},
+      {name:"Canopy Vista",colors:"GW",types:"Land \u2014 Forest Plains",note:"Untapped if 2+ basics"}
+    ]
+  },
+  {
+    name: "Reveal / Shadow Lands",
+    slug: "reveal-lands",
+    description: "Enter tapped unless you reveal a land with a matching basic land type from your hand. From Shadows over Innistrad. Only five ally-colored pairs exist.",
+    speed: "conditional",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Port Town",colors:"WU",types:"Land",note:"Reveal Plains or Island to enter untapped"},
+      {name:"Choked Estuary",colors:"UB",types:"Land",note:"Reveal Island or Swamp to enter untapped"},
+      {name:"Foreboding Ruins",colors:"BR",types:"Land",note:"Reveal Swamp or Mountain to enter untapped"},
+      {name:"Game Trail",colors:"RG",types:"Land",note:"Reveal Mountain or Forest to enter untapped"},
+      {name:"Fortified Village",colors:"GW",types:"Land",note:"Reveal Forest or Plains to enter untapped"}
+    ]
+  },
+  {
+    name: "Bounce / Karoo Lands",
+    slug: "bounce-lands",
+    description: "Always enter tapped. When they enter, return a land you control to its owner's hand. Tap for two colors of mana (both at once). From original Ravnica block and reprinted in various sets. Effectively ramp by producing 2 mana from one land.",
+    speed: "tapped",
+    formats: ["pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Azorius Chancery",colors:"WU",types:"Land",note:"Bounce a land; tap for WU"},
+      {name:"Dimir Aqueduct",colors:"UB",types:"Land",note:"Bounce a land; tap for UB"},
+      {name:"Rakdos Carnarium",colors:"BR",types:"Land",note:"Bounce a land; tap for BR"},
+      {name:"Gruul Turf",colors:"RG",types:"Land",note:"Bounce a land; tap for RG"},
+      {name:"Selesnya Sanctuary",colors:"GW",types:"Land",note:"Bounce a land; tap for GW"},
+      {name:"Orzhov Basilica",colors:"WB",types:"Land",note:"Bounce a land; tap for WB"},
+      {name:"Izzet Boilerworks",colors:"UR",types:"Land",note:"Bounce a land; tap for UR"},
+      {name:"Golgari Rot Farm",colors:"BG",types:"Land",note:"Bounce a land; tap for BG"},
+      {name:"Boros Garrison",colors:"RW",types:"Land",note:"Bounce a land; tap for RW"},
+      {name:"Simic Growth Chamber",colors:"GU",types:"Land",note:"Bounce a land; tap for GU"}
+    ]
+  },
+  {
+    name: "Creature Lands",
+    slug: "creature-lands",
+    description: "Enter tapped. Tap for two colors. Have an activated ability to become a creature until end of turn. From Worldwake, BFZ/OGW, and other sets. Powerful in control decks as win conditions.",
+    speed: "tapped",
+    formats: ["modern","pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Celestial Colonnade",colors:"WU",types:"Land",note:"4/4 Flying Vigilance (3WU)"},
+      {name:"Creeping Tar Pit",colors:"UB",types:"Land",note:"3/2 Unblockable (1UB)"},
+      {name:"Lavaclaw Reaches",colors:"BR",types:"Land",note:"2/2, +X/+0 ability (1BR)"},
+      {name:"Raging Ravine",colors:"RG",types:"Land",note:"3/3 +1/+1 counter on attack (1RG)"},
+      {name:"Stirring Wildwood",colors:"GW",types:"Land",note:"3/4 Reach (1GW)"},
+      {name:"Shambling Vent",colors:"WB",types:"Land",note:"2/3 Lifelink (1WB)"},
+      {name:"Wandering Fumarole",colors:"UR",types:"Land",note:"1/4, swap P/T (1UR)"},
+      {name:"Hissing Quagmire",colors:"BG",types:"Land",note:"2/2 Deathtouch (1BG)"},
+      {name:"Needle Spires",colors:"RW",types:"Land",note:"2/1 Double Strike (1RW)"},
+      {name:"Lumbering Falls",colors:"GU",types:"Land",note:"3/3 Hexproof (1GU)"}
+    ]
+  },
+  {
+    name: "Survey Lands",
+    slug: "survey-lands",
+    description: "Enter tapped. When they enter, surveil 1 (look at top card, keep or put in graveyard). Tap for two colors. From Murders at Karlov Manor. Have basic land types, making them fetchable.",
+    speed: "tapped",
+    formats: ["standard","pioneer","commander"],
+    defaultOpen: false,
+    lands: [
+      {name:"Meticulous Archive",colors:"WU",types:"Land \u2014 Plains Island",note:"Surveil 1 on ETB"},
+      {name:"Undercity Sewers",colors:"UB",types:"Land \u2014 Island Swamp",note:"Surveil 1 on ETB"},
+      {name:"Raucous Theater",colors:"BR",types:"Land \u2014 Swamp Mountain",note:"Surveil 1 on ETB"},
+      {name:"Commercial District",colors:"RG",types:"Land \u2014 Mountain Forest",note:"Surveil 1 on ETB"},
+      {name:"Lush Portico",colors:"GW",types:"Land \u2014 Forest Plains",note:"Surveil 1 on ETB"},
+      {name:"Shadowy Backstreet",colors:"WB",types:"Land \u2014 Plains Swamp",note:"Surveil 1 on ETB"},
+      {name:"Thundering Falls",colors:"UR",types:"Land \u2014 Island Mountain",note:"Surveil 1 on ETB"},
+      {name:"Underground Mortuary",colors:"BG",types:"Land \u2014 Swamp Forest",note:"Surveil 1 on ETB"},
+      {name:"Elegant Parlor",colors:"RW",types:"Land \u2014 Mountain Plains",note:"Surveil 1 on ETB"},
+      {name:"Hedge Maze",colors:"GU",types:"Land \u2014 Forest Island",note:"Surveil 1 on ETB"}
+    ]
+  }
+];
+
+// STATE
+let activeColors = new Set();
+let activeCycle = 'all';
+let activeSpeed = 'all';
+let activeFormat = 'all';
+let searchTerm = '';
+
+function init() {
+  buildCycleFilterChips();
+  renderCycles();
+  updateStats();
+  bindEvents();
+}
+
+function buildCycleFilterChips() {
+  const container = document.getElementById('cycleFilters');
+  let html = '<button class="chip active" data-cycle="all">All Cycles</button>';
+  CYCLES.forEach(c => {
+    html += `<button class="chip" data-cycle="${c.slug}">${c.name}</button>`;
+  });
+  container.innerHTML = html;
+}
+
+function bindEvents() {
+  // Search
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchTerm = e.target.value.toLowerCase().trim();
+    renderCycles();
+    updateStats();
+  });
+
+  // Color buttons
+  document.querySelectorAll('.color-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const color = btn.dataset.color;
+      if (activeColors.has(color)) {
+        activeColors.delete(color);
+        btn.classList.remove('active');
+      } else {
+        activeColors.add(color);
+        btn.classList.add('active');
+      }
+      renderCycles();
+      updateStats();
+    });
+  });
+
+  // Cycle chips
+  document.getElementById('cycleFilters').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#cycleFilters .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeCycle = chip.dataset.cycle;
+    renderCycles();
+    updateStats();
+  });
+
+  // Speed chips
+  document.getElementById('speedFilters').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#speedFilters .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeSpeed = chip.dataset.speed;
+    renderCycles();
+    updateStats();
+  });
+
+  // Format chips
+  document.getElementById('formatFilters').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#formatFilters .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFormat = chip.dataset.format;
+    renderCycles();
+    updateStats();
+  });
+}
+
+function matchesColorFilter(landColors) {
+  if (activeColors.size === 0) return true;
+  for (const c of activeColors) {
+    if (!landColors.includes(c)) return false;
+  }
+  return true;
+}
+
+function matchesSearch(land) {
+  if (!searchTerm) return true;
+  const pn = pairName(land.colors).toLowerCase();
+  const haystack = [
+    land.name.toLowerCase(),
+    land.colors.toLowerCase(),
+    land.types.toLowerCase(),
+    pn,
+    (land.note || '').toLowerCase()
+  ].join(' ');
+  return haystack.includes(searchTerm);
+}
+
+function filterLands(cycle) {
+  return cycle.lands.filter(land => {
+    if (!matchesColorFilter(land.colors)) return false;
+    if (!matchesSearch(land)) return false;
+    return true;
+  });
+}
+
+function cycleMatchesFilters(cycle) {
+  if (activeCycle !== 'all' && cycle.slug !== activeCycle) return false;
+  if (activeSpeed !== 'all' && cycle.speed !== activeSpeed) return false;
+  if (activeFormat !== 'all' && !cycle.formats.includes(activeFormat)) return false;
+  return true;
+}
+
+function renderCycles() {
+  const container = document.getElementById('cyclesContainer');
+  let html = '';
+  let totalVisible = 0;
+  let cyclesVisible = 0;
+
+  CYCLES.forEach((cycle, idx) => {
+    if (!cycleMatchesFilters(cycle)) return;
+    const filtered = filterLands(cycle);
+    if (filtered.length === 0) return;
+
+    totalVisible += filtered.length;
+    cyclesVisible++;
+
+    const isOpen = cycle.defaultOpen && activeCycle === 'all' && activeSpeed === 'all' && activeFormat === 'all' && activeColors.size === 0 && !searchTerm;
+    const forceOpen = activeCycle !== 'all' || activeSpeed !== 'all' || activeFormat !== 'all' || activeColors.size > 0 || searchTerm;
+    const openClass = (isOpen || forceOpen) ? ' open' : '';
+
+    html += `<div class="cycle-section${openClass}" data-slug="${cycle.slug}">`;
+    html += `<div class="cycle-header" onclick="toggleCycle(this)">`;
+    html += `<span class="cycle-toggle">\u25B6</span>`;
+    html += `<span class="cycle-name">${cycle.name}</span>`;
+    html += `<div class="cycle-meta">`;
+    html += `<span class="speed-tag ${cycle.speed}">${cycle.speed}</span>`;
+    cycle.formats.forEach(f => {
+      html += `<span class="format-badge ${f}">${f}</span>`;
+    });
+    html += `</div></div>`;
+    html += `<div class="cycle-body">`;
+    html += `<div class="cycle-desc">${cycle.description}</div>`;
+    html += `<table class="land-table"><thead><tr>`;
+    html += `<th>Name</th><th>Colors</th><th class="col-pair">Pair</th><th class="col-types">Types</th><th class="col-note">Notes</th>`;
+    html += `</tr></thead><tbody>`;
+
+    filtered.forEach(land => {
+      const pn = pairName(land.colors);
+      html += `<tr>`;
+      html += `<td class="land-name">${land.name}</td>`;
+      html += `<td><div class="land-colors">`;
+      land.colors.split('').forEach(c => {
+        html += `<span class="cpip ${c}">${c}</span>`;
+      });
+      html += `</div></td>`;
+      html += `<td class="col-pair"><span class="pair-name">${pn}</span></td>`;
+      html += `<td class="col-types"><span class="land-types">${land.types}</span></td>`;
+      html += `<td class="col-note"><span class="land-note">${land.note || '\u2014'}</span></td>`;
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table></div></div>`;
+  });
+
+  container.innerHTML = html;
+
+  document.getElementById('resultsCount').innerHTML =
+    `Showing <strong>${totalVisible}</strong> lands across <strong>${cyclesVisible}</strong> cycles`;
+}
+
+function updateStats() {
+  let totalLands = 0;
+  CYCLES.forEach(c => { totalLands += c.lands.length; });
+  document.getElementById('statLands').textContent = totalLands;
+  document.getElementById('statCycles').textContent = CYCLES.length;
+}
+
+function toggleCycle(header) {
+  const section = header.parentElement;
+  section.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Dual Lands Reference Guide","url":"https://scrollvault.net/tools/lands/","applicationCategory":"UtilitiesApplication","description":"Complete searchable reference for all Magic: The Gathering dual lands. Filter by color, cycle, speed, and format.","isPartOf":{"@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net"}}
+</script>
+</body>
+</html>

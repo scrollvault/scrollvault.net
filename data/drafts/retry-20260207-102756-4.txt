@@ -1,0 +1,8 @@
+An unknown error occurred
+{
+  "id": "azorius-control-standard-complete-guide",
+  "title": "Teferi, Hero of Dominaria: Azorius Control Is Taking Over Standard",
+  "slug": "teferi-hero-of-dominaria-azorius-control-standard",
+  "category": "Deck Guides",
+  "excerpt": "Teferi, Hero of Dominaria has completely reshaped Standard. Azorius Control isn't just a tier-one deck—it's the deck to beat right now. Supreme Verdict, Absorb, and Shark Typhoon create a brutal game plan that crushes midrange and aggro alike. Here's how to build and play it.",
+  "body": "<h2

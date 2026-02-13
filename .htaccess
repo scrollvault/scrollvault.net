@@ -1,0 +1,22 @@
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the "ea-php83" package as the default "PHP" programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
+
+# Disable MultiViews to prevent 406 Not Acceptable errors
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Force canonical host (non-www version)
+RewriteCond %{HTTP_HOST} ^www\.scrollvault\.net$ [NC]
+RewriteRule ^(.*)$ https://scrollvault.net/$1 [L,R=301]
+
+</IfModule>

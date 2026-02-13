@@ -1,0 +1,52 @@
+I'll conduct a fresh search to check for any news that may have emerged today (Feb 8) since my last search this morning. Let me look for the most current information:
+Based on my comprehensive search covering the past 24-48 hours, there is no breaking MTG news specifically today (Feb 8, 2026). The news cycle is dominated by anticipation for tomorrow's (Feb 9) Commander ban/rule change announcement. However, I've verified several significant developments:
+
+```json
+{
+  "stories": [
+    {
+      "headline": "Commander Ban Announcement Looms with Hybrid Mana Rules Change Expected",
+      "category": "News",
+      "summary": "Wizards of the Coast will announce Commander format changes on February 9 at 11 a.m. EST. The vague announcement from Weekly MTG suggests possible updates to the ban list, Game Changers framework, or a long-debated hybrid mana rule change that would allow hybrid cards in decks containing either color. This follows months of speculation and recent price spikes on banned cards like Jeweled Lotus (+167%), Sylvan Primordial (+530%), and Biorhythm (+440%). Community sentiment is divided, particularly regarding whether the color identity rules should be relaxed.",
+      "source_urls": ["https://mtgrocks.com/upcoming-mtg-ban-announcement-could-bring-major-commander-changes/", "https://www.wargamer.com/magic-the-gathering/commander-changes-february-9-teased", "https://draftsim.com/feb-9-ban-spec/"],
+      "relevance": "high",
+      "angle": "Provide a comprehensive preview of what's at stake: analyze which banned cards are most likely to be unbanned (Biorhythm, Sylvan Primordial) vs. unlikely (Jeweled Lotus), explain the hybrid mana change's impact on deckbuilding, and discuss the political implications after the RC's dissolution. Include market analysis of speculation-driven price movements and warn readers about potential volatility."
+    },
+    {
+      "headline": "Official: Competitive Play Structure and Promos Announced for 2026-27 Season",
+      "category": "News",
+      "summary": "Wizards released an official play update detailing the next round of Regional Championship Qualifiers (April 4-August 2), which can be Modern Constructed or Limited. New promos include Ancient Stirrings for all participants and Sowing Mycospawn for top finishers. Spring Regional Championships (May 8-31 across global locations) will feature Standard and feed into Pro Tour Marvel at MagicCon Amsterdam. A stunning new Black Lotus trophy will be awarded at Magic Spotlight events, starting with the $50k Eclipsed tournament in Toronto this weekend.",
+      "source_urls": ["https://magic.gg/news/play-update-2026-27s-regional-championship-qualifier-events-promos-and-more"],
+      "relevance": "high",
+      "angle": "Break down the updated competitive play calendar for players: which events to target, how the RCQ/RC structure works, what promos to expect, and key deadlines. Include practical advice for qualifying and highlight the new trophy tradition. This is essential information for anyone considering tournament play in 2026."
+    },
+    {
+      "headline": "Izzet Elementals Makes First Typal Top 8 in 18 Years at Pro Tour Lorwyn Eclipsed",
+      "category": "Strategy",
+      "summary": "Eduardo Sajgaliksecured 3rd place at Pro Tour Lorwyn Eclipsed with a pure Elementals deck containing 27 Elemental creatures, ending an 18-year drought for typal strategies in Pro Tour Top 8s. The deck leveraged new cards like Flamebraider, Ashling Rekindled, Sunderflock, and the Incarnation cycle. The Pro Tour overall was praised for its diversity following recent bans and the influx of strong typal-support cards, with no dominant archetype emerging.",
+      "source_urls": ["https://www.polygon.com/mtg-pro-tour-lorwyn-eclipsed-elementals-top-8/", "https://magic.gg/events/pro-tour-lorwyn-eclipsed"],
+      "relevance": "medium",
+      "angle": "Analyze how Wizards' typal-focused set design successfully revived tribal strategies at the highest level of competition. Provide a decklist breakdown, explain key synergies, and discuss whether this signals a broader return to viable typal archetypes in Constructed. Contrast with the limited success of typals in previous years and examine the specific mechanics that made Elementals work where others failed."
+    },
+    {
+      "headline": "MTG Arena Reverts to Full 15-Card Sideboards in Major Policy Shift",
+      "category": "Strategy",
+      "summary": "Starting February 3, Wizards reverted Best-of-One sideboards on MTG Arena from 7 to 15 cards, reversing the Strixhaven-era restriction. The change aims to reduce complexity and developer overhead while restoring traditional sideboarding flexibility. Players may now fill their full sideboard across all decks, simplifying deckbuilding and encouraging Best-of-Three play.",
+      "source_urls": ["https://magic.wizards.com/en/news/mtg-arena/announcements-february-2-2026"],
+      "relevance": "medium",
+      "angle": "Practical guide for Arena players on adapting to the change: which archetypes benefit most from expanded sideboards, how to rebuild decks that were optimized for 7-card wishboards, and strategic implications for the metagame. Discuss what this says about Wizards' data-driven approach to Arena-specific policies and how it aligns with tabletop traditions."
+    },
+    {
+      "headline": "Card Kingdom Releases Comprehensive Lorwyn Eclipsed Draft Guide",
+      "category": "Spoilers",
+      "summary": "Card Kingdom published an in-depth draft guide analyzing Lorwyn Eclipsed's eight archetypes and the format's slower, boardstall-heavy dynamics. The guide challenges the assumption that typal decks are 'on rails,' emphasizing flexible card evaluation and the importance of understanding overlapping mechanics. It provides color pair breakdowns, top common/uncommon picks, and strategic insights like playing a 2.5-color average and leveraging Blight, Convoke, and Vivid synergies.",
+      "source_urls": ["https://blog.cardkingdom.com/lorwyn-eclipsed-draft-guide/"],
+      "relevance": "medium",
+      "angle": "Transform the guide's key lessons into actionable draft tips for readers: why aggro fails, how to evaluate cards like Blighted Blackthorn, and when to splash colors. Provide sample pick orders and deckbuilding principles. This is evergreen content valuable throughout the set's lifetime in Limited."
+    }
+  ],
+  "scout_notes": "No genuine breaking news today (Feb 8). The entire MTG community is focused on tomorrow's (Feb 9, 11 a.m. EST) Commander announcement. All major news sites are in speculation/analysis mode. The most recent substantive official content is the Feb 2 Arena announcements and the late-Feb 3 competitive play structure article. The Pro Tour concluded last weekend, and decklist analyses are still emerging. Community finance discussions are dominated by Commander speculation. Consider holding a follow-up scout immediately after the ban announcement to provide immediate analysis of actual changes vs. speculation."
+}
+```
+
+**Note:** I've included 5 stories because all carry significant relevance. The commander announcement story is top priority given its imminence. The official competitive play announcement (magic.gg) is fresh news that hasn't been widely covered yet. The Pro Tour Elementals story, while from the weekend, represents a major meta shift that deserves coverage beyond simple results. The Arena policy change and draft guide provide practical value for players.

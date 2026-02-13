@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Force of Negation Just Returned to Historic and Everything's Different Now | scrollvault.net</title>
+    <meta name="description" content="WotC dropped a bomb on Historic: four cards got the banhammer while ten others, including the iconic Force of Negation, are back from the banned list. The format's about to get wild.">
+    <meta property="og:title" content="Force of Negation Just Returned to Historic and Everything's Different Now">
+    <meta property="og:description" content="WotC dropped a bomb on Historic: four cards got the banhammer while ten others, including the iconic Force of Negation, are back from the banned list. The format's about to get wild.">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:image" content="https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1764119635">
+    <meta property="og:image:width" content="626">
+    <meta property="og:image:height" content="457">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <style>
+:root {
+    --bg-dark: #0f0f0f; --card-bg: #1a1a1a; --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25); --text-primary: #ffffff;
+    --text-secondary: #a1a1aa; --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95); --nav-border: rgba(255,255,255,0.06);
+    --gradient-navy: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --gradient-blue: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    --gradient-green: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+    --gradient-orange: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    --gradient-red: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    --pill-news: #3b82f6; --pill-strategy: #10b981; --pill-spoilers: #a855f7;
+    --pill-deck-guides: #f59e0b; --pill-set-reviews: #ef4444;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+main { margin-top: 64px; min-height: calc(100vh - 64px); }
+footer { border-top: 1px solid var(--card-border); padding: 2rem 0; }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.footer-text { color: var(--text-muted); font-size: 0.875rem; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { color: var(--text-secondary); font-size: 0.875rem; }
+.footer-links a:hover { color: var(--text-primary); }
+.wubrg-dots { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.25rem; }
+.mana-dot { width: 10px; height: 10px; border-radius: 50%; }
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); flex-direction: column; padding: 1rem; gap: 0; }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; display: block; border-bottom: 1px solid var(--card-border); }
+    .nav-links a:last-child { border-bottom: none; }
+    .mobile-menu-btn { display: block; }
+}
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+  font-size: 0.9rem;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+.breadcrumb {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 1rem;
+}
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+.breadcrumb a { color: rgba(255,255,255,0.7); }
+.breadcrumb a:hover { color: #a78bfa; }
+.breadcrumb li:not(:last-child)::after {
+  content: '/';
+  margin-left: 0.5rem;
+  opacity: 0.5;
+}
+.article-hero { position: relative; min-height: 400px; background-size: cover; background-position: center top; display: flex; align-items: flex-end; }
+.article-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,15,15,1) 0%, rgba(15,15,15,0.7) 40%, rgba(0,0,0,0.3) 100%); }
+.article-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; width: 100%; }
+.article-hero .breadcrumb { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; }
+.article-hero .breadcrumb a { color: rgba(255,255,255,0.7); }
+.article-hero .breadcrumb a:hover { color: #a78bfa; }
+.article-hero .article-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
+.article-hero .article-title { font-size: 2.25rem; margin-bottom: 1rem; line-height: 1.25; }
+.article-hero .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
+.hero-attribution { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; font-style: italic; }
+.category-news { background: var(--pill-news); color: white; }
+.category-strategy { background: var(--pill-strategy); color: white; }
+.category-spoilers { background: var(--pill-spoilers); color: white; }
+.category-deck-guides { background: var(--pill-deck-guides); color: white; }
+.category-set-reviews { background: var(--pill-set-reviews); color: white; }
+.article-body { max-width: 800px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+.article-body > p:first-of-type::first-letter { float: left; font-size: 3.5rem; line-height: 1; font-weight: 700; margin-right: 0.5rem; margin-top: 0.1rem; font-family: 'Space Grotesk', serif; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.article-body h2 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--text-primary); }
+.article-body h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; color: var(--text-primary); }
+.article-body p { color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.8; }
+.article-body pre { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 1.25rem; overflow-x: auto; margin: 1.5rem 0; font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary); }
+.article-body ul, .article-body ol { color: var(--text-secondary); margin: 1rem 0 1.25rem 1.5rem; font-size: 1.05rem; line-height: 1.8; }
+.article-body li { margin-bottom: 0.5rem; }
+.article-body a { color: #a78bfa; text-decoration: underline; }
+.article-body blockquote { border-left: 3px solid #a855f7; padding: 1rem 1.5rem; margin: 1.5rem 0; background: rgba(168,85,247,0.05); border-radius: 0 8px 8px 0; }
+.article-body blockquote p { color: var(--text-secondary); margin-bottom: 0; }
+.card-ref { color: #a78bfa; cursor: pointer; border-bottom: 1px dotted rgba(167,139,250,0.4); position: relative; }
+.card-tooltip { display: none; position: fixed; z-index: 9999; pointer-events: none; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+.card-tooltip img { display: block; width: 250px; height: auto; border-radius: 12px; }
+.decklist-images { display: flex; gap: 0.5rem; overflow-x: auto; padding: 1rem 0; margin: 0.5rem 0 1.5rem; scrollbar-width: thin; scrollbar-color: #333 transparent; }
+.decklist-images img { width: 146px; height: auto; border-radius: 8px; flex-shrink: 0; transition: transform 0.2s ease; }
+.decklist-images img:hover { transform: scale(1.05); }
+.decklist-images::-webkit-scrollbar { height: 6px; }
+.decklist-images::-webkit-scrollbar-track { background: transparent; }
+.decklist-images::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+.lead-excerpt { font-size: 1.25rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem; }
+.coming-soon { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 3px solid #a855f7; border-radius: 0 8px 8px 0; padding: 1.5rem 2rem; margin: 2rem 0; }
+.coming-soon h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+.coming-soon p { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
+.article-sources { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--card-border); }
+.article-sources h3 { font-size: 1rem; margin-bottom: 0.75rem; }
+.article-sources a { color: #a78bfa; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; word-break: break-all; }
+.related-posts { max-width: 800px; margin: 0 auto; padding: 0 1rem 4rem; }
+.related-posts h2 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+.related-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.related-card:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--card-hover-glow); }
+.related-card a { display: flex; flex-direction: column; }
+.related-card-thumb { height: 100px; background-size: cover; background-position: center; }
+.related-card-info { padding: 1rem 1.25rem; }
+.related-card .rc-category { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+.related-card .rc-title { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.4; }
+.related-card .rc-date { font-size: 0.8rem; color: var(--text-muted); }
+@media (max-width: 768px) {
+    .article-hero { min-height: 300px; }
+    .article-hero .article-title { font-size: 1.6rem; }
+    .article-body p, .article-body li { font-size: 1rem; }
+    .article-body > p:first-of-type::first-letter { font-size: 2.75rem; }
+}</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+    <nav class="nav">
+        <div class="container nav-content">
+            <a href="../" class="nav-logo">ScrollVault</a>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../">Home</a></li>
+                <li><a href="../news/">News</a></li>
+                <li><a href="../guides/">Guides</a></li>
+                <li><a href="../decks/">Top Decks</a></li>
+                <li><a href="../draft/">Draft</a></li>
+                <li><a href="../tools/lands/">Lands</a></li>
+                <li><a href="../tools/manabase/">Mana Base</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content">
+        <article itemscope itemtype="https://schema.org/Article">
+            <header class="article-hero" style="background-image: url('https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1764119635'); background-size: cover; background-position: center top;">
+                <div class="article-hero-overlay"></div>
+                <div class="article-hero-content">
+                    <nav class="breadcrumb" aria-label="Breadcrumb">
+                        <ol>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/">News</a></li>
+                            <li>Force of Negation Just Returned to Historic and Everything's Different Now</li>
+                        </ol>
+                    </nav>
+                    <span class="article-category category-news">News</span>
+                    <h1 class="article-title" itemprop="headline">Force of Negation Just Returned to Historic and Everything's Different Now</h1>
+                    <div class="article-meta">
+                        <span>By Molts MTG</span>
+                        <time datetime="2026-02-11" itemprop="datePublished">Wednesday, February 11, 2026</time>
+                    </div>
+                <p class="hero-attribution">Art: &ldquo;Force of Negation&rdquo; by Paul Scott Canavan</p>
+                </div>
+            </header>
+            <section class="article-body" itemprop="articleBody">
+<h2>WotC Just Busted Open the Historic Banlist and My Head Hurts</h2><p>Alright, Historic players. Breathe. Wizards of the Coast just dropped a list that's going to warp our format for months. Four cards banned. Ten unbanned. And yes, <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DForce%2520of%2520Negation" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1770635208" target="_blank">Force of Negation</a> is officially back. I've been screaming into the void about this since 2021 and somehow they actually listened.</p><p>The bans hit some real iconic pieces. <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DEldrazi%2520Temple" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/c/b/cbab7e1f-305e-4733-aa70-b27285740925.jpg?1690006046" target="_blank">Eldrazi Temple</a> finally got the axe after warping the ramp shell for years. Ajani, Nacatl Pariah rotated out of Standard but tortured Historic for far too long. Crop Rotation and Scholar of the Lost Trove round out the four—both enablers for degenerate builds that never should have lasted this long.</p><h2><a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DForce%2520of%2520Negation" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1770635208" target="_blank">Force of Negation</a> Is Back and I'm Already Nuts</h2><p>Let's talk about the elephant in the room: <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DForce%2520of%2520Negation" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1770635208" target="_blank">Force of Negation</a> is unbanned. This card was the Swiss Army knife of Modern for ages and now it's ours again. In Historic, between Brainstorm, Ponder, and all the free spells we have, this thing is going to be EVERYWHERE. Turn 1 Force your opponent's setup spell? Yes please. Turn 2 slam Force and still have mana up? The format just got a lot more skill-testing all at once.</p><p>But Force isn't alone. Endurance comes back too—that card was oppressive in decks featuring Hogaak, Vineglimmer and still hits hard. Wilderness Reclamation unbans means we might see big mana ramp decks return to viability. And Magus of the Moon? Yeah, blood moon effects in a format with all the original duals? That's spicy.</p><h2>These Bans Actually Make Sense (For Once)</h2><p>Look, I'm not usually one to defend WotC's banlist decisions, but this time they actually nailed the problem cards. <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DEldrazi%2520Temple" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/c/b/cbab7e1f-305e-4733-aa70-b27285740925.jpg?1690006046" target="_blank">Eldrazi Temple</a> was enabling decks that could just ramp out turn 1 and cast Ulamog, the Ceaseless Hunger on turn 3 with zero interaction. That's not gameplay—that's a slot machine. Ajani, Nacatl Pariah created this awful 4-5 drop curve that just bricked your hand if you didn't have it on curve. And don't get me started on Crop Rotation enabling essentially free land destruction with multiple priorities.</p><p>The Scholar of the Lost Trove ban hurts the control decks I love, but honestly? It was enabling too much consistency. Casting three-cost spells earlier than you should while drawing cards? Yeah, that needed to go.</p><h3>What's Actually Leaving Us</h3><p>The four banned cards leave some holes. Crop Rotation was the glue for many graveyard-based strategies. <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DEldrazi%2520Temple" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/c/b/cbab7e1f-305e-4733-aa70-b27285740925.jpg?1690006046" target="_blank">Eldrazi Temple</a> was the engine for Eldrazi Tron variants. Ajani, Nacatl Pariah was a linchpin for janky midrange builds. And Scholar of the Lost Trove was a lynchpin for control and combo decks. We'll need to rebuild.</p><h2>My New Historic Must-Play Decklists</h2><p>I've already been goldfishing with <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DForce%2520of%2520Negation" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1770635208" target="_blank">Force of Negation</a> back in the mix and let me tell you—anything with blue is about to get a serious upgrade. I'm toying with a Dimir deck built around Inverter of Truth that can just Force the interaction and combo off on turn 4 with no interference. The math works out beautifully.</p><p>But the real sleeper hit might be Wilderness Reclamation. Ramp into big payoffs like Primeval Titan or Storm the Festival three turns earlier? Yes. I'm putting together a Sultai Scapeshift shell that can just win out of nowhere once Reclamation hits the board.</p><h2>Final Verdict: Do These Changes Fix Historic?</h2><p>Honestly? I think so. Historic was getting really stale—dominator decks that just do the same thing every game, no real decision points. These unbans add skill tests and create new archetypes. <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DForce%2520of%2520Negation" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1770635208" target="_blank">Force of Negation</a> makes every countermagic decision matter. Endurance punishes linear strategies. Magus of the Moon forces people to actually build their manabases correctly.</p><p>Yes, we're losing some powerful cards. But the format desperately needed a shakeup. It's been six months since the last meaningful change and the meta was rotting. Now we get to explore again. I'm excited to crack packs and test brews. Who knows what degenerate combo they'll have to ban next? That's the fun part.</p>
+
+            </section>
+        </article>
+
+    <section class="related-posts">
+        <h2>Related Posts</h2>
+        <div class="related-grid">
+            <div class="related-card">
+                <a href="/posts/companion-app-update-player-profiles-are-finally-here.html">
+                    <div class="related-card-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/6/b/6b95e8bd-2686-4790-afeb-9b17d482f156.jpg?1600995556'); background-size: cover; background-position: center;"></div>
+                    <div class="related-card-info">
+                        <div class="rc-category" style="color: var(--pill-news)">News</div>
+                        <div class="rc-title">Companion App Update: Player Profiles Are a Lightning Bolt for Players</div>
+                        <div class="rc-date">-1 days ago</div>
+                    </div>
+                </a>
+            </div>
+            <div class="related-card">
+                <a href="/posts/the-one-ring-hasbro-lawsuit-mtg.html">
+                    <div class="related-card-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968'); background-size: cover; background-position: center;"></div>
+                    <div class="related-card-info">
+                        <div class="rc-category" style="color: var(--pill-news)">News</div>
+                        <div class="rc-title">The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal</div>
+                        <div class="rc-date">Today</div>
+                    </div>
+                </a>
+            </div>
+            <div class="related-card">
+                <a href="/posts/mtg-arena-february-2026-patch-notes.html">
+                    <div class="related-card-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543'); background-size: cover; background-position: center;"></div>
+                    <div class="related-card-info">
+                        <div class="rc-category" style="color: var(--pill-news)">News</div>
+                        <div class="rc-title">MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes</div>
+                        <div class="rc-date">2 days ago</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ScrollVault</div>
+                <div class="wubrg-dots">
+                    <span class="mana-dot" style="background: #F9FAF4"></span>
+                    <span class="mana-dot" style="background: #0E68AB"></span>
+                    <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                    <span class="mana-dot" style="background: #D3202A"></span>
+                    <span class="mana-dot" style="background: #00733E"></span>
+                </div>
+                <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+                <ul class="footer-links">
+                    <li><a href="../privacy.html">Privacy Policy</a></li>
+                    <li><a href="../terms.html">Terms of Service</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        var tip = document.createElement('div');
+        tip.className = 'card-tooltip';
+        tip.innerHTML = '<img>';
+        document.body.appendChild(tip);
+        var img = tip.querySelector('img');
+        document.querySelectorAll('.card-ref').forEach(function(el) {
+            el.addEventListener('mouseenter', function(e) {
+                var src = el.getAttribute('data-img');
+                if (!src) return;
+                img.src = src;
+                tip.style.display = 'block';
+                var rect = el.getBoundingClientRect();
+                var left = rect.left;
+                var top = rect.bottom + 8;
+                if (left + 260 > window.innerWidth) left = window.innerWidth - 270;
+                if (left < 10) left = 10;
+                if (top + 360 > window.innerHeight) top = rect.top - 368;
+                tip.style.left = left + 'px';
+                tip.style.top = top + 'px';
+            });
+            el.addEventListener('mouseleave', function() {
+                tip.style.display = 'none';
+            });
+        });
+    })();
+    </script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Force of Negation Just Returned to Historic and Everything's Different Now","datePublished":"2026-02-11T00:00:00Z","dateModified":"2026-02-11T00:00:00Z","author":{"@type":"Organization","name":"ScrollVault"},"publisher":{"@type":"Organization","name":"ScrollVault"},"image":"https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1764119635"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"/"},{"@type":"ListItem","position":2,"name":"News","item":"/"},{"@type":"ListItem","position":3,"name":"Force of Negation Just Returned to Historic and Everything's Different Now","item":"/posts/force-negation-returns-historic-shakeup.html"}]}</script>
+</body>
+</html>

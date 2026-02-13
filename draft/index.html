@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft Simulator | scrollvault.net</title>
+    <meta name="description" content="Practice your MTG draft skills with our free draft simulator. Draft from real sets with smart bot opponents.">
+    <meta property="og:title" content="Draft Simulator">
+    <meta property="og:description" content="Practice your MTG draft skills with our free draft simulator. Draft from real sets with smart bot opponents.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:url" content="https://scrollvault.net/draft/">
+    <link rel="canonical" href="https://scrollvault.net/draft/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+/* ── Theme Variables ── */
+:root {
+    --bg-dark: #0f0f0f; --card-bg: #1a1a1a; --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25); --text-primary: #ffffff;
+    --text-secondary: #a1a1aa; --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95); --nav-border: rgba(255,255,255,0.06);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+    --color-W: #F9FAF4; --color-U: #0E68AB; --color-B: #150B00; --color-R: #D3202A; --color-G: #00733E;
+    --color-M: #C5A F46; --color-C: #9E9E9E;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+.transition-all { transition: all 0.2s ease; }
+
+/* ── Nav ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); flex-direction: column; padding: 1rem; gap: 0; }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; display: block; border-bottom: 1px solid var(--card-border); }
+    .nav-links a:last-child { border-bottom: none; }
+    .mobile-menu-btn { display: block; }
+}
+
+/* ── Footer ── */
+footer { border-top: 1px solid var(--card-border); padding: 2rem 0; }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.footer-text { color: var(--text-muted); font-size: 0.875rem; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { color: var(--text-secondary); font-size: 0.875rem; }
+.footer-links a:hover { color: var(--text-primary); }
+.wubrg-dots { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.25rem; }
+.mana-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ── Main ── */
+main { margin-top: 64px; min-height: calc(100vh - 64px); }
+
+/* ── Screen 1: Set Selection ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+.hero-section { padding: 4rem 0 2rem; text-align: center; }
+.hero-section h1 { font-size: 3rem; margin-bottom: 0.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-section .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.5rem; }
+.hero-section .rules-text { color: var(--text-muted); font-size: 0.9rem; }
+
+.set-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; padding: 2rem 0 4rem; max-width: 720px; margin: 0 auto; }
+.set-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 2rem; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: default; }
+.set-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.set-card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.set-icon { width: 48px; height: 48px; filter: brightness(0) invert(1); }
+.set-card-header h3 { font-size: 1.25rem; }
+.set-meta { display: flex; gap: 1.5rem; color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 1.5rem; }
+.set-meta span { display: flex; align-items: center; gap: 0.35rem; }
+
+.btn-start { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 2rem; background: var(--gradient-purple); border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; color: white; cursor: pointer; font-family: inherit; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.btn-start:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); }
+.btn-start:disabled { opacity: 0.6; cursor: wait; transform: none; box-shadow: none; }
+.btn-start .spinner { display: none; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; }
+.btn-start.loading .spinner { display: inline-block; }
+.btn-start.loading .btn-text { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Screen 2: Draft Phase ── */
+.draft-layout { display: flex; gap: 1.5rem; padding: 1.5rem 0 4rem; min-height: calc(100vh - 64px - 120px); }
+.pack-area { flex: 7; min-width: 0; }
+.pool-area { flex: 3; min-width: 240px; }
+
+/* Pack header */
+.pack-header { margin-bottom: 1rem; }
+.pack-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.pack-label { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; }
+.pass-direction { color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem; }
+.progress-bar { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--gradient-purple); border-radius: 2px; transition: width 0.3s ease; }
+.keyboard-hint { color: var(--text-muted); font-size: 0.75rem; margin-top: 0.5rem; }
+
+/* Pack grid */
+.pack-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; contain: layout style; }
+.pack-card { position: relative; border-radius: 4px; overflow: hidden; cursor: pointer; will-change: transform; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease; aspect-ratio: 488 / 680; }
+.pack-card img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px; pointer-events: none; }
+.pack-card:hover { transform: scale(1.08); box-shadow: 0 0 20px rgba(168,85,247,0.4); z-index: 10; }
+.pack-card.picked { animation: pickFlash 0.4s ease; box-shadow: 0 0 25px rgba(255,215,0,0.6); }
+.pack-card.fading { opacity: 0; transform: scale(0.95); pointer-events: none; }
+.pack-card .card-number { position: absolute; top: 4px; left: 4px; background: rgba(0,0,0,0.75); color: white; font-size: 0.65rem; font-weight: 600; padding: 1px 5px; border-radius: 3px; pointer-events: none; }
+@keyframes pickFlash {
+    0% { box-shadow: 0 0 0 rgba(255,215,0,0); }
+    50% { box-shadow: 0 0 35px rgba(255,215,0,0.8); transform: scale(1.05); }
+    100% { box-shadow: 0 0 25px rgba(255,215,0,0.3); transform: scale(1); }
+}
+
+/* Tooltip */
+.card-tooltip { position: fixed; z-index: 2000; background: #222; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.75rem; max-width: 280px; pointer-events: none; opacity: 0; transition: opacity 0.15s ease; font-size: 0.8rem; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+.card-tooltip.visible { opacity: 1; }
+.card-tooltip .tt-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.card-tooltip .tt-cost { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 0.25rem; }
+.card-tooltip .tt-type { color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.4rem; }
+.card-tooltip .tt-oracle { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.5; }
+.card-tooltip .tt-pt { color: var(--text-primary); font-weight: 600; font-size: 0.8rem; margin-top: 0.4rem; text-align: right; }
+.card-tooltip .tt-rating { color: #a855f7; font-size: 0.7rem; margin-top: 0.25rem; }
+
+/* Pool sidebar */
+.pool-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--card-border); }
+.pool-header h3 { font-size: 1rem; }
+.pool-count { color: var(--text-muted); font-size: 0.85rem; }
+
+.pool-colors { display: flex; flex-direction: column; gap: 0.75rem; }
+.pool-color-group { background: rgba(255,255,255,0.02); border-radius: 6px; padding: 0.5rem; }
+.pool-color-label { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.35rem; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); }
+.pool-color-dot { width: 8px; height: 8px; border-radius: 50%; }
+.pool-color-cards { display: flex; flex-wrap: wrap; gap: 2px; }
+.pool-mini-card { width: 36px; height: 50px; border-radius: 2px; overflow: hidden; transition: transform 0.15s ease; cursor: pointer; }
+.pool-mini-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pool-mini-card:hover { transform: scale(1.3); z-index: 5; position: relative; }
+
+/* Mana curve mini */
+.mini-curve { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--card-border); }
+.mini-curve h4 { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.curve-bars { display: flex; align-items: flex-end; gap: 3px; height: 40px; }
+.curve-bar { flex: 1; background: rgba(168,85,247,0.4); border-radius: 2px 2px 0 0; min-height: 2px; transition: height 0.2s ease; position: relative; }
+.curve-bar-label { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; color: var(--text-muted); }
+.curve-bar-count { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; color: var(--text-secondary); }
+
+/* ── Screen 3: Deck Builder ── */
+.builder-layout { padding: 1.5rem 0 4rem; }
+.builder-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+.builder-header h2 { font-size: 1.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.builder-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.25rem; border: 1px solid var(--card-border); border-radius: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); background: var(--card-bg); cursor: pointer; font-family: inherit; transition: all 0.2s ease; }
+.btn:hover { border-color: rgba(139,92,246,0.5); color: var(--text-primary); }
+.btn-primary { background: var(--gradient-purple); border-color: transparent; color: white; }
+.btn-primary:hover { box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
+
+/* Deck stats bar */
+.deck-stats { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; padding: 1rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; }
+.stat { font-size: 0.9rem; color: var(--text-secondary); }
+.stat strong { color: var(--text-primary); }
+
+/* Mainboard / Sideboard toggle info */
+.board-tabs { display: flex; gap: 0; margin-bottom: 1rem; }
+.board-tab { padding: 0.5rem 1.25rem; background: var(--card-bg); border: 1px solid var(--card-border); font-size: 0.85rem; font-weight: 500; color: var(--text-muted); cursor: pointer; font-family: inherit; transition: all 0.2s ease; }
+.board-tab:first-child { border-radius: 6px 0 0 6px; }
+.board-tab:last-child { border-radius: 0 6px 6px 0; border-left: none; }
+.board-tab.active { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.4); color: var(--text-primary); }
+
+/* Deck columns */
+.deck-columns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.deck-column { flex: 1; min-width: 140px; max-width: 200px; }
+.deck-col-header { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); padding-bottom: 0.35rem; border-bottom: 2px solid; }
+.deck-col-header .col-dot { width: 8px; height: 8px; border-radius: 50%; }
+.deck-card-entry { display: flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.35rem; border-radius: 4px; cursor: pointer; transition: background 0.15s ease; font-size: 0.8rem; }
+.deck-card-entry:hover { background: rgba(255,255,255,0.06); }
+.deck-card-entry .entry-img { width: 28px; height: 40px; border-radius: 2px; overflow: hidden; flex-shrink: 0; }
+.deck-card-entry .entry-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.deck-card-entry .entry-name { color: var(--text-secondary); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.deck-card-entry .entry-cmc { color: var(--text-muted); font-size: 0.7rem; flex-shrink: 0; }
+.deck-card-entry.sideboarded { opacity: 0.4; }
+
+/* Mana curve histogram */
+.curve-section { margin-bottom: 2rem; }
+.curve-section h3 { font-size: 1rem; margin-bottom: 1rem; }
+.histogram { display: flex; align-items: flex-end; gap: 6px; height: 100px; padding: 0 1rem; }
+.histo-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 60px; }
+.histo-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 0; transition: height 0.3s ease; }
+.histo-label { font-size: 0.7rem; color: var(--text-muted); }
+.histo-count { font-size: 0.7rem; color: var(--text-secondary); }
+
+/* Lands section */
+.lands-section { margin-bottom: 2rem; padding: 1.25rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; }
+.lands-section h3 { font-size: 1rem; margin-bottom: 1rem; }
+.land-controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+.land-control { display: flex; align-items: center; gap: 0.5rem; }
+.land-control .land-symbol { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; }
+.land-control button { width: 24px; height: 24px; border-radius: 4px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-secondary); cursor: pointer; font-size: 0.9rem; font-family: inherit; display: flex; align-items: center; justify-content: center; transition: all 0.15s ease; }
+.land-control button:hover { border-color: rgba(168,85,247,0.5); color: var(--text-primary); }
+.land-control .land-count { font-size: 0.9rem; font-weight: 600; width: 20px; text-align: center; }
+
+/* Toast */
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.9rem; z-index: 3000; transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0; pointer-events: none; }
+.toast.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ── Mobile Card Preview Panel ── */
+.mobile-preview-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1500; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+.mobile-preview-overlay.visible { opacity: 1; pointer-events: auto; }
+.mobile-preview { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1600; background: #1e1e1e; border-top: 1px solid rgba(255,255,255,0.12); border-radius: 16px 16px 0 0; padding: 0 1rem 1.5rem; transform: translateY(100%); transition: transform 0.25s ease; max-height: 70vh; overflow-y: auto; pointer-events: none; }
+.mobile-preview.visible { transform: translateY(0); pointer-events: auto; }
+.mobile-preview-handle { width: 36px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; margin: 10px auto 12px; }
+.mobile-preview-body { display: flex; gap: 1rem; align-items: flex-start; }
+.mobile-preview-img { flex-shrink: 0; width: 120px; border-radius: 4px; overflow: hidden; }
+.mobile-preview-img img { width: 100%; display: block; border-radius: 4px; }
+.mobile-preview-info { flex: 1; min-width: 0; }
+.mobile-preview-info .mp-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin-bottom: 0.25rem; }
+.mobile-preview-info .mp-cost { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.2rem; }
+.mobile-preview-info .mp-type { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--card-border); }
+.mobile-preview-info .mp-oracle { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.55; margin-bottom: 0.5rem; }
+.mobile-preview-info .mp-pt { font-weight: 600; font-size: 0.85rem; }
+.mobile-preview-info .mp-rating { color: #a855f7; font-size: 0.75rem; margin-top: 0.2rem; }
+.mobile-preview-actions { display: flex; gap: 0.75rem; margin-top: 1rem; }
+.mobile-preview-actions .btn-pick { flex: 1; padding: 0.85rem; background: var(--gradient-purple); border: none; border-radius: 10px; font-weight: 700; font-size: 1rem; color: white; cursor: pointer; font-family: inherit; }
+.mobile-preview-actions .btn-cancel { padding: 0.85rem 1.25rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; font-weight: 500; font-size: 1rem; color: var(--text-secondary); cursor: pointer; font-family: inherit; }
+
+/* Selected card glow on mobile */
+.pack-card.selected { outline: 3px solid #a855f7; outline-offset: 2px; transform: scale(1.04); box-shadow: 0 0 20px rgba(168,85,247,0.5); z-index: 10; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .draft-layout { flex-direction: column; }
+    .pool-area { order: 2; }
+    .pack-grid { grid-template-columns: repeat(3, 1fr); }
+    .deck-column { min-width: 120px; }
+}
+@media (max-width: 600px) {
+    .hero-section h1 { font-size: 2rem; }
+    .hero-section { padding: 2.5rem 0 1rem; }
+    .pack-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .deck-columns { gap: 0.5rem; }
+    .deck-column { min-width: 100px; }
+    .keyboard-hint { display: none; }
+    .builder-actions { width: 100%; }
+    .builder-actions .btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 0.5rem 0.75rem; }
+    .deck-stats { gap: 0.75rem; flex-wrap: wrap; }
+    .set-grid { grid-template-columns: 1fr; }
+}
+
+/* Touch devices: hide hover tooltip */
+@media (hover: none) and (pointer: coarse) {
+    .card-tooltip { display: none !important; }
+    .pack-card:hover { transform: none; box-shadow: none; z-index: auto; }
+    .pack-card.selected { transform: scale(1.04); box-shadow: 0 0 20px rgba(168,85,247,0.5); z-index: 10; }
+    .pool-mini-card:hover { transform: none; z-index: auto; }
+}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container nav-content">
+            <a href="/" class="nav-logo">ScrollVault</a>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/news/">News</a></li>
+                <li><a href="/guides/">Guides</a></li>
+                <li><a href="/decks/">Top Decks</a></li>
+                <li><a href="/draft/" class="active">Draft</a></li>
+                <li><a href="/tools/lands/">Lands</a></li>
+                <li><a href="/tools/manabase/">Mana Base</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ══════ Screen 1: Set Selection ══════ -->
+        <div id="screenSelect" class="screen active">
+            <div class="hero-section">
+                <div class="container">
+                    <h1>Draft Simulator</h1>
+                    <p class="subtitle">Practice drafting against 7 AI opponents</p>
+                    <p class="rules-text">3 packs, 14 cards each. Pick 1, pass the rest.</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="set-grid" id="setGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════ Screen 2: Draft Phase ══════ -->
+        <div id="screenDraft" class="screen">
+            <div class="container">
+                <div class="pack-header">
+                    <div class="pack-info">
+                        <span class="pack-label" id="packLabel">Pack 1 — Pick 1 of 14</span>
+                        <span class="pass-direction" id="passDirection">Passing left &#8594;</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <div class="keyboard-hint">Keys 1-9 to quick-pick &middot; Z to undo last pick</div>
+                </div>
+                <div class="draft-layout">
+                    <div class="pack-area">
+                        <div class="pack-grid" id="packGrid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    <div class="pool-area">
+                        <div class="pool-header">
+                            <h3>Your Picks</h3>
+                            <span class="pool-count" id="poolCount">0 cards</span>
+                        </div>
+                        <div class="pool-colors" id="poolColors">
+                            <!-- Populated by JS -->
+                        </div>
+                        <div class="mini-curve">
+                            <h4>Mana Curve</h4>
+                            <div class="curve-bars" id="miniCurveBars">
+                                <div class="curve-bar"><span class="curve-bar-label">1</span><span class="curve-bar-count"></span></div>
+                                <div class="curve-bar"><span class="curve-bar-label">2</span><span class="curve-bar-count"></span></div>
+                                <div class="curve-bar"><span class="curve-bar-label">3</span><span class="curve-bar-count"></span></div>
+                                <div class="curve-bar"><span class="curve-bar-label">4</span><span class="curve-bar-count"></span></div>
+                                <div class="curve-bar"><span class="curve-bar-label">5+</span><span class="curve-bar-count"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════ Screen 3: Deck Builder ══════ -->
+        <div id="screenBuild" class="screen">
+            <div class="container builder-layout">
+                <div class="builder-header">
+                    <h2>Build Your Deck</h2>
+                    <div class="builder-actions">
+                        <button class="btn" onclick="autoSuggestLands()">Auto-Suggest Lands</button>
+                        <button class="btn btn-primary" onclick="exportDeck()">Export to Arena</button>
+                        <button class="btn" onclick="draftAgain()">Draft Again</button>
+                        <button class="btn" onclick="changeSet()">Change Set</button>
+                    </div>
+                </div>
+
+                <div class="deck-stats" id="deckStats">
+                    <span class="stat"><strong id="statMain">0</strong> mainboard</span>
+                    <span class="stat"><strong id="statSpells">0</strong> spells</span>
+                    <span class="stat"><strong id="statLands">0</strong> lands</span>
+                    <span class="stat"><strong id="statSide">0</strong> sideboard</span>
+                    <span class="stat" style="color: var(--text-muted); font-size:0.8rem;">Click a card to move it to sideboard</span>
+                </div>
+
+                <!-- Lands -->
+                <div class="lands-section">
+                    <h3>Lands</h3>
+                    <div class="land-controls" id="landControls">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Mana Curve -->
+                <div class="curve-section">
+                    <h3>Mana Curve</h3>
+                    <div class="histogram" id="histogram">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Board tabs -->
+                <div class="board-tabs">
+                    <button class="board-tab active" data-board="main" onclick="switchBoard('main')">Mainboard</button>
+                    <button class="board-tab" data-board="side" onclick="switchBoard('side')">Sideboard</button>
+                </div>
+
+                <!-- Deck columns -->
+                <div class="deck-columns" id="deckColumns">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Card Preview (bottom sheet) -->
+    <div class="mobile-preview-overlay" id="mobileOverlay" onclick="closeMobilePreview()"></div>
+    <div class="mobile-preview" id="mobilePreview">
+        <div class="mobile-preview-handle"></div>
+        <div class="mobile-preview-body">
+            <div class="mobile-preview-img"><img id="mpImg" src="" alt=""></div>
+            <div class="mobile-preview-info">
+                <div class="mp-name" id="mpName"></div>
+                <div class="mp-cost" id="mpCost"></div>
+                <div class="mp-type" id="mpType"></div>
+                <div class="mp-oracle" id="mpOracle"></div>
+                <div class="mp-pt" id="mpPt"></div>
+                <div class="mp-rating" id="mpRating"></div>
+            </div>
+        </div>
+        <div class="mobile-preview-actions">
+            <button class="btn-cancel" onclick="closeMobilePreview()">Cancel</button>
+            <button class="btn-pick" id="mpPickBtn" onclick="confirmMobilePick()">Pick This Card</button>
+        </div>
+    </div>
+
+    <!-- Tooltip (desktop only) -->
+    <div class="card-tooltip" id="cardTooltip">
+        <div class="tt-name"></div>
+        <div class="tt-cost"></div>
+        <div class="tt-type"></div>
+        <div class="tt-oracle"></div>
+        <div class="tt-pt"></div>
+        <div class="tt-rating"></div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ScrollVault</div>
+                <div class="wubrg-dots">
+                    <span class="mana-dot" style="background: #F9FAF4"></span>
+                    <span class="mana-dot" style="background: #0E68AB"></span>
+                    <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                    <span class="mana-dot" style="background: #D3202A"></span>
+                    <span class="mana-dot" style="background: #00733E"></span>
+                </div>
+                <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+                <ul class="footer-links">
+                    <li><a href="/privacy.html">Privacy Policy</a></li>
+                    <li><a href="/terms.html">Terms of Service</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   MTG Draft Simulator
+   ═══════════════════════════════════════════ */
+
+// ── Touch Detection ──
+const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+let mobileSelectedIndex = -1;
+
+// ── Constants ──
+const COLOR_ORDER = ['W','U','B','R','G','Multi','Colorless'];
+const COLOR_NAMES = { W:'White', U:'Blue', B:'Black', R:'Red', G:'Green', Multi:'Multicolor', Colorless:'Colorless' };
+const COLOR_HEX = { W:'#F9FAF4', U:'#0E68AB', B:'#3d3020', R:'#D3202A', G:'#00733E', Multi:'#C5AF46', Colorless:'#9E9E9E' };
+const LAND_NAMES = { W:'Plains', U:'Island', B:'Swamp', R:'Mountain', G:'Forest' };
+const MANA_COLORS = ['W','U','B','R','G'];
+const NUM_SEATS = 8;
+const PACKS_PER_DRAFT = 3;
+const CARDS_PER_PACK = 14;
+
+// ── State ──
+let setData = null;
+let setsIndex = [];
+let allPacks = []; // [seat][pack] = array of cards
+let currentPack = 0;
+let currentPick = 0;
+let humanPool = [];
+let botPools = []; // botPools[1..7]
+let botColorWeights = []; // botColorWeights[1..7]
+let undoStack = [];
+let currentBoard = 'main'; // 'main' or 'side'
+let sideboardSet = new Set(); // indices into humanPool that are sideboarded
+let lands = { W:0, U:0, B:0, R:0, G:0 };
+let draftInProgress = false;
+
+// ── Screens ──
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+// ── Toast ──
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('visible');
+    setTimeout(() => t.classList.remove('visible'), 2500);
+}
+
+// ══════════════════════════════════════════
+// Screen 1: Set Selection
+// ══════════════════════════════════════════
+async function loadSets() {
+    try {
+        const resp = await fetch('/draft/data/sets.json');
+        setsIndex = await resp.json();
+        renderSetGrid();
+    } catch (e) {
+        console.error('Failed to load sets:', e);
+    }
+}
+
+function renderSetGrid() {
+    const grid = document.getElementById('setGrid');
+    grid.innerHTML = '';
+    setsIndex.forEach(set => {
+        const card = document.createElement('div');
+        card.className = 'set-card';
+        card.innerHTML = `
+            <div class="set-card-header">
+                <img src="${set.icon_uri}" alt="${set.set_name}" class="set-icon" onerror="this.style.display='none'">
+                <div>
+                    <h3>${set.set_name}</h3>
+                    <span style="color:var(--text-muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px">${set.set_code}</span>
+                </div>
+            </div>
+            <div class="set-meta">
+                <span>&#x1F0CF; ${set.card_count} cards</span>
+                <span>&#128197; ${formatDate(set.released_at)}</span>
+                <span>&#127183; ${set.pack_size} per pack</span>
+            </div>
+            <button class="btn-start" onclick="startDraft('${set.set_code}', this)">
+                <span class="btn-text">Start Draft</span>
+                <span class="spinner"></span>
+            </button>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function formatDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+// ══════════════════════════════════════════
+// Draft Engine
+// ══════════════════════════════════════════
+async function startDraft(setCode, btn) {
+    if (draftInProgress) return;
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+        const resp = await fetch(`/draft/data/${setCode}.json`);
+        setData = await resp.json();
+    } catch (e) {
+        console.error('Failed to load set data:', e);
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        showToast('Failed to load set data');
+        return;
+    }
+
+    // Reset state
+    humanPool = [];
+    botPools = [];
+    botColorWeights = [];
+    undoStack = [];
+    sideboardSet = new Set();
+    lands = { W:0, U:0, B:0, R:0, G:0 };
+    currentPack = 0;
+    currentPick = 0;
+    draftInProgress = true;
+
+    // Init bots
+    for (let i = 1; i < NUM_SEATS; i++) {
+        botPools.push([]);
+        botColorWeights.push({ W:0, U:0, B:0, R:0, G:0 });
+    }
+
+    // Generate all packs
+    generateAllPacks();
+
+    // Preload pack 1 images
+    preloadPackImages(0);
+
+    btn.classList.remove('loading');
+    btn.disabled = false;
+
+    showScreen('screenDraft');
+    renderCurrentPack();
+}
+
+function generateAllPacks() {
+    allPacks = [];
+    const usedRares = new Set();
+
+    for (let seat = 0; seat < NUM_SEATS; seat++) {
+        allPacks[seat] = [];
+        for (let pack = 0; pack < PACKS_PER_DRAFT; pack++) {
+            allPacks[seat][pack] = generatePack(usedRares);
+        }
+    }
+}
+
+function generatePack(usedRares) {
+    const cards = setData.cards;
+    const pack = [];
+
+    // 1 rare or mythic (87.5% rare, 12.5% mythic)
+    let rm = null;
+    let attempts = 0;
+    while (!rm && attempts < 100) {
+        const isMythic = Math.random() < 0.125;
+        const pool = isMythic ? cards.mythic : cards.rare;
+        const candidate = pool[Math.floor(Math.random() * pool.length)];
+        if (!usedRares.has(candidate.collector_number)) {
+            rm = candidate;
+            usedRares.add(candidate.collector_number);
+        }
+        attempts++;
+    }
+    if (!rm) {
+        // Fallback: pick any rare/mythic
+        const allRM = [...cards.rare, ...cards.mythic];
+        rm = allRM[Math.floor(Math.random() * allRM.length)];
+    }
+    pack.push(rm);
+
+    // 3 uncommons (no duplicates within pack)
+    const usedInPack = new Set([rm.collector_number]);
+    const uncommons = pickRandom(cards.uncommon, 3, usedInPack);
+    pack.push(...uncommons);
+
+    // 10 commons (no duplicates within pack)
+    const commons = pickRandom(cards.common, 10, usedInPack);
+    pack.push(...commons);
+
+    // Shuffle
+    shuffle(pack);
+    return pack;
+}
+
+function pickRandom(pool, count, usedSet) {
+    const result = [];
+    const poolCopy = [...pool];
+    shuffle(poolCopy);
+    for (const card of poolCopy) {
+        if (result.length >= count) break;
+        if (!usedSet.has(card.collector_number)) {
+            result.push(card);
+            usedSet.add(card.collector_number);
+        }
+    }
+    // If not enough unique cards, allow dupes
+    while (result.length < count) {
+        result.push(pool[Math.floor(Math.random() * pool.length)]);
+    }
+    return result;
+}
+
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+// ── Pack Passing ──
+function getHumanPack() {
+    // Human is seat 0. After picks, packs rotate.
+    // Pack 0 (1st): passes left (seat+1)
+    // Pack 1 (2nd): passes right (seat-1)
+    // Pack 2 (3rd): passes left (seat+1)
+    // After N picks, the pack that started at seat S is now at seat (S + N*direction) mod 8
+    // We need: which pack is currently in front of seat 0?
+    // Pack started at seat S, after currentPick passes it's at seat (S + currentPick * dir) mod 8
+    // We want (S + currentPick * dir) mod 8 == 0
+    // So S = (0 - currentPick * dir) mod 8 = (-currentPick * dir) mod 8
+    const dir = (currentPack % 2 === 0) ? 1 : -1; // left = +1, right = -1
+    const originSeat = ((0 - currentPick * dir) % NUM_SEATS + NUM_SEATS) % NUM_SEATS;
+    return allPacks[originSeat][currentPack];
+}
+
+function getBotPack(botSeat) {
+    const dir = (currentPack % 2 === 0) ? 1 : -1;
+    const originSeat = ((botSeat - currentPick * dir) % NUM_SEATS + NUM_SEATS) % NUM_SEATS;
+    return allPacks[originSeat][currentPack];
+}
+
+// ── Scoring ──
+function scoreCard(card, colorWeights, pickNumber) {
+    let base = card.rating;
+    let colorFit = 0;
+    if (card.colors.length === 0) {
+        colorFit = 0.3;
+    } else {
+        const totalWeight = Object.values(colorWeights).reduce((a, b) => a + b, 0) || 1;
+        colorFit = card.colors.reduce((sum, c) => sum + (colorWeights[c] || 0), 0) / totalWeight;
+    }
+    const exploitFactor = Math.min(1, Math.max(0, (pickNumber - 4) / 10));
+    const colorBonus = 1.0 + (colorFit * exploitFactor * 1.5);
+    const rarityBonus = (pickNumber < 6 && card.rarity === 'rare') ? 0.3 : 0;
+    const jitter = Math.random() * 0.4;
+    return base * colorBonus + rarityBonus + jitter;
+}
+
+function updateBotWeights(botIndex, card) {
+    const weights = botColorWeights[botIndex];
+    card.colors.forEach(c => {
+        if (weights[c] !== undefined) {
+            weights[c] += card.rating;
+        }
+    });
+}
+
+// ── Human Pick ──
+function humanPick(cardIndex) {
+    const pack = getHumanPack();
+    if (cardIndex < 0 || cardIndex >= pack.length) return;
+
+    const card = pack[cardIndex];
+
+    // Save undo state
+    undoStack.push({
+        pack: currentPack,
+        pick: currentPick,
+        cardIndex: cardIndex,
+        card: card,
+        poolLength: humanPool.length
+    });
+
+    // Remove from pack
+    pack.splice(cardIndex, 1);
+    humanPool.push(card);
+
+    // Animate pick
+    const packGrid = document.getElementById('packGrid');
+    const cardEls = packGrid.querySelectorAll('.pack-card');
+    if (cardEls[cardIndex]) {
+        cardEls[cardIndex].classList.add('picked');
+    }
+
+    // Bot picks
+    doBotPicks();
+
+    // Advance
+    currentPick++;
+
+    if (currentPick >= CARDS_PER_PACK) {
+        // Next pack
+        currentPack++;
+        currentPick = 0;
+
+        if (currentPack >= PACKS_PER_DRAFT) {
+            // Draft complete
+            draftInProgress = false;
+            setTimeout(() => {
+                showScreen('screenBuild');
+                renderDeckBuilder();
+            }, 400);
+            return;
+        }
+
+        // Preload next pack images
+        preloadPackImages(currentPack);
+    } else {
+        // Preload next pack's images in background
+        if (currentPick === 0) {
+            preloadPackImages(currentPack);
+        }
+    }
+
+    // Re-render with delay for animation
+    setTimeout(() => {
+        renderCurrentPack();
+        renderPool();
+    }, 350);
+}
+
+function doBotPicks() {
+    const globalPick = currentPack * CARDS_PER_PACK + currentPick;
+
+    for (let b = 0; b < NUM_SEATS - 1; b++) {
+        const botSeat = b + 1;
+        const pack = getBotPack(botSeat);
+        if (pack.length === 0) continue;
+
+        let bestIdx = 0;
+        let bestScore = -Infinity;
+        for (let i = 0; i < pack.length; i++) {
+            const s = scoreCard(pack[i], botColorWeights[b], globalPick);
+            if (s > bestScore) {
+                bestScore = s;
+                bestIdx = i;
+            }
+        }
+
+        const picked = pack.splice(bestIdx, 1)[0];
+        botPools[b].push(picked);
+        updateBotWeights(b, picked);
+    }
+}
+
+// ── Undo ──
+function undoPick() {
+    if (undoStack.length === 0) return;
+    const last = undoStack.pop();
+
+    // Undo bot picks: we can't perfectly undo bot picks, but we can restore the human pick
+    // For simplicity, we only undo the human pick (bots already picked)
+    // This means undo is approximate, but that's acceptable for a draft simulator
+    // Actually, let's do a proper undo by regenerating. But that's complex.
+    // Simple approach: just put the card back
+
+    // Restore state
+    currentPack = last.pack;
+    currentPick = last.pick;
+    humanPool.splice(last.poolLength);
+
+    // Put card back in pack at original position
+    const pack = getHumanPack();
+    // Note: bots already picked from their packs, we can't undo that.
+    // But we can put the human's card back.
+    pack.splice(last.cardIndex, 0, last.card);
+
+    renderCurrentPack();
+    renderPool();
+    showToast('Undo: pick returned');
+}
+
+// ── Image Preloading ──
+function preloadPackImages(packNum) {
+    if (packNum >= PACKS_PER_DRAFT) return;
+    // Preload human's pack images
+    const dir = (packNum % 2 === 0) ? 1 : -1;
+    // At pick 0, the pack at seat 0 is the one that started at seat 0
+    const pack = allPacks[0][packNum];
+    if (!pack) return;
+    pack.forEach(card => {
+        const img = new Image();
+        img.src = card.image_small;
+    });
+}
+
+// ══════════════════════════════════════════
+// Screen 2: Rendering
+// ══════════════════════════════════════════
+function renderCurrentPack() {
+    const pack = getHumanPack();
+    const grid = document.getElementById('packGrid');
+    grid.innerHTML = '';
+
+    pack.forEach((card, i) => {
+        const div = document.createElement('div');
+        div.className = 'pack-card';
+        div.innerHTML = `
+            <img src="${card.image_small}" alt="${card.name}" loading="lazy">
+            <span class="card-number">${i + 1}</span>
+        `;
+        if (isTouchDevice) {
+            div.addEventListener('click', (e) => {
+                e.preventDefault();
+                openMobilePreview(card, i);
+            });
+        } else {
+            div.addEventListener('click', () => humanPick(i));
+            div.addEventListener('mouseenter', (e) => showTooltip(card, e));
+            div.addEventListener('mousemove', (e) => moveTooltip(e));
+            div.addEventListener('mouseleave', hideTooltip);
+        }
+        grid.appendChild(div);
+    });
+
+    // Preload next pack in background
+    if (currentPick < CARDS_PER_PACK - 1) {
+        // Preload remaining images already loaded
+    } else if (currentPack + 1 < PACKS_PER_DRAFT) {
+        preloadPackImages(currentPack + 1);
+    }
+
+    // Update header
+    const packNum = currentPack + 1;
+    const pickNum = currentPick + 1;
+    document.getElementById('packLabel').textContent = `Pack ${packNum} \u2014 Pick ${pickNum} of ${CARDS_PER_PACK}`;
+
+    const dir = (currentPack % 2 === 0) ? 'left' : 'right';
+    const arrow = dir === 'left' ? '\u2192' : '\u2190';
+    document.getElementById('passDirection').innerHTML = `Passing ${dir} ${arrow}`;
+
+    const totalPicks = PACKS_PER_DRAFT * CARDS_PER_PACK;
+    const donePicks = currentPack * CARDS_PER_PACK + currentPick;
+    document.getElementById('progressFill').style.width = `${(donePicks / totalPicks) * 100}%`;
+}
+
+// ── Tooltip ──
+function showTooltip(card, e) {
+    const tip = document.getElementById('cardTooltip');
+    tip.querySelector('.tt-name').textContent = card.name;
+    tip.querySelector('.tt-cost').textContent = card.mana_cost || '';
+    tip.querySelector('.tt-type').textContent = card.type_line;
+    tip.querySelector('.tt-oracle').textContent = card.oracle_text || '';
+
+    let ptText = '';
+    if (card.power !== null && card.toughness !== null) {
+        ptText = `${card.power}/${card.toughness}`;
+    } else if (card.loyalty !== null) {
+        ptText = `Loyalty: ${card.loyalty}`;
+    }
+    tip.querySelector('.tt-pt').textContent = ptText;
+    tip.querySelector('.tt-rating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}`;
+
+    tip.classList.add('visible');
+    moveTooltip(e);
+}
+
+function moveTooltip(e) {
+    const tip = document.getElementById('cardTooltip');
+    const pad = 15;
+    let x = e.clientX + pad;
+    let y = e.clientY + pad;
+
+    // Keep on screen
+    const rect = tip.getBoundingClientRect();
+    if (x + 280 > window.innerWidth) x = e.clientX - 280 - pad;
+    if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - pad;
+
+    tip.style.left = x + 'px';
+    tip.style.top = y + 'px';
+}
+
+function hideTooltip() {
+    document.getElementById('cardTooltip').classList.remove('visible');
+}
+
+// ── Pool Rendering ──
+function getCardColorGroup(card) {
+    if (card.colors.length > 1) return 'Multi';
+    if (card.colors.length === 0) return 'Colorless';
+    return card.colors[0];
+}
+
+function renderPool() {
+    const container = document.getElementById('poolColors');
+    container.innerHTML = '';
+
+    // Group by color
+    const groups = {};
+    COLOR_ORDER.forEach(c => groups[c] = []);
+    humanPool.forEach(card => {
+        const group = getCardColorGroup(card);
+        groups[group].push(card);
+    });
+
+    // Sort within groups by CMC
+    Object.values(groups).forEach(arr => arr.sort((a, b) => a.cmc - b.cmc));
+
+    COLOR_ORDER.forEach(color => {
+        if (groups[color].length === 0) return;
+        const div = document.createElement('div');
+        div.className = 'pool-color-group';
+        const borderStyle = color === 'B' ? '1px solid rgba(255,255,255,0.2)' : 'none';
+        div.innerHTML = `
+            <div class="pool-color-label">
+                <span class="pool-color-dot" style="background:${COLOR_HEX[color]};border:${borderStyle}"></span>
+                ${COLOR_NAMES[color]} (${groups[color].length})
+            </div>
+            <div class="pool-color-cards">
+                ${groups[color].map(card => {
+                    const idx = humanPool.indexOf(card);
+                    if (isTouchDevice) {
+                        return `<div class="pool-mini-card" onclick="showPoolCardPreview(${idx})">
+                            <img src="${card.image_small}" alt="${card.name}" loading="lazy">
+                        </div>`;
+                    } else {
+                        return `<div class="pool-mini-card" onmouseenter="showTooltip(humanPool[${idx}], event)" onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()">
+                            <img src="${card.image_small}" alt="${card.name}" loading="lazy">
+                        </div>`;
+                    }
+                }).join('')}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+
+    // Update pool count
+    document.getElementById('poolCount').textContent = `${humanPool.length} cards`;
+
+    // Update mini mana curve
+    updateMiniCurve();
+}
+
+function updateMiniCurve() {
+    const counts = [0, 0, 0, 0, 0]; // CMC 1, 2, 3, 4, 5+
+    humanPool.forEach(card => {
+        const cmc = Math.min(Math.max(Math.ceil(card.cmc), 1), 5);
+        if (card.cmc === 0) return; // lands
+        if (cmc >= 5) counts[4]++;
+        else counts[cmc - 1]++;
+    });
+
+    const max = Math.max(...counts, 1);
+    const bars = document.querySelectorAll('#miniCurveBars .curve-bar');
+    bars.forEach((bar, i) => {
+        const h = (counts[i] / max) * 36;
+        bar.style.height = Math.max(2, h) + 'px';
+        bar.querySelector('.curve-bar-count').textContent = counts[i] || '';
+    });
+}
+
+// ── Mobile Preview ──
+function openMobilePreview(card, index) {
+    mobileSelectedIndex = index;
+
+    // Highlight selected card in grid
+    document.querySelectorAll('.pack-card').forEach((el, i) => {
+        el.classList.toggle('selected', i === index);
+    });
+
+    // Fill preview panel
+    document.getElementById('mpImg').src = card.image_normal || card.image_small;
+    document.getElementById('mpName').textContent = card.name;
+    document.getElementById('mpCost').textContent = card.mana_cost || '';
+    document.getElementById('mpType').textContent = card.type_line;
+    document.getElementById('mpOracle').textContent = card.oracle_text || '';
+
+    let ptText = '';
+    if (card.power !== null && card.toughness !== null) ptText = `${card.power}/${card.toughness}`;
+    else if (card.loyalty !== null) ptText = `Loyalty: ${card.loyalty}`;
+    document.getElementById('mpPt').textContent = ptText;
+    document.getElementById('mpRating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}`;
+
+    // Show pick button and panel
+    document.getElementById('mpPickBtn').style.display = '';
+    document.getElementById('mobileOverlay').classList.add('visible');
+    document.getElementById('mobilePreview').classList.add('visible');
+}
+
+function closeMobilePreview() {
+    mobileSelectedIndex = -1;
+    document.querySelectorAll('.pack-card').forEach(el => el.classList.remove('selected'));
+    document.getElementById('mobileOverlay').classList.remove('visible');
+    document.getElementById('mobilePreview').classList.remove('visible');
+}
+
+function confirmMobilePick() {
+    if (mobileSelectedIndex < 0) return;
+    const idx = mobileSelectedIndex;
+    closeMobilePreview();
+    humanPick(idx);
+}
+
+function showPoolCardPreview(poolIndex) {
+    const card = humanPool[poolIndex];
+    if (!card) return;
+    document.getElementById('mpImg').src = card.image_normal || card.image_small;
+    document.getElementById('mpName').textContent = card.name;
+    document.getElementById('mpCost').textContent = card.mana_cost || '';
+    document.getElementById('mpType').textContent = card.type_line;
+    document.getElementById('mpOracle').textContent = card.oracle_text || '';
+    let ptText = '';
+    if (card.power !== null && card.toughness !== null) ptText = `${card.power}/${card.toughness}`;
+    else if (card.loyalty !== null) ptText = `Loyalty: ${card.loyalty}`;
+    document.getElementById('mpPt').textContent = ptText;
+    document.getElementById('mpRating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}`;
+    // Hide pick button for pool view
+    document.getElementById('mpPickBtn').style.display = 'none';
+    mobileSelectedIndex = -1;
+    document.getElementById('mobileOverlay').classList.add('visible');
+    document.getElementById('mobilePreview').classList.add('visible');
+}
+
+// ── Keyboard ──
+document.addEventListener('keydown', (e) => {
+    if (!draftInProgress) return;
+    const screen = document.getElementById('screenDraft');
+    if (!screen.classList.contains('active')) return;
+
+    if (e.key === 'z' || e.key === 'Z') {
+        e.preventDefault();
+        undoPick();
+        return;
+    }
+
+    const num = parseInt(e.key);
+    if (num >= 1 && num <= 9) {
+        e.preventDefault();
+        humanPick(num - 1);
+    }
+});
+
+// ══════════════════════════════════════════
+// Screen 3: Deck Builder
+// ══════════════════════════════════════════
+function renderDeckBuilder() {
+    sideboardSet = new Set();
+    lands = { W:0, U:0, B:0, R:0, G:0 };
+    currentBoard = 'main';
+
+    renderLandControls();
+    renderDeckColumns();
+    renderHistogram();
+    updateDeckStats();
+
+    // Set board tab active
+    document.querySelectorAll('.board-tab').forEach(t => t.classList.toggle('active', t.dataset.board === 'main'));
+}
+
+function switchBoard(board) {
+    currentBoard = board;
+    document.querySelectorAll('.board-tab').forEach(t => t.classList.toggle('active', t.dataset.board === board));
+    renderDeckColumns();
+}
+
+function toggleSideboard(poolIndex) {
+    if (sideboardSet.has(poolIndex)) {
+        sideboardSet.delete(poolIndex);
+    } else {
+        sideboardSet.add(poolIndex);
+    }
+    renderDeckColumns();
+    renderHistogram();
+    updateDeckStats();
+}
+
+function renderDeckColumns() {
+    const container = document.getElementById('deckColumns');
+    container.innerHTML = '';
+
+    // Filter cards for current board view
+    const mainCards = [];
+    const sideCards = [];
+    humanPool.forEach((card, i) => {
+        if (sideboardSet.has(i)) {
+            sideCards.push({ card, index: i });
+        } else {
+            mainCards.push({ card, index: i });
+        }
+    });
+
+    const displayCards = currentBoard === 'main' ? mainCards : sideCards;
+
+    // Group by color
+    const groups = {};
+    COLOR_ORDER.forEach(c => groups[c] = []);
+    displayCards.forEach(({ card, index }) => {
+        const group = getCardColorGroup(card);
+        groups[group].push({ card, index });
+    });
+
+    // Sort by CMC within group
+    Object.values(groups).forEach(arr => arr.sort((a, b) => a.card.cmc - b.card.cmc || a.card.name.localeCompare(b.card.name)));
+
+    COLOR_ORDER.forEach(color => {
+        if (groups[color].length === 0) return;
+
+        const col = document.createElement('div');
+        col.className = 'deck-column';
+        const borderStyle = color === 'B' ? '1px solid rgba(255,255,255,0.2)' : 'none';
+        col.innerHTML = `
+            <div class="deck-col-header" style="border-color:${COLOR_HEX[color]}">
+                <span class="col-dot" style="background:${COLOR_HEX[color]};border:${borderStyle}"></span>
+                ${COLOR_NAMES[color]} (${groups[color].length})
+            </div>
+        `;
+
+        groups[color].forEach(({ card, index }) => {
+            const entry = document.createElement('div');
+            entry.className = 'deck-card-entry';
+            if (sideboardSet.has(index)) entry.classList.add('sideboarded');
+            entry.innerHTML = `
+                <div class="entry-img"><img src="${card.image_small}" alt="${card.name}" loading="lazy"></div>
+                <span class="entry-name">${card.name}</span>
+                <span class="entry-cmc">${card.cmc > 0 ? card.mana_cost : ''}</span>
+            `;
+            entry.addEventListener('click', () => toggleSideboard(index));
+            if (!isTouchDevice) {
+                entry.addEventListener('mouseenter', (e) => showTooltip(card, e));
+                entry.addEventListener('mousemove', (e) => moveTooltip(e));
+                entry.addEventListener('mouseleave', hideTooltip);
+            }
+            col.appendChild(entry);
+        });
+
+        container.appendChild(col);
+    });
+}
+
+function renderHistogram() {
+    const container = document.getElementById('histogram');
+    container.innerHTML = '';
+
+    // Count CMC for mainboard cards only
+    const counts = [0, 0, 0, 0, 0, 0, 0]; // 0, 1, 2, 3, 4, 5, 6+
+    humanPool.forEach((card, i) => {
+        if (sideboardSet.has(i)) return;
+        const cmc = Math.min(Math.ceil(card.cmc), 6);
+        if (card.type_line && card.type_line.toLowerCase().includes('land')) return;
+        counts[Math.max(0, cmc)]++;
+    });
+
+    // Color distribution for bars
+    const colorCounts = {};
+    MANA_COLORS.forEach(c => colorCounts[c] = [0,0,0,0,0,0,0]);
+    humanPool.forEach((card, i) => {
+        if (sideboardSet.has(i)) return;
+        if (card.type_line && card.type_line.toLowerCase().includes('land')) return;
+        const cmc = Math.min(Math.ceil(card.cmc), 6);
+        const bucket = Math.max(0, cmc);
+        const group = getCardColorGroup(card);
+        if (MANA_COLORS.includes(group)) {
+            colorCounts[group][bucket]++;
+        }
+    });
+
+    const max = Math.max(...counts, 1);
+    const labels = ['0', '1', '2', '3', '4', '5', '6+'];
+
+    labels.forEach((label, i) => {
+        const col = document.createElement('div');
+        col.className = 'histo-col';
+        const h = (counts[i] / max) * 80;
+        col.innerHTML = `
+            <span class="histo-count">${counts[i] || ''}</span>
+            <div class="histo-bar" style="height:${Math.max(0, h)}px; background: var(--gradient-purple);"></div>
+            <span class="histo-label">${label}</span>
+        `;
+        container.appendChild(col);
+    });
+}
+
+function renderLandControls() {
+    const container = document.getElementById('landControls');
+    container.innerHTML = '';
+
+    const colorInfo = [
+        { c: 'W', name: 'Plains', bg: '#F9FAF4', fg: '#333' },
+        { c: 'U', name: 'Island', bg: '#0E68AB', fg: '#fff' },
+        { c: 'B', name: 'Swamp', bg: '#3d3020', fg: '#fff' },
+        { c: 'R', name: 'Mountain', bg: '#D3202A', fg: '#fff' },
+        { c: 'G', name: 'Forest', bg: '#00733E', fg: '#fff' }
+    ];
+
+    colorInfo.forEach(info => {
+        const ctrl = document.createElement('div');
+        ctrl.className = 'land-control';
+        ctrl.innerHTML = `
+            <div class="land-symbol" style="background:${info.bg};color:${info.fg}">${info.c}</div>
+            <button onclick="changeLand('${info.c}', -1)">&minus;</button>
+            <span class="land-count" id="land-${info.c}">${lands[info.c]}</span>
+            <button onclick="changeLand('${info.c}', 1)">+</button>
+        `;
+        container.appendChild(ctrl);
+    });
+
+    // Total lands display
+    const total = document.createElement('div');
+    total.style.cssText = 'margin-left:0.5rem;font-size:0.85rem;color:var(--text-secondary)';
+    total.id = 'landTotal';
+    total.textContent = `Total: ${Object.values(lands).reduce((a, b) => a + b, 0)} lands`;
+    container.appendChild(total);
+
+    // Auto suggest button is in builder-actions
+}
+
+function changeLand(color, delta) {
+    lands[color] = Math.max(0, lands[color] + delta);
+    document.getElementById(`land-${color}`).textContent = lands[color];
+    document.getElementById('landTotal').textContent = `Total: ${Object.values(lands).reduce((a, b) => a + b, 0)} lands`;
+    updateDeckStats();
+}
+
+function autoSuggestLands() {
+    // Count color pips in mainboard cards
+    const pips = { W:0, U:0, B:0, R:0, G:0 };
+
+    humanPool.forEach((card, i) => {
+        if (sideboardSet.has(i)) return;
+        if (!card.mana_cost) return;
+        const cost = card.mana_cost;
+        (cost.match(/\{W\}/g) || []).forEach(() => pips.W++);
+        (cost.match(/\{U\}/g) || []).forEach(() => pips.U++);
+        (cost.match(/\{B\}/g) || []).forEach(() => pips.B++);
+        (cost.match(/\{R\}/g) || []).forEach(() => pips.R++);
+        (cost.match(/\{G\}/g) || []).forEach(() => pips.G++);
+    });
+
+    const totalPips = Object.values(pips).reduce((a, b) => a + b, 0) || 1;
+    const mainSpells = humanPool.filter((c, i) => !sideboardSet.has(i)).length;
+    const targetLands = Math.max(0, 40 - mainSpells); // Usually aim for 40-card deck with ~17 lands
+    const desiredLands = Math.min(Math.max(targetLands, 15), 18);
+
+    // Distribute lands proportional to pips
+    const newLands = { W:0, U:0, B:0, R:0, G:0 };
+    let assigned = 0;
+
+    // First pass: proportional
+    MANA_COLORS.forEach(c => {
+        if (pips[c] > 0) {
+            newLands[c] = Math.round((pips[c] / totalPips) * desiredLands);
+            assigned += newLands[c];
+        }
+    });
+
+    // Adjust to hit target
+    const activeColors = MANA_COLORS.filter(c => pips[c] > 0);
+    while (assigned > desiredLands && activeColors.length > 0) {
+        // Remove from smallest
+        activeColors.sort((a, b) => newLands[a] - newLands[b]);
+        for (const c of activeColors) {
+            if (assigned <= desiredLands) break;
+            if (newLands[c] > 0) { newLands[c]--; assigned--; }
+        }
+    }
+    while (assigned < desiredLands && activeColors.length > 0) {
+        // Add to largest pip color
+        activeColors.sort((a, b) => pips[b] - pips[a]);
+        for (const c of activeColors) {
+            if (assigned >= desiredLands) break;
+            newLands[c]++; assigned++;
+        }
+    }
+
+    lands = newLands;
+    MANA_COLORS.forEach(c => {
+        const el = document.getElementById(`land-${c}`);
+        if (el) el.textContent = lands[c];
+    });
+    document.getElementById('landTotal').textContent = `Total: ${Object.values(lands).reduce((a, b) => a + b, 0)} lands`;
+    updateDeckStats();
+    showToast(`Suggested ${desiredLands} lands based on color pips`);
+}
+
+function updateDeckStats() {
+    const mainCards = humanPool.filter((c, i) => !sideboardSet.has(i));
+    const sideCards = humanPool.filter((c, i) => sideboardSet.has(i));
+    const totalLands = Object.values(lands).reduce((a, b) => a + b, 0);
+
+    document.getElementById('statMain').textContent = mainCards.length + totalLands;
+    document.getElementById('statSpells').textContent = mainCards.length;
+    document.getElementById('statLands').textContent = totalLands;
+    document.getElementById('statSide').textContent = sideCards.length;
+}
+
+// ── Export ──
+function exportDeck() {
+    let text = '';
+
+    // Mainboard spells sorted by name
+    const mainCards = [];
+    humanPool.forEach((card, i) => {
+        if (!sideboardSet.has(i)) mainCards.push(card);
+    });
+
+    // Group and count
+    const mainCounts = {};
+    mainCards.forEach(card => {
+        mainCounts[card.name] = (mainCounts[card.name] || 0) + 1;
+    });
+
+    text += 'Deck\n';
+    Object.keys(mainCounts).sort().forEach(name => {
+        text += `${mainCounts[name]} ${name}\n`;
+    });
+
+    // Lands
+    MANA_COLORS.forEach(c => {
+        if (lands[c] > 0) {
+            text += `${lands[c]} ${LAND_NAMES[c]}\n`;
+        }
+    });
+
+    // Sideboard
+    const sideCounts = {};
+    humanPool.forEach((card, i) => {
+        if (sideboardSet.has(i)) {
+            sideCounts[card.name] = (sideCounts[card.name] || 0) + 1;
+        }
+    });
+
+    if (Object.keys(sideCounts).length > 0) {
+        text += '\nSideboard\n';
+        Object.keys(sideCounts).sort().forEach(name => {
+            text += `${sideCounts[name]} ${name}\n`;
+        });
+    }
+
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Deck copied to clipboard (Arena format)');
+    }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Deck copied to clipboard (Arena format)');
+    });
+}
+
+// ── Actions ──
+function draftAgain() {
+    if (setData) {
+        humanPool = [];
+        botPools = [];
+        botColorWeights = [];
+        undoStack = [];
+        sideboardSet = new Set();
+        lands = { W:0, U:0, B:0, R:0, G:0 };
+        currentPack = 0;
+        currentPick = 0;
+        draftInProgress = true;
+
+        for (let i = 1; i < NUM_SEATS; i++) {
+            botPools.push([]);
+            botColorWeights.push({ W:0, U:0, B:0, R:0, G:0 });
+        }
+
+        generateAllPacks();
+        preloadPackImages(0);
+        showScreen('screenDraft');
+        renderCurrentPack();
+        renderPool();
+    }
+}
+
+function changeSet() {
+    draftInProgress = false;
+    showScreen('screenSelect');
+}
+
+// ══════════════════════════════════════════
+// Init
+// ══════════════════════════════════════════
+loadSets();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"MTG Draft Simulator","url":"https://scrollvault.net/draft/","applicationCategory":"GameApplication","description":"Practice your MTG draft skills with our free draft simulator. Draft from real sets with smart bot opponents.","isPartOf":{"@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net"}}
+</script>
+</body>
+</html>

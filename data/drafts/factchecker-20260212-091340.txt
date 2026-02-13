@@ -1,0 +1,2 @@
+[09:16:27] Attempt 1/3: /usr/bin/openclaw
+⚠️ 📄 Web Fetch: https://eu.providencejournal.com/story/news/politics/courts/2026/02/11/hasbro_accused-of-overprinting-magic-the-gathering-cards-in-new-lawsuit/88592671007/ failed: Too many redirects (limit: 3)

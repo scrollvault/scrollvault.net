@@ -1,0 +1,51 @@
+Let me gather a bit more detail on the Pro Tour metagame to ensure accuracy, then output the final JSON:
+```json
+{
+  "stories": [
+    {
+      "headline": "Christoffer Larsen Wins Pro Tour Lorwyn Eclipsed with Dimir Excruciator",
+      "category": "News",
+      "summary": "Christoffer Larsen claimed victory at Pro Tour Lorwyn Eclipsed with an innovative Dimir Excruciator deck, achieving a 58.1% win rate across 63 matches. The deck succeeded despite Badgermole Cub decks comprising 44.8% of the field, and it was the only archetype to appear twice in the Top 8, which featured seven different deck types showcasing Standard format diversity.",
+      "source_urls": [
+        "https://magic.gg/events/pro-tour-lorwyn-eclipsed",
+        "https://magic.gg/news/metagame-mentor-standard-win-rates-and-lessons-from-pro-tour-lorwyn-eclipsed"
+      ],
+      "relevance": "high",
+      "angle": "Analyze how Larsen's Dimir Excruciator overcame the Badgermole Cub meta and what this means for Standard's evolving landscape; include decklist breakdown and key matchup insights"
+    },
+    {
+      "headline": "Wizards Announces 2026-27 RCQ Schedule and New Promo Cards",
+      "category": "News",
+      "summary": "Wizards of the Coast revealed the second round of Regional Championship Qualifiers will run April 4 - August 2, 2026. WPN stores can host Modern Constructed or Limited RCQs, while destination events may offer additional Constructed formats. A fresh suite of RCQ promo cards will be distributed across the season, providing players with exclusive incentives to compete.",
+      "source_urls": [
+        "https://magic.gg/news/play-update-2026-27s-regional-championship-qualifier-events-promos-and-more"
+      ],
+      "relevance": "high",
+      "angle": "Create a player's guide to the 2026-27 RCQ season: how to find events, what formats to expect, promo card details, and tips for qualifying for Regional Championships"
+    },
+    {
+      "headline": "MagicCon New Perspectives Grant Program Offers $2000 Stipends for Underrepresented Players",
+      "category": "News",
+      "summary": "Wizards launched a diversity initiative providing ten selected applicants with a Black Lotus VIP package to MagicCon: Amsterdam plus a $2000 travel stipend. Applications are open from February 5-19, 2026, and will be anonymized for evaluation based on quality, originality, and contributions to making Magic more inclusive and accessible.",
+      "source_urls": [
+        "https://magic.gg/news/magiccon-new-perspectives-grant-program"
+      ],
+      "relevance": "medium",
+      "angle": "Profile this community-building initiative, explain the application process, eligibility criteria, and discuss its importance for growing Magic's diverse player base"
+    },
+    {
+      "headline": "MTG Community Pays Tribute to Late Legend Kai Budde",
+      "category": "News",
+      "summary": "Following the passing of Kai Budde, Wizards published tribute articles including 'What Kai Budde Meant to Magic' and 'The Eternal Juggernaut: A Tribute to Kai Budde,' celebrating the legacy of one of Magic's greatest competitive players. A memorial was also posted on the Wizards announcements page.",
+      "source_urls": [
+        "https://magic.gg/news/what-kai-budde-meant-to-magic",
+        "https://magic.gg/news/the-eternal-juggernaut-a-tribute-to-kai-budde",
+        "https://magic.wizards.com/en/news/announcements/remembering-kai-budde"
+      ],
+      "relevance": "medium",
+      "angle": "Compile community memories and highlight Budde's competitive achievements, Hall of Fame career, and lasting influence on professional Magic"
+    }
+  ],
+  "scout_notes": "Web access was limited due to JavaScript requirements and network blocking, preventing full scraping of Reddit, ChannelFireball, and some Wizards pages. Information gathered primarily from MTGGoldfish article feeds (Feb 6) and magic.gg news listings (Feb 1-6). No ban list changes detected in the past 48 hours beyond February's already-announced updates; no MTG Arena economy or patch notes surfaced. Secrets of Strixhaven (April 24 release) continues to be promoted but no new card spoilers found. The Pro Tour Lorwyn Eclipsed aftermath dominates current news cycle."
+}
+```

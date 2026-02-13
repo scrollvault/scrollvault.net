@@ -1,0 +1,12 @@
+I've created a blog post that meets all your requirements. The JSON output is ready. Let me check it's properly formatted:
+The JSON blog post is ready. It includes:
+
+- **Title** featuring Grafdigger Cage (hero image card)
+- **All five required cards** with exact names: Grafdigger Cage, Pithing Needle, Elite Spellbinder, Archon of Emeria, Weathered Runestone
+- **Conversational MTG voice** with slang like "curves out", "top-decked", "bricked", "gas"
+- **Strong opinions** ("that card is nuts", "I'm sold")
+- **Proper HTML structure** with h2 sections, p tags, and pre-formatted decklist
+- **Word count**: ~700 words (in the sweet spot)
+- **Zero banned phrases**
+
+The post is saved in `/home/degenai/.openclaw/workspace/post.json` as valid JSON ready for your build system.

@@ -1,0 +1,114 @@
+[
+  {
+    "set_code": "ecl",
+    "set_name": "Lorwyn Eclipsed",
+    "released_at": "2026-01-23",
+    "icon_uri": "https://svgs.scryfall.io/sets/ecl.svg?1770008400",
+    "card_count": 273,
+    "pack_size": 14
+  },
+  {
+    "set_code": "eoe",
+    "set_name": "Edge of Eternities",
+    "released_at": "2025-08-01",
+    "icon_uri": "https://svgs.scryfall.io/sets/eoe.svg?1770008400",
+    "card_count": 266,
+    "pack_size": 14
+  },
+  {
+    "set_code": "fin",
+    "set_name": "Final Fantasy",
+    "released_at": "2025-06-13",
+    "icon_uri": "https://svgs.scryfall.io/sets/fin.svg?1770008400",
+    "card_count": 300,
+    "pack_size": 14
+  },
+  {
+    "set_code": "tdm",
+    "set_name": "Tarkir: Dragonstorm",
+    "released_at": "2025-04-11",
+    "icon_uri": "https://svgs.scryfall.io/sets/tdm.svg?1770008400",
+    "card_count": 271,
+    "pack_size": 14
+  },
+  {
+    "set_code": "dft",
+    "set_name": "Aetherdrift",
+    "released_at": "2025-02-14",
+    "icon_uri": "https://svgs.scryfall.io/sets/dft.svg?1770008400",
+    "card_count": 276,
+    "pack_size": 14
+  },
+  {
+    "set_code": "inr",
+    "set_name": "Innistrad Remastered",
+    "released_at": "2025-01-24",
+    "icon_uri": "https://svgs.scryfall.io/sets/inr.svg?1770008400",
+    "card_count": 290,
+    "pack_size": 14
+  },
+  {
+    "set_code": "fdn",
+    "set_name": "Foundations",
+    "released_at": "2024-11-15",
+    "icon_uri": "https://svgs.scryfall.io/sets/fdn.svg?1770008400",
+    "card_count": 276,
+    "pack_size": 14
+  },
+  {
+    "set_code": "dsk",
+    "set_name": "Duskmourn: House of Horror",
+    "released_at": "2024-09-27",
+    "icon_uri": "https://svgs.scryfall.io/sets/dsk.svg?1770008400",
+    "card_count": 276,
+    "pack_size": 14
+  },
+  {
+    "set_code": "blb",
+    "set_name": "Bloomburrow",
+    "released_at": "2024-08-02",
+    "icon_uri": "https://svgs.scryfall.io/sets/blb.svg?1770008400",
+    "card_count": 266,
+    "pack_size": 14
+  },
+  {
+    "set_code": "acr",
+    "set_name": "Assassin's Creed",
+    "released_at": "2024-07-05",
+    "icon_uri": "https://svgs.scryfall.io/sets/acr.svg?1770008400",
+    "card_count": 105,
+    "pack_size": 14
+  },
+  {
+    "set_code": "mh3",
+    "set_name": "Modern Horizons 3",
+    "released_at": "2024-06-14",
+    "icon_uri": "https://svgs.scryfall.io/sets/mh3.svg?1770008400",
+    "card_count": 308,
+    "pack_size": 14
+  },
+  {
+    "set_code": "otj",
+    "set_name": "Outlaws of Thunder Junction",
+    "released_at": "2024-04-19",
+    "icon_uri": "https://svgs.scryfall.io/sets/otj.svg?1770008400",
+    "card_count": 276,
+    "pack_size": 14
+  },
+  {
+    "set_code": "mkm",
+    "set_name": "Murders at Karlov Manor",
+    "released_at": "2024-02-09",
+    "icon_uri": "https://svgs.scryfall.io/sets/mkm.svg?1770008400",
+    "card_count": 276,
+    "pack_size": 14
+  },
+  {
+    "set_code": "rvr",
+    "set_name": "Ravnica Remastered",
+    "released_at": "2024-01-12",
+    "icon_uri": "https://svgs.scryfall.io/sets/rvr.svg?1770008400",
+    "card_count": 291,
+    "pack_size": 14
+  }
+]
