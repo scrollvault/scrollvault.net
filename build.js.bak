@@ -130,9 +130,6 @@ const STOP_PHRASES = new Set([
   'modern horizons', 'foundations of magic', 'commander rules'
 ]);
 
-// Feature flag for visual enhancements (rollback safe)
-const ENABLE_FEATURED_CARDS_INJECTION = true;
-
 // Affiliate link generation (TCGplayer Impact redirect)
 const AFFILIATE_REDIRECT_BASE = 'https://partner.tcgplayer.com/gRPPm5';
 
@@ -280,10 +277,8 @@ function processPostBody(html, cards) {
   // Split by <pre>...</pre> blocks
   const parts = html.split(/(<pre[\s\S]*?<\/pre>)/gi);
 
-  let hasDecklist = false;
-  const result = parts.map(part => {
+  return parts.map(part => {
     if (part.match(/^<pre/i)) {
-      hasDecklist = true;
       // Check if it's a decklist, add image strip
       const content = part.replace(/<\/?pre[^>]*>/gi, '');
       const deckNames = extractDecklistCards(content);
@@ -313,7 +308,7 @@ function processPostBody(html, cards) {
 
     const names = Object.values(cardMapLower).map(c => c.name).sort((a, b) => b.length - a.length);
     const pattern = names.map(n => escapeRegex(n)).join('|');
-    const re = new RegExp(`\b(${pattern})\b`, 'gi');
+    const re = new RegExp(`\\b(${pattern})\\b`, 'gi');
 
     const tokens = part.split(/(<[^>]+>)/g);
     return tokens.map(token => {
@@ -327,21 +322,6 @@ function processPostBody(html, cards) {
       });
     }).join('');
   }).join('');
-
-  // If no decklist was present, inject a featured cards gallery after the first paragraph for visual engagement
-  if (ENABLE_FEATURED_CARDS_INJECTION && !hasDecklist && cards && cards.length) {
-    const featuredCards = cards.slice(0, 6).filter(c => c && c.normal && !c.not_found);
-    if (featuredCards.length) {
-      const strip = `\n<div class="decklist-images featured-inject">\n${featuredCards.map(c =>
-        `  <a href="${esc(makeAffiliateLink(c.name))}" rel="nofollow sponsored" target="_blank"><img src="${esc(c.normal)}" alt="${esc(c.name)}" title="${esc(c.name)}" loading="lazy"></a>`
-      ).join('\n')}\n</div>`;
-      // Inject after the first closing </p> that appears early in the body
-      const injected = result.replace(/<\/p>/i, `</p>` + strip, 1);
-      return injected;
-    }
-  }
-
-  return result;
 }
 
 // ── Shared CSS ──
