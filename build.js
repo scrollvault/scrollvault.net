@@ -28,6 +28,13 @@ const CATEGORY_FALLBACK_CARDS = {
   'Spoilers': 'Black Lotus', 'Deck Guides': 'Sol Ring',
   'Set Reviews': 'Jace, the Mind Sculptor'
 };
+function isBasicLand(name) {
+  const basics = new Set(['Plains', 'Island', 'Swamp', 'Mountain', 'Forest', 'Wastes',
+    'Snow-Covered Plains', 'Snow-Covered Island', 'Snow-Covered Swamp', 'Snow-Covered Mountain', 'Snow-Covered Forest',
+    'Plains', 'Island', 'Swamp', 'Mountain', 'Forest']);
+  return basics.has(name);
+}
+
 
 function formatDate(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
@@ -229,7 +236,8 @@ function extractCardCandidates(text) {
 }
 
 async function resolvePostImages(post) {
-  const text = (post.title || '') + ' ' + (post.excerpt || '') + ' ' + (post.body || '');
+    const hasDecklist = post.body && post.body.includes('<pre class="decklist">');
+const text = (post.title || '') + ' ' + (post.excerpt || '') + ' ' + (post.body || '');
   const candidates = extractCardCandidates(text);
 
   let heroCard = null;
@@ -244,16 +252,34 @@ async function resolvePostImages(post) {
   }
 
   // Fallback to category default
-  if (!heroCard) {
+
+
+  // If News post without decklist, do not use any card hero (skip auto selection)
+  if (post.category === 'News' && !hasDecklist) {
+    heroCard = null;
+  }
+  // Fallback to category default for non-News posts
+  if (!heroCard && post.category !== 'News') {
     const fallbackName = CATEGORY_FALLBACK_CARDS[post.category] || 'Lightning Bolt';
     heroCard = await lookupCard(fallbackName);
     if (heroCard.not_found) heroCard = null;
   }
 
+
+
+  // Avoid using basic lands as hero images; prefer non-basic cards if available
+  if (heroCard && isBasicLand(heroCard.name) && allCards.length) {
+    const nonBasic = allCards.find(c => !isBasicLand(c.name));
+    if (nonBasic) heroCard = nonBasic;
+  }
   if (heroCard) {
     post.hero_image = heroCard.art_crop;
     post.hero_card_name = heroCard.name;
     post.hero_artist = heroCard.artist;
+  } else {
+    post.hero_image = null;
+    post.hero_card_name = null;
+    post.hero_artist = null;
   }
 
   // Merge with any manually provided _cards (don't lose hand-curated card data)
@@ -269,7 +295,7 @@ async function resolvePostImages(post) {
   return post;
 }
 
-function processPostBody(html, cards) {
+function processPostBody(html, cards, category) {
   if (!html) return '';
 
   const cardMapLower = {};
@@ -329,7 +355,7 @@ function processPostBody(html, cards) {
   }).join('');
 
   // If no decklist was present, inject a featured cards gallery after the first paragraph for visual engagement
-  if (ENABLE_FEATURED_CARDS_INJECTION && !hasDecklist && cards && cards.length) {
+  if (ENABLE_FEATURED_CARDS_INJECTION && !hasDecklist && cards && cards.length && category !== 'News') {
     const featuredCards = cards.slice(0, 6).filter(c => c && c.normal && !c.not_found);
     if (featuredCards.length) {
       const strip = `\n<div class="decklist-images featured-inject">\n${featuredCards.map(c =>
@@ -708,10 +734,10 @@ async function main() {
   // ── Update posts.json with hero_image fields (save early so data persists even if HTML generation fails) ──
   for (const post of posts) {
     const dataPost = data.posts.find(p => p.id === post.id);
-    if (dataPost && post.hero_image) {
-      dataPost.hero_image = post.hero_image;
-      dataPost.hero_card_name = post.hero_card_name;
-      dataPost.hero_artist = post.hero_artist;
+    if (dataPost) {
+      dataPost.hero_image = post.hero_image ?? null;
+      dataPost.hero_card_name = post.hero_card_name ?? null;
+      dataPost.hero_artist = post.hero_artist ?? null;
     }
   }
   data.meta.last_build = new Date().toISOString();
@@ -1068,7 +1094,7 @@ ${footer('')}
     // Process body with tooltips and decklist images
     let bodyContent;
     if (hasBody) {
-      bodyContent = hasCards ? processPostBody(post.body, post._cards) : post.body;
+      bodyContent = hasCards ? processPostBody(post.body, post._cards, post.category) : post.body;
     } else {
       // Empty-body post: styled excerpt + coming soon
       bodyContent = `<p class="lead-excerpt">${esc(post.excerpt)}</p>
