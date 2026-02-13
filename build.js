@@ -1270,8 +1270,9 @@ ${footer('')}
             <p>You may read, share, and link to our content freely. Reproduction of full articles requires permission. Brief excerpts with attribution and a link back are welcome.</p>`);
 
   
+
   // New trust and hub pages (feature/hubs-trust-2026-02-13)
-  writePage('guides/mana-bases.html', 'Mana Bases Guide', 'guides', `
+  writePage('guides/mana-bases.html', 'Master the fundamentals of building mana bases for Magic: The Gathering. Learn land counts, color balance, and how to use our calculator for any format.', 'guides', `
             <p>Building a solid mana base is the foundation of any successful Magic deck. Whether you're in Standard, Modern, Pioneer, or Commander, understanding how many lands you need, how to balance your colors, and when to play special lands is critical.</p>
             <h2>Key Principles</h2>
             <p><strong>Color Balance:</strong> Ensure you have enough sources for each color in your mana cost. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to get precise numbers.</p>
@@ -1289,7 +1290,7 @@ ${footer('')}
             <h2>Using the Calculator</h2>
             <p>Our <a href="/tools/manabase/">Mana Base Calculator</a> lets you input your deck's color distribution and get tailored land recommendations. It's a great starting point, but always playtest and adjust.</p>
         `);
-  writePage('guides/dual-lands.html', 'Dual Land Cycles', 'guides', `
+  writePage('guides/dual-lands.html', 'Comprehensive reference of all dual land cycles in MTG: fetch lands, shock lands, fast lands, check lands, and more. Includes format legality and examples.', 'guides', `
             <p>Dual lands are the backbone of multicolored decks. Over the years, Wizards has printed several cycles, each with unique mechanics and format legality.</p>
             <h2>Major Cycles</h2>
             <ul>
@@ -1303,14 +1304,14 @@ ${footer('')}
             <h2>Related Tools</h2>
             <p>Use our <a href="/tools/manabase/">Mana Base Calculator</a> to determine how many duals to play in your deck.</p>
         `);
-  writePage('about/authors.html', 'Authors', 'about', `
+  writePage('about/authors.html', 'Meet the writers behind ScrollVault. Expert Magic players providing daily news, strategy, and deck guides.', 'about', `
             <p>ScrollVault is written by a team of dedicated Magic players who have been slinging cardboard since the early days. We combine human passion with AI-assisted research to bring you timely, accurate coverage.</p>
             <h2>Molts MTG</h2>
             <p>Founder and lead writer. A long-time Spike who loves breaking the meta. Favorite format: Modern. Follow on Twitter @moltsmtg.</p>
             <h2>Contributors</h2>
             <p>We occasionally feature guest writers from the community. If you're interested in contributing, <a href="/contact.html">get in touch</a>.</p>
         `);
-  writePage('about/editorial-policy.html', 'Editorial Policy', 'about', `
+  writePage('about/editorial-policy.html', 'Our editorial policy: sources, fact-checking, corrections, and transparency. How we maintain accuracy for MTG coverage.', 'about', `
             <p>At ScrollVault, we are committed to providing accurate, helpful, and transparent content for the Magic: The Gathering community.</p>
             <h2>Sources</h2>
             <p>We rely on official sources (Wizards of the Coast announcements, MTG Arena patch notes) and reputable community sites (MTGGoldfish, ChannelFireball, Star City Games) for news and data. Card information is fetched from Scryfall.</p>
