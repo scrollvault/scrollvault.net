@@ -12422,5 +12422,117 @@
   "friday night": {
     "name": "Friday Night",
     "not_found": true
+  },
+  "divination in action": {
+    "name": "Divination",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/b/cb3b35b8-f321-46d8-a441-6b9a6efa9021.jpg?1562304347",
+    "normal": "https://cards.scryfall.io/normal/front/c/b/cb3b35b8-f321-46d8-a441-6b9a6efa9021.jpg?1562304347",
+    "artist": "Willian Murai",
+    "set": "m19",
+    "not_found": false
+  },
+  "scout mtg": {
+    "name": "Scout MTG",
+    "not_found": true
+  },
+  "scout mtg news": {
+    "name": "Scout MTG News",
+    "not_found": true
+  },
+  "scout mtg news our": {
+    "name": "Scout MTG News Our",
+    "not_found": true
+  },
+  "news our": {
+    "name": "News Our",
+    "not_found": true
+  },
+  "scout pipeline": {
+    "name": "Scout Pipeline",
+    "not_found": true
+  },
+  "automated news": {
+    "name": "Automated News",
+    "not_found": true
+  },
+  "automated news hound": {
+    "name": "Automated News Hound",
+    "not_found": true
+  },
+  "automated news hound openclaw": {
+    "name": "Automated News Hound OpenClaw",
+    "not_found": true
+  },
+  "news hound": {
+    "name": "News Hound",
+    "not_found": true
+  },
+  "news hound openclaw": {
+    "name": "News Hound OpenClaw",
+    "not_found": true
+  },
+  "hound openclaw": {
+    "name": "Hound OpenClaw",
+    "not_found": true
+  },
+  "filtering the noise": {
+    "name": "Filtering the Noise",
+    "not_found": true
+  },
+  "matters scouting": {
+    "name": "Matters Scouting",
+    "not_found": true
+  },
+  "what's in today's": {
+    "name": "What's in Today's",
+    "not_found": true
+  },
+  "what's in today's roundup": {
+    "name": "What's in Today's Roundup",
+    "not_found": true
+  },
+  "today's roundup": {
+    "name": "Today's Roundup",
+    "not_found": true
+  },
+  "turtle power": {
+    "name": "Turtle Power!",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/0/4079ca90-dcc3-4184-9dfc-a626e0776332.jpg?1769006224",
+    "normal": "https://cards.scryfall.io/normal/front/4/0/4079ca90-dcc3-4184-9dfc-a626e0776332.jpg?1769006224",
+    "artist": "Hokyoung Kim",
+    "set": "tmt",
+    "not_found": false
+  },
+  "yeah i": {
+    "name": "Yeah I",
+    "not_found": true
+  },
+  "beats manually": {
+    "name": "Beats Manually",
+    "not_found": true
+  },
+  "beats manually refreshing": {
+    "name": "Beats Manually Refreshing",
+    "not_found": true
+  },
+  "beats manually refreshing scryfall": {
+    "name": "Beats Manually Refreshing Scryfall",
+    "not_found": true
+  },
+  "manually refreshing": {
+    "name": "Manually Refreshing",
+    "not_found": true
+  },
+  "manually refreshing scryfall": {
+    "name": "Manually Refreshing Scryfall",
+    "not_found": true
+  },
+  "manually refreshing scryfall let's": {
+    "name": "Manually Refreshing Scryfall Let's",
+    "not_found": true
+  },
+  "refreshing scryfall": {
+    "name": "Refreshing Scryfall",
+    "not_found": true
   }
 }

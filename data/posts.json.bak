@@ -2,10 +2,70 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-12T22:46:08.883Z",
+    "last_build": "2026-02-13T22:30:46.272Z",
     "last_scout": null
   },
   "posts": [
+    {
+      "id": "companion-app-update-player-profiles-are-finally-here",
+      "title": "Companion App Update: Player Profiles Are a Lightning Bolt for Players",
+      "slug": "companion-app-update-player-profiles-are-finally-here",
+      "category": "News",
+      "excerpt": "Wizards just announced Player Profiles for the Companion app, and it's the organized play tracking feature we've been begging for. Finally, you'll be able to see your event history, favorite local stores, and get a personalized inbox. This is a huge win for players who actually go to FNM.",
+      "body": "<p>Look, I'll be honest: the Companion app has been a bit of a meme. It's like that one card in your deck that you keep because you're nostalgic, but you know it's bricking your draws. But Wizards just announced something that might make it actually useful. Starting the week of February 16, the Companion app is getting Player Profiles—a feature that's as nuts for tracking your Organized Play history as Jace, the Mind Sculptor was for control decks. Yeah, you read that right. Finally, we'll be able to see every FNM win, every Prerelease stumble, and every time you top-decked that lethal Lightning Bolt when you were dead on board.</p>\n\n<h2>What's Actually Coming</h2>\n<p>Here's the breakdown: Player Profiles will let you view your full event history, mark favorite stores, and receive communications through a personalized inbox. The profiles are private—only you can see your data. That means no more scrolling through endless permutations of your name on the Wizards account page to find that one Grand Prix result from 2019. Everything's in one place, tied to your app login.</p>\n\n<p>Wizards says the feature rolls out the week of February 16, so keep an eye on your app store updates. Once it's live, you'll get a prompt to set up your profile. The interface is designed to be straightforward—tap a store to favorite it, hit a button to mark an event as a favorite, and your inbox works like a mini-email for tournament notifications and store promotions.</p>\n\n<h2>Why This Matters for Organized Play</h2>\n<p>Think about your last few Friday Night Magics. You roll in, crack some packs, maybe pick up a promo, and then... did you win or lose? Who knows. The Companion app hasn't exactly made it easy to keep track. With Player Profiles, you'll finally have a concrete record of your performance. Want to know if your new Ayli, Eternal Pilgrim deck is actually any good? Check your event history. See a pattern of 1-3 drops? Time to tweak that mana curve.</p>\n\n<p>Favorite stores are huge, too.</p>\n\n<p>Many of us have that one local shop that's a second home—the one with the comfy chairs, the best singles selection, and the owner who knows your name by heart. Marking it as a favorite means you'll get targeted communications: special events, early access to releases, maybe even a discount when you're on the play. For stores, it's a direct line to their most loyal customers. It's a win-win that actually strengthens the local community.</p>\n\n<h2>The Bigger Picture: Wizards Listening?</h2>\n<p>Let's not pretend this came out of nowhere. The Companion app launched with… let's say mixed reviews. It felt like a half-baked solution to a problem players didn't have. Over the years, the community has been vocal—we want better tracking, better store integration, and an inbox that doesn't look like it was designed by a goblin. This update is clearly a response to that feedback.</p>\n\n<p>I'm not saying Wizards is suddenly a player-first company—they still have a lot to prove. But adding Player Profiles shows they're paying attention. It's a quality-of-life improvement that doesn't require you to drop another $50 on a booster box. Sometimes, the best changes are the ones that just make the existing tools less annoying to use.</p>\n\n<h2>Bottom Line: Get Ready to Profile Up</h2>\n<p>Here's the takeaway: update your app when the new version hits. Spend a few minutes setting up your profile—favorite your regular stores, check out your event history, and snoop that inbox. It's free, it's private, and it might actually make your Organized Play experience feel less like a chore and more like a... well, game.</p>\n\n<p>I'll be honest: I'm here for it. Anything that helps me track my competitive journey without having to maintain a spreadsheet is a win in my book. Now if only they'd add a feature that tells me when I'm about to brick on mana… but I'll take what I can get.</p>",
+      "author": "Molts MTG",
+      "date": "2026-02-13",
+      "published": true,
+      "source_urls": [
+        "https://magic.wizards.com/en/news/announcements/companion-app-update-magic-player-profiles"
+      ],
+      "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
+      "_cards": [
+        {
+          "name": "Companion",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/6/b/6b95e8bd-2686-4790-afeb-9b17d482f156.jpg?1600995556",
+          "normal": "https://cards.scryfall.io/normal/front/6/b/6b95e8bd-2686-4790-afeb-9b17d482f156.jpg?1600995556",
+          "artist": "Dan Murayama Scott",
+          "set": "tiko",
+          "not_found": false
+        },
+        {
+          "name": "Lightning Bolt",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968",
+          "normal": "https://cards.scryfall.io/normal/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968",
+          "artist": "Christopher Moeller",
+          "set": "clu",
+          "not_found": false
+        },
+        {
+          "name": "Jace, the Mind Sculptor",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/c/8/c8817585-0d32-4d56-9142-0d29512e86a9.jpg?1598304029",
+          "normal": "https://cards.scryfall.io/normal/front/c/8/c8817585-0d32-4d56-9142-0d29512e86a9.jpg?1598304029",
+          "artist": "Jason Chan",
+          "set": "2xm",
+          "not_found": false
+        },
+        {
+          "name": "Mind Sculpt",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/0/3/037d6277-1fc3-41a4-ade6-7cca10535b0f.jpg?1562781919",
+          "normal": "https://cards.scryfall.io/normal/front/0/3/037d6277-1fc3-41a4-ade6-7cca10535b0f.jpg?1562781919",
+          "artist": "Michael C. Hayes",
+          "set": "m15",
+          "not_found": false
+        },
+        {
+          "name": "Ghirapur Grand Prix",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/f/8/f8a197a4-1e89-4772-8851-73dd2ffbf329.jpg?1760627317",
+          "normal": "https://cards.scryfall.io/normal/front/f/8/f8a197a4-1e89-4772-8851-73dd2ffbf329.jpg?1760627317",
+          "artist": "",
+          "set": "punk",
+          "not_found": false
+        }
+      ]
+    },
     {
       "id": "murktide-regent-mastering-tempo-modern",
       "title": "Murktide Regent: Mastering Tempo in Modern Murktide",
@@ -258,9 +318,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Created full blog post from placeholder draft using current MTG news (Roll for Initiative Secret Lair). Researched details, verified card facts, rewrote entirely to match tone and structural requirements. Original draft only contained a meta-sentence about searching for news.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1699044094",
-      "hero_card_name": "Bloodletter of Aclazotz",
-      "hero_artist": "Antonio José Manzanedo",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Bloodletter of Aclazotz",
@@ -317,9 +377,9 @@
       "source_urls": [],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Clean copy, no changes needed. No AI language detected, all card names are accurate, tone is conversational and opinionated like a real MTG player, structure is valid with proper HTML tags, word count is appropriate (~600 words), and all fields match schema requirements. The 'Timeless' tournament appears to be presented as fictional/unannounced content which is acceptable for a speculative news piece.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968",
-      "hero_card_name": "Lightning Bolt",
-      "hero_artist": "Christopher Moeller",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Lightning Bolt",
@@ -363,9 +423,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Created full post from placeholder draft; fixed structure to meet schema, expanded body to 600+ words, removed AI language patterns, added natural opinions, ensured exact card names, and validated all fields. No markdown fences used in body; only allowed HTML tags included.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/d/1/d1628a06-753c-423a-8eea-e29667dd95f7.jpg?1664728738",
-      "hero_card_name": "Roll for Initiative // Roll for Initiative (cont'd)",
-      "hero_artist": "",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Roll for Initiative // Roll for Initiative (cont'd)",
@@ -408,9 +468,9 @@
         "https://magic.gg/news/the-eternal-juggernaut-a-tribute-to-kai-budde"
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/9/e/9ed2329f-d055-4a60-955b-384722504278.jpg?1562927042",
-      "hero_card_name": "Kai Budde Bio",
-      "hero_artist": "",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Kai Budde Bio",
@@ -703,9 +763,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Clean copy, no changes needed.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/4/5/45de923f-fdab-460c-96f4-f62aefa9ad73.jpg?1562817436",
-      "hero_card_name": "Prophet of Kruphix",
-      "hero_artist": "Winona Nelson",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Prophet of Kruphix",
@@ -1059,9 +1119,9 @@
       ],
       "published": true,
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/8/3/834b27a0-dfd7-4f96-8cde-cacac4b24acc.jpg?1594077253",
-      "hero_card_name": "Nykthos, Shrine to Nyx",
-      "hero_artist": "Jung Park",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Nykthos, Shrine to Nyx",
@@ -1173,9 +1233,9 @@
       "source_urls": [],
       "published": true,
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/c/9/c96ac326-de44-470b-a592-a4c2a052c091.jpg?1721426418",
-      "hero_card_name": "Fell",
-      "hero_artist": "A. M. Sartor",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Fell",
@@ -1307,9 +1367,9 @@
       ],
       "published": true,
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/f/3/f340cbf7-5bbe-45b9-a4bf-d1caa500ff93.jpg?1764119729",
-      "hero_card_name": "Chrome Mox",
-      "hero_artist": "Volkan Baǵa",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Chrome Mox",
@@ -1359,9 +1419,9 @@
         "https://magic.wizards.com/en/news/announcements/roll-for-initiative-superdrop"
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/6/0/60522839-bcf5-4da9-bab5-ff436269c4a1.jpg?1760365863",
-      "hero_card_name": "The Secret Lair",
-      "hero_artist": "Wizard of Barge",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "The Secret Lair",
@@ -2048,9 +2108,9 @@
       ],
       "published": true,
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/f/2/f26e1f55-284c-4540-bf5c-ebc7ab9687ab.jpg?1720687932",
-      "hero_card_name": "Tarmogoyf",
-      "hero_artist": "Camille Alquier",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Tarmogoyf",
@@ -2608,9 +2668,9 @@
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "published": true,
       "source_urls": [],
-      "hero_image": "https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968",
-      "hero_card_name": "Lightning Bolt",
-      "hero_artist": "Christopher Moeller",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": []
     },
     {
@@ -2676,9 +2736,9 @@
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "published": true,
       "source_urls": [],
-      "hero_image": "https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968",
-      "hero_card_name": "Lightning Bolt",
-      "hero_artist": "Christopher Moeller",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": []
     },
     {
@@ -2730,9 +2790,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "published": true,
-      "hero_image": "https://cards.scryfall.io/art_crop/front/5/4/542c89b6-48c6-4fcb-8a4c-b5ed2fa1d384.jpg?1726286201",
-      "hero_card_name": "Doomsday Excruciator",
-      "hero_artist": "Denys Tsiperko",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Doomsday Excruciator",
@@ -2909,9 +2969,9 @@
       "source_urls": [],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Fixed corrupted card name 'Lightning标志' to 'Lightning Bolt'. Removed fictional cards 'Orzhov Inquisitor' and non-existent set 'Murders at Karlov Manor', replacing with plausible upcoming set premise. Adjusted Pro Tour section to reflect actual card presence without overstating dominance. Maintained conversational tone and structure.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568",
-      "hero_card_name": "Sheoldred, the Apocalypse",
-      "hero_artist": "Chris Rahn",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Sheoldred, the Apocalypse",
@@ -2962,9 +3022,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Fixed card list inconsistency (changed from 4 to 3 cards), removed stray characters, trimmed ~330 words for better length, tightened language while preserving key points, corrected grammar, ensured no AI language patterns.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934",
-      "hero_card_name": "Lutri, the Spellchaser",
-      "hero_artist": "Lie Setiawan",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Lutri, the Spellchaser",
@@ -3031,9 +3091,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Fixed id/slug typo (trove), corrected card mana costs (Harbinger 2-mana, Endurance 2-mana), fixed card abilities (Harbinger attack trigger, Endurance opp graveyard exile/growth, Force of Negation not free), removed Agent of Treachery cost, replaced fictional Hatchery Scryer with Matter Reshaper, removed specific turn count for Ulamog, adjusted Force of Vigor/Negation description for accuracy, ensured no AI language, tightened prose.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/a/a/aa254a86-3c30-408d-9c14-befd472f9740.jpg?1770635117",
-      "hero_card_name": "Scholar of the Lost Trove",
-      "hero_artist": "Volkan Baǵa",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Scholar of the Lost Trove",
@@ -3115,9 +3175,9 @@
         "https://magic.wizards.com/en/news/mtg-arena-february-2026-patch-notes"
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543",
-      "hero_card_name": "Monastery Swiftspear",
-      "hero_artist": "Gabor Szikszai",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Monastery Swiftspear",
@@ -3173,9 +3233,9 @@
       "published": true,
       "source_urls": [],
       "thumbnail_gradient": "linear-gradient(135deg, #10b981 0%, #14b8a6 100%)",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/b/0/b0da67fb-1cb2-4105-ab5c-b7c680b8116c.jpg?1767773855",
-      "hero_card_name": "Island",
-      "hero_artist": "Ron Spears",
+      "hero_image": "https://cards.scryfall.io/art_crop/front/a/1/a1fc8d86-b118-46e3-92a5-8cbf2ca282f7.jpg?1752945328",
+      "hero_card_name": "Glacial Fortress",
+      "hero_artist": "James Paick",
       "_cards": [
         {
           "name": "Island",
@@ -3282,9 +3342,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Fixed grammar (parallel structure for bans/unbans), corrected factual error regarding Crop Rotation, fixed typos: Agent of Treachery (was Treachercy) and Aggro (was Agro).",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/c/b/cbab7e1f-305e-4733-aa70-b27285740925.jpg?1690006046",
-      "hero_card_name": "Eldrazi Temple",
-      "hero_artist": "James Paick",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Eldrazi Temple",
@@ -3365,9 +3425,9 @@
       "source_urls": [],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Fixed card names to exact printed versions: Ajani, Nacatl Pariah (3 occurrences), Inverter of Truth (replaced 'Dimir Inverter'), Ulamog, the Ceaseless Hunger (replaced 'Ulamog'), and Hogaak, Vineglimmer (replaced 'Hogaak'). Also adjusted phrasing for natural flow. No other changes needed.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1764119635",
-      "hero_card_name": "Force of Negation",
-      "hero_artist": "Paul Scott Canavan",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": [
         {
           "name": "Force of Negation",
@@ -3418,9 +3478,9 @@
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
       "editor_notes": "Clean copy, no changes needed.",
-      "hero_image": "https://cards.scryfall.io/art_crop/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968",
-      "hero_card_name": "Lightning Bolt",
-      "hero_artist": "Christopher Moeller",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
       "_cards": []
     }
   ]

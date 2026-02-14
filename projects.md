@@ -43,3 +43,6 @@ High-level view of all active workstreams.
 - Scout agent's web searches blocked (403) by Compute3 provider during pipeline test.
 - Action needed: Change Scout model priority to use openrouter-direct first, with compute3 as fallback.
 - This will restore pipeline functionality and prevent single-provider dependency.
+
+## Activity Log
+- 2026-02-14: Published 1 post(s) – [Divination in Action: How We Scout MTG News](/posts/divination-in-action-how-we-scout-mtg-news.html)
