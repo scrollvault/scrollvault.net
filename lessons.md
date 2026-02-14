@@ -28,3 +28,9 @@ Never repeat the same mistake. Each entry includes root cause and fix.
 - Root cause: Previous partial config patches replaced the entire `agents.list` instead of merging; the final config only contained the last patched agent.
 - Fix: Rebuilt full agent list via `config.patch` with a complete list including all agents, workspace paths, model routing, tools policies, and subagent allowlists. Restarted gateway.
 - Follow-up: Always patch the full `agents.list` array; verify `agents_list` after config changes; keep a canonical agent definition source in the repo (e.g., agents/*.txt) to reconstruct if needed.
+
+## 2026-02-14: Compute3 API Blocking Stops Pipeline
+- Problem: Manual pipeline test failed at Scout step due to 403 "request was blocked" errors from Compute3 provider during web searches.
+- Root cause: Compute3 appears to be rate limiting, blocking by IP/region, or quota exceeded for this server.
+- Fix: Switch Scout agent model priority to use openrouter-direct provider first, with compute3 as fallback. This avoids dependency on a single blocked provider and maintains redundancy.
+- Follow-up: Always configure critical agents with multiple providers in different regions when possible; monitor provider health.

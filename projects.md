@@ -38,3 +38,8 @@ High-level view of all active workstreams.
 - Weekly land verification (cron).
 - Daily logs in memory/ (auto-delete after 7 days).
 - Session archiving (2MB threshold).
+
+## Current Issue: Compute3 Blocking
+- Scout agent's web searches blocked (403) by Compute3 provider during pipeline test.
+- Action needed: Change Scout model priority to use openrouter-direct first, with compute3 as fallback.
+- This will restore pipeline functionality and prevent single-provider dependency.
