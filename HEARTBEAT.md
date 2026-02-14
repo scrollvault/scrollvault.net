@@ -1,5 +1,12 @@
-# HEARTBEAT.md
+# Heartbeat Checklist (keep small)
 
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
+Run every ~30 minutes. Quick health checks only.
 
-# Add tasks below when you want the agent to check something periodically.
+- Check if active-tasks.md has stale items (>2h without update). If yes, nudge or reprioritize.
+- Self-review every ~4 hours: run self-review.md checklist.
+- Archive sessions >2MB; alert if >5MB.
+- Did any cron jobs fail? Look in logs/ for recent errors.
+- Quick git status: any uncommitted changes? Commit if appropriate.
+- Scan memory/ for logs older than 7 days; delete them.
+
+No heavy work here. Heavy tasks → cron.

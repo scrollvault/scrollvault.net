@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="$SCRIPT_DIR/data"
 AGENTS_DIR="$SCRIPT_DIR/agents"
 LOG_DIR="$SCRIPT_DIR/logs"
-OPENCLAW_BIN="/bin/openclaw"
+OPENCLAW_BIN="/usr/bin/openclaw"
 DRY_RUN="${1:-}"
 
 export GOG_KEYRING_PASSWORD=moltbot
