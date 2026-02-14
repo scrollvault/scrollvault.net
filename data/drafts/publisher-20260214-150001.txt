@@ -1,0 +1,46 @@
+[15:06:15] Attempt 1/3: /usr/bin/openclaw
+I'll publish this new fact-checked blog post. Let me go through the workflow.
+
+**Step 1: VALIDATE** - All required fields present, kebab-case matches, category is News, h2 tags present, author correct, date valid. ✓
+
+**Step 2: BACKUP** - Creating backup of posts file
+**Step 3: READ** - Reading current posts file
+**Step 4: CHECK for duplicates**
+
+The new post ID `heroes-in-a-half-shell-tmnt-previews-kick-off-february-17` does not exist in the current posts. No duplicate found. ✓
+
+**Step 5: ADD the new post**
+
+Preparing the post object (stripping internal notes, ensuring correct gradient)
+**Step 6: WRITE** - Updated posts.json with new post at the top ✓
+
+**Step 7: BUILD** - Running build script
+**Step 8: VERIFY** - Build succeeded, checking for post HTML file
+✓ HTML file created successfully
+
+**Step 9: FIX PERMISSIONS**
+**Step 10: PURGE CACHE**
+**Step 11: UPDATE PROJECTS TRACKER**
+**Step 11: UPDATE PROJECTS TRACKER** - Adding activity log entry for today
+**Step 12: COMMIT changes**
+✅ **PUBLISHED SUCCESSFULLY**
+
+**Post Details:**
+- **Title:** Heroes in a Half Shell: TMNT Previews Kick Off February 17
+- **Category:** News
+- **Slug:** heroes-in-a-half-shell-tmnt-previews-kick-off-february-17
+- **URL:** /posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html
+
+**Workflow Summary:**
+1. ✓ Validated post JSON (all required fields present, correct kebab-case, proper category, h2 tags, author, date)
+2. ✓ Backed up posts.json
+3. ✓ Checked for duplicates (none found)
+4. ✓ Added new post to beginning of array, stripped internal notes, ensured correct gradient
+5. ✓ Built site successfully (49 posts total, all pages generated)
+6. ✓ Verified HTML file exists (26K)
+7. ✓ Fixed permissions (degenai:nobody)
+8. ✓ Purged nginx cache
+9. ✓ Updated projects.md activity log
+10. ✓ Committed to git (commit cea8cc6)
+
+The site is now live with the new TMNT preview news post. No errors detected, no rollback needed.

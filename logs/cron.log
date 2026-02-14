@@ -56,3 +56,13 @@
 [15:06:10] --- Backing up posts.json ---
 [15:06:10] Backup saved to /home/degenai/scrollvault/data/posts.json.bak
 [15:06:10] --- STEP 5: Publisher ---
+[15:07:37] Publisher completed
+[15:07:37] --- Verifying Build ---
+[15:07:37] Total published posts: 49
+[15:07:37] Note: could not purge nginx cache (may need root)
+[15:07:37] Site HTTP status: 200
+[15:07:37] --- STEP 6: QA ---
+[15:15:47] QA completed
+[15:15:47] WARNING: QA found CRITICAL issues — review /home/degenai/scrollvault/data/drafts/qa-20260214-150001.txt
+[15:15:47] === Pipeline complete! ===
+[15:15:47] Done.
