@@ -40,3 +40,19 @@
 [15:08:20] Post failed validation. Skipping publish.
 [15:08:20] Fact-checker output saved to /home/degenai/scrollvault/data/drafts/factchecker-20260213-150001.txt
 [15:08:20] FAILED: Pre-publish validation failed: FAIL: validation script error
+[15:00:02] === ScrollVault Pipeline - 2026-02-14 ===
+[15:00:02] Recent posts loaded (1920 chars of titles)
+[15:00:02] --- STEP 1: Scout ---
+[15:03:49] Scout completed
+[15:03:49] Top story selected: Teenage Mutant Ninja Turtles Set Previews Kick Off February 17
+[15:03:49] --- STEP 2: Writer ---
+[15:04:26] Writer completed
+[15:04:26] --- STEP 3: Editor ---
+[15:05:15] Editor completed
+[15:05:15] --- STEP 4: Fact Checker ---
+[15:06:10] Fact Checker completed
+[15:06:10] --- Pre-Publish Validation ---
+[15:06:10] Validation: PASS: Post validated (Heroes in a Half Shell: TMNT Previews Kick Off February 17)
+[15:06:10] --- Backing up posts.json ---
+[15:06:10] Backup saved to /home/degenai/scrollvault/data/posts.json.bak
+[15:06:10] --- STEP 5: Publisher ---

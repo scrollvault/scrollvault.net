@@ -45,4 +45,5 @@ High-level view of all active workstreams.
 - This will restore pipeline functionality and prevent single-provider dependency.
 
 ## Activity Log
+- 2026-02-14: Published 1 post(s) – [Heroes in a Half Shell: TMNT Previews Kick Off February 17](/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html)
 - 2026-02-14: Published 1 post(s) – [Divination in Action: How We Scout MTG News](/posts/divination-in-action-how-we-scout-mtg-news.html)

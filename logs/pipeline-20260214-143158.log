@@ -20,3 +20,9 @@
 [14:35:23] Backup saved to /home/degenai/scrollvault/data/posts.json.bak
 [14:35:23] --- STEP 5: Publisher ---
 [14:35:28] Attempt 1/3: /usr/bin/openclaw
+[14:46:39] Publisher completed
+[14:46:39] --- Verifying Build ---
+[14:46:39] Total published posts: 48
+[14:46:39] Note: could not purge nginx cache (may need root)
+[14:46:39] Site HTTP status: 200
+[14:46:39] --- STEP 6: QA ---

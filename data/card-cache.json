@@ -12534,5 +12534,141 @@
   "refreshing scryfall": {
     "name": "Refreshing Scryfall",
     "not_found": true
+  },
+  "heroes in a half": {
+    "name": "Heroes in a Half Shell",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.jpg?1760103919",
+    "normal": "https://cards.scryfall.io/normal/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.jpg?1760103919",
+    "artist": "Victor Maury",
+    "set": "tmc",
+    "not_found": false
+  },
+  "half shell": {
+    "name": "Heroes in a Half Shell",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.jpg?1760103919",
+    "normal": "https://cards.scryfall.io/normal/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.jpg?1760103919",
+    "artist": "Victor Maury",
+    "set": "tmc",
+    "not_found": false
+  },
+  "tmnt previews": {
+    "name": "TMNT Previews",
+    "not_found": true
+  },
+  "tmnt previews kick": {
+    "name": "TMNT Previews Kick",
+    "not_found": true
+  },
+  "tmnt previews kick off": {
+    "name": "TMNT Previews Kick Off",
+    "not_found": true
+  },
+  "previews kick": {
+    "name": "Previews Kick",
+    "not_found": true
+  },
+  "previews kick off": {
+    "name": "Previews Kick Off",
+    "not_found": true
+  },
+  "previews kick off february": {
+    "name": "Previews Kick Off February",
+    "not_found": true
+  },
+  "kick off": {
+    "name": "Kick Off",
+    "not_found": true
+  },
+  "kick off february": {
+    "name": "Kick Off February",
+    "not_found": true
+  },
+  "off february": {
+    "name": "Off February",
+    "not_found": true
+  },
+  "weekly mtg": {
+    "name": "Weekly MTG",
+    "not_found": true
+  },
+  "leonardo donatello": {
+    "name": "Leonardo Donatello",
+    "not_found": true
+  },
+  "leonardo donatello raphael": {
+    "name": "Leonardo Donatello Raphael",
+    "not_found": true
+  },
+  "leonardo donatello raphael michelangelo": {
+    "name": "Leonardo Donatello Raphael Michelangelo",
+    "not_found": true
+  },
+  "donatello raphael": {
+    "name": "Donatello Raphael",
+    "not_found": true
+  },
+  "donatello raphael michelangelo": {
+    "name": "Donatello Raphael Michelangelo",
+    "not_found": true
+  },
+  "raphael michelangelo": {
+    "name": "Raphael Michelangelo",
+    "not_found": true
+  },
+  "raphael michelangelo and splinter": {
+    "name": "Raphael Michelangelo and Splinter",
+    "not_found": true
+  },
+  "michelangelo and splinter": {
+    "name": "Michelangelo and Splinter",
+    "not_found": true
+  },
+  "countdown is": {
+    "name": "The Countdown Is at One",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/a/4afb8115-3a47-4d7e-a3ed-b2e81ca27255.jpg?1562910709",
+    "normal": "https://cards.scryfall.io/normal/front/4/a/4afb8115-3a47-4d7e-a3ed-b2e81ca27255.jpg?1562910709",
+    "artist": "Jesper Ejsing",
+    "set": "ust",
+    "not_found": false
+  },
+  "countdown is on": {
+    "name": "The Countdown Is at One",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/a/4afb8115-3a47-4d7e-a3ed-b2e81ca27255.jpg?1562910709",
+    "normal": "https://cards.scryfall.io/normal/front/4/a/4afb8115-3a47-4d7e-a3ed-b2e81ca27255.jpg?1562910709",
+    "artist": "Jesper Ejsing",
+    "set": "ust",
+    "not_found": false
+  },
+  "tmnt previews start": {
+    "name": "TMNT Previews Start",
+    "not_found": true
+  },
+  "tmnt previews start feb": {
+    "name": "TMNT Previews Start Feb",
+    "not_found": true
+  },
+  "previews start": {
+    "name": "Previews Start",
+    "not_found": true
+  },
+  "previews start feb": {
+    "name": "Previews Start Feb",
+    "not_found": true
+  },
+  "start feb": {
+    "name": "Start Feb",
+    "not_found": true
+  },
+  "teenage mutant": {
+    "name": "Teenage Mutant",
+    "not_found": true
+  },
+  "teenage mutant ninja": {
+    "name": "Teenage Mutant Ninja",
+    "not_found": true
+  },
+  "teenage mutant ninja turtles": {
+    "name": "Teenage Mutant Ninja Turtles",
+    "not_found": true
   }
 }
