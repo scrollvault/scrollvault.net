@@ -25,6 +25,15 @@ High-level view of all active workstreams.
 - Featured-cards injection disabled for News.
 - Branch: master updated.
 
+## Agent Automation Pipeline (Done)
+- Full agent suite registered: scout, writer, editor, factchecker, publisher, designer, qa, automation.
+- Model routing: scout/factchecker → hermes4:405b; automation → step; publisher → coder.
+- Subagent allowlists enable pipeline collaboration.
+- Automation agent permissions: exec, sessions_spawn, message.
+- Cron jobs active: weekly land verification (Sun 3 AM UTC), daily pipeline (6 AM ET), morning digest (8 AM ET).
+- Branch: feature/structure-hardening-2026-02-14 merged.
+- Health check passes; all systems operational.
+
 ## Ongoing Maintenance
 - Weekly land verification (cron).
 - Daily logs in memory/ (auto-delete after 7 days).

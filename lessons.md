@@ -22,3 +22,9 @@ Never repeat the same mistake. Each entry includes root cause and fix.
 - Problem: News posts (e.g., Companion app update) showed unrelated card art (Lightning Bolt).
 - Root cause: Auto-selection picked fallback category cards even when no decklist present.
 - Fix: Skip hero card for News posts without decklist; filter basic lands from hero selection.
+
+## 2026-02-14: Agent Configuration Loss from Partial Patches
+- Problem: After merging feature branch, only the `automation` agent remained registered; other agent definitions (writer, editor, factchecker, publisher, designer, qa) disappeared.
+- Root cause: Previous partial config patches replaced the entire `agents.list` instead of merging; the final config only contained the last patched agent.
+- Fix: Rebuilt full agent list via `config.patch` with a complete list including all agents, workspace paths, model routing, tools policies, and subagent allowlists. Restarted gateway.
+- Follow-up: Always patch the full `agents.list` array; verify `agents_list` after config changes; keep a canonical agent definition source in the repo (e.g., agents/*.txt) to reconstruct if needed.
