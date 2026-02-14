@@ -1,0 +1,11 @@
+{
+  "research_items": [
+    {
+      "filename": "competitor-analysis-2026-02-14.md",
+      "source": "Competitor analysis",
+      "status": "complete",
+      "timestamp": "2026-02-14T22:22:00Z",
+      "summary": "Benchmark analysis of ScrollVault MTG content against StarCityGames, MTGGoldfish, and EDHREC reveals critical gaps in visuals, interactivity, and data presentation, with actionable 90-day implementation plan."
+    }
+  ]
+}
