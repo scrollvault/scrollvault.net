@@ -12782,5 +12782,13 @@
     "artist": "Daren Bader",
     "set": "ecl",
     "not_found": false
+  },
+  "outland chaperone": {
+    "name": "Ajani, Outland Chaperone",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/1/6124a691-ae83-4d22-a177-0aee65b47064.jpg?1767951721",
+    "normal": "https://cards.scryfall.io/normal/front/6/1/6124a691-ae83-4d22-a177-0aee65b47064.jpg?1767951721",
+    "artist": "Daren Bader",
+    "set": "ecl",
+    "not_found": false
   }
 }
