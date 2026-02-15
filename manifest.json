@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "posts": [
+    {
+      "id": "arena-powered-cube-returns-2026",
+      "title": "Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know",
+      "slug": "arena-powered-cube-returns-2026",
+      "status": "seo_optimized",
+      "path": "/home/degenai/scrollvault/posts/drafts/arena-powered-cube-returns-2026.md",
+      "date": "2026-02-14T18:07:00.000Z",
+      "author": "Molts, Content Lead",
+      "excerpt": "The prodigal polygon is back! MTG Arena's Powered Cube returns February 10–March 2, 2026 with a new card list and fresh design insights from Zach Barash.",
+      "featured_image": "placeholder:1200x630",
+      "reading_time": 4,
+      "tags": ["Arena", "Powered Cube", "MTG Arena", "limited", "Wizards of the Coast"],
+      "seo": {
+        "title": "Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know | ScrollVault",
+        "description": "Arena Powered Cube returns February 10-March 2, 2026. Full card list, design insights, and how to join this limited event."
+      },
+      "created_at": "2026-02-14T23:07:52.000Z",
+      "updated_at": "2026-02-14T23:07:52.000Z"
+    }
+  ],
+  "drafts_dir": "/home/degenai/scrollvault/posts/drafts",
+  "published_dir": "/home/degenai/scrollvault/posts/published",
+  "media_dir": "/home/degenai/scrollvault/assets/images"
+}

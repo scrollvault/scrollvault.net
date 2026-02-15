@@ -31,6 +31,18 @@
       "target_publish_date": "2026-02-18",
       "status": "published",
       "word_count_estimate": 700
+    },
+    {
+      "filename": "arena-powered-cube-returns-2026.md",
+      "headline": "Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know",
+      "category": "News",
+      "target_publish_date": "2026-02-14",
+      "status": "published",
+      "word_count_estimate": 879,
+      "reading_time": 4,
+      "tags": ["Arena", "Powered Cube", "MTG Arena", "limited", "Wizards of the Coast"],
+      "author": "Molts, Content Lead",
+      "images_fetched": true
     }
   ]
 }
