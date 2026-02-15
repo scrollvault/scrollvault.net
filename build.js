@@ -9,6 +9,13 @@ const DATA_FILE = path.join(ROOT, 'data', 'posts.json');
 const CACHE_FILE = path.join(ROOT, 'data', 'card-cache.json');
 const POSTS_DIR = path.join(ROOT, 'posts');
 
+// Output directory (default: current workspace)
+const OUTPUT_DIR = process.argv.includes('--staging') ? '/home/degenai/staging.scrollvault.net' :
+                   process.argv.includes('--output') ? process.argv[process.argv.indexOf('--output') + 1] :
+                   ROOT;
+const POSTS_OUT_DIR = path.join(OUTPUT_DIR, 'posts');
+
+
 // ── Shared helpers ──
 const CATEGORY_SLUGS = {
   'News': 'news', 'Strategy': 'strategy', 'Spoilers': 'spoilers',
@@ -719,7 +726,7 @@ async function main() {
   const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   const posts = data.posts.filter(p => p.published).sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  fs.mkdirSync(POSTS_DIR, { recursive: true });
+  undefined
 
   // ── Resolve card art for all posts ──
   console.log('Resolving card art from Scryfall...');
@@ -928,7 +935,7 @@ ${footer('')}
 </body>
 </html>`;
 
-  fs.writeFileSync(path.join(ROOT, 'index.html'), indexHtml);
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'index.html'), indexHtml);
   console.log(`Built index with ${posts.length} posts (hero + ${featuredPosts.length} featured + ${gridPosts.length} grid)`);
 
   // Build hub pages (News and Guides)
@@ -1209,9 +1216,9 @@ ${hasCards ? TOOLTIP_JS : ''}
 </body>
 </html>`;
 
-    fs.writeFileSync(path.join(POSTS_DIR, `${post.slug}.html`), postHtml);
+    fs.writeFileSync(path.join(POSTS_OUT_DIR, `${post.slug}.html`), postHtml);
   });
-  console.log(`Built ${posts.length} post pages in /posts/`);
+  console.log(`Built ${posts.length} post pages to ${POSTS_OUT_DIR}`);
 
   // ── STATIC PAGES ──
   function writePage(filename, title, activePage, bodyHtml) {
