@@ -40,13 +40,13 @@ STEPS:
 
 6. WRITE the updated posts.json
 
-7. BUILD the site:
-   - Run: node /home/degenai/scrollvault/build.js
+7. BUILD TO STAGING:
+   - Run: node /home/degenai/scrollvault/build.js --staging
    - Check the output for errors
 
 8. VERIFY the build:
    - Confirm the build script exited without errors
-   - Check that the post HTML file exists: /home/degenai/scrollvault/posts/[slug].html
+   - Check that the post HTML file exists: /home/degenai/staging.scrollvault.net/posts/[slug].html
    - If build failed, ROLLBACK:
      cp /home/degenai/scrollvault/data/posts.json.bak /home/degenai/scrollvault/data/posts.json
      Report the build error and STOP
@@ -55,9 +55,7 @@ STEPS:
    - Run: chown -R degenai:nobody /home/degenai/scrollvault/ 2>/dev/null || true
    - This ensures Apache (runs as nobody) can serve the files
 
-10. PURGE CACHE:
-    - Run: rm -rf /var/nginx/cache/degenai/* 2>/dev/null || true
-    - This clears the nginx proxy cache so changes appear immediately
+
 
 
 11. UPDATE PROJECTS TRACKER:

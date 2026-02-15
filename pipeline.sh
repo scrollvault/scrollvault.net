@@ -261,7 +261,7 @@ chown -R degenai:nobody "$SCRIPT_DIR" 2>/dev/null || true
 # Purge nginx proxy cache so changes appear immediately
 rm -rf /var/nginx/cache/degenai/* 2>/dev/null && log "Nginx cache purged" || log "Note: could not purge nginx cache (may need root)"
 
-HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" https://scrollvault.net/ 2>/dev/null || echo "000")
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" https://staging.scrollvault.net/ 2>/dev/null || echo "000")
 log "Site HTTP status: $HTTP_CODE"
 
 if [ "$HTTP_CODE" != "200" ]; then
@@ -280,7 +280,7 @@ log "--- STEP 6: QA ---"
 sleep 5
 
 QA_PROMPT=$(cat "$AGENTS_DIR/qa.txt")
-QA_CONTEXT="Run the QA test suite on the live site after today's publish.
+QA_CONTEXT="Run the QA test suite on the STAGING site after today's publish.
 
 $QA_PROMPT"
 
@@ -299,6 +299,14 @@ if echo "$QA_RESULT" | grep -q "CRITICAL"; then
     log "WARNING: QA found CRITICAL issues — review $DATA_DIR/drafts/qa-${TIMESTAMP}.txt"
 fi
 
+
+# ── PROMOTE TO PRODUCTION (if QA passed) ──
+if ! echo "$QA_RESULT" | grep -q "CRITICAL"; then
+    log "--- PROMOTE TO PRODUCTION ---"
+    "$SCRIPT_DIR/deploy-prod.sh" 2>&1 | tee -a "$LOG_FILE" || log "ERROR: Promote failed!"
+else
+    log "SKIPPING PROMOTE due to QA CRITICAL issues"
+fi
 log "=== Pipeline complete! ==="
 
 # Cleanup old logs (keep 30 days)
