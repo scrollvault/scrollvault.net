@@ -466,7 +466,7 @@ function nav(rootRel, activePage) {
   ].map(link => `<li><a href="${rootRel}${link.href}"${link.active ? ' class="active"' : ''}>${link.label}</a></li>`).join('\n                ');
   return `    <nav class="nav">
         <div class="container nav-content">
-            <a href="${rootRel}/" class="nav-logo">ScrollVault</a>
+            <a href="/" class="nav-logo">ScrollVault</a>
             <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
             <ul class="nav-links" id="navLinks">
                 ${navLinks}
