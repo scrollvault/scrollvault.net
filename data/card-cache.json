@@ -12670,5 +12670,117 @@
   "teenage mutant ninja turtles": {
     "name": "Teenage Mutant Ninja Turtles",
     "not_found": true
+  },
+  "arena powered": {
+    "name": "Arena Powered",
+    "not_found": true
+  },
+  "arena powered cube": {
+    "name": "Arena Powered Cube",
+    "not_found": true
+  },
+  "arena powered cube returns": {
+    "name": "Arena Powered Cube Returns",
+    "not_found": true
+  },
+  "powered cube": {
+    "name": "Powered Cube",
+    "not_found": true
+  },
+  "powered cube returns": {
+    "name": "Powered Cube Returns",
+    "not_found": true
+  },
+  "cube returns": {
+    "name": "Cube Returns",
+    "not_found": true
+  },
+  "dates card": {
+    "name": "Dates Card",
+    "not_found": true
+  },
+  "dates card list": {
+    "name": "Dates Card List",
+    "not_found": true
+  },
+  "players need": {
+    "name": "Players Need",
+    "not_found": true
+  },
+  "players need to know": {
+    "name": "Players Need to Know",
+    "not_found": true
+  },
+  "need to know": {
+    "name": "Need to Know",
+    "not_found": true
+  },
+  "need to know the": {
+    "name": "Need to Know The",
+    "not_found": true
+  },
+  "know the": {
+    "name": "Know The",
+    "not_found": true
+  },
+  "mtg arena's powered": {
+    "name": "MTG Arena's Powered",
+    "not_found": true
+  },
+  "mtg arena's powered cube": {
+    "name": "MTG Arena's Powered Cube",
+    "not_found": true
+  },
+  "arena's powered": {
+    "name": "Arena's Powered",
+    "not_found": true
+  },
+  "arena's powered cube": {
+    "name": "Arena's Powered Cube",
+    "not_found": true
+  },
+  "february march": {
+    "name": "February March",
+    "not_found": true
+  },
+  "zach barash": {
+    "name": "Zach Barash",
+    "not_found": true
+  },
+  "event details": {
+    "name": "Event Details",
+    "not_found": true
+  },
+  "event details dates": {
+    "name": "Event Details Dates",
+    "not_found": true
+  },
+  "details dates": {
+    "name": "Details Dates",
+    "not_found": true
+  },
+  "cube draft": {
+    "name": "Cube Draft",
+    "not_found": true
+  },
+  "prize support": {
+    "name": "Prize Support",
+    "not_found": true
+  },
+  "power pack": {
+    "name": "Power Pack",
+    "not_found": true
+  },
+  "power pack the": {
+    "name": "Power Pack The",
+    "not_found": true
+  },
+  "ajani outland": {
+    "name": "Ajani, Outland Chaperone",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/1/6124a691-ae83-4d22-a177-0aee65b47064.jpg?1767951721",
+    "normal": "https://cards.scryfall.io/normal/front/6/1/6124a691-ae83-4d22-a177-0aee65b47064.jpg?1767951721",
+    "artist": "Daren Bader",
+    "set": "ecl",
+    "not_found": false
   }
 }

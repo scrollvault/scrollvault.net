@@ -1,0 +1,62 @@
+{
+  "average_deck_price": 425,
+  "top_10_staples": [
+    { "name": "Hexing Squelcher", "play_rate": 62 },
+    { "name": "Scuzzback Scrounger", "play_rate": 58 },
+    { "name": "Boggart Cursecrafter", "play_rate": 55 },
+    { "name": "Vibrance", "play_rate": 52 },
+    { "name": "Boggart Mischief", "play_rate": 50 },
+    { "name": "Mayhem Devil", "play_rate": 48 },
+    { "name": "Tireless Provisioner", "play_rate": 46 },
+    { "name": "Pitiless Plunderer", "play_rate": 44 },
+    { "name": "Chatterfang, Squirrel General", "play_rate": 42 },
+    { "name": "Warren Soultrader", "play_rate": 40 }
+  ],
+  "mana_curve": {
+    "0": 2.3,
+    "1": 5.8,
+    "2": 8.2,
+    "3": 9.1,
+    "4": 7.4,
+    "5": 5.6,
+    "6": 4.1,
+    "7+": 2.5
+  },
+  "color_distribution": {
+    "W": 0.5,
+    "U": 0.5,
+    "B": 42,
+    "R": 29,
+    "G": 28
+  },
+  "meta_performance": {
+    "total_decks": 18507,
+    "top_8_rate": 4.2,
+    "win_rate_avg": 48.7
+  },
+  "popular_combos": [
+    "Korvold + Animation Module + Ashnod's Altar",
+    "Korvold + Pitiless Plunderer + Viscera Seer",
+    "Korvold + Blood Pet + Mortuary",
+    "Korvold + Mayhem Devil + Mortuary + Blood Pet",
+    "Korvold + Mayhem Devil + Mortuary + Skirk Prospector",
+    "Korvold + Golgari Thug + Pitiless Plunderer + Ashnod's Altar",
+    "Korvold + Pitiless Plunderer + Zombie Infestation + Ashnod's Altar",
+    "Goldspan Dragon + Crown of Flames + Korvold",
+    "Goldspan Dragon + Whip Silk + Korvold",
+    "Korvold + Mortuary + Reckless Barbarian",
+    "Korvold + Mortuary + Ashnod's Altar + Gleaming Barrier",
+    "Goldspan Dragon + Flickering Ward + Korvold",
+    "Korvold + Haunted Crossroads + Pitiless Plunderer + Blood Pet",
+    "The Locust God + Korvold + Ashnod's Altar",
+    "Nadir Kraken + Korvold + Ashnod's Altar",
+    "Nadir Kraken + Korvold + Phyrexian Altar",
+    "Korvold + Surly Badgersaur + Dakmor Salvage + Putrid Imp"
+  ],
+  "budget_variants": {
+    "sub_25": true,
+    "sub_50": true,
+    "sub_100": true
+  },
+  "recent_trends": "stable"
+}
