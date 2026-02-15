@@ -1,4 +1,4 @@
-# TOOLS.md - Local Notes
+# TOOLS.md - ScrollVault Workspace Notes
 
 ## CRITICAL: File Hygiene
 
@@ -7,41 +7,45 @@
 - Temporary artifacts (JSON, HTML, raw data): save to `drafts/` subdirectory or `/home/degenai/scrollvault/data/drafts/`
 - Workspace root = small docs only (under 10KB)
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+## Site Info
 
-## What Goes Here
+- **URL:** https://scrollvault.net
+- **Staging:** https://staging.scrollvault.net
+- **Build script:** `/home/degenai/scrollvault/build.js`
+- **Data:** `/home/degenai/scrollvault/data/posts.json`
+- **Stylesheet:** `/home/degenai/scrollvault/style.css`
 
-Things like:
+## Pipeline
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
+6-step agent pipeline: Scout → Writer → Editor → Fact Checker → Publisher → QA
 
-## Examples
+```bash
+# Full pipeline
+bash /home/degenai/scrollvault/pipeline.sh
 
-```markdown
-### Cameras
+# Dry run (scout only)
+bash /home/degenai/scrollvault/pipeline.sh --dry-run
 
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
+# Rebuild site
+node /home/degenai/scrollvault/build.js
 
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+# Build to staging
+node /home/degenai/scrollvault/build.js --staging
 ```
 
-## Why Separate?
+## Agent Prompts
 
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+Located in `/home/degenai/scrollvault/agents/`:
+scout.txt, writer.txt, editor.txt, factchecker.txt, publisher.txt, designer.txt, qa.txt, automation.txt, heartbeat.txt, data-analyst.txt, seo-optimizer.txt
 
----
+## File Ownership
 
-Add whatever helps you do your job. This is your cheat sheet.
+All files under `/home/degenai/scrollvault/` must be `degenai:nobody` (Apache runs as nobody).
+```bash
+chown -R degenai:nobody /home/degenai/scrollvault/ 2>/dev/null || true
+```
+
+## Logs
+
+- Pipeline logs: `/home/degenai/scrollvault/logs/pipeline-*.log`
+- Gateway log: `/tmp/openclaw-gateway.log`

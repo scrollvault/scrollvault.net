@@ -37,8 +37,7 @@ const CATEGORY_FALLBACK_CARDS = {
 };
 function isBasicLand(name) {
   const basics = new Set(['Plains', 'Island', 'Swamp', 'Mountain', 'Forest', 'Wastes',
-    'Snow-Covered Plains', 'Snow-Covered Island', 'Snow-Covered Swamp', 'Snow-Covered Mountain', 'Snow-Covered Forest',
-    'Plains', 'Island', 'Swamp', 'Mountain', 'Forest']);
+    'Snow-Covered Plains', 'Snow-Covered Island', 'Snow-Covered Swamp', 'Snow-Covered Mountain', 'Snow-Covered Forest']);
   return basics.has(name);
 }
 
@@ -346,7 +345,7 @@ function processPostBody(html, cards, category) {
 
     const names = Object.values(cardMapLower).map(c => c.name).sort((a, b) => b.length - a.length);
     const pattern = names.map(n => escapeRegex(n)).join('|');
-    const re = new RegExp(`\b(${pattern})\b`, 'gi');
+    const re = new RegExp(`\\b(${pattern})\\b`, 'gi');
 
     const tokens = part.split(/(<[^>]+>)/g);
     return tokens.map(token => {
@@ -369,7 +368,7 @@ function processPostBody(html, cards, category) {
         `  <a href="${esc(makeAffiliateLink(c.name))}" rel="nofollow sponsored" target="_blank"><img src="${esc(c.normal)}" alt="${esc(c.name)}" title="${esc(c.name)}" loading="lazy"></a>`
       ).join('\n')}\n</div>`;
       // Inject after the first closing </p> that appears early in the body
-      const injected = result.replace(/<\/p>/i, `</p>` + strip, 1);
+      const injected = result.replace(/<\/p>/i, `</p>` + strip);
       return injected;
     }
   }
@@ -726,8 +725,6 @@ async function main() {
   const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   const posts = data.posts.filter(p => p.published).sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  undefined
-
   // ── Resolve card art for all posts ──
   console.log('Resolving card art from Scryfall...');
   for (const post of posts) {
@@ -1082,7 +1079,7 @@ ${footer('')}
 </body>
 </html>`;
 
-    const outDir = path.join(ROOT, slug);
+    const outDir = path.join(OUTPUT_DIR, slug);
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, 'index.html'), hubHtml);
     console.log(`Built ${slug}/index.html (${hubPosts.length} posts)`);
@@ -1239,7 +1236,9 @@ ${bodyHtml}
 ${footer('')}
 </body>
 </html>`;
-    fs.writeFileSync(path.join(ROOT, filename), html);
+    const outPath = path.join(OUTPUT_DIR, filename);
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    fs.writeFileSync(outPath, html);
     console.log(`Built ${filename}`);
   }
 

@@ -266,7 +266,7 @@ log "Site HTTP status: $HTTP_CODE"
 
 if [ "$HTTP_CODE" != "200" ]; then
     log "WARNING: Site returned $HTTP_CODE — checking if rollback needed"
-    if [ "$HTTP_CODE" = "500" ] || [ "$HTTP_CODE" = "000" ]; then
+    if [ "$HTTP_CODE" = "500" ] || [ "$HTTP_CODE" = "502" ] || [ "$HTTP_CODE" = "503" ] || [ "$HTTP_CODE" = "403" ] || [ "$HTTP_CODE" = "000" ]; then
         log "Rolling back posts.json from backup"
         cp "$DATA_DIR/posts.json.bak" "$DATA_DIR/posts.json"
         node "$SCRIPT_DIR/build.js" 2>/dev/null || true
@@ -311,7 +311,7 @@ log "=== Pipeline complete! ==="
 
 # Cleanup old logs (keep 30 days)
 find "$LOG_DIR" -name "pipeline-*.log" -mtime +30 -delete 2>/dev/null || true
-find "$DATA_DIR/drafts" -name "*.txt" -mtime +7 -delete 2>/dev/null || true
-find "$DATA_DIR" -name "posts.json.bak" -mtime +1 -delete 2>/dev/null || true
+find "$DATA_DIR/drafts" -name "*.txt" -mtime +30 -delete 2>/dev/null || true
+find "$DATA_DIR" -name "posts.json.bak" -mtime +7 -delete 2>/dev/null || true
 
 log "Done."
