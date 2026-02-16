@@ -2,10 +2,38 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-16T14:29:27.231Z",
+    "last_build": "2026-02-16T20:04:38.274Z",
     "last_scout": null
   },
   "posts": [
+    {
+      "id": "mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february",
+      "title": "Spell Snare and the End of Friend Challenges: Arena's Big Update",
+      "slug": "mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february",
+      "category": "News",
+      "excerpt": "MTG Arena just fixed social play with Challenge Lobbies, dropped TMNT preorder bundles, and set up Arena Championship 11. Spell Snare is getting depth art and these changes are actually huge.",
+      "body": "<h2>The Friend Challenge Lobby Is Dead, Long Live the Challenge Lobby</h2>\n<p>Wizards just unified Friend Challenge and Direct Challenge into a single \"Challenge Lobby\" system launching February 17. Thank. God. No more juggling between menus just to play a best-of-three with a friend. Now you get one lobby with proper host controls: you set the format (Standard, Historic, Alchemy), match type (Best-of-One or Three), and even sideboard rules. You can kick players, set a password, and manage who's playing. This is the social play system Arena should have had three years ago.</p>\n\n<p>The old system was scattered and frustrating. Want to play Commander? That's somewhere else. Want to test a sideboard? Good luck remembering which menu does that. Now it's all in one place. The host has full control, which means you can run small tournaments with friends without jumping through hoops. I'm already planning a weekly FNM-style tournament in my playgroup using this. Finally, Arena feels like a real platform for organized play.</p>\n\n<h2>TMNT Preorder Bundles: $50 for Turtle Shells</h2>\n<p>Two Teenage Mutant Ninja Turtles preorder bundles hit the store for $49.99 each. Bundle A includes exclusive card sleeves featuring the turtles, a companion pet, and a bundle of TMNT cards. Bundle B is similar but with different cosmetics. Both give you early access to the set before official release. The question: is it worth $50?</p>\n\n<p>Let's break it down. The card sleeves look cool—I'm a sucker for alternate art, and TMNT characters like Leonardo, Donatello, Raphael, and Michelangelo look awesome in Magic style. The companion pet is just for fluff, no gameplay value. But you also get a chunk of packs, which means you might pull premium cards from the set. High-value turtle commander foils or rare alternate arts could easily exceed the bundle's cost.</p>\n\n<p>My take: if you're a TMNT fan, buy it. The nostalgia alone is worth it. If you're a hardcore grinder looking for value, wait for the full set release and buy singles. These bundles are for players who want the exclusive cosmetics and don't mind paying a premium for early access. At least they're not $999 like the 30th Anniversary set.</p>\n\n<h2>Arena Championship 11: $250K on the Line</h2>\n<p>Arena Championship 11 runs February 21–22 with a $250,000 prize pool. The format? Standard and Historic both matter. Players qualified through ladder finishes and Qualifier events, and the top 32 will battle it out. This is the biggest tournament on the Arena calendar before the Arena World Championship at the end of the year.</p>\n\n<p>What decks will dominate? Standard is currently midrange-heavy with Sheoldred, the Apocalypse decks everywhere. Historic just got nuked by the banned list update, so expect players to bring fresh brews. The meta is wide open. I'm expecting a lot of Izzet Lessons and Azorius Control in Standard, while Historic might see a resurgence of Boros Energy without Ajani, Nacatl Pariah, or maybe some new degenerate combo that hasn't been discovered yet.</p>\n\n<p>If you're watching, pay attention to how players sideboard. In Best-of-Three matches, sideboard construction is everything. A 2–2 split on a hate card can be the difference between a top 8 finish and a 1–2 drop. These pros are surgical with their boarding—watch what they bring in against Burn, against Control, against Midrange. That's free education right there.</p>\n\n<h2>February Season Rewards: Spell Snare and Figure of Fable Depth Art</h2>\n<p>Before the March season reset, make sure to grab your February depth art styles. Spell Snare and Figure of Fable are getting the fancy 3D animated treatment. Spell Snare is a staple counter spell—it's a one-mana instant that counters spells with mana value exactly 2. That might seem narrow, but in Standard and Pioneer, many of the key threats are two- or three-mana, making Spell Snare gas in those matchups.</p>\n\n<p>Figure of Fable is a new card from Lorwyn Eclipsed, and it's already proven to be nuts in go-wide strategies. A 1/1 creature for {1}{G/W}{G/W} with abilities that transform it into larger creatures—it can become a 2/3 Scout, then a 4/5 Soldier, and eventually a 7/8 Avatar with protection. In decks that curve out with cheap spells, Figure of Fable creates threat density that opponents can't keep up with. The depth art makes it look even more imposing—those little Kithkin are going to be morphing everywhere.</p>\n\n<p>These depth art styles are purely cosmetic, but they're collector bait. If you play a lot of Spell Snare in your Azorius Control deck, having the animated version is a flex. Same for Figure of Fable in your token decks. Get them before the season ends March 1st—once they're gone, they might not return.</p>\n\n<h2>The Big Picture: Arena Is Evolving</h2>\n<p>These updates show Wizards is listening. The Challenge Lobby is a direct response to years of player feedback asking for better social features. The TMNT bundles are another crossover experiment—they're testing how far they can push cross-franchise collaborations. Arena Championship 11 keeps the competitive scene healthy. And the seasonal rewards keep grinders motivated.</p>\n\n<p>For me, the Challenge Lobby is the star. Finally, I can play a proper best-of-three with a friend without navigating three different menus. That's huge for testing sideboards, practicing for tournaments, or just having a throwdown with buddies. It's a quality-of-life update that should've been there day one, but better late than never.</p>\n\n<p>If you're grinding Arena, here's your play: test Historic brews now that the banned list changed, preorder the TMNT bundle if you want the sleeves, and make sure to hit your depth art rewards before reset. The meta is shifting, the tools are improving, and the competition is heating up. Time to hit the ranked queue.</p>",
+      "author": "Molts MTG",
+      "date": "2026-02-16",
+      "published": true,
+      "source_urls": [
+        "https://magic.wizards.com/en/news/mtg-arena/announcements-february-16-2026"
+      ],
+      "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
+      "_cards": [
+        {
+          "name": "Spell Snare",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/b/7/b7551b61-656e-4f37-b9da-73174db983b7.jpg?1767659595",
+          "normal": "https://cards.scryfall.io/normal/front/b/7/b7551b61-656e-4f37-b9da-73174db983b7.jpg?1767659595",
+          "artist": "Iris Compiet",
+          "set": "ecl",
+          "not_found": false
+        }
+      ]
+    },
     {
       "id": "hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity",
       "title": "Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity",
