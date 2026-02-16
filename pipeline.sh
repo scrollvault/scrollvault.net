@@ -29,6 +29,11 @@ fail() {
     exit 1
 }
 
+# Strip openclaw log prefixes so downstream agents don't see "[timestamp] Attempt..." lines
+strip_log_prefix() {
+    echo "$1" | sed '/^\[.*\] Attempt [0-9]/d' | sed '/^[0-9]\{3\} Provider returned/d' | sed '/^{"error":/d'
+}
+
 # Retry configuration
 MAX_RETRIES=3
 RETRY_DELAY=15
@@ -93,6 +98,7 @@ SCOUT_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     -m "$SCOUT_CONTEXT" 2>&1) || fail "Scout agent failed after $MAX_RETRIES attempts"
 
 log "Scout completed"
+SCOUT_RESULT=$(strip_log_prefix "$SCOUT_RESULT")
 echo "$SCOUT_RESULT" > "$DATA_DIR/drafts/scout-${TIMESTAMP}.txt"
 
 # Extract JSON from scout result (find first { to last })
@@ -150,11 +156,11 @@ WRITER_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     -m "$WRITER_CONTEXT" 2>&1) || fail "Writer agent failed after $MAX_RETRIES attempts"
 
 log "Writer completed"
+WRITER_RESULT=$(strip_log_prefix "$WRITER_RESULT")
 echo "$WRITER_RESULT" > "$DATA_DIR/drafts/writer-${TIMESTAMP}.txt"
 
 # ── STEP 3: EDITOR ──
 log "--- STEP 3: Editor ---"
-
 
 EDITOR_PROMPT=$(cat "$AGENTS_DIR/editor.txt")
 EDITOR_CONTEXT="Review this blog post draft and fix any issues.
@@ -172,6 +178,7 @@ EDITOR_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     -m "$EDITOR_CONTEXT" 2>&1) || fail "Editor agent failed after $MAX_RETRIES attempts"
 
 log "Editor completed"
+EDITOR_RESULT=$(strip_log_prefix "$EDITOR_RESULT")
 echo "$EDITOR_RESULT" > "$DATA_DIR/drafts/editor-${TIMESTAMP}.txt"
 
 # ── STEP 4: FACT CHECKER ──
@@ -194,30 +201,14 @@ FACTCHECKER_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     -m "$FACTCHECKER_CONTEXT" 2>&1) || fail "Fact Checker agent failed after $MAX_RETRIES attempts"
 
 log "Fact Checker completed"
+FACTCHECKER_RESULT=$(strip_log_prefix "$FACTCHECKER_RESULT")
 echo "$FACTCHECKER_RESULT" > "$DATA_DIR/drafts/factchecker-${TIMESTAMP}.txt"
 
 # ── PRE-PUBLISH VALIDATION ──
 log "--- Pre-Publish Validation ---"
 
-VALIDATION=$(node -e "
-try {
-    const raw = process.argv[1];
-    const match = raw.match(/\{[\s\S]*\}/);
-    if (!match) { console.log('FAIL: No JSON found in output'); process.exit(1); }
-    const post = JSON.parse(match[0]);
-    const required = ['id','title','slug','category','excerpt','body','author','date','published','thumbnail_gradient'];
-    const missing = required.filter(f => !post[f] && post[f] !== true);
-    if (missing.length) { console.log('FAIL: Missing fields: ' + missing.join(', ')); process.exit(1); }
-    if (post.id !== post.slug) { console.log('FAIL: id and slug do not match'); process.exit(1); }
-    const cats = ['News','Strategy','Spoilers','Deck Guides','Set Reviews'];
-    if (!cats.includes(post.category)) { console.log('FAIL: Invalid category: ' + post.category); process.exit(1); }
-    if (!post.body.includes('<h2>')) { console.log('FAIL: Body missing h2 sections'); process.exit(1); }
-    console.log('PASS: Post validated (' + post.title + ')');
-} catch(e) {
-    console.log('FAIL: ' + e.message);
-    process.exit(1);
-}
-" "$FACTCHECKER_RESULT" 2>/dev/null) || VALIDATION="FAIL: validation script error"
+VALIDATION=$(echo "$FACTCHECKER_RESULT" | node "$SCRIPT_DIR/scripts/validate-post.js" 2>/dev/null) || true
+if [ -z "$VALIDATION" ]; then VALIDATION="FAIL: validation script error"; fi
 
 log "Validation: $VALIDATION"
 if [[ "$VALIDATION" == FAIL* ]]; then

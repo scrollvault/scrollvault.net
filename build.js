@@ -533,7 +533,9 @@ function head(title, description, rootRel, ogImage, options = {}) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">`;
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>`;
 }
 
 // ── INDEX PAGE ──
@@ -1390,8 +1392,8 @@ ${footer('')}
   const today = new Date().toISOString().split('T')[0];
   const sitemapUrls = [
     { loc: '/', changefreq: 'daily', priority: '1.0' },
-    { loc: '/news.html', changefreq: 'daily', priority: '0.8' },
-    { loc: '/guides.html', changefreq: 'weekly', priority: '0.8' },
+    { loc: '/news/', changefreq: 'daily', priority: '0.8' },
+    { loc: '/guides/', changefreq: 'weekly', priority: '0.8' },
     { loc: '/about.html', changefreq: 'monthly', priority: '0.5' },
     { loc: '/contact.html', changefreq: 'monthly', priority: '0.5' },
     { loc: '/privacy.html', changefreq: 'yearly', priority: '0.3' },
@@ -1418,17 +1420,6 @@ ${footer('')}
     });
   }
 
-  // Add author pages
-  const authors = [...new Set(publishedPosts.map(p => p.author).filter(Boolean))];
-  for (const author of authors) {
-    const authorSlug = author.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-    sitemapUrls.push({
-      loc: `/authors/${authorSlug}.html`,
-      changefreq: 'weekly',
-      priority: '0.4'
-    });
-  }
-
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapUrls.map(u => `  <url>
@@ -1441,6 +1432,32 @@ ${sitemapUrls.map(u => `  <url>
 
   fs.writeFileSync(path.join(OUTPUT_DIR, 'sitemap.xml'), sitemapXml);
   console.log(`Sitemap generated with ${sitemapUrls.length} URLs.`);
+
+  // ── Sync shared assets and hand-crafted pages when building to a different output dir ──
+  if (OUTPUT_DIR !== ROOT) {
+    const syncFiles = ['robots.txt', 'favicon.svg', 'apple-touch-icon.png', '.htaccess'];
+    for (const f of syncFiles) {
+      const src = path.join(ROOT, f);
+      if (fs.existsSync(src)) {
+        fs.copyFileSync(src, path.join(OUTPUT_DIR, f));
+      }
+    }
+    const syncDirs = ['decks', 'draft', 'tools/manabase', 'tools/lands'];
+    for (const d of syncDirs) {
+      const src = path.join(ROOT, d);
+      const dest = path.join(OUTPUT_DIR, d);
+      if (fs.existsSync(src)) {
+        fs.mkdirSync(dest, { recursive: true });
+        for (const file of fs.readdirSync(src)) {
+          const srcFile = path.join(src, file);
+          if (fs.statSync(srcFile).isFile()) {
+            fs.copyFileSync(srcFile, path.join(dest, file));
+          }
+        }
+      }
+    }
+    console.log('Synced shared assets and hand-crafted pages to output dir.');
+  }
 
 console.log('All pages built successfully.');
 }

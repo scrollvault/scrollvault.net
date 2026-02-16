@@ -82,4 +82,13 @@ RewriteRule ^ /%1 [R=301,L]
   <FilesMatch "\.(xml)$">
     Header set Cache-Control "public, max-age=3600"
   </FilesMatch>
+
+  # ── SECURITY HEADERS ──
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cards.scryfall.io https://c1.scryfall.com https://www.google-analytics.com data:; connect-src 'self' https://api.scryfall.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-ancestors 'none'"
 </IfModule>

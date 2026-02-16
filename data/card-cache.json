@@ -12790,5 +12790,125 @@
     "artist": "Daren Bader",
     "set": "ecl",
     "not_found": false
+  },
+  "anniversary set": {
+    "name": "Anniversary Set",
+    "not_found": true
+  },
+  "anniversary set fiasco": {
+    "name": "Anniversary Set Fiasco",
+    "not_found": true
+  },
+  "set fiasco": {
+    "name": "Set Fiasco",
+    "not_found": true
+  },
+  "lotus and the price": {
+    "name": "Lotus and the Price",
+    "not_found": true
+  },
+  "price of scarcity": {
+    "name": "Price of Scarcity",
+    "not_found": true
+  },
+  "price of scarcity hasbro": {
+    "name": "Price of Scarcity Hasbro",
+    "not_found": true
+  },
+  "scarcity hasbro": {
+    "name": "Scarcity Hasbro",
+    "not_found": true
+  },
+  "lawsuit that": {
+    "name": "Lawsuit That",
+    "not_found": true
+  },
+  "lawsuit that could": {
+    "name": "Lawsuit That Could",
+    "not_found": true
+  },
+  "lawsuit that could change": {
+    "name": "Lawsuit That Could Change",
+    "not_found": true
+  },
+  "could change": {
+    "name": "Could Change",
+    "not_found": true
+  },
+  "could change everything": {
+    "name": "Could Change Everything",
+    "not_found": true
+  },
+  "could change everything hasbro": {
+    "name": "Could Change Everything Hasbro",
+    "not_found": true
+  },
+  "change everything": {
+    "name": "Change Everything",
+    "not_found": true
+  },
+  "change everything hasbro": {
+    "name": "Change Everything Hasbro",
+    "not_found": true
+  },
+  "everything hasbro": {
+    "name": "Everything Hasbro",
+    "not_found": true
+  },
+  "according to elbakin": {
+    "name": "According to Elbakin",
+    "not_found": true
+  },
+  "power nine": {
+    "name": "Power Nine",
+    "not_found": true
+  },
+  "black lotus and ancestral": {
+    "name": "Black Lotus and Ancestral",
+    "not_found": true
+  },
+  "lotus and ancestral": {
+    "name": "Lotus and Ancestral",
+    "not_found": true
+  },
+  "lotus and ancestral recall": {
+    "name": "Lotus and Ancestral Recall",
+    "not_found": true
+  },
+  "ancestral recall": {
+    "name": "Ancestral Recall",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/3/2398892d-28e9-4009-81ec-0d544af79d2b.jpg?1614638829",
+    "normal": "https://cards.scryfall.io/normal/front/2/3/2398892d-28e9-4009-81ec-0d544af79d2b.jpg?1614638829",
+    "artist": "Ryan Pancoast",
+    "set": "vma",
+    "not_found": false
+  },
+  "time vault": {
+    "name": "Time Vault",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/3/c367ffc1-8084-45a1-87d5-22183604d1cb.jpg?1562934224",
+    "normal": "https://cards.scryfall.io/normal/front/c/3/c367ffc1-8084-45a1-87d5-22183604d1cb.jpg?1562934224",
+    "artist": "Yeong-Hao Han",
+    "set": "vma",
+    "not_found": false
+  },
+  "actually happened": {
+    "name": "Actually Happened",
+    "not_found": true
+  },
+  "actually happened with": {
+    "name": "Actually Happened With",
+    "not_found": true
+  },
+  "happened with": {
+    "name": "Happened With",
+    "not_found": true
+  },
+  "anniversary set wizards": {
+    "name": "Anniversary Set Wizards",
+    "not_found": true
+  },
+  "legal angle": {
+    "name": "Legal Angle",
+    "not_found": true
   }
 }
