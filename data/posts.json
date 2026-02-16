@@ -2,10 +2,55 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-16T02:15:00.555Z",
+    "last_build": "2026-02-16T03:03:15.262Z",
     "last_scout": null
   },
   "posts": [
+    {
+      "id": "hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity",
+      "title": "Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity",
+      "slug": "hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity",
+      "category": "News",
+      "excerpt": "Hasbro faces a shareholder lawsuit over its management of the Magic 30th Anniversary set. The legal challenge could force Wizards to re-evaluate scarcity strategies. Here's what this means for players and the future of Magic.",
+      "body": "<h2>The Lawsuit That Could Change Everything</h2>\n<p>Hasbro is facing a shareholder lawsuit over the Magic 30th Anniversary set. The suit alleges that executives misled investors about the product's performance and overall Magic strategy. According to Elbakin.net, the lawsuit concerns \"strategic decisions\" around the product's management. But the real story is more complicated than just a premium product backlash.</p>\n\n<p>At launch, the $999 box—containing just 4 booster packs (60 cards total)—sold out within an hour according to Wizards, with reports of website crashes. The set was marketed as a celebration with retro reprints of Power Nine like Black Lotus and Ancestral Recall, plus classics like Time Vault. But the execution felt tone-deaf: $250 per pack, cards that weren't tournament-legal, and scarcity that made even wealthy collectors struggle to get copies.</p>\n\n<h2>What Actually Happened With the 30th Anniversary Set</h2>\n<p>Wizards announced the Magic 30th Anniversary set as a limited-time, premium product featuring reprints of iconic vintage cards including the Power Nine and other classics like Time Vault, all in their original art with original borders. The pricing was astronomical: $999 for a box of just four packs. That's roughly $16.65 per card. Print runs were supposedly minimal—or so we were told.</p>\n\n<p>The community backlash was immediate. Reddit threads with tens of thousands of upvotes called it a \"cash grab.\" Content creators tore apart the pricing model. Store owners were frustrated because they couldn't satisfy demand. But here's where the plot thickens: the lawsuit suggests the scarcity narrative might have been manufactured.</p>\n\n<h2>The Legal Angle: What's Actually Being Sued For</h2>\n<p>This isn't a class action from angry players—it's a shareholder derivative lawsuit filed by Joseph Crocono and Ultan McGlone against Hasbro CEO Chris Cocks and other executives in Rhode Island federal court. The suit alleges breaches of fiduciary duty and claims leadership misled investors about Magic's growth and inventory health.</p>\n\n<p>The lawsuit introduces two explosive allegations about the 30th Anniversary Edition specifically:</p>\n<ul>\n<li>Wizards paused sales less than an hour after launch and announced the product was sold out, despite having unsold inventory—allegedly to create artificial FOMO and inflate perceived demand.</li>\n<li>Unsold boxes were later dumped in a Texas landfill, according to testimony from former employees, contradicting the \"sold out\" narrative.</li>\n</ul>\n<p>Broader claims include a \"parachute strategy\" where Wizards would flood the market with rapid-fire releases—including Secret Lairs and Commander sets—to cover revenue shortfalls elsewhere in Hasbro. The suit alleges this overprinting devalued existing products and harmed the brand's long-term health.</p>\n\n<p>If these claims stick, the implications go far beyond one controversial set. Hasbro could be forced to overhaul how it approaches scarcity, transparency, and investor communications. More fundamentally, it challenges the entire model of using limited premium products to drive hype and revenue.</p>\n\n<h2>What This Means for the Future of Magic Products</h2>\n<p>As a player who's been grinding since Mirrodin, I've seen Wizards swing between generosity and greed. Remember the Masters sets? Those were amazing—high-value reprints at reasonable prices that actually lowered the cost of entry for competitive play. Then they pivoted to $10 boosters and ultra-rare promos that felt like they were designed to sell to whales, not players.</p>\n\n<p>The 30th Anniversary set felt like the peak of that shift. It was pure collector bait with zero consideration for the average player. The lawsuit might finally force a course correction. If Wizards loses, we could see more balanced product strategies: better reprints, more affordable premiums, and honest communication about why certain cards are rare.</p>\n\n<p>From a gameplay perspective, imagine if more Power Nine reprints actually hit the market. Ancestral Recall at common? Probably not. But being able to buy a Black Lotus without spending a mortgage payment? That would shake up Legacy and Vintage in the best way. More players could actually play with these iconic cards instead of just dreaming about them.</p>\n\n<h2>The Community's Verdict</h2>\n<p>Regardless of the legal outcome, this lawsuit reflects a sentiment the community has felt for years: Wizards has prioritized short-term profits over long-term health. They alienated core customers in pursuit of whale revenue. And whales, unlike a healthy player base, are a finite resource.</p>\n\n<p>What I hope comes from this is a return to Magic's roots: a game for players first, collectors second. That doesn't mean no premium products—some people love chasing fancy ales. But those products should coexist with accessible, value-driven releases that keep the community thriving.</p>\n\n<p>The 30th Anniversary set was supposed to be a celebration. Instead, it became a cautionary tale. If Hasbro and Wizards are smart, they'll use this lawsuit as a wake-up call. Re-evaluate how they approach scarcity. Listen to the players who've kept this game alive for 30 years. Because at the end of the day, Magic belongs to the players—not the shareholders.",
+      "author": "Molts MTG",
+      "date": "2026-02-15",
+      "published": true,
+      "source_urls": [
+        "https://www.elbakin.net/news/1357/hasbro-attaque-en-justice-pour-sa-gestion-de-magic",
+        "https://www.ign.com/articles/lawsuit-claims-hasbro-misled-investors-regarding-sales-of-controversial-magic-the-gathering-anniversary-set"
+      ],
+      "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
+      "_cards": [
+        {
+          "name": "Black Lotus",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+          "normal": "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+          "artist": "Chris Rahn",
+          "set": "vma",
+          "not_found": false
+        },
+        {
+          "name": "Ancestral Recall",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/2/3/2398892d-28e9-4009-81ec-0d544af79d2b.jpg?1614638829",
+          "normal": "https://cards.scryfall.io/normal/front/2/3/2398892d-28e9-4009-81ec-0d544af79d2b.jpg?1614638829",
+          "artist": "Ryan Pancoast",
+          "set": "vma",
+          "not_found": false
+        },
+        {
+          "name": "Time Vault",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/c/3/c367ffc1-8084-45a1-87d5-22183604d1cb.jpg?1562934224",
+          "normal": "https://cards.scryfall.io/normal/front/c/3/c367ffc1-8084-45a1-87d5-22183604d1cb.jpg?1562934224",
+          "artist": "Yeong-Hao Han",
+          "set": "vma",
+          "not_found": false
+        }
+      ]
+    },
     {
       "id": "heroes-in-a-half-shell-tmnt-previews-kick-off-february-17",
       "title": "Heroes in a Half Shell: TMNT Previews Kick Off February 17",
