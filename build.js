@@ -5,9 +5,9 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = __dirname;
+const SITE_URL = "https://scrollvault.net";
 const DATA_FILE = path.join(ROOT, 'data', 'posts.json');
 const CACHE_FILE = path.join(ROOT, 'data', 'card-cache.json');
-const POSTS_DIR = path.join(ROOT, 'posts');
 
 // Output directory (default: current workspace)
 const OUTPUT_DIR = process.argv.includes('--staging') ? '/home/degenai/staging.scrollvault.net' :
@@ -506,22 +506,28 @@ function footer(rootRel) {
     </footer>`;
 }
 
-function head(title, description, rootRel, ogImage) {
+function head(title, description, rootRel, ogImage, options = {}) {
+  const { pageUrl = '', ogType = 'article', ldJson = null } = options;
+  const canonicalTag = pageUrl ? `<link rel="canonical" href="${esc(pageUrl)}">` : '';
+  const ogUrlTag = pageUrl ? `<meta property="og:url" content="${esc(pageUrl)}">` : '';
+  const ogTypeTag = `<meta property="og:type" content="${esc(ogType)}">`;
   const ogTags = ogImage ? `
     <meta property="og:image" content="${esc(ogImage)}">
     <meta property="og:image:width" content="626">
     <meta property="og:image:height" content="457">` : '';
+  const ldJsonTag = ldJson ? `<script type="application/ld+json">${JSON.stringify(ldJson)}</script>` : '';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${esc(title)} | scrollvault.net</title>
+    ${canonicalTag}<title>${esc(title)} | scrollvault.net</title>
     <meta name="description" content="${esc(description)}">
+    ${ogUrlTag}${ogTypeTag}
     <meta property="og:title" content="${esc(title)}">
     <meta property="og:description" content="${esc(description)}">
-    <meta property="og:type" content="article">
     <meta property="og:site_name" content="ScrollVault">${ogTags}
+    ${ldJsonTag}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -856,7 +862,24 @@ ${featuredPosts.map(post => {
 
   const heroOgImage = heroPost && heroPost.hero_image ? heroPost.hero_image : '';
 
-  const indexHtml = `${head('MTG News and Strategy Blog', 'The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.', '', heroOgImage)}
+  
+// WebSite structured data for homepage (SEO)
+
+
+// WebSite structured data for homepage (SEO)
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ScrollVault",
+  "url": SITE_URL,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": SITE_URL + "/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const indexHtml = `${head('MTG News and Strategy Blog', 'The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.', '', heroOgImage, { pageUrl: '/', ogType: 'website', ldJson: siteSchema })}
     <style>${INDEX_CSS}</style>
 </head>
 <body>
@@ -1016,7 +1039,7 @@ ${footer('')}
                         </li>`;
     }).join('\n');
 
-    const hubHtml = `${head(title, description, '', heroPost && heroPost.hero_image ? heroPost.hero_image : '')}
+    const hubHtml = `${head(title, description, '', heroPost && heroPost.hero_image ? heroPost.hero_image : '', { pageUrl: '/' + slug + '/', ogType: 'website' })}
     <style>${INDEX_CSS}</style>
 </head>
 <body>
@@ -1173,7 +1196,7 @@ ${related.map(r => {
       ]
     };
 
-    const postHtml = `${head(post.title, post.excerpt, '..', post.hero_image || '')}
+    const postHtml = `${head(post.title, post.excerpt, '..', post.hero_image || '', { pageUrl: '/posts/' + post.slug + '.html', ogType: 'article' })}
     <style>${POST_CSS}</style>
 </head>
 <body>
@@ -1219,7 +1242,7 @@ ${hasCards ? TOOLTIP_JS : ''}
 
   // ── STATIC PAGES ──
   function writePage(filename, title, activePage, bodyHtml) {
-    const html = `${head(title, title + ' - scrollvault.net', '', '')}
+    const html = `${head(title, title + ' - scrollvault.net', '', '', { pageUrl: '/' + filename, ogType: 'website' })}
     <style>${PAGE_CSS}</style>
 </head>
 <body>
