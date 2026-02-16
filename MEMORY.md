@@ -18,3 +18,10 @@ Tools pages (10 hand-crafted, DO NOT overwrite):
 - tools/hand-simulator, tools/price-checker, tools/commander-bracket, tools/sealed
 - decks/index.html, draft/index.html
 Nav uses single "Tools" link pointing to /tools/ (not individual Lands/Mana Base links).
+
+## build.js SEO refactor (2026-02-16)
+- `writePage()` takes 5 params: `(filename, title, description, activePage, bodyHtml)` — description is passed to `head()`, not auto-generated.
+- Article schema uses `"@type": "Person"` for author (from `post.author`), NOT Organization.
+- Breadcrumb item 2 links to the correct hub: News→`/news/`, Strategy/Deck Guides→`/guides/`.
+- Hub pages (`/news/`, `/guides/`) have CollectionPage JSON-LD schema.
+- Homepage has a stable `<h1 class="sr-only">` in the brand bar; hero post title is `<h2>`.
