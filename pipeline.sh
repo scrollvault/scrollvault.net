@@ -56,12 +56,16 @@ run_with_retry() {
 # Load recent post IDs to avoid duplicates
 RECENT_TITLES=$(node -e "
 const d = require('$DATA_DIR/posts.json');
-d.posts.slice(0, 30).forEach(p => console.log(p.title));
+d.posts.slice(0, 5).forEach(p => {
+  const t = (p.title || '').trim();
+  if (t.length > 60) console.log(t.substring(0, 60) + '...');
+  else console.log(t);
+});
 " 2>/dev/null || echo "")
 
 RECENT_IDS=$(node -e "
 const d = require('$DATA_DIR/posts.json');
-d.posts.slice(0, 30).forEach(p => console.log(p.id));
+d.posts.slice(0, 5).forEach(p => console.log(p.id));
 " 2>/dev/null || echo "")
 
 log "=== ScrollVault Pipeline - $DATE ==="
