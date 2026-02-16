@@ -74,6 +74,15 @@
 .about-avatar { width: 80px; height: 80px; margin: 0 auto 1rem; background: var(--gradient-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
 .about-text { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
 .post-card.hidden { display: none; }
+.pillar-guides { padding: 2.5rem 0 0; }
+.pillar-guides h2 { font-size: 1.5rem; margin-bottom: 1.25rem; }
+.pillar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.pillar-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.pillar-card a { color: inherit; text-decoration: none; display: block; }
+.pillar-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+.pillar-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; margin: 0; }
+.pillar-card .pillar-arrow { color: #a78bfa; font-weight: 600; font-size: 0.875rem; margin-top: 0.75rem; display: inline-block; }
 @media (max-width: 768px) {
     .hero-featured { min-height: 360px; }
     .hero-featured h1 { font-size: 1.75rem; }
@@ -112,6 +121,19 @@
                     <p class="hero-excerpt">A robust mana base is the foundation of any successful Commander deck. Learn how to construct a reliable land base that fits your budget, your colors, and your meta, without breaking the bank.</p>
                     <a href="/posts/building-solid-mana-base-commander-budget.html" class="hero-cta">Read More &rarr;</a>
                 <p class="hero-attribution">Art: &ldquo;Glacial Fortress&rdquo; by James Paick</p>
+                </div>
+            </div>
+        </section>
+        <section class="pillar-guides">
+            <div class="container">
+                <h2>Evergreen Guides</h2>
+                <div class="pillar-grid">
+                    <div class="pillar-card"><a href="/guides/mana-bases.html"><h3>MTG Mana Base Guide</h3><p>Land counts, color balance, and optimal dual land ratios for every format.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/dual-lands.html"><h3>Dual Land Cycles Guide</h3><p>Complete reference of fetch, shock, fast, and check lands with format legality.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/formats.html"><h3>MTG Formats Explained</h3><p>Standard, Modern, Pioneer, Legacy, Vintage, Commander, Pauper, and Limited.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/sideboard-guide.html"><h3>Sideboard Strategy Guide</h3><p>The 15-card rule, hate cards, silver bullets, and format-specific tips.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/commander-deck-building.html"><h3>Commander Deck Building</h3><p>Choosing a commander, the 100-card singleton rule, ramp/draw/removal ratios.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/arena-beginners-guide.html"><h3>MTG Arena Beginner&#39;s Guide</h3><p>Getting started, wildcards, earning gold, events, and free-to-play tips.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
                 </div>
             </div>
         </section>
@@ -400,6 +422,13 @@
                     <h3 class="widget-title">Recent Posts</h3>
                     <ul class="recent-posts">
                         <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
+                            <div>
+                                <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html">Spell Snare and the End of Friend Challenges: Arena's Big Update</a>
+                                <span class="recent-post-date">Today</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity"></div>
                             <div>
                                 <a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html">Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity</a>
@@ -427,13 +456,6 @@
                                 <span class="recent-post-date">3 days ago</span>
                             </div>
                         </li>
-                        <li class="recent-post-item">
-                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal"></div>
-                            <div>
-                                <a href="/posts/the-one-ring-hasbro-lawsuit-mtg.html">The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal</a>
-                                <span class="recent-post-date">4 days ago</span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <div class="sidebar-widget">
@@ -444,7 +466,7 @@
                                 <span class="category-dot" style="background: var(--pill-news);"></span>
                                 News
                             </span>
-                            <span class="category-count">24</span>
+                            <span class="category-count">25</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=strategy]').click()">
                             <span class="category-name">

@@ -85,6 +85,30 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://scrollvault.net/guides/formats.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://scrollvault.net/guides/sideboard-guide.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://scrollvault.net/guides/commander-deck-building.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://scrollvault.net/guides/arena-beginners-guide.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://scrollvault.net/decks/</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -143,6 +167,12 @@
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://scrollvault.net/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html</loc>

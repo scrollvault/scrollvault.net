@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="/guides/sideboard-guide.html"><title>How to Build a Sideboard — MTG Sideboard Strategy Guide | scrollvault.net</title>
+    <meta name="description" content="Learn how to build a winning sideboard for Magic: The Gathering. The 15-card rule, sideboard strategies, hate cards, and format-specific tips for Standard, Modern, and Pioneer.">
+    <meta property="og:url" content="/guides/sideboard-guide.html"><meta property="og:type" content="website">
+    <meta property="og:title" content="How to Build a Sideboard — MTG Sideboard Strategy Guide">
+    <meta property="og:description" content="Learn how to build a winning sideboard for Magic: The Gathering. The 15-card rule, sideboard strategies, hate cards, and format-specific tips for Standard, Modern, and Pioneer.">
+    <meta property="og:site_name" content="ScrollVault">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many cards should be in an MTG sideboard?","acceptedAnswer":{"@type":"Answer","text":"In all sanctioned constructed formats (Standard, Pioneer, Modern, Legacy, Vintage), your sideboard must be exactly 15 cards or 0 cards. You cannot register a sideboard with any other number. In Commander, sideboards are not used in standard play, though some groups allow a 10-card wishboard."}},{"@type":"Question","name":"What are the best sideboard cards in Modern?","acceptedAnswer":{"@type":"Answer","text":"Top Modern sideboard staples include Leyline of the Void and Rest in Peace (graveyard hate), Engineered Explosives and Brotherhood's End (sweepers), Blood Moon and Magus of the Moon (land disruption), Flusterstorm and Mystical Dispute (counter magic), and Surgical Extraction (combo disruption). The best choices depend on your deck and the current metagame."}},{"@type":"Question","name":"How do I decide what to sideboard in and out?","acceptedAnswer":{"@type":"Answer","text":"Write a sideboard guide for each common matchup: identify which of your main deck cards are weakest in the matchup and which sideboard cards address the opponent's strategy. Generally, cut situational cards that don't impact the matchup and bring in targeted answers. Avoid over-sideboarding — swapping too many cards can dilute your deck's core gameplan."}}]}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
+    <style>
+.page-header { padding: 4rem 0 2rem; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, transparent 70%); }
+.page-header h1 { font-size: 2.25rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-body { max-width: 800px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+.page-body h2 { font-size: 1.4rem; margin: 2rem 0 1rem; }
+.page-body p { color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.8; }
+.page-body ul { color: var(--text-secondary); margin: 1rem 0 1.25rem 1.5rem; line-height: 1.8; }
+.page-body a { color: #a78bfa; }
+.contact-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 2rem; text-align: center; margin: 2rem 0; }
+.contact-card a.email-link { display: inline-block; font-size: 1.25rem; color: #a78bfa; font-weight: 600; padding: 0.75rem 2rem; border: 2px solid #a855f7; border-radius: 8px; transition: all 0.2s ease; }
+.contact-card a.email-link:hover { background: rgba(168,85,247,0.15); }
+@media (max-width: 768px) { .page-header h1 { font-size: 1.75rem; } }</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+    <nav class="nav">
+        <div class="container nav-content">
+            <a href="/" class="nav-logo">ScrollVault</a>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/news/">News</a></li>
+                <li><a href="/guides/" class="active">Guides</a></li>
+                <li><a href="/decks/">Top Decks</a></li>
+                <li><a href="/draft/">Draft</a></li>
+                <li><a href="/tools/">Tools</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content">
+        <header class="page-header">
+            <div class="container"><h1>How to Build a Sideboard — MTG Sideboard Strategy Guide</h1></div>
+        </header>
+        <div class="page-body">
+
+            <p>Your sideboard is one of the most important parts of your competitive MTG deck. In best-of-three matches, games two and three are often decided by who sideboarded better. A well-built sideboard can turn bad matchups into favorable ones.</p>
+            <h2>What Is a Sideboard?</h2>
+            <p>A sideboard is a set of exactly 15 cards that you can swap into your deck between games in a match. After game one, both players can exchange any number of cards between their main deck and sideboard, as long as the sideboard stays at 15 and the main deck stays at its original count (usually 60).</p>
+            <h2>Sideboard Strategies</h2>
+            <h3>Hate Cards</h3>
+            <p>Hate cards directly counter specific strategies. Examples: <em>Rest in Peace</em> against graveyard decks, <em>Stony Silence</em> against artifact decks, <em>Blood Moon</em> against greedy mana bases. These are your most impactful sideboard slots.</p>
+            <h3>Silver Bullets</h3>
+            <p>Silver bullets are narrow but devastating answers to specific threats. <em>Pithing Needle</em> naming a problematic planeswalker, <em>Relic of Progenitus</em> against a single graveyard deck, or <em>Celestial Purge</em> against black/red aggro. Use 1-2 copies for matchups you expect occasionally.</p>
+            <h3>Transformational Sideboarding</h3>
+            <p>Some decks can transform their entire game plan post-board. A combo deck might sideboard into a control plan when opponents bring in combo hate, or an aggro deck might bring in a planeswalker package to go over the top. This advanced strategy punishes opponents for sideboarding too narrowly.</p>
+            <h2>Building Your Sideboard: Step by Step</h2>
+            <ol>
+                <li><strong>Identify your worst matchups</strong> — What decks consistently beat you in game one?</li>
+                <li><strong>Find targeted answers</strong> — What cards directly address those strategies?</li>
+                <li><strong>Plan your swaps</strong> — For each matchup, know what comes in and what comes out</li>
+                <li><strong>Don't over-sideboard</strong> — Bringing in 8+ cards risks diluting your main gameplan</li>
+                <li><strong>Test and adjust</strong> — Sideboard plans need refinement through practice</li>
+            </ol>
+            <h2>Format-Specific Tips</h2>
+            <ul>
+                <li><strong>Standard:</strong> Sideboards tend to be broader since the metagame shifts frequently. Flexible answers like counterspells and removal are key.</li>
+                <li><strong>Pioneer:</strong> Graveyard hate and artifact/enchantment removal are almost always needed. Plan for combo matchups.</li>
+                <li><strong>Modern:</strong> The format is diverse, so dedicate slots to the top 5-6 decks. Cards that hit multiple matchups (e.g., <em>Engineered Explosives</em>) are premium.</li>
+            </ul>
+            <h2>Common Mistakes</h2>
+            <ul>
+                <li>Sideboarding reactively instead of having a plan before the match</li>
+                <li>Bringing in cards without knowing what to cut</li>
+                <li>Ignoring your own deck's mana curve after sideboarding</li>
+                <li>Not testing your sideboard — theory and practice often diverge</li>
+            </ul>
+            <p>Ready to build your deck? Use our <a href="/tools/manabase/">Mana Base Calculator</a> to optimize your land base, and check out our other <a href="/guides/">strategy guides</a> for more tips.</p>
+        
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ScrollVault</div>
+                <div class="wubrg-dots">
+                    <span class="mana-dot" style="background: #F9FAF4"></span>
+                    <span class="mana-dot" style="background: #0E68AB"></span>
+                    <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                    <span class="mana-dot" style="background: #D3202A"></span>
+                    <span class="mana-dot" style="background: #00733E"></span>
+                </div>
+                <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+                <ul class="footer-links">
+                    <li><a href="/privacy.html">Privacy Policy</a></li>
+                    <li><a href="/terms.html">Terms of Service</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a href="/about/authors.html">Authors</a></li>
+                    <li><a href="/about/editorial-policy.html">Editorial Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

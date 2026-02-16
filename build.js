@@ -591,6 +591,15 @@ const HUB_CSS = `
 .about-avatar { width: 80px; height: 80px; margin: 0 auto 1rem; background: var(--gradient-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
 .about-text { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
 .post-card.hidden { display: none; }
+.pillar-guides { padding: 2.5rem 0 0; }
+.pillar-guides h2 { font-size: 1.5rem; margin-bottom: 1.25rem; }
+.pillar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.pillar-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.pillar-card a { color: inherit; text-decoration: none; display: block; }
+.pillar-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+.pillar-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; margin: 0; }
+.pillar-card .pillar-arrow { color: #a78bfa; font-weight: 600; font-size: 0.875rem; margin-top: 0.75rem; display: inline-block; }
 @media (max-width: 768px) {
     .hero-featured { min-height: 360px; }
     .hero-featured h1 { font-size: 1.75rem; }
@@ -902,7 +911,7 @@ async function main() {
     const catSlug = CATEGORY_SLUGS[heroPost.category] || 'news';
     const bgImage = heroPost.hero_image ? `background-image: url('${heroPost.hero_image}');` : `background: var(--gradient-purple);`;
     const attribution = heroPost.hero_artist ? `\n                <p class="hero-attribution">Art: &ldquo;${esc(heroPost.hero_card_name)}&rdquo; by ${esc(heroPost.hero_artist)}</p>` : '';
-    return `        <section class="hero-featured" style="${bgImage} background-size: cover; background-position: center;">
+    return `        <section class="hero-featured" style="${bgImage} background-size: cover; background-position: center;" role="img" aria-label="Featured: ${esc(heroPost.title)} - card art">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="container">
@@ -936,7 +945,7 @@ async function main() {
     const style = thumbStyle(post);
     return `                <article class="post-card" data-category="${catSlug}">
                     <a href="${postUrl(post)}" class="card-link">
-                        <div class="post-thumbnail" style="${style}"></div>
+                        <div class="post-thumbnail" style="${style}" role="img" aria-label="${esc(post.title)}"></div>
                         <div class="post-content">
                             <span class="post-category category-${catSlug}">${esc(post.category)}</span>
                             <h2 class="post-title">${esc(post.title)}</h2>
@@ -1120,7 +1129,7 @@ ${footer('')}
       const catSlug = CATEGORY_SLUGS[heroPost.category] || 'news';
       const bgImage = heroPost.hero_image ? `background-image: url('${heroPost.hero_image}');` : `background: var(--gradient-purple);`;
       const attribution = heroPost.hero_artist ? `\n                <p class="hero-attribution">Art: &ldquo;${esc(heroPost.hero_card_name)}&rdquo; by ${esc(heroPost.hero_artist)}</p>` : '';
-      return `        <section class="hero-featured" style="${bgImage} background-size: cover; background-position: center;">
+      return `        <section class="hero-featured" style="${bgImage} background-size: cover; background-position: center;" role="img" aria-label="Featured: ${esc(heroPost.title)} - card art">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="container">
@@ -1149,7 +1158,7 @@ ${footer('')}
       const href = postUrl(post);
       return `                <article class="post-card" data-category="${catSlug}">
                     <a href="${href}" class="card-link">
-                        <div class="post-thumbnail" style="${style}"></div>
+                        <div class="post-thumbnail" style="${style}" role="img" aria-label="${esc(post.title)}"></div>
                         <div class="post-content">
                             <span class="post-category category-${catSlug}">${esc(post.category)}</span>
                             <h2 class="post-title">${esc(post.title)}</h2>
@@ -1167,7 +1176,7 @@ ${footer('')}
     const recentHtml = posts.slice(0,5).map(post => {
       const ts = thumbStyle(post);
       return `                        <li class="recent-post-item">
-                            <div class="recent-post-thumb" style="${ts}"></div>
+                            <div class="recent-post-thumb" style="${ts}" role="img" aria-label="${esc(post.title)}"></div>
                             <div>
                                 <a href="${postUrl(post)}">${esc(post.title)}</a>
                                 <span class="recent-post-date">${formatDate(post.date)}</span>
@@ -1195,14 +1204,36 @@ ${footer('')}
       "description": description,
       "url": SITE_URL + "/" + slug + "/"
     };
+    const itemListSchema = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": hubPosts.slice(0, 10).map((p, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "url": SITE_URL + "/posts/" + p.slug + ".html"
+      }))
+    };
     const hubHtml = `${head(title, description, '', heroPost && heroPost.hero_image ? heroPost.hero_image : '', { pageUrl: '/' + slug + '/', ogType: 'website', ldJson: hubSchema })}
     <style>${HUB_CSS}</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
-${nav('', slug === 'news' ? 'news' : 'guides')}
+${nav('', slug === 'news' ? 'news' : slug === 'guides' ? 'guides' : '')}
     <main id="main-content">
 ${heroHtml}
+${slug === 'guides' ? `        <section class="pillar-guides">
+            <div class="container">
+                <h2>Evergreen Guides</h2>
+                <div class="pillar-grid">
+                    <div class="pillar-card"><a href="/guides/mana-bases.html"><h3>MTG Mana Base Guide</h3><p>Land counts, color balance, and optimal dual land ratios for every format.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/dual-lands.html"><h3>Dual Land Cycles Guide</h3><p>Complete reference of fetch, shock, fast, and check lands with format legality.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/formats.html"><h3>MTG Formats Explained</h3><p>Standard, Modern, Pioneer, Legacy, Vintage, Commander, Pauper, and Limited.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/sideboard-guide.html"><h3>Sideboard Strategy Guide</h3><p>The 15-card rule, hate cards, silver bullets, and format-specific tips.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/commander-deck-building.html"><h3>Commander Deck Building</h3><p>Choosing a commander, the 100-card singleton rule, ramp/draw/removal ratios.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/arena-beginners-guide.html"><h3>MTG Arena Beginner&#39;s Guide</h3><p>Getting started, wildcards, earning gold, events, and free-to-play tips.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                </div>
+            </div>
+        </section>` : ''}
         <div class="container content-wrapper">
             <section class="posts-grid" id="postsGrid">
 ${gridHtml}
@@ -1255,6 +1286,7 @@ ${footer('')}
             if (t) { filterBtns.forEach(b => b.classList.remove('active')); document.querySelector('[data-filter="all"]').classList.add('active'); }
         }
     </script>
+<script type="application/ld+json">${JSON.stringify(itemListSchema)}</script>
 </body>
 </html>`;
 
@@ -1267,6 +1299,9 @@ ${footer('')}
   // Build hub pages
   buildHubPage('news', 'MTG News', 'Breaking news, ban updates, tournament results, and announcements from the world of Magic: The Gathering.', p => p.category === 'News');
   buildHubPage('guides', 'MTG Guides', 'Strategy guides, deck techs, and in-depth analysis to help you master any format.', p => p.category === 'Strategy' || p.category === 'Deck Guides');
+  buildHubPage('spoilers', 'MTG Spoilers & Previews', 'The latest Magic: The Gathering card spoilers, set previews, and first impressions from upcoming releases.', p => p.category === 'Spoilers');
+  buildHubPage('deck-guides', 'MTG Deck Guides & Tech', 'Budget builds, competitive decklists, sideboard guides, and deck techs for Standard, Modern, Pioneer, and Commander.', p => p.category === 'Deck Guides');
+  buildHubPage('set-reviews', 'MTG Set Reviews', 'Comprehensive set reviews for Constructed and Limited, covering every new Magic: The Gathering release.', p => p.category === 'Set Reviews');
 
   // ── INDIVIDUAL POST PAGES ──
   posts.forEach((post) => {
@@ -1313,7 +1348,7 @@ ${related.map(r => {
     : `background: ${r.thumbnail_gradient || CATEGORY_GRADIENTS[r.category] || 'var(--gradient-purple)'};`;
   return `            <div class="related-card">
                 <a href="/posts/${r.slug}.html">
-                    <div class="related-card-thumb" style="${rThumb}"></div>
+                    <div class="related-card-thumb" style="${rThumb}" role="img" aria-label="${esc(r.title)}"></div>
                     <div class="related-card-info">
                         <div class="rc-category" style="color: var(${pillVar})">${esc(r.category)}</div>
                         <div class="rc-title">${esc(r.title)}</div>
@@ -1332,18 +1367,26 @@ ${related.map(r => {
         </div>` : '';
 
     // JSON-LD schemas for SEO
+    const wordCount = post.body ? post.body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().split(/\s+/).length : 0;
     const articleSchema = {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": post.title,
+      "description": post.excerpt,
       "datePublished": post.date + "T00:00:00Z",
       "dateModified": post.date + "T00:00:00Z",
       "author": { "@type": "Person", "name": post.author },
       "publisher": { "@type": "Organization", "name": "ScrollVault" },
-      "image": post.hero_image || ""
+      "image": post.hero_image || "",
+      "wordCount": wordCount,
+      "mainEntityOfPage": { "@type": "WebPage", "@id": SITE_URL + "/posts/" + post.slug + ".html" },
+      "url": SITE_URL + "/posts/" + post.slug + ".html"
     };
     const categoryHubUrl = post.category === 'News' ? '/news/' :
-      (post.category === 'Strategy' || post.category === 'Deck Guides') ? '/guides/' : '/';
+      post.category === 'Spoilers' ? '/spoilers/' :
+      post.category === 'Deck Guides' ? '/deck-guides/' :
+      post.category === 'Set Reviews' ? '/set-reviews/' :
+      (post.category === 'Strategy') ? '/guides/' : '/';
     const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -1362,7 +1405,7 @@ ${related.map(r => {
 ${nav('..', '')}
     <main id="main-content">
         <article itemscope itemtype="https://schema.org/Article">
-            <header class="article-hero" style="${heroStyle}">
+            <header class="article-hero" style="${heroStyle}" role="img" aria-label="Card art for ${esc(post.title)}">
                 <div class="article-hero-overlay"></div>
                 <div class="article-hero-content">
                     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -1399,8 +1442,8 @@ ${hasCards ? TOOLTIP_JS : ''}
   console.log(`Built ${posts.length} post pages to ${POSTS_OUT_DIR}`);
 
   // ── STATIC PAGES ──
-  function writePage(filename, title, description, activePage, bodyHtml) {
-    const html = `${head(title, description, '', '', { pageUrl: '/' + filename, ogType: 'website' })}
+  function writePage(filename, title, description, activePage, bodyHtml, options = {}) {
+    const html = `${head(title, description, '', '', { pageUrl: '/' + filename, ogType: 'website', ldJson: options.ldJson || null })}
     <style>${PAGE_CSS}</style>
 </head>
 <body>
@@ -1485,6 +1528,27 @@ ${footer('')}
   
 
   // New trust and hub pages (feature/hubs-trust-2026-02-13)
+  const manaBaseFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many lands should I play in my MTG deck?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Most 60-card constructed decks run 24-26 lands depending on mana curve. Aggressive decks with low curves can go as low as 20-22, while control decks may want 26-27. Commander decks typically run 36-38 lands plus 10 or more ramp pieces." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I balance colors in a multicolor mana base?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Count the colored mana symbols in your deck and allocate land sources proportionally. Use dual lands (shocks, fetches, checks) to cover multiple colors. A good rule of thumb is to have at least 14 sources of each primary color and 10-12 for splash colors." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best mana base for Commander?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The ideal Commander mana base depends on your color count and budget. Start with 36-38 lands, include all relevant fetch lands and shock lands you can afford, add check lands and fast lands for consistency, and finish with utility lands. Use mana rocks like Sol Ring, Arcane Signet, and Signets for additional fixing." }
+      }
+    ]
+  };
   writePage('guides/mana-bases.html', 'MTG Mana Base Guide', 'Learn how to build the perfect mana base for any Magic: The Gathering format. Land counts, color balance, and optimal dual land ratios.', 'guides', `
             <p>Building a solid mana base is the foundation of any successful Magic deck. Whether you're in Standard, Modern, Pioneer, or Commander, understanding how many lands you need, how to balance your colors, and when to play special lands is critical.</p>
             <h2>Key Principles</h2>
@@ -1502,7 +1566,28 @@ ${footer('')}
             <p>Dual lands are the backbone of multicolored decks. Check our <a href="/guides/dual-lands.html">Dual Land Cycles</a> guide for a complete list of fetch, shock, check, and fast lands and which formats they're legal in.</p>
             <h2>Using the Calculator</h2>
             <p>Our <a href="/tools/manabase/">Mana Base Calculator</a> lets you input your deck's color distribution and get tailored land recommendations. It's a great starting point, but always playtest and adjust.</p>
-        `);
+        `, { ldJson: manaBaseFaq });
+  const dualLandsFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are the best dual lands in MTG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The original Alpha dual lands (e.g., Underground Sea, Volcanic Island) are the most powerful because they enter untapped with no drawback. For formats where they're not legal, fetch lands plus shock lands provide the best mana fixing. Budget alternatives include check lands, fast lands, and pain lands." }
+      },
+      {
+        "@type": "Question",
+        "name": "What dual lands are legal in Pioneer?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Pioneer allows shock lands (e.g., Steam Vents, Godless Shrine), check lands (e.g., Glacial Fortress), fast lands (e.g., Blooming Marsh), pain lands (e.g., Shivan Reef), pathway lands, and slow lands (e.g., Deserted Beach). Fetch lands are banned in Pioneer." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between fetch lands and shock lands?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Fetch lands (e.g., Scalding Tarn) sacrifice themselves and pay 1 life to search your library for a land with a specific type. Shock lands (e.g., Steam Vents) enter the battlefield tapped unless you pay 2 life. Fetch lands are more versatile because they can find shock lands, effectively fixing any color combination, and they thin your deck." }
+      }
+    ]
+  };
   writePage('guides/dual-lands.html', 'MTG Dual Land Cycles Guide', 'Complete reference of all MTG dual land cycles: fetch lands, shock lands, fast lands, check lands. Format legality and color pair coverage.', 'guides', `
             <p>Dual lands are the backbone of multicolored decks. Over the years, Wizards has printed several cycles, each with unique mechanics and format legality.</p>
             <h2>Major Cycles</h2>
@@ -1516,7 +1601,264 @@ ${footer('')}
             <p>We are building detailed tables for each cycle with images, manacost, conditions, and format legality. Stay tuned.</p>
             <h2>Related Tools</h2>
             <p>Use our <a href="/tools/manabase/">Mana Base Calculator</a> to determine how many duals to play in your deck.</p>
-        `);
+        `, { ldJson: dualLandsFaq });
+
+  // ── MTG Formats Explained ──
+  const formatsFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are the different formats in Magic: The Gathering?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The main constructed formats are Standard (rotating, recent sets), Pioneer (2012+), Modern (2003+), Legacy (all sets, banned list), Vintage (all sets, restricted list), and Commander/EDH (100-card singleton, multiplayer). Limited formats include Draft and Sealed, where you build decks from opened packs. Pauper uses only commons." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which MTG format is best for beginners?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Standard and Commander are the most beginner-friendly formats. Standard has a smaller card pool, making it easier to learn. Commander is casual and multiplayer, so the social aspect helps new players learn. Draft is also great for beginners because everyone builds from the same card pool, leveling the playing field." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between Standard and Modern in MTG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Standard uses only cards from the last 2-3 years of sets and rotates annually, keeping the format fresh and affordable. Modern includes every set from 8th Edition (2003) onward and does not rotate, creating a deeper card pool with more powerful combos and strategies but a higher entry cost." }
+      }
+    ]
+  };
+  writePage('guides/formats.html', 'MTG Formats Explained — Complete Guide to Every Format', 'Complete guide to every Magic: The Gathering format. Standard, Pioneer, Modern, Legacy, Vintage, Commander, Pauper, and Limited explained with rotation schedules and beginner recommendations.', 'guides', `
+            <p>Magic: The Gathering offers a wide variety of formats, each with different card pools, rules, and play styles. Whether you're a new player looking for an entry point or a veteran exploring something different, understanding the formats helps you find the right home for your playstyle.</p>
+            <h2>Constructed Formats</h2>
+            <h3>Standard</h3>
+            <p>Standard uses the most recent sets (typically the last 2-3 years) and rotates annually. It's the most accessible constructed format with a smaller card pool and lower entry cost. Standard is supported on <a href="/guides/arena-beginners-guide.html">MTG Arena</a> and in tabletop play.</p>
+            <h3>Pioneer</h3>
+            <p>Pioneer includes all sets from Return to Ravnica (2012) onward. It doesn't rotate, offering a middle ground between Standard's freshness and Modern's depth. Pioneer is a popular competitive format with a diverse metagame.</p>
+            <h3>Modern</h3>
+            <p>Modern includes every set from 8th Edition (2003) forward, plus Modern Horizons sets. The format features powerful strategies like Murktide Regent tempo, Amulet Titan combo, and various midrange builds. Check our <a href="/decks/">top decks</a> page for current metagame data.</p>
+            <h3>Legacy</h3>
+            <p>Legacy allows cards from Magic's entire history with a banned list. It features iconic cards like Brainstorm, Force of Will, and dual lands. The format is extremely skill-intensive but has a high entry cost due to Reserved List cards.</p>
+            <h3>Vintage</h3>
+            <p>Vintage is Magic's oldest format, allowing nearly every card ever printed. Instead of banning powerful cards, it restricts them to one copy. Black Lotus, the Moxen, and Time Walk are all legal (but restricted).</p>
+            <h3>Commander (EDH)</h3>
+            <p>Commander is a 100-card singleton format built around a legendary creature. It's the most popular casual format, typically played in multiplayer pods of 4. Learn more in our <a href="/guides/commander-deck-building.html">Commander Deck Building Guide</a>.</p>
+            <h3>Pauper</h3>
+            <p>Pauper only allows cards that have been printed at common rarity. It's extremely budget-friendly and features surprisingly deep gameplay with cards like Lightning Bolt, Counterspell, and Snuff Out.</p>
+            <h2>Limited Formats</h2>
+            <h3>Draft</h3>
+            <p>In Draft, players open packs and pick one card at a time, passing the rest. You build a 40-card deck from what you draft. Drafting is a skill-intensive format that tests card evaluation and adaptability.</p>
+            <h3>Sealed</h3>
+            <p>In Sealed, each player opens 6 packs and builds a 40-card deck from the contents. It's more luck-dependent than Draft but a great way to experience new sets.</p>
+            <h2>Which Format Should You Play?</h2>
+            <ul>
+                <li><strong>New to Magic:</strong> Start with Standard or Draft on <a href="/guides/arena-beginners-guide.html">MTG Arena</a></li>
+                <li><strong>Casual multiplayer:</strong> Commander is king — see our <a href="/guides/commander-deck-building.html">deck building guide</a></li>
+                <li><strong>Competitive on a budget:</strong> Pauper or Standard</li>
+                <li><strong>Deep, non-rotating gameplay:</strong> Pioneer or Modern</li>
+                <li><strong>Ultimate power level:</strong> Legacy or Vintage</li>
+            </ul>
+            <p>Stay up to date on format changes, bans, and metagame shifts with our <a href="/news/">daily MTG news</a>.</p>
+        `, { ldJson: formatsFaq });
+
+  // ── How to Build a Sideboard ──
+  const sideboardFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many cards should be in an MTG sideboard?",
+        "acceptedAnswer": { "@type": "Answer", "text": "In all sanctioned constructed formats (Standard, Pioneer, Modern, Legacy, Vintage), your sideboard must be exactly 15 cards or 0 cards. You cannot register a sideboard with any other number. In Commander, sideboards are not used in standard play, though some groups allow a 10-card wishboard." }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the best sideboard cards in Modern?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Top Modern sideboard staples include Leyline of the Void and Rest in Peace (graveyard hate), Engineered Explosives and Brotherhood's End (sweepers), Blood Moon and Magus of the Moon (land disruption), Flusterstorm and Mystical Dispute (counter magic), and Surgical Extraction (combo disruption). The best choices depend on your deck and the current metagame." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I decide what to sideboard in and out?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Write a sideboard guide for each common matchup: identify which of your main deck cards are weakest in the matchup and which sideboard cards address the opponent's strategy. Generally, cut situational cards that don't impact the matchup and bring in targeted answers. Avoid over-sideboarding — swapping too many cards can dilute your deck's core gameplan." }
+      }
+    ]
+  };
+  writePage('guides/sideboard-guide.html', 'How to Build a Sideboard — MTG Sideboard Strategy Guide', 'Learn how to build a winning sideboard for Magic: The Gathering. The 15-card rule, sideboard strategies, hate cards, and format-specific tips for Standard, Modern, and Pioneer.', 'guides', `
+            <p>Your sideboard is one of the most important parts of your competitive MTG deck. In best-of-three matches, games two and three are often decided by who sideboarded better. A well-built sideboard can turn bad matchups into favorable ones.</p>
+            <h2>What Is a Sideboard?</h2>
+            <p>A sideboard is a set of exactly 15 cards that you can swap into your deck between games in a match. After game one, both players can exchange any number of cards between their main deck and sideboard, as long as the sideboard stays at 15 and the main deck stays at its original count (usually 60).</p>
+            <h2>Sideboard Strategies</h2>
+            <h3>Hate Cards</h3>
+            <p>Hate cards directly counter specific strategies. Examples: <em>Rest in Peace</em> against graveyard decks, <em>Stony Silence</em> against artifact decks, <em>Blood Moon</em> against greedy mana bases. These are your most impactful sideboard slots.</p>
+            <h3>Silver Bullets</h3>
+            <p>Silver bullets are narrow but devastating answers to specific threats. <em>Pithing Needle</em> naming a problematic planeswalker, <em>Relic of Progenitus</em> against a single graveyard deck, or <em>Celestial Purge</em> against black/red aggro. Use 1-2 copies for matchups you expect occasionally.</p>
+            <h3>Transformational Sideboarding</h3>
+            <p>Some decks can transform their entire game plan post-board. A combo deck might sideboard into a control plan when opponents bring in combo hate, or an aggro deck might bring in a planeswalker package to go over the top. This advanced strategy punishes opponents for sideboarding too narrowly.</p>
+            <h2>Building Your Sideboard: Step by Step</h2>
+            <ol>
+                <li><strong>Identify your worst matchups</strong> — What decks consistently beat you in game one?</li>
+                <li><strong>Find targeted answers</strong> — What cards directly address those strategies?</li>
+                <li><strong>Plan your swaps</strong> — For each matchup, know what comes in and what comes out</li>
+                <li><strong>Don't over-sideboard</strong> — Bringing in 8+ cards risks diluting your main gameplan</li>
+                <li><strong>Test and adjust</strong> — Sideboard plans need refinement through practice</li>
+            </ol>
+            <h2>Format-Specific Tips</h2>
+            <ul>
+                <li><strong>Standard:</strong> Sideboards tend to be broader since the metagame shifts frequently. Flexible answers like counterspells and removal are key.</li>
+                <li><strong>Pioneer:</strong> Graveyard hate and artifact/enchantment removal are almost always needed. Plan for combo matchups.</li>
+                <li><strong>Modern:</strong> The format is diverse, so dedicate slots to the top 5-6 decks. Cards that hit multiple matchups (e.g., <em>Engineered Explosives</em>) are premium.</li>
+            </ul>
+            <h2>Common Mistakes</h2>
+            <ul>
+                <li>Sideboarding reactively instead of having a plan before the match</li>
+                <li>Bringing in cards without knowing what to cut</li>
+                <li>Ignoring your own deck's mana curve after sideboarding</li>
+                <li>Not testing your sideboard — theory and practice often diverge</li>
+            </ul>
+            <p>Ready to build your deck? Use our <a href="/tools/manabase/">Mana Base Calculator</a> to optimize your land base, and check out our other <a href="/guides/">strategy guides</a> for more tips.</p>
+        `, { ldJson: sideboardFaq });
+
+  // ── Commander Deck Building Guide ──
+  const commanderFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many lands should a Commander deck have?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Most Commander decks run 36-38 lands, plus 10-12 ramp sources (mana rocks and ramp spells). Lower-curve decks (average mana value under 3) can go as low as 33-35 lands with more cheap ramp. Higher-curve or landfall decks may want 38-40 lands. Use our Mana Base Calculator for precise recommendations." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best ratio of ramp, draw, and removal in Commander?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A solid starting point is the 10-10-10 rule: 10 ramp sources, 10 card draw sources, and 10 removal/interaction pieces. This leaves about 33 slots for lands and 37 for your commander's strategy. Adjust based on your commander — spellslinger decks want more draw, while green decks lean into ramp." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I choose a commander for my first EDH deck?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Pick a commander that excites you and has a clear build-around strategy. Good first commanders have straightforward abilities, are in 2-3 colors (for deck-building flexibility without mana base complexity), and have plenty of budget-friendly support cards. Popular starter commanders include Aesi, Tyrant of Gyre Strait (Simic value), Prossh, Skyraider of Kher (Jund tokens), and Syr Ginger, the Meal Ender (colorless artifacts)." }
+      }
+    ]
+  };
+  writePage('guides/commander-deck-building.html', 'How to Build a Commander Deck — EDH Deck Building Guide', 'Complete guide to building a Commander/EDH deck. Choosing a commander, 100-card singleton rules, mana base, ramp/draw/removal ratios, power level brackets, and budget tips.', 'guides', `
+            <p>Commander (also known as EDH) is Magic's most popular format, and building your first deck is one of the most rewarding experiences in the game. This guide walks you through every step, from choosing your commander to finalizing your mana base.</p>
+            <h2>The Basics</h2>
+            <ul>
+                <li><strong>100 cards</strong> including your commander</li>
+                <li><strong>Singleton</strong> — only one copy of each card (except basic lands)</li>
+                <li><strong>Color identity</strong> — every card must match your commander's color identity</li>
+                <li><strong>Starting life:</strong> 40 (21 commander damage from a single commander is lethal)</li>
+            </ul>
+            <h2>Step 1: Choose Your Commander</h2>
+            <p>Your commander defines your deck. Look for a legendary creature with an ability that inspires you. Consider:</p>
+            <ul>
+                <li><strong>Strategy:</strong> Does the commander suggest a clear game plan (tokens, spellslinger, voltron, combo)?</li>
+                <li><strong>Colors:</strong> 2-3 color commanders offer the best balance of card access and mana base simplicity</li>
+                <li><strong>Budget:</strong> Some commanders thrive with budget cards, while others need expensive staples</li>
+                <li><strong>Popularity:</strong> Sites like EDHREC show the most-built commanders and common includes</li>
+            </ul>
+            <h2>Step 2: Build Your Mana Base</h2>
+            <p>A reliable mana base is critical in a format with 2+ colors and 100 cards. Start with 36-38 lands:</p>
+            <ul>
+                <li><strong>Basics:</strong> Always include enough basics for fetch effects and <em>Path to Exile</em></li>
+                <li><strong>Dual lands:</strong> Use shock lands, check lands, and battle lands for fixing (see our <a href="/guides/mana-bases.html">Mana Base Guide</a> and <a href="/guides/dual-lands.html">Dual Land Cycles</a>)</li>
+                <li><strong>Utility lands:</strong> <em>Command Tower</em>, <em>Exotic Orchard</em>, <em>Reliquary Tower</em></li>
+                <li><strong>Mana rocks:</strong> <em>Sol Ring</em>, <em>Arcane Signet</em>, and signets for your colors</li>
+            </ul>
+            <p>Use our <a href="/tools/manabase/">Mana Base Calculator</a> to get precise land counts for your color distribution.</p>
+            <h2>Step 3: The 10-10-10 Framework</h2>
+            <p>A balanced Commander deck needs three categories of support cards:</p>
+            <ul>
+                <li><strong>10 Ramp sources:</strong> <em>Sol Ring</em>, <em>Arcane Signet</em>, <em>Cultivate</em>, <em>Kodama's Reach</em>, signets, talismans</li>
+                <li><strong>10 Card draw sources:</strong> <em>Rhystic Study</em>, <em>Beast Whisperer</em>, <em>Phyrexian Arena</em>, <em>Harmonize</em></li>
+                <li><strong>10 Removal/interaction:</strong> <em>Swords to Plowshares</em>, <em>Chaos Warp</em>, <em>Beast Within</em>, <em>Counterspell</em>, board wipes</li>
+            </ul>
+            <h2>Step 4: Fill Your Strategy Slots</h2>
+            <p>With ~37 lands, ~10 ramp, ~10 draw, ~10 removal, and your commander, you have about 32 slots for cards that advance your deck's strategy. Focus on cards that synergize with your commander's ability.</p>
+            <h2>Power Level and Brackets</h2>
+            <p>Commander uses a bracket system to help players find games at similar power levels:</p>
+            <ul>
+                <li><strong>Bracket 1 (Casual):</strong> Precons and lightly upgraded decks. No infinite combos, no fast mana beyond Sol Ring.</li>
+                <li><strong>Bracket 2 (Focused):</strong> Clear strategy, some synergy, budget-conscious. Infinite combos allowed if they need 3+ pieces.</li>
+                <li><strong>Bracket 3 (Optimized):</strong> Tuned lists with efficient combos and strong interaction. Most organized play falls here.</li>
+                <li><strong>Bracket 4 (cEDH):</strong> Fully competitive with fast mana, free counterspells, and efficient win conditions.</li>
+            </ul>
+            <p>Check out our <a href="/tools/commander-bracket/">Commander Bracket Calculator</a> to estimate your deck's power level.</p>
+            <h2>Budget Tips</h2>
+            <ul>
+                <li>Start with a preconstructed deck and upgrade gradually</li>
+                <li>Many staples have budget alternatives (e.g., <em>Night's Whisper</em> instead of <em>Rhystic Study</em>)</li>
+                <li>Invest in mana base first — good lands improve every game</li>
+                <li>Check multiple vendors for the best prices on singles</li>
+            </ul>
+        `, { ldJson: commanderFaq });
+
+  // ── MTG Arena Beginner's Guide ──
+  const arenaFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is MTG Arena free to play?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, MTG Arena is completely free to download and play. You earn gold through daily wins and quests, which can be spent on packs and events. While you can spend real money on gems for faster collection building, it is entirely possible to build competitive decks as a free-to-play player through smart resource management." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best starter deck in MTG Arena?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The mono-colored starter decks are regularly updated, but historically the mono-red (aggressive) and mono-green (ramp) decks perform best for grinding daily wins. After completing the color challenges, pick a two-color starter deck that matches your play style. Upgrade whichever deck you enjoy most rather than spreading wildcards thin across multiple decks." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do wildcards work in MTG Arena?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Wildcards are special items that can be redeemed for any card of the same rarity. You get wildcards from opening packs (guaranteed at set intervals) and from the wildcard track. There are four tiers: common, uncommon, rare, and mythic rare. Rare and mythic wildcards are the most valuable — spend them carefully on cards you know you need for a specific deck rather than speculative crafting." }
+      }
+    ]
+  };
+  writePage('guides/arena-beginners-guide.html', "MTG Arena Beginner's Guide — How to Start and Succeed", "Complete beginner's guide to MTG Arena. How to get started, earn gold and gems, build decks with wildcards, navigate events, and climb the ranked ladder as a free-to-play player.", 'guides', `
+            <p>MTG Arena is the best way to play Magic: The Gathering digitally. Whether you're brand new to Magic or a tabletop veteran going digital, this guide covers everything you need to know to get started and build a competitive collection without breaking the bank.</p>
+            <h2>Getting Started</h2>
+            <p>Download MTG Arena for free on PC, Mac, iOS, or Android. The game starts with a tutorial that teaches basic mechanics through guided matches. After the tutorial, you'll unlock color challenges that reward you with a starter deck for each color.</p>
+            <h2>The Economy: Gold, Gems, and Wildcards</h2>
+            <h3>Gold</h3>
+            <p>Gold is the free currency earned through daily wins (up to 750/day) and daily quests (500 or 750 each). Spend gold on packs (1,000 gold each) or event entries.</p>
+            <h3>Gems</h3>
+            <p>Gems are the premium currency, purchasable with real money or earnable through events. The best gem-to-value ratio comes from the highest gem bundle. Gems are needed for the Mastery Pass and some premium events.</p>
+            <h3>Wildcards</h3>
+            <p>Wildcards let you craft any card of matching rarity. You get them from opening packs at guaranteed intervals. Rare and mythic wildcards are precious — spend them on proven decks, not experiments.</p>
+            <h2>Building Your First Competitive Deck</h2>
+            <ol>
+                <li><strong>Pick one deck</strong> — Focus on a single competitive deck rather than building several mediocre ones</li>
+                <li><strong>Start with a budget version</strong> — Many top decks have budget cores that work well at lower ranks</li>
+                <li><strong>Upgrade gradually</strong> — Use wildcards to add the most impactful rares/mythics first</li>
+                <li><strong>Check the meta</strong> — Visit our <a href="/decks/">top decks page</a> to see what's performing well</li>
+            </ol>
+            <p>Need help with your mana base? Our <a href="/tools/manabase/">Mana Base Calculator</a> works for Arena decks too.</p>
+            <h2>Game Modes</h2>
+            <ul>
+                <li><strong>Play (unranked):</strong> Casual matches with no stakes — great for testing new decks</li>
+                <li><strong>Ranked:</strong> Climb from Bronze to Mythic in both Constructed and Limited. Rank resets each season.</li>
+                <li><strong>Quick Draft:</strong> Draft against bots for 5,000 gold. Best value for building your collection and improving.</li>
+                <li><strong>Premier Draft:</strong> Draft against humans for 10,000 gold or 1,500 gems. More competitive, better rewards.</li>
+                <li><strong>Events:</strong> Rotating events with unique rules and rewards. Check the schedule for special events.</li>
+            </ul>
+            <h2>Free-to-Play Tips</h2>
+            <ul>
+                <li>Complete every daily quest — they're your primary gold income</li>
+                <li>Get at least 4 daily wins each day (after 4, rewards drop off sharply)</li>
+                <li>Rare-draft in Quick Draft to build your collection efficiently</li>
+                <li>Save gold for the next set release — early drafting is the best value</li>
+                <li>Never buy packs with gems — use gems for drafts and the Mastery Pass</li>
+                <li>Don't craft cards until you have a complete decklist planned</li>
+            </ul>
+            <h2>Understanding Formats on Arena</h2>
+            <p>MTG Arena supports Standard, Alchemy, Explorer (similar to Pioneer), Historic, and Timeless. For a full breakdown, see our <a href="/guides/formats.html">MTG Formats Explained</a> guide. If you're interested in Commander, Arena offers Brawl (a 60-card variant) — check our <a href="/guides/commander-deck-building.html">Commander Deck Building Guide</a> for the full format.</p>
+            <h2>Climbing the Ranked Ladder</h2>
+            <ul>
+                <li>Play a deck you know well — consistency beats novelty in ranked</li>
+                <li>Learn the meta and adjust your deck's answers accordingly</li>
+                <li>Track your win rate — if it drops below 50%, take a break or switch decks</li>
+                <li>Mythic rank requires sustained play, not just a high win rate</li>
+            </ul>
+        `, { ldJson: arenaFaq });
+
   writePage('about/authors.html', 'Our Authors', 'Meet the writers behind ScrollVault. Expert Magic: The Gathering players providing daily news, strategy, and deck guides.', 'about', `
             <p>ScrollVault is written by a team of dedicated Magic players who have been slinging cardboard since the early days. We combine human passion with AI-assisted research to bring you timely, accurate coverage.</p>
             <h2>Molts MTG</h2>
@@ -1543,6 +1885,9 @@ ${footer('')}
     { loc: '/', changefreq: 'daily', priority: '1.0' },
     { loc: '/news/', changefreq: 'daily', priority: '0.8' },
     { loc: '/guides/', changefreq: 'weekly', priority: '0.8' },
+    { loc: '/spoilers/', changefreq: 'weekly', priority: '0.7' },
+    { loc: '/deck-guides/', changefreq: 'weekly', priority: '0.7' },
+    { loc: '/set-reviews/', changefreq: 'weekly', priority: '0.7' },
     { loc: '/about.html', changefreq: 'monthly', priority: '0.5' },
     { loc: '/contact.html', changefreq: 'monthly', priority: '0.5' },
     { loc: '/privacy.html', changefreq: 'yearly', priority: '0.3' },
@@ -1551,6 +1896,10 @@ ${footer('')}
     { loc: '/about/editorial-policy.html', changefreq: 'monthly', priority: '0.4' },
     { loc: '/guides/mana-bases.html', changefreq: 'monthly', priority: '0.6' },
     { loc: '/guides/dual-lands.html', changefreq: 'monthly', priority: '0.6' },
+    { loc: '/guides/formats.html', changefreq: 'monthly', priority: '0.6' },
+    { loc: '/guides/sideboard-guide.html', changefreq: 'monthly', priority: '0.6' },
+    { loc: '/guides/commander-deck-building.html', changefreq: 'monthly', priority: '0.6' },
+    { loc: '/guides/arena-beginners-guide.html', changefreq: 'monthly', priority: '0.6' },
     // Hand-crafted pages
     { loc: '/decks/', changefreq: 'weekly', priority: '0.8' },
     { loc: '/draft/', changefreq: 'monthly', priority: '0.7' },
