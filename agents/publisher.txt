@@ -44,6 +44,12 @@ STEPS:
    - Run: node /home/degenai/scrollvault/build.js --staging
    - Check the output for errors
 
+   CRITICAL — DOUBLE FOOTER BUG:
+   The writePage() function in build.js automatically appends </main>, footer(), </body>, and </html>.
+   Post body content in posts.json must NEVER include these closing tags or you get double footers.
+   If you see duplicate footers in built output, the body HTML has stray closing tags — strip them.
+   This bug has recurred multiple times. Always verify after build.
+
 8. VERIFY the build:
    - Confirm the build script exited without errors
    - Check that the post HTML file exists: /home/degenai/staging.scrollvault.net/posts/[slug].html
@@ -69,7 +75,7 @@ STEPS:
     - Use exact date from post.date.
 
 12. COMMIT changes with git (if repository is dirty):
-    - Run: git add data/posts.json posts/ index.html news/ guides/ sitemap.xml && git commit -m "publish: [slug] - [Title]" || true
+    - Run: git add data/posts.json posts/ index.html news/ guides/ spoilers/ deck-guides/ set-reviews/ sitemap.xml && git commit -m "publish: [slug] - [Title]" || true
     - Only stage data and built output files — do NOT use `git add -A` (risks staging sensitive files)
     - Do not fail if git fails (e.g., not a repo) – just continue.
 

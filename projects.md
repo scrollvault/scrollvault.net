@@ -26,8 +26,8 @@ High-level view of all active workstreams.
 - Branch: master updated.
 
 ## Agent Automation Pipeline (Done)
-- Full agent suite registered: scout, writer, editor, factchecker, publisher, designer, qa, automation.
-- Model routing: scout/factchecker → hermes4:405b; automation → step; publisher → coder.
+- Full agent suite registered: scout, writer, editor, factchecker, publisher, designer, qa, automation, data-analyst, seo-optimizer, heartbeat.
+- Model routing: all agents → stepfun/step-3.5-flash:free (primary), qwen/qwen3-coder:free (fallback). QA uses qwen3-coder as primary.
 - Subagent allowlists enable pipeline collaboration.
 - Automation agent permissions: exec, sessions_spawn, message.
 - Cron jobs active: weekly land verification (Sun 3 AM UTC), daily pipeline (6 AM ET), morning digest (8 AM ET).
@@ -39,13 +39,13 @@ High-level view of all active workstreams.
 - Daily logs in memory/ (auto-delete after 7 days).
 - Session archiving (2MB threshold).
 
-## Current Issue: Compute3 Blocking
-- Scout agent's web searches blocked (403) by Compute3 provider during pipeline test.
-- Action needed: Change Scout model priority to use openrouter-direct first, with compute3 as fallback.
-- This will restore pipeline functionality and prevent single-provider dependency.
+## Compute3 Blocking (Resolved)
+- Scout agent's web searches were blocked (403) by Compute3 provider.
+- Fix: Compute3 removed entirely. All agents now use OpenRouter models only (stepfun, qwen3-coder).
+- Do NOT re-add Compute3 as a provider or fallback.
 
 ## Activity Log
-- 2026-02-16: Published 1 post(s) – [All Facts Verified: No News, Just Editorial Philosophy](/posts/no-news-today-what-to-do-when-the-scout-comes-up-empty.html)
+- 2026-02-16: Published 2 post(s) – [Spell Snare and the End of Friend Challenges: Arena's Big Update](/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html) and [All Facts Verified: No News, Just Editorial Philosophy](/posts/no-news-today-what-to-do-when-the-scout-comes-up-empty.html)
 - 2026-02-15: Published 1 post(s) – [Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity](/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html)
 - 2026-02-14: Published 1 post(s) – [Heroes in a Half Shell: TMNT Previews Kick Off February 17](/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html)
 - 2026-02-14: Published 1 post(s) – [Divination in Action: How We Scout MTG News](/posts/divination-in-action-how-we-scout-mtg-news.html)

@@ -74,6 +74,15 @@
 .about-avatar { width: 80px; height: 80px; margin: 0 auto 1rem; background: var(--gradient-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
 .about-text { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
 .post-card.hidden { display: none; }
+.pillar-guides { padding: 2.5rem 0 0; }
+.pillar-guides h2 { font-size: 1.5rem; margin-bottom: 1.25rem; }
+.pillar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.pillar-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.pillar-card a { color: inherit; text-decoration: none; display: block; }
+.pillar-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+.pillar-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; margin: 0; }
+.pillar-card .pillar-arrow { color: #a78bfa; font-weight: 600; font-size: 0.875rem; margin-top: 0.75rem; display: inline-block; }
 @media (max-width: 768px) {
     .hero-featured { min-height: 360px; }
     .hero-featured h1 { font-size: 1.75rem; }
@@ -115,6 +124,7 @@
                 </div>
             </div>
         </section>
+
         <div class="container content-wrapper">
             <section class="posts-grid" id="postsGrid">
                 <article class="post-card" data-category="spoilers">
@@ -127,22 +137,6 @@
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
                                 <span class="post-date">1 week ago</span>
-                            </div>
-                            <span class="read-more">Read More &rarr;</span>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="post-card" data-category="spoilers">
-                    <a href="/posts/modern-horizons-4-leak-analysis.html" class="card-link">
-                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838'); background-size: cover; background-position: center;" role="img" aria-label="Modern Horizons 4 Leak Analysis"></div>
-                        <div class="post-content">
-                            <span class="post-category category-spoilers">Spoilers</span>
-                            <h2 class="post-title">Modern Horizons 4 Leak Analysis</h2>
-                            <p class="post-excerpt">A batch of alleged MH4 cards surfaced online and the community is losing it. Here's what looks real, what looks fake, and what it means for Modern.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">2 weeks ago</span>
                             </div>
                             <span class="read-more">Read More &rarr;</span>
                         </div>
@@ -176,6 +170,13 @@
                     <h3 class="widget-title">Recent Posts</h3>
                     <ul class="recent-posts">
                         <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
+                            <div>
+                                <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html">Spell Snare and the End of Friend Challenges: Arena's Big Update</a>
+                                <span class="recent-post-date">Today</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity"></div>
                             <div>
                                 <a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html">Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity</a>
@@ -203,13 +204,6 @@
                                 <span class="recent-post-date">3 days ago</span>
                             </div>
                         </li>
-                        <li class="recent-post-item">
-                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal"></div>
-                            <div>
-                                <a href="/posts/the-one-ring-hasbro-lawsuit-mtg.html">The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal</a>
-                                <span class="recent-post-date">4 days ago</span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <div class="sidebar-widget">
@@ -220,35 +214,35 @@
                                 <span class="category-dot" style="background: var(--pill-news);"></span>
                                 News
                             </span>
-                            <span class="category-count">24</span>
+                            <span class="category-count">23</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=strategy]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-strategy);"></span>
                                 Strategy
                             </span>
-                            <span class="category-count">10</span>
+                            <span class="category-count">7</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=spoilers]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-spoilers);"></span>
                                 Spoilers
                             </span>
-                            <span class="category-count">4</span>
+                            <span class="category-count">3</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=deck-guides]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-deck-guides);"></span>
                                 Deck Guides
                             </span>
-                            <span class="category-count">8</span>
+                            <span class="category-count">6</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=set-reviews]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-set-reviews);"></span>
                                 Set Reviews
                             </span>
-                            <span class="category-count">4</span>
+                            <span class="category-count">3</span>
                         </li>
                     </ul>
                 </div>
@@ -302,6 +296,6 @@
             if (t) { filterBtns.forEach(b => b.classList.remove('active')); document.querySelector('[data-filter="all"]').classList.add('active'); }
         }
     </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/orcish-bowmasters-five-cards-shaking-modern.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/new-liliana-planeswalker-leaked-shes-even-scarier.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/modern-horizons-4-leak-analysis.html"},{"@type":"ListItem","position":4,"url":"https://scrollvault.net/posts/kaito-shizuki-just-broke-standard-and-so-did-these-other-cards.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/orcish-bowmasters-five-cards-shaking-modern.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/new-liliana-planeswalker-leaked-shes-even-scarier.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/kaito-shizuki-just-broke-standard-and-so-did-these-other-cards.html"}]}</script>
 </body>
 </html>

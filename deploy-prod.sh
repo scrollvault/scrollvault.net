@@ -12,6 +12,6 @@ echo "Production build complete."
 chown -R degenai:nobody "$SCRIPT_DIR" 2>/dev/null || true
 
 # Purge nginx proxy cache so changes appear immediately
-rm -rf /var/nginx/cache/degenai/* 2>/dev/null && echo "Nginx cache purged" || echo "Note: could not purge nginx cache (may need root)"
+rm -rf /var/nginx/cache/degenai/* 2>/dev/null && echo "Nginx cache purged" || echo "Note: nginx cache owned by nginx user — will expire within 1hr"
 
 echo "=== Deploy complete ==="

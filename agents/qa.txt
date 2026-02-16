@@ -22,6 +22,9 @@ TEST CHECKLIST:
    - https://staging.scrollvault.net/terms.html
    - https://staging.scrollvault.net/news/
    - https://staging.scrollvault.net/guides/
+   - https://staging.scrollvault.net/spoilers/
+   - https://staging.scrollvault.net/deck-guides/
+   - https://staging.scrollvault.net/set-reviews/
    - https://staging.scrollvault.net/robots.txt
    - https://staging.scrollvault.net/sitemap.xml
    Run: curl -s -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" [URL]
@@ -72,6 +75,25 @@ TEST CHECKLIST:
    Run: curl -s -o /dev/null -w "%{time_total}" -A "Mozilla/5.0" https://staging.scrollvault.net/
    PASS criteria: Response time under 3 seconds
 
+9. DOUBLE FOOTER CHECK (CRITICAL — known recurring bug):
+   Fetch the newest post page HTML and count closing tags:
+   Run: curl -s -A "Mozilla/5.0" [newest_post_url] | grep -c '</footer>'
+   Run: curl -s -A "Mozilla/5.0" [newest_post_url] | grep -c '</main>'
+   Run: curl -s -A "Mozilla/5.0" [newest_post_url] | grep -c '</body>'
+   PASS criteria: Each tag appears exactly 1 time
+   If ANY count > 1: FAIL CRITICAL — double footer bug. The post body HTML contains
+   closing tags that writePage() also adds. Publisher must strip them from the body.
+
+10. JSON-LD SCHEMA VALIDATION (check 1 post page):
+    Fetch post HTML, extract the <script type="application/ld+json"> content.
+    Run: curl -s -A "Mozilla/5.0" [post_url] | grep -o '<script type="application/ld+json">[^<]*</script>' | head -1
+    Verify:
+    - Content is valid JSON (parseable)
+    - Contains "@type": "Article" (not BlogPosting or missing)
+    - Contains "author" field
+    - A second ld+json block with "@type": "BreadcrumbList" is present
+    PASS criteria: Valid JSON, correct @type, author present, breadcrumbs present
+
 REPORTING FORMAT:
 Output a structured report:
 
@@ -87,6 +109,8 @@ Build: [post count from posts.json]
 6. Link Integrity: PASS/FAIL [X/Y links OK]
 7. Security Headers: PASS/FAIL [details]
 8. Performance: PASS/FAIL [response time]
+9. Double Footer: PASS/FAIL [tag counts]
+10. JSON-LD Schema: PASS/FAIL [details]
 
 Overall: PASS / FAIL (X issues found)
 

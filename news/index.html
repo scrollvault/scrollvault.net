@@ -71,6 +71,15 @@
 .about-avatar { width: 80px; height: 80px; margin: 0 auto 1rem; background: var(--gradient-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
 .about-text { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
 .post-card.hidden { display: none; }
+.pillar-guides { padding: 2.5rem 0 0; }
+.pillar-guides h2 { font-size: 1.5rem; margin-bottom: 1.25rem; }
+.pillar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.pillar-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.pillar-card a { color: inherit; text-decoration: none; display: block; }
+.pillar-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+.pillar-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; margin: 0; }
+.pillar-card .pillar-arrow { color: #a78bfa; font-weight: 600; font-size: 0.875rem; margin-top: 0.75rem; display: inline-block; }
 @media (max-width: 768px) {
     .hero-featured { min-height: 360px; }
     .hero-featured h1 { font-size: 1.75rem; }
@@ -100,19 +109,36 @@
         </div>
     </nav>
     <main id="main-content">
-        <section class="hero-featured" style="background: var(--gradient-purple); background-size: cover; background-position: center;" role="img" aria-label="Featured: Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity - card art">
+        <section class="hero-featured" style="background: var(--gradient-purple); background-size: cover; background-position: center;" role="img" aria-label="Featured: Spell Snare and the End of Friend Challenges: Arena's Big Update - card art">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="container">
                     <span class="post-category category-news">News</span>
-                    <h1><a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html">Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity</a></h1>
-                    <p class="hero-excerpt">Hasbro faces a shareholder lawsuit over its management of the Magic 30th Anniversary set. The legal challenge could force Wizards to re-evaluate scarcity strategies. Here's what this means for players and the future of Magic.</p>
-                    <a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html" class="hero-cta">Read More &rarr;</a>
+                    <h1><a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html">Spell Snare and the End of Friend Challenges: Arena's Big Update</a></h1>
+                    <p class="hero-excerpt">MTG Arena just fixed social play with Challenge Lobbies, dropped TMNT preorder bundles, and set up Arena Championship 11. Spell Snare is getting depth art and these changes are actually huge.</p>
+                    <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html" class="hero-cta">Read More &rarr;</a>
                 </div>
             </div>
         </section>
+
         <div class="container content-wrapper">
             <section class="posts-grid" id="postsGrid">
+                <article class="post-card" data-category="news">
+                    <a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html" class="card-link">
+                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity</h2>
+                            <p class="post-excerpt">Hasbro faces a shareholder lawsuit over its management of the Magic 30th Anniversary set. The legal challenge could force Wizards to re-evaluate scarcity strategies. Here's what this means for players and the future of Magic.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Yesterday</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
                 <article class="post-card" data-category="news">
                     <a href="/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html" class="card-link">
                         <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Heroes in a Half Shell: TMNT Previews Kick Off February 17"></div>
@@ -434,44 +460,12 @@
                 </article>
 
                 <article class="post-card" data-category="news">
-                    <a href="/posts/mtg-arena-economy-changes-march.html" class="card-link">
-                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="MTG Arena Economy Changes Coming in March"></div>
-                        <div class="post-content">
-                            <span class="post-category category-news">News</span>
-                            <h2 class="post-title">MTG Arena Economy Changes Coming in March</h2>
-                            <p class="post-excerpt">Wizards just announced sweeping changes to the Arena economy. Gold rates, pack prices, and wildcard tracks are all getting reworked.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">1 week ago</span>
-                            </div>
-                            <span class="read-more">Read More &rarr;</span>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="post-card" data-category="news">
                     <a href="/posts/paper-pro-tour-returns-million-dollar-prize-pool.html" class="card-link">
                         <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Tarmogoyf Is Back: Paper Pro Tour Returns with Million Dollar Prize Pool"></div>
                         <div class="post-content">
                             <span class="post-category category-news">News</span>
                             <h2 class="post-title">Tarmogoyf Is Back: Paper Pro Tour Returns with Million Dollar Prize Pool</h2>
                             <p class="post-excerpt">Wizards just announced the full paper Pro Tour circuit is returning in 2026 with a million dollar prize pool and a new team format. Get ready for Tarmogoyf, Snapcaster Mage, and the rest of the Legends to battle on the big stage again.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">2 weeks ago</span>
-                            </div>
-                            <span class="read-more">Read More &rarr;</span>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="post-card" data-category="news">
-                    <a href="/posts/commander-banned-list-update-feb-2026.html" class="card-link">
-                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Commander Banned List Update February 2026"></div>
-                        <div class="post-content">
-                            <span class="post-category category-news">News</span>
-                            <h2 class="post-title">Commander Banned List Update February 2026</h2>
-                            <p class="post-excerpt">The Commander Rules Committee just shook things up. Three cards banned, one unbanned, and the community has opinions.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
                                 <span class="post-date">2 weeks ago</span>
@@ -491,6 +485,13 @@
                 <div class="sidebar-widget">
                     <h3 class="widget-title">Recent Posts</h3>
                     <ul class="recent-posts">
+                        <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
+                            <div>
+                                <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html">Spell Snare and the End of Friend Challenges: Arena's Big Update</a>
+                                <span class="recent-post-date">Today</span>
+                            </div>
+                        </li>
                         <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity"></div>
                             <div>
@@ -519,13 +520,6 @@
                                 <span class="recent-post-date">3 days ago</span>
                             </div>
                         </li>
-                        <li class="recent-post-item">
-                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal"></div>
-                            <div>
-                                <a href="/posts/the-one-ring-hasbro-lawsuit-mtg.html">The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal</a>
-                                <span class="recent-post-date">4 days ago</span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <div class="sidebar-widget">
@@ -536,35 +530,35 @@
                                 <span class="category-dot" style="background: var(--pill-news);"></span>
                                 News
                             </span>
-                            <span class="category-count">24</span>
+                            <span class="category-count">23</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=strategy]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-strategy);"></span>
                                 Strategy
                             </span>
-                            <span class="category-count">10</span>
+                            <span class="category-count">7</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=spoilers]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-spoilers);"></span>
                                 Spoilers
                             </span>
-                            <span class="category-count">4</span>
+                            <span class="category-count">3</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=deck-guides]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-deck-guides);"></span>
                                 Deck Guides
                             </span>
-                            <span class="category-count">8</span>
+                            <span class="category-count">6</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=set-reviews]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-set-reviews);"></span>
                                 Set Reviews
                             </span>
-                            <span class="category-count">4</span>
+                            <span class="category-count">3</span>
                         </li>
                     </ul>
                 </div>
@@ -618,6 +612,6 @@
             if (t) { filterBtns.forEach(b => b.classList.remove('active')); document.querySelector('[data-filter="all"]').classList.add('active'); }
         }
     </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/arena-powered-cube-returns-2026.html"},{"@type":"ListItem","position":4,"url":"https://scrollvault.net/posts/companion-app-update-player-profiles-are-finally-here.html"},{"@type":"ListItem","position":5,"url":"https://scrollvault.net/posts/the-one-ring-hasbro-lawsuit-mtg.html"},{"@type":"ListItem","position":6,"url":"https://scrollvault.net/posts/force-negation-returns-historic-shakeup.html"},{"@type":"ListItem","position":7,"url":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"},{"@type":"ListItem","position":8,"url":"https://scrollvault.net/posts/eldrazi-temple-ban-historic-overhaul-necropotence-restricted.html"},{"@type":"ListItem","position":9,"url":"https://scrollvault.net/posts/prophet-of-kruphix-spikes-428-commander-stock-market-goes-wild.html"},{"@type":"ListItem","position":10,"url":"https://scrollvault.net/posts/lutri-spellchaser-unbanned-commander.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html"},{"@type":"ListItem","position":4,"url":"https://scrollvault.net/posts/arena-powered-cube-returns-2026.html"},{"@type":"ListItem","position":5,"url":"https://scrollvault.net/posts/companion-app-update-player-profiles-are-finally-here.html"},{"@type":"ListItem","position":6,"url":"https://scrollvault.net/posts/the-one-ring-hasbro-lawsuit-mtg.html"},{"@type":"ListItem","position":7,"url":"https://scrollvault.net/posts/force-negation-returns-historic-shakeup.html"},{"@type":"ListItem","position":8,"url":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"},{"@type":"ListItem","position":9,"url":"https://scrollvault.net/posts/eldrazi-temple-ban-historic-overhaul-necropotence-restricted.html"},{"@type":"ListItem","position":10,"url":"https://scrollvault.net/posts/prophet-of-kruphix-spikes-428-commander-stock-market-goes-wild.html"}]}</script>
 </body>
 </html>

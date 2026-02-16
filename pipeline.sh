@@ -244,6 +244,11 @@ PUBLISHER_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
 log "Publisher completed"
 echo "$PUBLISHER_RESULT" > "$DATA_DIR/drafts/publisher-${TIMESTAMP}.txt"
 
+# ── DEFENSIVE REBUILD ──
+# Publisher agent should run build.js, but rebuild here as a safety net
+log "--- Defensive Rebuild ---"
+node "$SCRIPT_DIR/build.js" 2>/dev/null || log "WARNING: Defensive build.js failed — publisher may have already built"
+
 # ── VERIFY BUILD ──
 log "--- Verifying Build ---"
 POST_COUNT=$(node -e "const d=require('$DATA_DIR/posts.json');console.log(d.posts.filter(p=>p.published).length)" 2>/dev/null || echo "?")
@@ -253,7 +258,7 @@ log "Total published posts: $POST_COUNT"
 chown -R degenai:nobody "$SCRIPT_DIR" 2>/dev/null || true
 
 # Purge nginx proxy cache so changes appear immediately
-rm -rf /var/nginx/cache/degenai/* 2>/dev/null && log "Nginx cache purged" || log "Note: could not purge nginx cache (may need root)"
+rm -rf /var/nginx/cache/degenai/* 2>/dev/null && log "Nginx cache purged" || log "Note: nginx cache owned by nginx user — will expire within 1hr"
 
 HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" https://staging.scrollvault.net/ 2>/dev/null || echo "000")
 log "Site HTTP status: $HTTP_CODE"

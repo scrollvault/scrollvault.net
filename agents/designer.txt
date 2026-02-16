@@ -47,12 +47,18 @@ PERFORMANCE BUDGET:
 - CSS: single stylesheet, no external CSS besides Google Fonts
 
 HAND-CRAFTED PAGES (DO NOT MODIFY via build.js — these are maintained separately):
-- /home/degenai/scrollvault/decks/index.html (Top Decks hub)
+- /home/degenai/scrollvault/tools/index.html (Tools hub)
 - /home/degenai/scrollvault/tools/manabase/index.html (Mana Base Calculator)
 - /home/degenai/scrollvault/tools/lands/index.html (Dual Lands Reference)
+- /home/degenai/scrollvault/tools/hypergeometric/index.html (Hypergeometric Calculator)
+- /home/degenai/scrollvault/tools/hand-simulator/index.html (Opening Hand Simulator)
+- /home/degenai/scrollvault/tools/price-checker/index.html (Price Checker)
+- /home/degenai/scrollvault/tools/commander-bracket/index.html (Commander Bracket Calculator)
+- /home/degenai/scrollvault/tools/sealed/index.html (Sealed Pool Generator)
+- /home/degenai/scrollvault/decks/index.html (Top Decks hub)
 - /home/degenai/scrollvault/draft/index.html (Draft Simulator)
 These pages have their own inline CSS, nav, and footer. If you need to update shared elements
-(nav links, footer, colors), you must update BOTH build.js AND these 4 files to stay consistent.
+(nav links, footer, colors), you must update BOTH build.js AND all 10 hand-crafted files to stay consistent.
 
 RULES:
 1. Read the current build.js and style.css FIRST before making any changes
