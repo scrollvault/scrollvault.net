@@ -603,12 +603,14 @@ const HUB_CSS = `
 
 // ── INDEX PAGE (Authority Hub) ──
 const INDEX_CSS = `
+/* Screen-reader only */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 /* Hero */
 .hero-featured { position: relative; min-height: 420px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
 .hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
 .hero-featured .hero-content { position: relative; z-index: 1; padding: 2.5rem 0; width: 100%; }
 .hero-featured .post-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
-.hero-featured h1 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
+.hero-featured h1, .hero-featured h2 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
 .hero-featured .hero-excerpt { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; line-height: 1.7; margin-bottom: 1.5rem; }
 .hero-cta { display: inline-block; padding: 0.75rem 2rem; background: var(--gradient-purple); border-radius: 8px; font-weight: 600; font-size: 0.95rem; color: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
@@ -686,7 +688,7 @@ const INDEX_CSS = `
 /* Mobile responsive */
 @media (max-width: 768px) {
     .hero-featured { min-height: 320px; }
-    .hero-featured h1 { font-size: 1.75rem; }
+    .hero-featured h1, .hero-featured h2 { font-size: 1.75rem; }
     .card-row { grid-template-columns: 1fr; }
     .tools-grid { grid-template-columns: repeat(2, 1fr); }
     .format-panel.active { grid-template-columns: 1fr; }
@@ -905,7 +907,7 @@ async function main() {
             <div class="hero-content">
                 <div class="container">
                     <span class="post-category category-${catSlug}">${esc(heroPost.category)}</span>
-                    <h1><a href="${postUrl(heroPost)}">${esc(heroPost.title)}</a></h1>
+                    <h2><a href="${postUrl(heroPost)}">${esc(heroPost.title)}</a></h2>
                     <p class="hero-excerpt">${esc(heroPost.excerpt)}</p>
                     <a href="${postUrl(heroPost)}" class="hero-cta">Read More &rarr;</a>${attribution}
                 </div>
@@ -916,6 +918,7 @@ async function main() {
   function renderBrandBar() {
     return `        <div class="brand-bar">
             <div class="container">
+                <h1 class="sr-only">ScrollVault — MTG News, Strategy & Tools</h1>
                 <div class="wubrg-dots">
                     <span class="mana-dot" style="background: #F9FAF4"></span>
                     <span class="mana-dot" style="background: #0E68AB"></span>
@@ -1185,7 +1188,14 @@ ${footer('')}
                         </li>`;
     }).join('\n');
 
-    const hubHtml = `${head(title, description, '', heroPost && heroPost.hero_image ? heroPost.hero_image : '', { pageUrl: '/' + slug + '/', ogType: 'website' })}
+    const hubSchema = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": title,
+      "description": description,
+      "url": SITE_URL + "/" + slug + "/"
+    };
+    const hubHtml = `${head(title, description, '', heroPost && heroPost.hero_image ? heroPost.hero_image : '', { pageUrl: '/' + slug + '/', ogType: 'website', ldJson: hubSchema })}
     <style>${HUB_CSS}</style>
 </head>
 <body>
@@ -1328,17 +1338,19 @@ ${related.map(r => {
       "headline": post.title,
       "datePublished": post.date + "T00:00:00Z",
       "dateModified": post.date + "T00:00:00Z",
-      "author": { "@type": "Organization", "name": "ScrollVault" },
+      "author": { "@type": "Person", "name": post.author },
       "publisher": { "@type": "Organization", "name": "ScrollVault" },
       "image": post.hero_image || ""
     };
+    const categoryHubUrl = post.category === 'News' ? '/news/' :
+      (post.category === 'Strategy' || post.category === 'Deck Guides') ? '/guides/' : '/';
     const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "/" },
-        { "@type": "ListItem", "position": 2, "name": post.category, "item": "/" },
-        { "@type": "ListItem", "position": 3, "name": post.title, "item": `/posts/${post.slug}.html` }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/" },
+        { "@type": "ListItem", "position": 2, "name": post.category, "item": SITE_URL + categoryHubUrl },
+        { "@type": "ListItem", "position": 3, "name": post.title, "item": SITE_URL + `/posts/${post.slug}.html` }
       ]
     };
 
@@ -1356,7 +1368,7 @@ ${nav('..', '')}
                     <nav class="breadcrumb" aria-label="Breadcrumb">
                         <ol>
                             <li><a href="/">Home</a></li>
-                            <li><a href="/">${esc(post.category)}</a></li>
+                            <li><a href="${categoryHubUrl}">${esc(post.category)}</a></li>
                             <li>${esc(post.title)}</li>
                         </ol>
                     </nav>
@@ -1387,8 +1399,8 @@ ${hasCards ? TOOLTIP_JS : ''}
   console.log(`Built ${posts.length} post pages to ${POSTS_OUT_DIR}`);
 
   // ── STATIC PAGES ──
-  function writePage(filename, title, activePage, bodyHtml) {
-    const html = `${head(title, title + ' - scrollvault.net', '', '', { pageUrl: '/' + filename, ogType: 'website' })}
+  function writePage(filename, title, description, activePage, bodyHtml) {
+    const html = `${head(title, description, '', '', { pageUrl: '/' + filename, ogType: 'website' })}
     <style>${PAGE_CSS}</style>
 </head>
 <body>
@@ -1411,7 +1423,7 @@ ${footer('')}
     console.log(`Built ${filename}`);
   }
 
-  writePage('about.html', 'About', 'about', `
+  writePage('about.html', 'About ScrollVault', 'Meet the team behind ScrollVault — daily Magic: The Gathering news, strategy guides, deck techs, and free MTG tools for competitive players.', 'about', `
             <p>Welcome to <strong>ScrollVault</strong> &mdash; your daily source for Magic: The Gathering news, competitive strategy, deck guides, spoiler breakdowns, and set reviews.</p>
             <h2>What We Cover</h2>
             <ul>
@@ -1433,7 +1445,7 @@ ${footer('')}
             <p>We're a team of dedicated Magic players who have been slinging cardboard since the early days. This blog runs on a mix of human passion and AI-assisted research to bring you timely, accurate coverage of everything happening in the world of MTG.</p>
             <p>Have a tip, correction, or just want to talk Magic? Drop us a line at <a href="mailto:support@scrollvault.net">support@scrollvault.net</a>.</p>`);
 
-  writePage('contact.html', 'Contact', 'contact', `
+  writePage('contact.html', 'Contact Us', 'Get in touch with the ScrollVault team. Send news tips, report errors, pitch guest posts, or ask about advertising on our MTG content site.', 'contact', `
             <p>Got a story tip? Spotted an error? Just want to talk about your latest draft train wreck? We'd love to hear from you.</p>
             <div class="contact-card">
                 <p style="margin-bottom: 1rem; color: var(--text-secondary);">Reach us at</p>
@@ -1448,7 +1460,7 @@ ${footer('')}
             </ul>
             <p>We try to respond within 24 hours. If it's urgent MTG news, put "BREAKING" in the subject line.</p>`);
 
-  writePage('privacy.html', 'Privacy Policy', '', `
+  writePage('privacy.html', 'Privacy Policy', 'ScrollVault privacy policy. We collect no personal data and use no tracking cookies. Learn about our minimal data practices.', '', `
             <p><em>Last updated: February 6, 2026</em></p>
             <h2>Information We Collect</h2>
             <p>This site is a static blog. We do not collect personal information, use cookies for tracking, or require user accounts. Standard web server logs (IP address, browser type, pages visited) are maintained by our hosting provider for security purposes and are not shared with third parties.</p>
@@ -1459,7 +1471,7 @@ ${footer('')}
             <h2>Contact</h2>
             <p>Questions about this policy? Email <a href="mailto:support@scrollvault.net">support@scrollvault.net</a>.</p>`);
 
-  writePage('terms.html', 'Terms of Service', '', `
+  writePage('terms.html', 'Terms of Service', 'Terms of service for scrollvault.net. Content usage, fair use of MTG card names, and accuracy commitments.', '', `
             <p><em>Last updated: February 6, 2026</em></p>
             <h2>Content</h2>
             <p>All original content on scrollvault.net is provided for informational and entertainment purposes. Magic: The Gathering, all card names, and related imagery are trademarks of Wizards of the Coast LLC. This site is not affiliated with or endorsed by Wizards of the Coast.</p>
@@ -1473,7 +1485,7 @@ ${footer('')}
   
 
   // New trust and hub pages (feature/hubs-trust-2026-02-13)
-  writePage('guides/mana-bases.html', 'Master the fundamentals of building mana bases for Magic: The Gathering. Learn land counts, color balance, and how to use our calculator for any format.', 'guides', `
+  writePage('guides/mana-bases.html', 'MTG Mana Base Guide', 'Learn how to build the perfect mana base for any Magic: The Gathering format. Land counts, color balance, and optimal dual land ratios.', 'guides', `
             <p>Building a solid mana base is the foundation of any successful Magic deck. Whether you're in Standard, Modern, Pioneer, or Commander, understanding how many lands you need, how to balance your colors, and when to play special lands is critical.</p>
             <h2>Key Principles</h2>
             <p><strong>Color Balance:</strong> Ensure you have enough sources for each color in your mana cost. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to get precise numbers.</p>
@@ -1491,7 +1503,7 @@ ${footer('')}
             <h2>Using the Calculator</h2>
             <p>Our <a href="/tools/manabase/">Mana Base Calculator</a> lets you input your deck's color distribution and get tailored land recommendations. It's a great starting point, but always playtest and adjust.</p>
         `);
-  writePage('guides/dual-lands.html', 'Comprehensive reference of all dual land cycles in MTG: fetch lands, shock lands, fast lands, check lands, and more. Includes format legality and examples.', 'guides', `
+  writePage('guides/dual-lands.html', 'MTG Dual Land Cycles Guide', 'Complete reference of all MTG dual land cycles: fetch lands, shock lands, fast lands, check lands. Format legality and color pair coverage.', 'guides', `
             <p>Dual lands are the backbone of multicolored decks. Over the years, Wizards has printed several cycles, each with unique mechanics and format legality.</p>
             <h2>Major Cycles</h2>
             <ul>
@@ -1505,14 +1517,14 @@ ${footer('')}
             <h2>Related Tools</h2>
             <p>Use our <a href="/tools/manabase/">Mana Base Calculator</a> to determine how many duals to play in your deck.</p>
         `);
-  writePage('about/authors.html', 'Meet the writers behind ScrollVault. Expert Magic players providing daily news, strategy, and deck guides.', 'about', `
+  writePage('about/authors.html', 'Our Authors', 'Meet the writers behind ScrollVault. Expert Magic: The Gathering players providing daily news, strategy, and deck guides.', 'about', `
             <p>ScrollVault is written by a team of dedicated Magic players who have been slinging cardboard since the early days. We combine human passion with AI-assisted research to bring you timely, accurate coverage.</p>
             <h2>Molts MTG</h2>
             <p>Founder and lead writer. A long-time Spike who loves breaking the meta. Favorite format: Modern. Follow on Twitter @moltsmtg.</p>
             <h2>Contributors</h2>
             <p>We occasionally feature guest writers from the community. If you're interested in contributing, <a href="/contact.html">get in touch</a>.</p>
         `);
-  writePage('about/editorial-policy.html', 'Our editorial policy: sources, fact-checking, corrections, and transparency. How we maintain accuracy for MTG coverage.', 'about', `
+  writePage('about/editorial-policy.html', 'Editorial Policy', 'How ScrollVault maintains accuracy: sources, automated fact-checking, correction process, and transparency commitments.', 'about', `
             <p>At ScrollVault, we are committed to providing accurate, helpful, and transparent content for the Magic: The Gathering community.</p>
             <h2>Sources</h2>
             <p>We rely on official sources (Wizards of the Coast announcements, MTG Arena patch notes) and reputable community sites (MTGGoldfish, ChannelFireball, Star City Games) for news and data. Card information is fetched from Scryfall.</p>

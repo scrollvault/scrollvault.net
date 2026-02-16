@@ -19,12 +19,14 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
     <style>
+/* Screen-reader only */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 /* Hero */
 .hero-featured { position: relative; min-height: 420px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
 .hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
 .hero-featured .hero-content { position: relative; z-index: 1; padding: 2.5rem 0; width: 100%; }
 .hero-featured .post-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
-.hero-featured h1 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
+.hero-featured h1, .hero-featured h2 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
 .hero-featured .hero-excerpt { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; line-height: 1.7; margin-bottom: 1.5rem; }
 .hero-cta { display: inline-block; padding: 0.75rem 2rem; background: var(--gradient-purple); border-radius: 8px; font-weight: 600; font-size: 0.95rem; color: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
@@ -102,7 +104,7 @@
 /* Mobile responsive */
 @media (max-width: 768px) {
     .hero-featured { min-height: 320px; }
-    .hero-featured h1 { font-size: 1.75rem; }
+    .hero-featured h1, .hero-featured h2 { font-size: 1.75rem; }
     .card-row { grid-template-columns: 1fr; }
     .tools-grid { grid-template-columns: repeat(2, 1fr); }
     .format-panel.active { grid-template-columns: 1fr; }
@@ -140,6 +142,7 @@
     <main id="main-content">
         <div class="brand-bar">
             <div class="container">
+                <h1 class="sr-only">ScrollVault — MTG News, Strategy & Tools</h1>
                 <div class="wubrg-dots">
                     <span class="mana-dot" style="background: #F9FAF4"></span>
                     <span class="mana-dot" style="background: #0E68AB"></span>
@@ -155,7 +158,7 @@
             <div class="hero-content">
                 <div class="container">
                     <span class="post-category category-news">News</span>
-                    <h1><a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html">Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity</a></h1>
+                    <h2><a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html">Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity</a></h2>
                     <p class="hero-excerpt">Hasbro faces a shareholder lawsuit over its management of the Magic 30th Anniversary set. The legal challenge could force Wizards to re-evaluate scarcity strategies. Here's what this means for players and the future of Magic.</p>
                     <a href="/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html" class="hero-cta">Read More &rarr;</a>
                 </div>
