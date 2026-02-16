@@ -133,7 +133,6 @@ fi
 
 # ── STEP 2: WRITER ──
 log "--- STEP 2: Writer ---"
-sleep 5  # Rate limit buffer
 
 WRITER_PROMPT=$(cat "$AGENTS_DIR/writer.txt")
 WRITER_CONTEXT="Today is $DATE.
@@ -155,7 +154,7 @@ echo "$WRITER_RESULT" > "$DATA_DIR/drafts/writer-${TIMESTAMP}.txt"
 
 # ── STEP 3: EDITOR ──
 log "--- STEP 3: Editor ---"
-sleep 5
+
 
 EDITOR_PROMPT=$(cat "$AGENTS_DIR/editor.txt")
 EDITOR_CONTEXT="Review this blog post draft and fix any issues.
@@ -177,7 +176,7 @@ echo "$EDITOR_RESULT" > "$DATA_DIR/drafts/editor-${TIMESTAMP}.txt"
 
 # ── STEP 4: FACT CHECKER ──
 log "--- STEP 4: Fact Checker ---"
-sleep 5
+
 
 FACTCHECKER_PROMPT=$(cat "$AGENTS_DIR/factchecker.txt")
 FACTCHECKER_CONTEXT="Fact-check this edited blog post. Verify all card names, rules, claims, and sources.
@@ -234,7 +233,7 @@ log "Backup saved to $DATA_DIR/posts.json.bak"
 
 # ── STEP 5: PUBLISHER ──
 log "--- STEP 5: Publisher ---"
-sleep 5
+
 
 PUBLISHER_PROMPT=$(cat "$AGENTS_DIR/publisher.txt")
 PUBLISHER_CONTEXT="Publish this fact-checked blog post.
@@ -281,7 +280,7 @@ fi
 
 # ── STEP 6: QA ──
 log "--- STEP 6: QA ---"
-sleep 5
+
 
 QA_PROMPT=$(cat "$AGENTS_DIR/qa.txt")
 QA_CONTEXT="Run the QA test suite on the STAGING site after today's publish.

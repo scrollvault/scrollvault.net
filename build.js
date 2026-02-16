@@ -531,12 +531,13 @@ function head(title, description, rootRel, ogImage, options = {}) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/base.css">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">`;
 }
 
 // ── INDEX PAGE ──
-const INDEX_CSS = CSS + `
+const INDEX_CSS = `
 .hero-featured { position: relative; min-height: 500px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
 .hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
 .hero-featured .hero-content { position: relative; z-index: 1; padding: 3rem 0; width: 100%; }
@@ -618,7 +619,7 @@ const INDEX_CSS = CSS + `
 @media (min-width: 992px) { .posts-grid { grid-template-columns: repeat(3, 1fr); } }`;
 
 // ── POST PAGE CSS ──
-const POST_CSS = CSS + `
+const POST_CSS = `
 .article-hero { position: relative; min-height: 400px; background-size: cover; background-position: center top; display: flex; align-items: flex-end; }
 .article-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,15,15,1) 0%, rgba(15,15,15,0.7) 40%, rgba(0,0,0,0.3) 100%); }
 .article-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; width: 100%; }
@@ -680,7 +681,7 @@ const POST_CSS = CSS + `
 }`;
 
 // ── STATIC PAGE CSS ──
-const PAGE_CSS = CSS + `
+const PAGE_CSS = `
 .page-header { padding: 4rem 0 2rem; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, transparent 70%); }
 .page-header h1 { font-size: 2.25rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .page-body { max-width: 800px; margin: 0 auto; padding: 2rem 1rem 4rem; }
@@ -755,6 +756,12 @@ async function main() {
 
   const categoryCounts = {};
   posts.forEach(p => { categoryCounts[p.category] = (categoryCounts[p.category] || 0) + 1; });
+
+  // ── Write shared base CSS to external file ──
+  const cssDir = path.join(OUTPUT_DIR, 'css');
+  if (!fs.existsSync(cssDir)) fs.mkdirSync(cssDir, { recursive: true });
+  fs.writeFileSync(path.join(cssDir, 'base.css'), CSS.trim());
+  console.log('Wrote css/base.css');
 
   // ── INDEX PAGE ──
   const heroPost = posts[0];
@@ -1379,6 +1386,62 @@ ${footer('')}
             <h2>Affiliate Links</h2>
             <p>We use TCGplayer affiliate links to support the site. This does not affect your purchase price.</p>
         `);
+  // ── SITEMAP ──
+  const today = new Date().toISOString().split('T')[0];
+  const sitemapUrls = [
+    { loc: '/', changefreq: 'daily', priority: '1.0' },
+    { loc: '/news.html', changefreq: 'daily', priority: '0.8' },
+    { loc: '/guides.html', changefreq: 'weekly', priority: '0.8' },
+    { loc: '/about.html', changefreq: 'monthly', priority: '0.5' },
+    { loc: '/contact.html', changefreq: 'monthly', priority: '0.5' },
+    { loc: '/privacy.html', changefreq: 'yearly', priority: '0.3' },
+    { loc: '/terms.html', changefreq: 'yearly', priority: '0.3' },
+    { loc: '/about/authors.html', changefreq: 'monthly', priority: '0.4' },
+    { loc: '/about/editorial-policy.html', changefreq: 'monthly', priority: '0.4' },
+    { loc: '/guides/mana-bases.html', changefreq: 'monthly', priority: '0.6' },
+    { loc: '/guides/dual-lands.html', changefreq: 'monthly', priority: '0.6' },
+    // Hand-crafted pages
+    { loc: '/decks/', changefreq: 'weekly', priority: '0.8' },
+    { loc: '/draft/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/manabase/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/lands/', changefreq: 'monthly', priority: '0.7' },
+  ];
+
+  // Add all published posts
+  const publishedPosts = data.posts.filter(p => p.published);
+  for (const post of publishedPosts) {
+    sitemapUrls.push({
+      loc: `/posts/${post.slug}.html`,
+      lastmod: post.date,
+      changefreq: 'monthly',
+      priority: '0.6'
+    });
+  }
+
+  // Add author pages
+  const authors = [...new Set(publishedPosts.map(p => p.author).filter(Boolean))];
+  for (const author of authors) {
+    const authorSlug = author.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    sitemapUrls.push({
+      loc: `/authors/${authorSlug}.html`,
+      changefreq: 'weekly',
+      priority: '0.4'
+    });
+  }
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.map(u => `  <url>
+    <loc>${SITE_URL}${u.loc}</loc>
+    <lastmod>${u.lastmod || today}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'sitemap.xml'), sitemapXml);
+  console.log(`Sitemap generated with ${sitemapUrls.length} URLs.`);
+
 console.log('All pages built successfully.');
 }
 

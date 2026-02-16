@@ -66,3 +66,12 @@
 [15:15:47] WARNING: QA found CRITICAL issues — review /home/degenai/scrollvault/data/drafts/qa-20260214-150001.txt
 [15:15:47] === Pipeline complete! ===
 [15:15:47] Done.
+/bin/sh: /home/degenai/scrollvault/update-decks.sh: No such file or directory
+[09:00:01] === ScrollVault Pipeline - 2026-02-15 ===
+[09:00:01] Recent posts loaded (1911 chars of titles)
+[09:00:01] --- STEP 1: Scout ---
+[09:00:43] FAILED: Scout agent failed after 3 attempts
+[15:00:02] === ScrollVault Pipeline - 2026-02-15 ===
+[15:00:02] Recent posts loaded (1911 chars of titles)
+[15:00:02] --- STEP 1: Scout ---
+[15:00:42] FAILED: Scout agent failed after 3 attempts

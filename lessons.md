@@ -34,3 +34,9 @@ Never repeat the same mistake. Each entry includes root cause and fix.
 - Root cause: Compute3 appears to be rate limiting, blocking by IP/region, or quota exceeded for this server.
 - Fix: Switch Scout agent model priority to use openrouter-direct provider first, with compute3 as fallback. This avoids dependency on a single blocked provider and maintains redundancy.
 - Follow-up: Always configure critical agents with multiple providers in different regions when possible; monitor provider health.
+
+## 2026-02-15: Hand-Crafted Pages Nav/Footer Inconsistency
+- Problem: 4 hand-crafted pages (decks, manabase, lands, draft) had extra nav links (Authors, Editorial Policy — 11 items vs 9), missing Google Fonts imports, wrong favicon format on decks, relative footer paths, and incomplete copyright text on manabase.
+- Root cause: These pages are maintained separately from build.js and drifted out of sync. No documentation warned agents not to modify them or to keep them consistent.
+- Fix: Aligned all 4 pages to match build.js output (9 nav links, 5 footer links, Google Fonts, external favicon, absolute paths, full copyright). Updated designer.txt with correct color values (#0f0f0f not #0f0f23). Added "Hand-Crafted Pages" sections to TOOLS.md (both copies) and designer.txt.
+- Follow-up: Any change to nav, footer, or shared CSS in build.js MUST also be applied to these 4 files. deploy-prod.sh now includes permissions fix and cache purge.

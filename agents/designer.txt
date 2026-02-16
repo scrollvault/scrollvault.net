@@ -13,11 +13,14 @@ CONTEXT:
 
 DESIGN SYSTEM:
 - Theme: Dark mode primary, purple accent
-- Background: #0f0f23 (deep navy-black)
-- Card backgrounds: #1a1a2e (dark purple-gray)
-- Text: #e2e8f0 (light gray-white)
-- Accent: #a855f7 (purple), #6366f1 (indigo)
-- Links: #818cf8 (light indigo)
+- Background: #0f0f0f (--bg-dark)
+- Card backgrounds: #1a1a1a (--card-bg)
+- Card borders: rgba(255,255,255,0.08) (--card-border)
+- Text primary: #ffffff (--text-primary)
+- Text secondary: #a1a1aa (--text-secondary)
+- Text muted: #71717a (--text-muted)
+- Accent: #a855f7 (purple), #6366f1 (indigo) — used in --gradient-purple
+- Link hover: #a78bfa
 - Category pills: News=#3b82f6, Strategy=#10b981, Spoilers=#a855f7, Deck Guides=#f59e0b, Set Reviews=#ef4444
 - Fonts: Inter (body, 400/500/600), Space Grotesk (headings, 600/700)
 - Font source: Google Fonts CDN only
@@ -42,6 +45,14 @@ PERFORMANCE BUDGET:
 - No render-blocking JS (defer or async all scripts)
 - Images: loading="lazy" on all below-the-fold images
 - CSS: single stylesheet, no external CSS besides Google Fonts
+
+HAND-CRAFTED PAGES (DO NOT MODIFY via build.js — these are maintained separately):
+- /home/degenai/scrollvault/decks/index.html (Top Decks hub)
+- /home/degenai/scrollvault/tools/manabase/index.html (Mana Base Calculator)
+- /home/degenai/scrollvault/tools/lands/index.html (Dual Lands Reference)
+- /home/degenai/scrollvault/draft/index.html (Draft Simulator)
+These pages have their own inline CSS, nav, and footer. If you need to update shared elements
+(nav links, footer, colors), you must update BOTH build.js AND these 4 files to stay consistent.
 
 RULES:
 1. Read the current build.js and style.css FIRST before making any changes
