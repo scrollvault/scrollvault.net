@@ -1,0 +1,739 @@
+<!-- HAND-CRAFTED - DO NOT MODIFY VIA AGENTS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypergeometric Calculator | ScrollVault</title>
+    <meta name="description" content="Calculate the exact probability of drawing specific cards in Magic: The Gathering. Distribution tables and turn-by-turn odds for any deck size.">
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:title" content="Hypergeometric Calculator | ScrollVault">
+    <meta property="og:description" content="Calculate MTG draw probabilities with hypergeometric distribution. Turn-by-turn odds for any deck size.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scrollvault.net/tools/hypergeometric/">
+    <link rel="canonical" href="https://scrollvault.net/tools/hypergeometric/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
+<style>
+/* ── Theme Variables ── */
+:root {
+    --bg-dark: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25);
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95);
+    --nav-border: rgba(255,255,255,0.06);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+
+/* ── Nav ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); flex-direction: column; padding: 1rem; gap: 0; }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; display: block; border-bottom: 1px solid var(--card-border); }
+    .nav-links a:last-child { border-bottom: none; }
+    .mobile-menu-btn { display: block; }
+}
+
+/* ── Footer ── */
+footer { border-top: 1px solid var(--card-border); padding: 2rem 0; text-align: center; }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.wubrg-dots { display: flex; gap: 0.5rem; }
+.mana-dot { width: 12px; height: 12px; border-radius: 50%; }
+.footer-text { color: var(--text-muted); font-size: 0.8rem; max-width: 500px; }
+.footer-links { list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+.footer-links a { color: var(--text-muted); font-size: 0.8rem; }
+.footer-links a:hover { color: #a78bfa; }
+
+/* ── Main ── */
+main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
+
+/* ── Breadcrumb ── */
+.breadcrumb { padding: 1.25rem 0 0; font-size: 0.85rem; color: var(--text-muted); }
+.breadcrumb a { color: var(--text-secondary); }
+.breadcrumb a:hover { color: #a78bfa; }
+.breadcrumb span { margin: 0 0.4rem; }
+
+/* ── Hero ── */
+.hero-section { padding: 2rem 0 2.5rem; text-align: center; }
+.hero-section h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-section .subtitle { color: var(--text-secondary); font-size: 1.05rem; max-width: 640px; margin: 0 auto; }
+
+/* ── Calculator Layout ── */
+.calc-layout { display: grid; grid-template-columns: 380px 1fr; gap: 1.5rem; }
+@media (max-width: 960px) {
+    .calc-layout { grid-template-columns: 1fr; }
+}
+
+/* ── Panels ── */
+.panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; }
+.panel h2 { font-size: 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+.panel h2 .icon { font-size: 1.1rem; }
+
+/* ── Input Groups ── */
+.input-group { margin-bottom: 1.25rem; }
+.input-group label { display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.4rem; font-weight: 500; }
+.input-group .label-hint { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: inherit;
+    text-align: center;
+    transition: all 0.2s ease;
+    -moz-appearance: textfield;
+}
+.input-group input[type="number"]::-webkit-inner-spin-button,
+.input-group input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.input-group input[type="number"]:focus { outline: none; border-color: rgba(168,85,247,0.5); background: rgba(168,85,247,0.08); }
+
+/* ── Presets ── */
+.presets { display: flex; gap: 0.4rem; margin-top: 0.4rem; }
+.preset-btn {
+    padding: 0.3rem 0.7rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+.preset-btn:hover { border-color: rgba(139,92,246,0.4); color: var(--text-primary); }
+.preset-btn.active { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.5); color: var(--text-primary); }
+
+/* ── Calculate Button ── */
+.calc-btn {
+    display: block; width: 100%; padding: 0.85rem;
+    background: var(--gradient-purple); border: none; border-radius: 10px;
+    font-size: 1rem; font-weight: 600; color: white; cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif; transition: all 0.2s ease;
+    margin-top: 0.5rem;
+}
+.calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(139,92,246,0.4); }
+.calc-btn:active { transform: translateY(0); }
+
+/* ── Results ── */
+.results-empty { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+.results-empty .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.3; }
+.results-empty p { font-size: 0.9rem; }
+
+/* ── Big Result ── */
+.result-hero {
+    text-align: center;
+    padding: 1.75rem 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(168,85,247,0.06);
+    border: 1px solid rgba(168,85,247,0.15);
+    border-radius: 12px;
+}
+.result-hero .result-label { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.35rem; }
+.result-hero .result-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+}
+.result-hero .result-detail { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+/* ── Distribution Table ── */
+.dist-section { margin-bottom: 1.75rem; }
+.dist-section h3 { font-size: 1rem; margin-bottom: 1rem; color: var(--text-secondary); }
+.dist-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.dist-row:last-child { border-bottom: none; }
+.dist-label {
+    width: 65px;
+    flex-shrink: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: right;
+}
+.dist-bar-wrap {
+    flex: 1;
+    height: 26px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+.dist-bar {
+    height: 100%;
+    background: var(--gradient-purple);
+    border-radius: 5px;
+    transition: width 0.4s ease;
+    min-width: 0;
+}
+.dist-pct {
+    width: 62px;
+    flex-shrink: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+.dist-cumulative {
+    width: 70px;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Turn Table ── */
+.turn-section { margin-bottom: 1.75rem; }
+.turn-section h3 { font-size: 1rem; margin-bottom: 1rem; color: var(--text-secondary); }
+.turn-table-wrap { overflow-x: auto; }
+.turn-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.turn-table th {
+    padding: 0.55rem 0.7rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--card-border);
+    white-space: nowrap;
+    background: rgba(255,255,255,0.02);
+}
+.turn-table th:first-child { text-align: left; }
+.turn-table td {
+    padding: 0.5rem 0.7rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+.turn-table td:first-child { font-weight: 600; color: var(--text-primary); text-align: left; }
+.turn-table tr:hover td { background: rgba(168,85,247,0.05); }
+.prob-good { color: #4ade80; font-weight: 600; }
+.prob-ok { color: #facc15; font-weight: 600; }
+.prob-bad { color: #f87171; font-weight: 600; }
+.turn-table .highlight-row td { background: rgba(168,85,247,0.08); }
+
+/* ── Info Box ── */
+.info-box {
+    background: rgba(168,85,247,0.08);
+    border: 1px solid rgba(168,85,247,0.2);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+}
+.info-box h3 { font-size: 0.95rem; margin-bottom: 0.5rem; color: #a78bfa; }
+.info-box p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0.5rem; }
+.info-box p:last-child { margin-bottom: 0; }
+.info-box code { background: rgba(255,255,255,0.08); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.78rem; color: #c4b5fd; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .hero-section h1 { font-size: 1.75rem; }
+    .result-hero .result-value { font-size: 2.5rem; }
+    .dist-cumulative { display: none; }
+    .dist-label { width: 55px; font-size: 0.78rem; }
+    .dist-pct { width: 55px; font-size: 0.78rem; }
+    .presets { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container nav-content">
+            <a href="/" class="nav-logo">ScrollVault</a>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/news/">News</a></li>
+                <li><a href="/guides/">Guides</a></li>
+                <li><a href="/decks/">Top Decks</a></li>
+                <li><a href="/draft/">Draft</a></li>
+                <li><a href="/tools/" class="active">Tools</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/">Home</a><span>/</span>
+                <a href="/tools/">Tools</a><span>/</span>
+                Hypergeometric Calculator
+            </div>
+
+            <div class="hero-section">
+                <h1>Hypergeometric Calculator</h1>
+                <p class="subtitle">Calculate the exact probability of drawing specific cards from your deck. See full distribution tables and turn-by-turn odds.</p>
+            </div>
+
+            <div class="calc-layout">
+                <!-- Input Panel -->
+                <div class="panel" id="inputPanel">
+                    <h2><span class="icon">&#x1F3B2;</span> Parameters</h2>
+
+                    <div class="input-group">
+                        <label>Deck Size <span class="label-hint">(total cards)</span></label>
+                        <input type="number" id="deckSize" value="60" min="1" max="999">
+                        <div class="presets" id="deckPresets">
+                            <button class="preset-btn" data-value="40">40</button>
+                            <button class="preset-btn active" data-value="60">60</button>
+                            <button class="preset-btn" data-value="80">80</button>
+                            <button class="preset-btn" data-value="99">99</button>
+                            <button class="preset-btn" data-value="100">100</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Copies in Deck <span class="label-hint">(successes in population)</span></label>
+                        <input type="number" id="copiesInDeck" value="4" min="0" max="999">
+                        <div class="presets" id="copiesPresets">
+                            <button class="preset-btn" data-value="1">1</button>
+                            <button class="preset-btn" data-value="2">2</button>
+                            <button class="preset-btn" data-value="3">3</button>
+                            <button class="preset-btn active" data-value="4">4</button>
+                            <button class="preset-btn" data-value="8">8</button>
+                            <button class="preset-btn" data-value="12">12</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Cards Drawn <span class="label-hint">(sample size)</span></label>
+                        <input type="number" id="cardsDrawn" value="7" min="0" max="999">
+                        <div class="presets" id="drawnPresets">
+                            <button class="preset-btn active" data-value="7">7 (hand)</button>
+                            <button class="preset-btn" data-value="8">8 (T1)</button>
+                            <button class="preset-btn" data-value="10">10 (T3)</button>
+                            <button class="preset-btn" data-value="13">13 (T6)</button>
+                            <button class="preset-btn" data-value="15">15</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Successes Desired <span class="label-hint">(at least X)</span></label>
+                        <input type="number" id="successesWanted" value="1" min="0" max="999">
+                        <div class="presets" id="successPresets">
+                            <button class="preset-btn active" data-value="1">1+</button>
+                            <button class="preset-btn" data-value="2">2+</button>
+                            <button class="preset-btn" data-value="3">3+</button>
+                            <button class="preset-btn" data-value="4">4+</button>
+                        </div>
+                    </div>
+
+                    <button class="calc-btn" onclick="calculate()">Calculate Probabilities</button>
+
+                    <div class="info-box">
+                        <h3>How It Works</h3>
+                        <p>The hypergeometric distribution models drawing cards <strong>without replacement</strong> from a finite deck. Unlike binomial probability, it accounts for the changing composition of your library as you draw.</p>
+                        <p>The formula: <code>P(X=k) = C(K,k) * C(N-K, n-k) / C(N,n)</code></p>
+                        <p>Where N = deck size, K = copies in deck, n = cards drawn, k = successes.</p>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="panel" id="resultsPanel">
+                    <h2><span class="icon">&#x1F4CA;</span> Results</h2>
+                    <div id="resultsContent">
+                        <div class="results-empty">
+                            <div class="empty-icon">&#x1F0CF;</div>
+                            <p>Enter your parameters and click Calculate, or change any input to see live results.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ScrollVault</div>
+                <div class="wubrg-dots">
+                    <span class="mana-dot" style="background: #F9FAF4"></span>
+                    <span class="mana-dot" style="background: #0E68AB"></span>
+                    <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                    <span class="mana-dot" style="background: #D3202A"></span>
+                    <span class="mana-dot" style="background: #00733E"></span>
+                </div>
+                <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+                <ul class="footer-links">
+                    <li><a href="/privacy.html">Privacy Policy</a></li>
+                    <li><a href="/terms.html">Terms of Service</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a href="/about/authors.html">Authors</a></li>
+                    <li><a href="/about/editorial-policy.html">Editorial Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+<script>
+/* ── Hypergeometric Math ── */
+function logFactorial(n) {
+    if (n < 0) return 0;
+    if (n <= 1) return 0;
+    if (n < 20) {
+        var result = 0;
+        for (var i = 2; i <= n; i++) result += Math.log(i);
+        return result;
+    }
+    return n * Math.log(n) - n + 0.5 * Math.log(2 * Math.PI * n) + 1/(12*n);
+}
+
+function logChoose(n, k) {
+    if (k < 0 || k > n) return -Infinity;
+    if (k === 0 || k === n) return 0;
+    return logFactorial(n) - logFactorial(k) - logFactorial(n - k);
+}
+
+function hypergeometricPMF(x, N, K, n) {
+    var logP = logChoose(K, x) + logChoose(N - K, n - x) - logChoose(N, n);
+    return Math.exp(logP);
+}
+
+/* ── Compute full distribution ── */
+function computeDistribution(N, K, n) {
+    var maxX = Math.min(K, n);
+    var dist = [];
+    for (var x = 0; x <= maxX; x++) {
+        var p = hypergeometricPMF(x, N, K, n);
+        dist.push({ x: x, p: p });
+    }
+    return dist;
+}
+
+/* ── Compute P(X >= desired) ── */
+function computeAtLeast(desired, N, K, n) {
+    var maxX = Math.min(K, n);
+    if (desired > maxX) return 0;
+    var sum = 0;
+    for (var x = desired; x <= maxX; x++) {
+        sum += hypergeometricPMF(x, N, K, n);
+    }
+    return Math.min(sum, 1);
+}
+
+/* ── Format percentage ── */
+function fmtPct(p) {
+    if (p >= 0.99995) return '100.0%';
+    if (p < 0.00005) return '0.00%';
+    if (p >= 0.1) return (p * 100).toFixed(1) + '%';
+    return (p * 100).toFixed(2) + '%';
+}
+
+/* ── Probability color class ── */
+function probClass(p) {
+    if (p >= 0.7) return 'prob-good';
+    if (p >= 0.4) return 'prob-ok';
+    return 'prob-bad';
+}
+
+/* ── Read inputs with validation ── */
+function getInputs() {
+    var N = parseInt(document.getElementById('deckSize').value, 10);
+    var K = parseInt(document.getElementById('copiesInDeck').value, 10);
+    var n = parseInt(document.getElementById('cardsDrawn').value, 10);
+    var desired = parseInt(document.getElementById('successesWanted').value, 10);
+
+    if (isNaN(N) || isNaN(K) || isNaN(n) || isNaN(desired)) return null;
+    if (N < 1) return null;
+    if (K < 0 || K > N) return null;
+    if (n < 0 || n > N) return null;
+    if (desired < 0) return null;
+
+    return { N: N, K: K, n: n, desired: desired };
+}
+
+/* ── Main calculation ── */
+function calculate() {
+    var inputs = getInputs();
+    var container = document.getElementById('resultsContent');
+
+    if (!inputs) {
+        container.innerHTML = '<div class="results-empty"><div class="empty-icon">&#x26A0;</div><p>Please enter valid parameters. Copies must not exceed deck size, and cards drawn must not exceed deck size.</p></div>';
+        return;
+    }
+
+    var N = inputs.N;
+    var K = inputs.K;
+    var n = inputs.n;
+    var desired = inputs.desired;
+
+    /* Full distribution */
+    var dist = computeDistribution(N, K, n);
+    var maxP = 0;
+    for (var i = 0; i < dist.length; i++) {
+        if (dist[i].p > maxP) maxP = dist[i].p;
+    }
+
+    /* P(X >= desired) */
+    var pAtLeast = computeAtLeast(desired, N, K, n);
+
+    /* Cumulative from top */
+    var cumulative = [];
+    var cumSum = 0;
+    for (var i = 0; i < dist.length; i++) {
+        cumSum += dist[i].p;
+        cumulative.push(Math.min(cumSum, 1));
+    }
+
+    var html = '';
+
+    /* ── Result Hero ── */
+    html += '<div class="result-hero">';
+    html += '<div class="result-label">Probability of drawing <strong>' + desired + ' or more</strong> copies</div>';
+    html += '<div class="result-value">' + fmtPct(pAtLeast) + '</div>';
+    html += '<div class="result-detail">' + K + ' copies in a ' + N + '-card deck, drawing ' + n + ' cards</div>';
+    html += '</div>';
+
+    /* ── Exact probabilities: P(X = exactly 0) and P(X = 0) complement ── */
+    html += '<div class="dist-section">';
+    html += '<h3>Exact Probabilities</h3>';
+
+    /* Column headers */
+    html += '<div class="dist-row" style="border-bottom: 2px solid var(--card-border); padding-bottom: 0.35rem; margin-bottom: 0.15rem;">';
+    html += '<div class="dist-label" style="font-size:0.75rem; color:var(--text-muted);">Copies</div>';
+    html += '<div class="dist-bar-wrap" style="background:none; height:auto;"><span style="font-size:0.75rem; color:var(--text-muted);">P(X = k)</span></div>';
+    html += '<div class="dist-pct" style="font-size:0.75rem; color:var(--text-muted);">Exact</div>';
+    html += '<div class="dist-cumulative" style="font-size:0.75rem; color:var(--text-muted);">Cumul.</div>';
+    html += '</div>';
+
+    for (var i = 0; i < dist.length; i++) {
+        var barWidth = maxP > 0 ? (dist[i].p / maxP) * 100 : 0;
+        var isDesired = dist[i].x >= desired;
+        html += '<div class="dist-row">';
+        html += '<div class="dist-label">X = ' + dist[i].x + '</div>';
+        html += '<div class="dist-bar-wrap">';
+        if (isDesired) {
+            html += '<div class="dist-bar" style="width: ' + barWidth.toFixed(1) + '%;"></div>';
+        } else {
+            html += '<div class="dist-bar" style="width: ' + barWidth.toFixed(1) + '%; background: rgba(255,255,255,0.12);"></div>';
+        }
+        html += '</div>';
+        html += '<div class="dist-pct">' + fmtPct(dist[i].p) + '</div>';
+        html += '<div class="dist-cumulative">' + fmtPct(cumulative[i]) + '</div>';
+        html += '</div>';
+    }
+
+    html += '</div>';
+
+    /* ── Turn-by-Turn Table ── */
+    html += '<div class="turn-section">';
+    html += '<h3>Probability by Turn</h3>';
+    html += '<p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.75rem;">On the play (first player draws 0 extra on T1). Cards drawn = 7 (opening hand) + turns elapsed.</p>';
+    html += '<div class="turn-table-wrap">';
+    html += '<table class="turn-table">';
+    html += '<thead><tr>';
+    html += '<th>Turn</th>';
+    html += '<th>Cards Seen</th>';
+    html += '<th>P(exactly ' + desired + ')</th>';
+    html += '<th>P(' + desired + '+)</th>';
+    html += '<th>P(0)</th>';
+    html += '</tr></thead><tbody>';
+
+    for (var turn = 0; turn <= 10; turn++) {
+        var cardsSeen = 7 + turn;
+        if (cardsSeen > N) cardsSeen = N;
+
+        var pExact = hypergeometricPMF(desired, N, K, cardsSeen);
+        if (desired > Math.min(K, cardsSeen)) pExact = 0;
+        var pAtLeastTurn = computeAtLeast(desired, N, K, cardsSeen);
+        var pZero = hypergeometricPMF(0, N, K, cardsSeen);
+
+        var turnLabel = turn === 0 ? 'Opening' : 'Turn ' + turn;
+        var isMatchingDraw = (cardsSeen === n);
+
+        html += '<tr' + (isMatchingDraw ? ' class="highlight-row"' : '') + '>';
+        html += '<td>' + turnLabel + '</td>';
+        html += '<td>' + cardsSeen + '</td>';
+        html += '<td>' + fmtPct(pExact) + '</td>';
+        html += '<td class="' + probClass(pAtLeastTurn) + '">' + fmtPct(pAtLeastTurn) + '</td>';
+        html += '<td class="' + probClass(1 - pZero) + '">' + fmtPct(pZero) + '</td>';
+        html += '</tr>';
+    }
+
+    html += '</tbody></table>';
+    html += '</div></div>';
+
+    /* ── Quick Stats ── */
+    var expectedValue = (n * K) / N;
+    var pExactlyDesired = desired <= Math.min(K, n) ? hypergeometricPMF(desired, N, K, n) : 0;
+    var pLessThan = 0;
+    for (var i = 0; i < desired && i < dist.length; i++) {
+        pLessThan += dist[i].p;
+    }
+
+    html += '<div class="info-box" style="margin-top: 0;">';
+    html += '<h3>Quick Stats</h3>';
+    html += '<p><strong>Expected value:</strong> ' + expectedValue.toFixed(2) + ' copies in your sample of ' + n + ' cards</p>';
+    html += '<p><strong>P(exactly ' + desired + '):</strong> ' + fmtPct(pExactlyDesired) + '</p>';
+    html += '<p><strong>P(fewer than ' + desired + '):</strong> ' + fmtPct(pLessThan) + '</p>';
+    html += '<p><strong>P(' + desired + ' or more):</strong> ' + fmtPct(pAtLeast) + '</p>';
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+/* ── Preset Buttons ── */
+function setupPresets(presetsId, inputId) {
+    var presetContainer = document.getElementById(presetsId);
+    if (!presetContainer) return;
+    var buttons = presetContainer.querySelectorAll('.preset-btn');
+    var input = document.getElementById(inputId);
+
+    buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var val = parseInt(this.getAttribute('data-value'), 10);
+            input.value = val;
+
+            /* Update active state */
+            buttons.forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+
+            calculate();
+        });
+    });
+
+    /* Sync presets when input changes manually */
+    input.addEventListener('input', function() {
+        var val = parseInt(this.value, 10);
+        buttons.forEach(function(b) {
+            var bv = parseInt(b.getAttribute('data-value'), 10);
+            if (bv === val) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
+    });
+}
+
+/* ── Auto-calculate on input changes ── */
+function setupAutoCalc() {
+    var inputs = document.querySelectorAll('#inputPanel input[type="number"]');
+    var debounceTimer = null;
+
+    inputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function() {
+                calculate();
+            }, 150);
+        });
+    });
+}
+
+/* ── Clamp inputs on blur ── */
+function setupClamping() {
+    var deckSize = document.getElementById('deckSize');
+    var copies = document.getElementById('copiesInDeck');
+    var drawn = document.getElementById('cardsDrawn');
+    var desired = document.getElementById('successesWanted');
+
+    deckSize.addEventListener('blur', function() {
+        var v = parseInt(this.value, 10);
+        if (isNaN(v) || v < 1) this.value = 1;
+        if (v > 999) this.value = 999;
+    });
+
+    copies.addEventListener('blur', function() {
+        var v = parseInt(this.value, 10);
+        var max = parseInt(deckSize.value, 10) || 60;
+        if (isNaN(v) || v < 0) this.value = 0;
+        if (v > max) this.value = max;
+    });
+
+    drawn.addEventListener('blur', function() {
+        var v = parseInt(this.value, 10);
+        var max = parseInt(deckSize.value, 10) || 60;
+        if (isNaN(v) || v < 0) this.value = 0;
+        if (v > max) this.value = max;
+    });
+
+    desired.addEventListener('blur', function() {
+        var v = parseInt(this.value, 10);
+        if (isNaN(v) || v < 0) this.value = 0;
+    });
+}
+
+/* ── Keyboard: Enter triggers calculate ── */
+function setupKeyboard() {
+    document.getElementById('inputPanel').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            calculate();
+        }
+    });
+}
+
+/* ── Initialize ── */
+document.addEventListener('DOMContentLoaded', function() {
+    setupPresets('deckPresets', 'deckSize');
+    setupPresets('copiesPresets', 'copiesInDeck');
+    setupPresets('drawnPresets', 'cardsDrawn');
+    setupPresets('successPresets', 'successesWanted');
+    setupAutoCalc();
+    setupClamping();
+    setupKeyboard();
+
+    /* Run initial calculation */
+    calculate();
+});
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Hypergeometric Calculator",
+    "description": "Calculate exact probabilities of drawing specific cards in MTG",
+    "url": "https://scrollvault.net/tools/hypergeometric/",
+    "applicationCategory": "UtilityApplication",
+    "publisher": { "@type": "Organization", "name": "ScrollVault", "url": "https://scrollvault.net" }
+}
+</script>
+</body>
+</html>

@@ -75,3 +75,19 @@
 [15:00:02] Recent posts loaded (1911 chars of titles)
 [15:00:02] --- STEP 1: Scout ---
 [15:00:42] FAILED: Scout agent failed after 3 attempts
+[09:00:02] === ScrollVault Pipeline - 2026-02-16 ===
+[09:00:02] Recent posts loaded (302 chars of titles)
+[09:00:02] --- STEP 1: Scout ---
+[09:00:36] Scout completed
+[09:00:36] Top story selected: unknown
+[09:00:36] --- STEP 2: Writer ---
+[09:01:23] Writer completed
+[09:01:23] --- STEP 3: Editor ---
+[09:03:58] Editor completed
+[09:03:58] --- STEP 4: Fact Checker ---
+[09:04:09] Fact Checker completed
+[09:04:09] --- Pre-Publish Validation ---
+[09:04:09] Validation: FAIL: Missing fields: published
+[09:04:09] Post failed validation. Skipping publish.
+[09:04:09] Fact-checker output saved to /home/degenai/scrollvault/data/drafts/factchecker-20260216-090002.txt
+[09:04:09] FAILED: Pre-publish validation failed: FAIL: Missing fields: published

@@ -1,0 +1,694 @@
+<!-- HAND-CRAFTED - DO NOT MODIFY VIA AGENTS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Price Checker | ScrollVault</title>
+    <meta name="description" content="Get instant price totals for any MTG decklist. Per-card breakdown with USD and EUR prices from Scryfall.">
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:title" content="Deck Price Checker | ScrollVault">
+    <meta property="og:description" content="Check prices for your entire MTG deck. Sortable per-card table with USD and EUR prices.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scrollvault.net/tools/price-checker/">
+    <link rel="canonical" href="https://scrollvault.net/tools/price-checker/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Deck Price Checker",
+        "description": "Check prices for your entire MTG decklist with USD and EUR support",
+        "url": "https://scrollvault.net/tools/price-checker/",
+        "applicationCategory": "UtilityApplication",
+        "publisher": { "@type": "Organization", "name": "ScrollVault", "url": "https://scrollvault.net" }
+    }
+    </script>
+<style>
+/* ── Theme Variables ── */
+:root {
+    --bg-dark: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25);
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95);
+    --nav-border: rgba(255,255,255,0.06);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+
+/* ── Nav ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); flex-direction: column; padding: 1rem; gap: 0; }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; display: block; border-bottom: 1px solid var(--card-border); }
+    .nav-links a:last-child { border-bottom: none; }
+    .mobile-menu-btn { display: block; }
+}
+
+/* ── Main Layout ── */
+main { padding-top: 96px; padding-bottom: 3rem; min-height: calc(100vh - 180px); }
+
+.breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+.breadcrumb a { color: var(--text-secondary); }
+.breadcrumb a:hover { color: #a78bfa; }
+.breadcrumb span { margin: 0 0.4rem; }
+
+.page-title { font-size: 2rem; margin-bottom: 0.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-subtitle { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1rem; }
+
+/* ── Input Panel ── */
+.input-panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: var(--shadow-md); }
+.input-panel label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem; }
+.deck-textarea { width: 100%; min-height: 180px; background: #111; border: 1px solid var(--card-border); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', monospace; font-size: 0.9rem; padding: 1rem; resize: vertical; transition: border-color 0.2s; }
+.deck-textarea:focus { outline: none; border-color: #a855f7; }
+.deck-textarea::placeholder { color: var(--text-muted); }
+
+.controls-row { display: flex; align-items: center; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+
+.currency-toggle { display: flex; background: #111; border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; }
+.currency-toggle input[type="radio"] { display: none; }
+.currency-toggle label { padding: 0.5rem 1.25rem; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); transition: all 0.2s; user-select: none; }
+.currency-toggle input[type="radio"]:checked + label { background: var(--gradient-purple); color: #fff; }
+
+.check-btn { padding: 0.6rem 2rem; background: var(--gradient-purple); color: #fff; border: none; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
+.check-btn:hover { opacity: 0.9; }
+.check-btn:active { transform: scale(0.98); }
+.check-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Progress ── */
+.progress-wrap { margin-top: 1rem; display: none; }
+.progress-wrap.visible { display: block; }
+.progress-bar-outer { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+.progress-bar-inner { height: 100%; width: 0%; background: var(--gradient-purple); border-radius: 3px; transition: width 0.3s; }
+.progress-text { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; }
+
+/* ── Results ── */
+#results { display: none; }
+#results.visible { display: block; }
+
+/* ── Summary Cards ── */
+.summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.summary-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.25rem; text-align: center; box-shadow: var(--shadow-sm); }
+.summary-card .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+.summary-card .value { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.summary-card .sub { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; }
+
+@media (max-width: 600px) {
+    .summary-cards { grid-template-columns: 1fr; }
+}
+
+/* ── Top 5 ── */
+.section-title { font-size: 1.25rem; margin-bottom: 1rem; }
+.top5-panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem; box-shadow: var(--shadow-sm); }
+.top5-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--card-border); }
+.top5-item:last-child { border-bottom: none; }
+.top5-rank { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text-muted); min-width: 1.5rem; text-align: center; }
+.top5-name { flex: 1; font-weight: 500; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top5-bar-wrap { flex: 0 0 120px; height: 8px; background: #222; border-radius: 4px; overflow: hidden; }
+.top5-bar { height: 100%; background: var(--gradient-purple); border-radius: 4px; min-width: 4px; }
+.top5-price { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; min-width: 70px; text-align: right; }
+
+@media (max-width: 600px) {
+    .top5-bar-wrap { flex: 0 0 60px; }
+}
+
+/* ── Type Breakdown ── */
+.type-panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem; box-shadow: var(--shadow-sm); }
+.type-bars { display: flex; flex-direction: column; gap: 0.6rem; }
+.type-row { display: flex; align-items: center; gap: 0.75rem; }
+.type-label { min-width: 110px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+.type-bar-wrap { flex: 1; height: 22px; background: #222; border-radius: 4px; overflow: hidden; position: relative; }
+.type-bar { height: 100%; border-radius: 4px; min-width: 2px; transition: width 0.5s ease; }
+.type-cost { min-width: 80px; text-align: right; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; }
+
+/* ── Card Table ── */
+.table-panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; box-shadow: var(--shadow-sm); }
+.card-table { width: 100%; border-collapse: collapse; }
+.card-table th { background: #161616; text-align: left; padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; user-select: none; white-space: nowrap; border-bottom: 1px solid var(--card-border); }
+.card-table th:hover { color: var(--text-primary); }
+.card-table th .sort-arrow { margin-left: 0.3rem; font-size: 0.7rem; }
+.card-table td { padding: 0.6rem 1rem; font-size: 0.9rem; border-bottom: 1px solid var(--card-border); }
+.card-table tr:last-child td { border-bottom: none; }
+.card-table tr:hover { background: rgba(168,85,247,0.05); }
+.card-table tr.most-expensive { background: rgba(168,85,247,0.1); }
+.card-table .not-found { color: #ef4444; font-style: italic; }
+.card-table .price-col { text-align: right; font-family: 'Space Grotesk', sans-serif; font-weight: 500; }
+.card-table .qty-col { text-align: center; min-width: 40px; }
+.card-table .type-col { color: var(--text-secondary); font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+    .card-table th, .card-table td { padding: 0.5rem 0.6rem; font-size: 0.8rem; }
+    .card-table .type-col { display: none; }
+    .card-table th:nth-child(3) { display: none; }
+}
+
+/* ── Footer ── */
+footer { border-top: 1px solid var(--card-border); padding: 2rem 0; text-align: center; }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.wubrg-dots { display: flex; gap: 0.5rem; }
+.mana-dot { width: 12px; height: 12px; border-radius: 50%; }
+.footer-text { color: var(--text-muted); font-size: 0.8rem; max-width: 500px; }
+.footer-links { list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+.footer-links a { color: var(--text-muted); font-size: 0.8rem; }
+.footer-links a:hover { color: #a78bfa; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="container nav-content">
+        <a href="/" class="nav-logo">ScrollVault</a>
+        <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/news/">News</a></li>
+            <li><a href="/guides/">Guides</a></li>
+            <li><a href="/decks/">Top Decks</a></li>
+            <li><a href="/draft/">Draft</a></li>
+            <li><a href="/tools/" class="active">Tools</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+<div class="container">
+
+    <div class="breadcrumb">
+        <a href="/">Home</a><span>/</span>
+        <a href="/tools/">Tools</a><span>/</span>
+        Deck Price Checker
+    </div>
+
+    <h1 class="page-title">Deck Price Checker</h1>
+    <p class="page-subtitle">Paste your decklist below to get a full price breakdown with per-card costs from Scryfall.</p>
+
+    <!-- Input Panel -->
+    <div class="input-panel">
+        <label for="deckInput">Decklist</label>
+        <textarea id="deckInput" class="deck-textarea" placeholder="4 Lightning Bolt&#10;2 Scalding Tarn&#10;4 Ragavan, Nimble Pilferer&#10;3 Murktide Regent&#10;1 Blood Moon&#10;&#10;// Sideboard&#10;2 Engineered Explosives"></textarea>
+        <div class="controls-row">
+            <div class="currency-toggle">
+                <input type="radio" name="currency" id="curUSD" value="usd" checked>
+                <label for="curUSD">USD</label>
+                <input type="radio" name="currency" id="curEUR" value="eur">
+                <label for="curEUR">EUR</label>
+            </div>
+            <button class="check-btn" id="checkBtn" onclick="checkPrices()">Check Prices</button>
+        </div>
+        <div class="progress-wrap" id="progressWrap">
+            <div class="progress-bar-outer">
+                <div class="progress-bar-inner" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">Fetching prices...</div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results">
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="label">Total Deck Price</div>
+                <div class="value" id="totalPrice">$0.00</div>
+                <div class="sub" id="totalPriceSub"></div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Average Card Price</div>
+                <div class="value" id="avgPrice">$0.00</div>
+                <div class="sub">per unique card</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Card Count</div>
+                <div class="value" id="cardCount">0</div>
+                <div class="sub" id="cardCountSub">0 unique</div>
+            </div>
+        </div>
+
+        <!-- Top 5 -->
+        <h2 class="section-title">Top 5 Most Expensive</h2>
+        <div class="top5-panel" id="top5Panel"></div>
+
+        <!-- Type Breakdown -->
+        <h2 class="section-title">Cost by Card Type</h2>
+        <div class="type-panel" id="typePanel"></div>
+
+        <!-- Full Table -->
+        <h2 class="section-title">Full Card Breakdown</h2>
+        <div class="table-panel">
+            <table class="card-table" id="cardTable">
+                <thead>
+                    <tr>
+                        <th class="qty-col" data-sort="qty">Qty <span class="sort-arrow"></span></th>
+                        <th data-sort="name">Card Name <span class="sort-arrow"></span></th>
+                        <th data-sort="type">Type <span class="sort-arrow"></span></th>
+                        <th class="price-col" data-sort="each">Price Each <span class="sort-arrow"></span></th>
+                        <th class="price-col" data-sort="total">Total Price <span class="sort-arrow"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="cardTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">ScrollVault</div>
+            <div class="wubrg-dots">
+                <span class="mana-dot" style="background: #F9FAF4"></span>
+                <span class="mana-dot" style="background: #0E68AB"></span>
+                <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                <span class="mana-dot" style="background: #D3202A"></span>
+                <span class="mana-dot" style="background: #00733E"></span>
+            </div>
+            <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+            <ul class="footer-links">
+                <li><a href="/privacy.html">Privacy Policy</a></li>
+                <li><a href="/terms.html">Terms of Service</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/about/authors.html">Authors</a></li>
+                <li><a href="/about/editorial-policy.html">Editorial Policy</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* ── Scryfall Rate Limiting & Cache ── */
+const SCRYFALL_DELAY = 100;
+let lastScryfallCall = 0;
+
+async function scryfallFetch(url) {
+    const now = Date.now();
+    const wait = Math.max(0, SCRYFALL_DELAY - (now - lastScryfallCall));
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+    lastScryfallCall = Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Scryfall error');
+    return res.json();
+}
+
+function cacheGet(key) {
+    try {
+        const item = JSON.parse(localStorage.getItem('sv_price_' + key));
+        if (item && Date.now() - item.ts < 24 * 60 * 60 * 1000) return item.data;
+    } catch (e) {}
+    return null;
+}
+
+function cacheSet(key, data) {
+    try { localStorage.setItem('sv_price_' + key, JSON.stringify({ ts: Date.now(), data })); } catch (e) {}
+}
+
+/* ── Decklist Parser ── */
+function parseDeckList(text) {
+    const entries = [];
+    for (const line of text.split('\n')) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('//') || trimmed.toLowerCase() === 'sideboard') continue;
+        const match = trimmed.match(/^(\d+)\s+(.+)/);
+        if (match) {
+            entries.push({ count: parseInt(match[1]), name: match[2].trim() });
+        }
+    }
+    return entries;
+}
+
+/* ── Currency Helpers ── */
+function getCurrency() {
+    return document.querySelector('input[name="currency"]:checked').value;
+}
+
+function getSymbol(cur) {
+    return cur === 'eur' ? '\u20AC' : '$';
+}
+
+function formatPrice(value, cur) {
+    if (value === null || value === undefined) return '--';
+    const sym = getSymbol(cur);
+    return sym + parseFloat(value).toFixed(2);
+}
+
+/* ── Type Classification ── */
+const TYPE_COLORS = {
+    'Creature':      '#a855f7',
+    'Instant':       '#3b82f6',
+    'Sorcery':       '#ef4444',
+    'Land':          '#84cc16',
+    'Enchantment':   '#f59e0b',
+    'Artifact':      '#6b7280',
+    'Planeswalker':  '#ec4899',
+    'Battle':        '#14b8a6',
+    'Other':         '#71717a'
+};
+
+function classifyType(typeLine) {
+    if (!typeLine) return 'Other';
+    const t = typeLine.toLowerCase();
+    if (t.includes('creature')) return 'Creature';
+    if (t.includes('instant')) return 'Instant';
+    if (t.includes('sorcery')) return 'Sorcery';
+    if (t.includes('land')) return 'Land';
+    if (t.includes('enchantment')) return 'Enchantment';
+    if (t.includes('artifact')) return 'Artifact';
+    if (t.includes('planeswalker')) return 'Planeswalker';
+    if (t.includes('battle')) return 'Battle';
+    return 'Other';
+}
+
+/* ── Progress ── */
+function showProgress(show) {
+    document.getElementById('progressWrap').classList.toggle('visible', show);
+}
+
+function updateProgress(current, total) {
+    const pct = Math.round((current / total) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = 'Fetching card ' + current + ' of ' + total + '...';
+}
+
+/* ── Main Check Prices ── */
+let cardResults = [];
+let currentSort = { key: 'total', dir: 'desc' };
+
+async function checkPrices() {
+    const text = document.getElementById('deckInput').value.trim();
+    if (!text) return;
+
+    const entries = parseDeckList(text);
+    if (entries.length === 0) return;
+
+    const cur = getCurrency();
+    const sym = getSymbol(cur);
+    const btn = document.getElementById('checkBtn');
+
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+    showProgress(true);
+    document.getElementById('results').classList.remove('visible');
+
+    cardResults = [];
+    let completed = 0;
+
+    for (const entry of entries) {
+        updateProgress(++completed, entries.length);
+        const cacheKey = entry.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        let cardData = cacheGet(cacheKey);
+
+        if (!cardData) {
+            try {
+                const data = await scryfallFetch(
+                    'https://api.scryfall.com/cards/named?exact=' + encodeURIComponent(entry.name)
+                );
+                cardData = {
+                    name: data.name,
+                    type_line: data.type_line || '',
+                    prices: data.prices || {},
+                    uri: data.scryfall_uri || ''
+                };
+                cacheSet(cacheKey, cardData);
+            } catch (err) {
+                cardData = null;
+            }
+        }
+
+        if (cardData) {
+            const priceKey = cur;
+            const priceEach = cardData.prices[priceKey] ? parseFloat(cardData.prices[priceKey]) : null;
+            cardResults.push({
+                qty: entry.count,
+                name: cardData.name,
+                typeLine: cardData.type_line,
+                type: classifyType(cardData.type_line),
+                priceEach: priceEach,
+                totalPrice: priceEach !== null ? priceEach * entry.count : null,
+                uri: cardData.uri,
+                found: true
+            });
+        } else {
+            cardResults.push({
+                qty: entry.count,
+                name: entry.name,
+                typeLine: '',
+                type: 'Other',
+                priceEach: null,
+                totalPrice: null,
+                uri: '',
+                found: false
+            });
+        }
+    }
+
+    showProgress(false);
+    btn.disabled = false;
+    btn.textContent = 'Check Prices';
+    renderResults(cur);
+}
+
+/* ── Render All Results ── */
+function renderResults(cur) {
+    const sym = getSymbol(cur);
+
+    /* Summary */
+    let totalDeckPrice = 0;
+    let totalCards = 0;
+    let pricedCards = 0;
+
+    for (const c of cardResults) {
+        totalCards += c.qty;
+        if (c.totalPrice !== null) {
+            totalDeckPrice += c.totalPrice;
+            pricedCards++;
+        }
+    }
+
+    const uniqueCards = cardResults.length;
+    const avgPrice = pricedCards > 0 ? totalDeckPrice / pricedCards : 0;
+
+    document.getElementById('totalPrice').textContent = formatPrice(totalDeckPrice, cur);
+    const notFoundCount = cardResults.filter(c => !c.found).length;
+    document.getElementById('totalPriceSub').textContent = notFoundCount > 0
+        ? notFoundCount + ' card(s) not found'
+        : totalCards + ' total cards';
+    document.getElementById('avgPrice').textContent = formatPrice(avgPrice, cur);
+    document.getElementById('cardCount').textContent = totalCards;
+    document.getElementById('cardCountSub').textContent = uniqueCards + ' unique';
+
+    /* Top 5 */
+    renderTop5(cur);
+
+    /* Type Breakdown */
+    renderTypeBreakdown(cur);
+
+    /* Table */
+    currentSort = { key: 'total', dir: 'desc' };
+    renderTable(cur);
+
+    document.getElementById('results').classList.add('visible');
+}
+
+/* ── Top 5 ── */
+function renderTop5(cur) {
+    const sorted = cardResults
+        .filter(c => c.totalPrice !== null)
+        .sort((a, b) => b.totalPrice - a.totalPrice)
+        .slice(0, 5);
+
+    const maxPrice = sorted.length > 0 ? sorted[0].totalPrice : 1;
+    const panel = document.getElementById('top5Panel');
+    panel.innerHTML = '';
+
+    sorted.forEach((card, i) => {
+        const pct = maxPrice > 0 ? (card.totalPrice / maxPrice) * 100 : 0;
+        const item = document.createElement('div');
+        item.className = 'top5-item';
+        item.innerHTML =
+            '<span class="top5-rank">' + (i + 1) + '</span>' +
+            '<span class="top5-name">' + escapeHTML(card.name) + ' <span style="color:var(--text-muted);font-size:0.8rem;">\u00D7' + card.qty + '</span></span>' +
+            '<span class="top5-bar-wrap"><span class="top5-bar" style="width:' + pct + '%"></span></span>' +
+            '<span class="top5-price">' + formatPrice(card.totalPrice, cur) + '</span>';
+        panel.appendChild(item);
+    });
+
+    if (sorted.length === 0) {
+        panel.innerHTML = '<div style="padding:1rem;color:var(--text-muted);">No priced cards found.</div>';
+    }
+}
+
+/* ── Type Breakdown ── */
+function renderTypeBreakdown(cur) {
+    const typeCosts = {};
+    for (const c of cardResults) {
+        if (c.totalPrice !== null) {
+            typeCosts[c.type] = (typeCosts[c.type] || 0) + c.totalPrice;
+        }
+    }
+
+    const typeOrder = ['Creature', 'Instant', 'Sorcery', 'Land', 'Enchantment', 'Artifact', 'Planeswalker', 'Battle', 'Other'];
+    const entries = typeOrder
+        .filter(t => typeCosts[t] > 0)
+        .map(t => ({ type: t, cost: typeCosts[t] }))
+        .sort((a, b) => b.cost - a.cost);
+
+    const maxCost = entries.length > 0 ? entries[0].cost : 1;
+    const panel = document.getElementById('typePanel');
+    panel.innerHTML = '<div class="type-bars"></div>';
+    const bars = panel.querySelector('.type-bars');
+
+    entries.forEach(entry => {
+        const pct = maxCost > 0 ? (entry.cost / maxCost) * 100 : 0;
+        const color = TYPE_COLORS[entry.type] || TYPE_COLORS['Other'];
+        const row = document.createElement('div');
+        row.className = 'type-row';
+        row.innerHTML =
+            '<span class="type-label">' + entry.type + '</span>' +
+            '<span class="type-bar-wrap"><span class="type-bar" style="width:' + pct + '%;background:' + color + '"></span></span>' +
+            '<span class="type-cost">' + formatPrice(entry.cost, cur) + '</span>';
+        bars.appendChild(row);
+    });
+
+    if (entries.length === 0) {
+        panel.innerHTML = '<div style="padding:1rem;color:var(--text-muted);">No type data available.</div>';
+    }
+}
+
+/* ── Card Table ── */
+function renderTable(cur) {
+    const sorted = sortCards(cardResults.slice(), currentSort);
+    const tbody = document.getElementById('cardTableBody');
+    tbody.innerHTML = '';
+
+    /* Find most expensive total */
+    let maxTotal = 0;
+    for (const c of sorted) {
+        if (c.totalPrice !== null && c.totalPrice > maxTotal) maxTotal = c.totalPrice;
+    }
+
+    sorted.forEach(card => {
+        const tr = document.createElement('tr');
+        if (card.totalPrice !== null && card.totalPrice === maxTotal && maxTotal > 0) {
+            tr.className = 'most-expensive';
+        }
+
+        if (card.found) {
+            const nameCell = card.uri
+                ? '<a href="' + escapeHTML(card.uri) + '" target="_blank" rel="noopener">' + escapeHTML(card.name) + '</a>'
+                : escapeHTML(card.name);
+            tr.innerHTML =
+                '<td class="qty-col">' + card.qty + '</td>' +
+                '<td>' + nameCell + '</td>' +
+                '<td class="type-col">' + escapeHTML(shortType(card.typeLine)) + '</td>' +
+                '<td class="price-col">' + (card.priceEach !== null ? formatPrice(card.priceEach, cur) : '--') + '</td>' +
+                '<td class="price-col">' + (card.totalPrice !== null ? formatPrice(card.totalPrice, cur) : '--') + '</td>';
+        } else {
+            tr.innerHTML =
+                '<td class="qty-col">' + card.qty + '</td>' +
+                '<td>' + escapeHTML(card.name) + '</td>' +
+                '<td class="type-col not-found">not found</td>' +
+                '<td class="price-col not-found">--</td>' +
+                '<td class="price-col not-found">--</td>';
+        }
+        tbody.appendChild(tr);
+    });
+
+    /* Update sort arrows */
+    document.querySelectorAll('#cardTable th').forEach(th => {
+        const arrow = th.querySelector('.sort-arrow');
+        if (th.dataset.sort === currentSort.key) {
+            arrow.textContent = currentSort.dir === 'asc' ? '\u25B2' : '\u25BC';
+        } else {
+            arrow.textContent = '';
+        }
+    });
+}
+
+function sortCards(cards, sort) {
+    return cards.sort((a, b) => {
+        let va, vb;
+        switch (sort.key) {
+            case 'qty':
+                va = a.qty; vb = b.qty; break;
+            case 'name':
+                va = a.name.toLowerCase(); vb = b.name.toLowerCase();
+                return sort.dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+            case 'type':
+                va = a.type.toLowerCase(); vb = b.type.toLowerCase();
+                return sort.dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+            case 'each':
+                va = a.priceEach !== null ? a.priceEach : -1;
+                vb = b.priceEach !== null ? b.priceEach : -1;
+                break;
+            case 'total':
+                va = a.totalPrice !== null ? a.totalPrice : -1;
+                vb = b.totalPrice !== null ? b.totalPrice : -1;
+                break;
+            default:
+                return 0;
+        }
+        return sort.dir === 'asc' ? va - vb : vb - va;
+    });
+}
+
+function shortType(typeLine) {
+    if (!typeLine) return '';
+    const dash = typeLine.indexOf('\u2014');
+    return dash > -1 ? typeLine.substring(0, dash).trim() : typeLine;
+}
+
+/* ── Column Sort Click ── */
+document.querySelectorAll('#cardTable th').forEach(th => {
+    th.addEventListener('click', function () {
+        const key = this.dataset.sort;
+        if (!key) return;
+        if (currentSort.key === key) {
+            currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+        } else {
+            currentSort.key = key;
+            currentSort.dir = (key === 'name' || key === 'type') ? 'asc' : 'desc';
+        }
+        renderTable(getCurrency());
+    });
+});
+
+/* ── Escape HTML ── */
+function escapeHTML(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+}
+</script>
+</body>
+</html>

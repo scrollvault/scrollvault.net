@@ -465,8 +465,7 @@ function nav(rootRel, activePage) {
     { href: '/guides/', label: 'Guides', active: activePage === 'guides' },
     { href: '/decks/', label: 'Top Decks', active: activePage === 'decks' },
     { href: '/draft/', label: 'Draft', active: activePage === 'draft' },
-    { href: '/tools/lands/', label: 'Lands', active: activePage === 'lands' },
-    { href: '/tools/manabase/', label: 'Mana Base', active: activePage === 'manabase' },
+    { href: '/tools/', label: 'Tools', active: activePage === 'tools' },
     { href: '/about.html', label: 'About', active: activePage === 'about' },
     { href: '/contact.html', label: 'Contact', active: activePage === 'contact' }
   ].map(link => `<li><a href="${rootRel}${link.href}"${link.active ? ' class="active"' : ''}>${link.label}</a></li>`).join('\n                ');
@@ -538,8 +537,8 @@ function head(title, description, rootRel, ogImage, options = {}) {
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>`;
 }
 
-// ── INDEX PAGE ──
-const INDEX_CSS = `
+// ── HUB PAGE CSS (News/Guides pages — cloned from original index) ──
+const HUB_CSS = `
 .hero-featured { position: relative; min-height: 500px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
 .hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
 .hero-featured .hero-content { position: relative; z-index: 1; padding: 3rem 0; width: 100%; }
@@ -549,20 +548,6 @@ const INDEX_CSS = `
 .hero-cta { display: inline-block; padding: 0.75rem 2rem; background: var(--gradient-purple); border-radius: 8px; font-weight: 600; font-size: 0.95rem; color: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
 .hero-attribution { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
-.featured-section { padding: 2rem 0; }
-.featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.featured-card { position: relative; height: 240px; background-size: cover; background-position: center; border-radius: 12px; overflow: hidden; display: flex; align-items: flex-end; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.featured-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
-.featured-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); border-radius: 12px; }
-.featured-card-content { position: relative; z-index: 1; padding: 1.25rem; width: 100%; }
-.featured-card .post-category { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
-.featured-card h3 { font-size: 1.05rem; line-height: 1.3; margin-bottom: 0.4rem; }
-.featured-card .post-date { font-size: 0.75rem; color: var(--text-muted); }
-.filter-section { padding: 2rem 0; border-bottom: 1px solid var(--card-border); }
-.filter-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; }
-.filter-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); padding: 0.5rem 1.25rem; border-radius: 2rem; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
-.filter-btn:hover { border-color: rgba(139,92,246,0.5); color: var(--text-primary); }
-.filter-btn.active { background: var(--gradient-purple); border-color: transparent; color: white; }
 .content-wrapper { display: grid; grid-template-columns: 1fr; gap: 2rem; padding: 2rem 0 4rem; }
 .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
 .post-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer; }
@@ -609,16 +594,114 @@ const INDEX_CSS = `
 @media (max-width: 768px) {
     .hero-featured { min-height: 360px; }
     .hero-featured h1 { font-size: 1.75rem; }
-    .featured-grid { grid-template-columns: 1fr; }
-    .featured-card { height: 180px; }
     .posts-grid { grid-template-columns: 1fr; }
-    .filter-btn { padding: 0.4rem 1rem; font-size: 0.85rem; }
 }
 @media (min-width: 769px) and (max-width: 991px) {
-    .featured-grid { grid-template-columns: repeat(2, 1fr); }
     .posts-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 992px) { .posts-grid { grid-template-columns: repeat(3, 1fr); } }`;
+
+// ── INDEX PAGE (Authority Hub) ──
+const INDEX_CSS = `
+/* Hero */
+.hero-featured { position: relative; min-height: 420px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
+.hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
+.hero-featured .hero-content { position: relative; z-index: 1; padding: 2.5rem 0; width: 100%; }
+.hero-featured .post-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
+.hero-featured h1 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
+.hero-featured .hero-excerpt { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; line-height: 1.7; margin-bottom: 1.5rem; }
+.hero-cta { display: inline-block; padding: 0.75rem 2rem; background: var(--gradient-purple); border-radius: 8px; font-weight: 600; font-size: 0.95rem; color: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
+.hero-attribution { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
+
+/* Brand bar */
+.brand-bar { padding: 1rem 0; border-bottom: 1px solid var(--card-border); text-align: center; }
+.brand-bar .wubrg-dots { margin-bottom: 0.35rem; }
+.brand-bar .tagline { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 0.3px; }
+
+/* Home sections */
+.home-section { padding: 2.5rem 0; border-bottom: 1px solid var(--card-border); }
+.home-section:last-of-type { border-bottom: none; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.section-header h2 { font-size: 1.5rem; }
+.section-link { color: #a78bfa; font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
+.section-link:hover { color: #c4b5fd; }
+
+/* Horizontal card row (News / Strategy) */
+.card-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.post-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer; }
+.post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
+.post-card a.card-link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; }
+.post-thumbnail { height: 160px; width: 100%; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.post-thumbnail::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%); }
+.post-content { padding: 1rem; display: flex; flex-direction: column; flex: 1; }
+.post-category { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; width: fit-content; }
+.category-news { background: var(--pill-news); color: white; }
+.category-strategy { background: var(--pill-strategy); color: white; }
+.category-spoilers { background: var(--pill-spoilers); color: white; }
+.category-deck-guides { background: var(--pill-deck-guides); color: white; }
+.category-set-reviews { background: var(--pill-set-reviews); color: white; }
+.post-title { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.4; }
+.post-excerpt { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.post-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--card-border); }
+.read-more { color: #a78bfa; font-weight: 600; font-size: 0.8rem; margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.25rem; }
+.read-more:hover { color: #c4b5fd; }
+
+/* Tools compact grid */
+.tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.tool-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 1.25rem; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+.tool-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(139,92,246,0.4); }
+.tool-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+.tool-card h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+.tool-card p { color: var(--text-muted); font-size: 0.8rem; line-height: 1.4; }
+
+/* Format tabs (Decks) */
+.format-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.format-tab { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); padding: 0.4rem 1.1rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
+.format-tab:hover { border-color: rgba(139,92,246,0.5); color: var(--text-primary); }
+.format-tab.active { background: var(--gradient-purple); border-color: transparent; color: white; }
+.format-panel { display: none; }
+.format-panel.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.deck-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 1.25rem; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.deck-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.deck-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+.deck-card .tier-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.tier-1 { background: rgba(16,185,129,0.2); color: #34d399; }
+.tier-2 { background: rgba(59,130,246,0.2); color: #60a5fa; }
+.tier-3 { background: rgba(245,158,11,0.2); color: #fbbf24; }
+.deck-card .deck-meta { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; }
+
+/* Articles section (search + filter + grid) */
+.articles-controls { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.articles-search { flex: 0 0 280px; padding: 0.6rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 8px; color: var(--text-primary); font-size: 0.9rem; font-family: inherit; }
+.articles-search:focus { outline: none; border-color: #8b5cf6; }
+.articles-search::placeholder { color: var(--text-muted); }
+.filter-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.filter-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
+.filter-btn:hover { border-color: rgba(139,92,246,0.5); color: var(--text-primary); }
+.filter-btn.active { background: var(--gradient-purple); border-color: transparent; color: white; }
+.posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.post-card.hidden { display: none; }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .hero-featured { min-height: 320px; }
+    .hero-featured h1 { font-size: 1.75rem; }
+    .card-row { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .format-panel.active { grid-template-columns: 1fr; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .articles-controls { flex-direction: column; }
+    .articles-search { flex: 1 1 100%; width: 100%; }
+    .filter-btn { padding: 0.35rem 0.85rem; font-size: 0.75rem; }
+    .format-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+}
+@media (min-width: 769px) and (max-width: 991px) {
+    .card-row { grid-template-columns: repeat(2, 1fr); }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    .format-panel.active { grid-template-columns: repeat(2, 1fr); }
+}`;
 
 // ── POST PAGE CSS ──
 const POST_CSS = `
@@ -765,16 +848,52 @@ async function main() {
   fs.writeFileSync(path.join(cssDir, 'base.css'), CSS.trim());
   console.log('Wrote css/base.css');
 
-  // ── INDEX PAGE ──
+  // ── INDEX PAGE (Authority Hub) ──
   const heroPost = posts[0];
-  const featuredPosts = posts.slice(1, 4);
-  const gridPosts = posts.slice(4);
+  const newsPosts = posts.slice(1).filter(p => p.category === 'News').slice(0, 4);
+  const strategyPosts = posts.slice(1).filter(p => p.category === 'Strategy' || p.category === 'Deck Guides').slice(0, 4);
+  const gridPosts = posts.slice(1, 10);
 
   function thumbStyle(post) {
     if (post.hero_image) return `background-image: url('${post.hero_image}'); background-size: cover; background-position: center;`;
     const gradient = post.thumbnail_gradient || CATEGORY_GRADIENTS[post.category] || 'var(--gradient-purple)';
     return `background: ${gradient};`;
   }
+
+  // Hardcoded tools data (matches /tools/ hub)
+  const TOOLS_DATA = [
+    { name: 'Mana Base Calculator', href: '/tools/manabase/', icon: '\u{1F3AF}', desc: 'Optimal land counts using Frank Karsten math' },
+    { name: 'Hypergeometric Calc', href: '/tools/hypergeometric/', icon: '\u{1F4CA}', desc: 'Probability of drawing specific cards' },
+    { name: 'Opening Hand Sim', href: '/tools/hand-simulator/', icon: '\u{1F0CF}', desc: 'Sample hands with London mulligan support' },
+    { name: 'Deck Price Checker', href: '/tools/price-checker/', icon: '\u{1F4B0}', desc: 'Instant price totals for any decklist' },
+    { name: 'Commander Bracket', href: '/tools/commander-bracket/', icon: '\u{1F3C6}', desc: 'Estimate your deck power level and bracket' },
+    { name: 'Sealed Simulator', href: '/tools/sealed/', icon: '\u{1F4E6}', desc: 'Open 6 boosters and build a sealed deck' },
+    { name: 'Dual Lands Guide', href: '/tools/lands/', icon: '\u{1F30D}', desc: 'Compare fetches, shocks, checks, and fast lands' }
+  ];
+
+  // Hardcoded decks data (matches /decks/ hub — 4 formats, 3 decks each)
+  const DECKS_DATA = {
+    Standard: [
+      { name: 'Bant Rhythm', tier: 1, href: '/decks/standard/' },
+      { name: 'Dimir Excruciator', tier: 1, href: '/decks/standard/' },
+      { name: 'Golgari Midrange', tier: 1, href: '/decks/standard/' }
+    ],
+    Modern: [
+      { name: 'Boros Energy', tier: 1, href: '/decks/modern/' },
+      { name: 'Amulet Titan', tier: 2, href: '/decks/modern/' },
+      { name: 'Domain Zoo', tier: 2, href: '/decks/modern/' }
+    ],
+    Pioneer: [
+      { name: 'Arclight Phoenix', tier: 1, href: '/decks/pioneer/' },
+      { name: 'Azorius Control', tier: 1, href: '/decks/pioneer/' },
+      { name: 'Greasefang Parhelion', tier: 2, href: '/decks/pioneer/' }
+    ],
+    Commander: [
+      { name: 'Blue Farm', tier: 1, href: '/decks/commander/' },
+      { name: 'Atraxa Praetors Voice', tier: 1, href: '/decks/commander/' },
+      { name: 'Child of Alara', tier: 1, href: '/decks/commander/' }
+    ]
+  };
 
   function renderHeroSection() {
     if (!heroPost) return '';
@@ -794,36 +913,26 @@ async function main() {
         </section>`;
   }
 
-  function renderFeaturedSection() {
-    if (!featuredPosts.length) return '';
-    return `        <section class="featured-section">
+  function renderBrandBar() {
+    return `        <div class="brand-bar">
             <div class="container">
-                <div class="featured-grid">
-${featuredPosts.map(post => {
-  const catSlug = CATEGORY_SLUGS[post.category] || 'news';
-  const bg = post.hero_image ? `background-image: url('${post.hero_image}');` : `background: ${post.thumbnail_gradient || CATEGORY_GRADIENTS[post.category] || 'var(--gradient-purple)'};`;
-  return `                    <a href="${postUrl(post)}" class="featured-card" style="${bg} background-size: cover; background-position: center;">
-                        <div class="featured-card-overlay"></div>
-                        <div class="featured-card-content">
-                            <span class="post-category category-${catSlug}">${esc(post.category)}</span>
-                            <h3>${esc(post.title)}</h3>
-                            <span class="post-date">${formatDate(post.date)}</span>
-                        </div>
-                    </a>`;
-}).join('\n')}
+                <div class="wubrg-dots">
+                    <span class="mana-dot" style="background: #F9FAF4"></span>
+                    <span class="mana-dot" style="background: #0E68AB"></span>
+                    <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                    <span class="mana-dot" style="background: #D3202A"></span>
+                    <span class="mana-dot" style="background: #00733E"></span>
                 </div>
+                <p class="tagline">Your daily source for MTG strategy, tools, and competitive analysis</p>
             </div>
-        </section>`;
+        </div>`;
   }
 
-  function renderPostCards() {
-    if (!gridPosts.length) return '';
-    return gridPosts.map(post => {
-      const catSlug = CATEGORY_SLUGS[post.category] || 'news';
-      const style = thumbStyle(post);
-      const href = postUrl(post);
-      return `                <article class="post-card" data-category="${catSlug}">
-                    <a href="${href}" class="card-link">
+  function renderPostCard(post) {
+    const catSlug = CATEGORY_SLUGS[post.category] || 'news';
+    const style = thumbStyle(post);
+    return `                <article class="post-card" data-category="${catSlug}">
+                    <a href="${postUrl(post)}" class="card-link">
                         <div class="post-thumbnail" style="${style}"></div>
                         <div class="post-content">
                             <span class="post-category category-${catSlug}">${esc(post.category)}</span>
@@ -833,139 +942,167 @@ ${featuredPosts.map(post => {
                                 <span class="post-author">${esc(post.author)}</span>
                                 <span class="post-date">${formatDate(post.date)}</span>
                             </div>
-                            <span class="read-more">Read More &rarr;</span>
                         </div>
                     </a>
                 </article>`;
-    }).join('\n\n');
   }
 
-  function renderRecentPosts() {
-    return posts.slice(0, 5).map(post => {
-      const ts = thumbStyle(post);
-      return `                        <li class="recent-post-item">
-                            <div class="recent-post-thumb" style="${ts}"></div>
-                            <div>
-                                <a href="${postUrl(post)}">${esc(post.title)}</a>
-                                <span class="recent-post-date">${formatDate(post.date)}</span>
-                            </div>
-                        </li>`;
-    }).join('\n');
+  function renderCategorySection(title, href, linkText, sectionPosts) {
+    if (!sectionPosts.length) return '';
+    return `        <section class="home-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>${title}</h2>
+                    <a href="${href}" class="section-link">${linkText}</a>
+                </div>
+                <div class="card-row">
+${sectionPosts.map(p => renderPostCard(p)).join('\n')}
+                </div>
+            </div>
+        </section>`;
   }
 
-  function renderCategories() {
-    const cats = ['News', 'Strategy', 'Spoilers', 'Deck Guides', 'Set Reviews'];
-    return cats.map(cat => {
-      const pill = CATEGORY_PILLS[cat];
-      const slug = CATEGORY_SLUGS[cat];
-      const count = categoryCounts[cat] || 0;
-      return `                        <li onclick="document.querySelector('[data-filter=${slug}]').click()">
-                            <span class="category-name">
-                                <span class="category-dot" style="background: var(${pill});"></span>
-                                ${cat}
-                            </span>
-                            <span class="category-count">${count}</span>
-                        </li>`;
+  function renderToolsSection() {
+    return `        <section class="home-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Free MTG Tools</h2>
+                    <a href="/tools/" class="section-link">View All Tools &rarr;</a>
+                </div>
+                <div class="tools-grid">
+${TOOLS_DATA.map(t => `                    <a href="${t.href}" class="tool-card">
+                        <div class="tool-icon">${t.icon}</div>
+                        <h3>${esc(t.name)}</h3>
+                        <p>${esc(t.desc)}</p>
+                    </a>`).join('\n')}
+                </div>
+            </div>
+        </section>`;
+  }
+
+  function renderDecksSection() {
+    const formats = Object.keys(DECKS_DATA);
+    const tabs = formats.map((f, i) =>
+      `                    <button class="format-tab${i === 0 ? ' active' : ''}" data-format="${f.toLowerCase()}">${f}</button>`
+    ).join('\n');
+    const panels = formats.map((f, i) => {
+      const decks = DECKS_DATA[f].map(d =>
+        `                        <a href="${d.href}" class="deck-card">
+                            <h3>${esc(d.name)}</h3>
+                            <span class="tier-badge tier-${d.tier}">Tier ${d.tier}</span>
+                            <div class="deck-meta">${f}</div>
+                        </a>`
+      ).join('\n');
+      return `                    <div class="format-panel${i === 0 ? ' active' : ''}" data-format="${f.toLowerCase()}">
+${decks}
+                    </div>`;
     }).join('\n');
+
+    return `        <section class="home-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Top Competitive Decks</h2>
+                    <a href="/decks/" class="section-link">View All Decks &rarr;</a>
+                </div>
+                <div class="format-tabs">
+${tabs}
+                </div>
+${panels}
+            </div>
+        </section>`;
+  }
+
+  function renderArticlesSection() {
+    return `        <section class="home-section" style="border-bottom: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Latest Articles</h2>
+                </div>
+                <div class="articles-controls">
+                    <input type="text" class="articles-search" placeholder="Search articles..." id="searchInput">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="news">News</button>
+                        <button class="filter-btn" data-filter="strategy">Strategy</button>
+                        <button class="filter-btn" data-filter="spoilers">Spoilers</button>
+                        <button class="filter-btn" data-filter="deck-guides">Deck Guides</button>
+                        <button class="filter-btn" data-filter="set-reviews">Set Reviews</button>
+                    </div>
+                </div>
+                <div class="posts-grid" id="postsGrid">
+${gridPosts.map(p => renderPostCard(p)).join('\n')}
+                </div>
+            </div>
+        </section>`;
   }
 
   const heroOgImage = heroPost && heroPost.hero_image ? heroPost.hero_image : '';
 
-  
-// WebSite structured data for homepage (SEO)
+  // WebSite structured data for homepage (SEO)
+  const siteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ScrollVault",
+    "url": SITE_URL,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": SITE_URL + "/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
 
-
-// WebSite structured data for homepage (SEO)
-const siteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "ScrollVault",
-  "url": SITE_URL,
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": SITE_URL + "/?s={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-};
-
-const indexHtml = `${head('MTG News and Strategy Blog', 'The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.', '', heroOgImage, { pageUrl: '/', ogType: 'website', ldJson: siteSchema })}
+  const indexHtml = `${head('MTG News and Strategy Blog', 'The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.', '', heroOgImage, { pageUrl: '/', ogType: 'website', ldJson: siteSchema })}
     <style>${INDEX_CSS}</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 ${nav('', 'home')}
     <main id="main-content">
+${renderBrandBar()}
 ${renderHeroSection()}
-${renderFeaturedSection()}
-        <section class="filter-section">
-            <div class="container">
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="news">News</button>
-                    <button class="filter-btn" data-filter="strategy">Strategy</button>
-                    <button class="filter-btn" data-filter="spoilers">Spoilers</button>
-                    <button class="filter-btn" data-filter="deck-guides">Deck Guides</button>
-                    <button class="filter-btn" data-filter="set-reviews">Set Reviews</button>
-                </div>
-            </div>
-        </section>
-        <div class="container content-wrapper">
-            <section class="posts-grid" id="postsGrid">
-${renderPostCards()}
-            </section>
-            <aside class="sidebar">
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Search</h3>
-                    <div class="search-box">
-                        <input type="text" placeholder="Search posts..." id="searchInput" oninput="searchPosts()">
-                    </div>
-                </div>
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Recent Posts</h3>
-                    <ul class="recent-posts">
-${renderRecentPosts()}
-                    </ul>
-                </div>
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Categories</h3>
-                    <ul class="categories-list">
-${renderCategories()}
-                    </ul>
-                </div>
-                <div class="sidebar-widget about-widget">
-                    <h3 class="widget-title">About</h3>
-                    <div class="about-avatar">M</div>
-                    <p class="about-text">Your go-to spot for Magic: The Gathering news, strategy, and deck tech. Written by players, for players.</p>
-                </div>
-            </aside>
-        </div>
+${renderCategorySection('Latest News', '/news/', 'View All News &rarr;', newsPosts)}
+${renderCategorySection('Strategy &amp; Guides', '/guides/', 'View All Guides &rarr;', strategyPosts)}
+${renderToolsSection()}
+${renderDecksSection()}
+${renderArticlesSection()}
     </main>
 ${footer('')}
     <script>
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.post-card');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const f = btn.dataset.filter;
-                cards.forEach(c => c.classList.toggle('hidden', f !== 'all' && c.dataset.category !== f));
+        // Format tabs
+        document.querySelectorAll('.format-tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.format-tab').forEach(function(t) { t.classList.remove('active'); });
+                document.querySelectorAll('.format-panel').forEach(function(p) { p.classList.remove('active'); });
+                tab.classList.add('active');
+                var panel = document.querySelector('.format-panel[data-format="' + tab.dataset.format + '"]');
+                if (panel) panel.classList.add('active');
             });
         });
-        function searchPosts() {
-            const t = document.getElementById('searchInput').value.toLowerCase();
-            cards.forEach(c => {
-                const txt = (c.querySelector('.post-title').textContent + ' ' + c.querySelector('.post-excerpt').textContent).toLowerCase();
+        // Filter + search
+        var filterBtns = document.querySelectorAll('.filter-btn');
+        var cards = document.querySelectorAll('#postsGrid .post-card');
+        filterBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                var f = btn.dataset.filter;
+                cards.forEach(function(c) { c.classList.toggle('hidden', f !== 'all' && c.dataset.category !== f); });
+            });
+        });
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var t = this.value.toLowerCase();
+            cards.forEach(function(c) {
+                var txt = (c.querySelector('.post-title').textContent + ' ' + c.querySelector('.post-excerpt').textContent).toLowerCase();
                 c.classList.toggle('hidden', t && !txt.includes(t));
             });
-            if (t) { filterBtns.forEach(b => b.classList.remove('active')); document.querySelector('[data-filter="all"]').classList.add('active'); }
-        }
+            if (t) { filterBtns.forEach(function(b) { b.classList.remove('active'); }); document.querySelector('[data-filter="all"]').classList.add('active'); }
+        });
     </script>
 </body>
 </html>`;
 
   fs.writeFileSync(path.join(OUTPUT_DIR, 'index.html'), indexHtml);
-  console.log(`Built index with ${posts.length} posts (hero + ${featuredPosts.length} featured + ${gridPosts.length} grid)`);
+  console.log(`Built index with ${posts.length} posts (hero + ${newsPosts.length} news + ${strategyPosts.length} strategy + ${gridPosts.length} grid)`);
 
   // Build hub pages (News and Guides)
   function buildHubPage(slug, title, description, filter) {
@@ -1049,7 +1186,7 @@ ${footer('')}
     }).join('\n');
 
     const hubHtml = `${head(title, description, '', heroPost && heroPost.hero_image ? heroPost.hero_image : '', { pageUrl: '/' + slug + '/', ogType: 'website' })}
-    <style>${INDEX_CSS}</style>
+    <style>${HUB_CSS}</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -1405,8 +1542,14 @@ ${footer('')}
     // Hand-crafted pages
     { loc: '/decks/', changefreq: 'weekly', priority: '0.8' },
     { loc: '/draft/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/', changefreq: 'monthly', priority: '0.8' },
     { loc: '/tools/manabase/', changefreq: 'monthly', priority: '0.7' },
     { loc: '/tools/lands/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/hypergeometric/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/hand-simulator/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/price-checker/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/commander-bracket/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/tools/sealed/', changefreq: 'monthly', priority: '0.7' },
   ];
 
   // Add all published posts
@@ -1442,7 +1585,7 @@ ${sitemapUrls.map(u => `  <url>
         fs.copyFileSync(src, path.join(OUTPUT_DIR, f));
       }
     }
-    const syncDirs = ['decks', 'draft', 'tools/manabase', 'tools/lands'];
+    const syncDirs = ['decks', 'draft', 'tools/manabase', 'tools/lands', 'tools/hypergeometric', 'tools/hand-simulator', 'tools/price-checker', 'tools/commander-bracket', 'tools/sealed'];
     for (const d of syncDirs) {
       const src = path.join(ROOT, d);
       const dest = path.join(OUTPUT_DIR, d);

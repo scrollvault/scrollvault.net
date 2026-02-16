@@ -24,6 +24,6 @@ Current tasks (latest at top):
 
 - task_id: commit-site-refactor
   description: Commit the pending site rebuild (external CSS, new sitemap, template cleanup).
-  status: in-progress
+  status: done
   context: build.js modified to write external css/base.css; all HTML regenerated. Staging site returns 200. Many modified files pending.
   next_step: Stage all tracked modifications and commit with clear message; push if remote configured.

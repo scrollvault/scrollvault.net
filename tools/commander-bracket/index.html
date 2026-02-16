@@ -1,0 +1,991 @@
+<!-- HAND-CRAFTED - DO NOT MODIFY VIA AGENTS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commander Bracket Calculator | ScrollVault</title>
+    <meta name="description" content="Estimate your Commander deck's power level and bracket. Analyzes fast mana, tutors, interaction density, combo pieces, and average CMC.">
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:title" content="Commander Bracket Calculator | ScrollVault">
+    <meta property="og:description" content="Analyze your Commander deck's power level. Get bracket ratings based on fast mana, tutors, combos, and interaction.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scrollvault.net/tools/commander-bracket/">
+    <link rel="canonical" href="https://scrollvault.net/tools/commander-bracket/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Commander Bracket Calculator",
+        "description": "Estimate your Commander deck's power level and bracket rating",
+        "url": "https://scrollvault.net/tools/commander-bracket/",
+        "applicationCategory": "UtilityApplication",
+        "publisher": { "@type": "Organization", "name": "ScrollVault", "url": "https://scrollvault.net" }
+    }
+    </script>
+<style>
+/* ── Theme Variables ── */
+:root {
+    --bg-dark: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25);
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95);
+    --nav-border: rgba(255,255,255,0.06);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+
+/* ── Nav ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); flex-direction: column; padding: 1rem; gap: 0; }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; display: block; border-bottom: 1px solid var(--card-border); }
+    .nav-links a:last-child { border-bottom: none; }
+    .mobile-menu-btn { display: block; }
+}
+
+/* ── Footer ── */
+footer { border-top: 1px solid var(--card-border); padding: 2rem 0; text-align: center; }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.wubrg-dots { display: flex; gap: 0.5rem; }
+.mana-dot { width: 12px; height: 12px; border-radius: 50%; }
+.footer-text { color: var(--text-muted); font-size: 0.8rem; max-width: 500px; }
+.footer-links { list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+.footer-links a { color: var(--text-muted); font-size: 0.8rem; }
+.footer-links a:hover { color: #a78bfa; }
+
+/* ── Main ── */
+main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 3rem; }
+
+/* ── Breadcrumb ── */
+.breadcrumb { padding: 1.25rem 0 0; font-size: 0.85rem; color: var(--text-muted); }
+.breadcrumb a { color: var(--text-secondary); }
+.breadcrumb a:hover { color: #a78bfa; }
+.breadcrumb span { margin: 0 0.4rem; }
+
+/* ── Hero ── */
+.hero-section { padding: 2rem 0 2.5rem; text-align: center; }
+.hero-section h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-section .subtitle { color: var(--text-secondary); font-size: 1.05rem; max-width: 640px; margin: 0 auto; }
+
+/* ── Calculator Layout ── */
+.calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 960px) {
+    .calc-layout { grid-template-columns: 1fr; }
+    .hero-section h1 { font-size: 1.8rem; }
+}
+
+/* ── Panels ── */
+.panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; }
+.panel h2 { font-size: 1.15rem; margin-bottom: 1rem; color: var(--text-primary); }
+
+/* ── Form Controls ── */
+label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.4rem; }
+input[type="text"], textarea {
+    width: 100%; background: var(--bg-dark); border: 1px solid var(--card-border); border-radius: 8px;
+    color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.9rem; padding: 0.65rem 0.85rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; outline: none;
+}
+input[type="text"]:focus, textarea:focus { border-color: #a855f7; box-shadow: 0 0 0 3px rgba(168,85,247,0.15); }
+textarea { resize: vertical; min-height: 260px; font-family: 'Courier New', monospace; font-size: 0.82rem; line-height: 1.5; }
+.field-group { margin-bottom: 1rem; }
+.field-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+/* ── Buttons ── */
+.btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--gradient-purple); color: #fff; font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem; font-weight: 600; border: none; border-radius: 10px; padding: 0.75rem 2rem;
+    cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; width: 100%; margin-top: 0.5rem;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(168,85,247,0.4); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: transparent; color: var(--text-secondary); font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem; font-weight: 500; border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 0.5rem 1.25rem; cursor: pointer; transition: all 0.2s ease; margin-top: 0.5rem;
+}
+.btn-secondary:hover { border-color: #a855f7; color: var(--text-primary); }
+
+/* ── Results Section ── */
+#results { display: none; margin-top: 1.5rem; }
+#results.visible { display: block; }
+
+/* ── Power Gauge ── */
+.gauge-container { display: flex; flex-direction: column; align-items: center; padding: 2rem 0 1.5rem; }
+.gauge-wrap { position: relative; width: 220px; height: 220px; }
+.gauge-svg { width: 220px; height: 220px; transform: rotate(-90deg); }
+.gauge-track { fill: none; stroke: #2a2a2a; stroke-width: 14; }
+.gauge-fill { fill: none; stroke-width: 14; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.6s ease; }
+.gauge-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.gauge-number { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; line-height: 1; }
+.gauge-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+/* ── Bracket Badge ── */
+.bracket-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.25rem;
+    border-radius: 50px; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600;
+    margin-top: 1rem; letter-spacing: 0.02em;
+}
+.bracket-1 { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+.bracket-2 { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+.bracket-3 { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+.bracket-4 { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+/* ── Stats Row ── */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 1.5rem; }
+.stat-card { background: var(--bg-dark); border: 1px solid var(--card-border); border-radius: 10px; padding: 1rem; text-align: center; }
+.stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
+.stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+@media (max-width: 500px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+
+/* ── Category Bars ── */
+.category-breakdown { margin-top: 1.5rem; }
+.category-breakdown h3 { font-size: 1rem; margin-bottom: 1rem; }
+.cat-row { margin-bottom: 1rem; }
+.cat-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem; }
+.cat-name { font-size: 0.85rem; font-weight: 500; }
+.cat-score { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); }
+.cat-bar-bg { height: 10px; background: #2a2a2a; border-radius: 5px; overflow: hidden; }
+.cat-bar-fill { height: 100%; border-radius: 5px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); min-width: 0; }
+.cat-count { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+/* ── Detected Cards ── */
+.detected-section { margin-top: 1.5rem; }
+.detected-section h3 { font-size: 1rem; margin-bottom: 0.75rem; }
+.detected-group { border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; margin-bottom: 0.5rem; }
+.detected-toggle {
+    width: 100%; background: var(--bg-dark); border: none; color: var(--text-primary); padding: 0.65rem 1rem;
+    font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; transition: background 0.2s ease;
+}
+.detected-toggle:hover { background: #222; }
+.detected-toggle .arrow { transition: transform 0.2s ease; font-size: 0.75rem; color: var(--text-muted); }
+.detected-toggle.open .arrow { transform: rotate(180deg); }
+.detected-list { display: none; padding: 0.5rem 1rem 0.75rem; }
+.detected-list.open { display: block; }
+.detected-list ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.detected-list li {
+    background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2); border-radius: 6px;
+    padding: 0.25rem 0.65rem; font-size: 0.78rem; color: #c4b5fd;
+}
+
+/* ── Commander Preview ── */
+.commander-preview { display: flex; align-items: center; gap: 1.25rem; margin-top: 1.5rem; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--card-border); border-radius: 10px; }
+.commander-img { width: 120px; border-radius: 8px; box-shadow: var(--shadow-md); flex-shrink: 0; }
+.commander-info h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+.commander-info p { font-size: 0.82rem; color: var(--text-muted); }
+
+/* ── Loading Spinner ── */
+.spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Sample Decklist Button ── */
+.sample-row { display: flex; justify-content: flex-end; margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="container nav-content">
+        <a href="/" class="nav-logo">ScrollVault</a>
+        <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/news/">News</a></li>
+            <li><a href="/guides/">Guides</a></li>
+            <li><a href="/decks/">Top Decks</a></li>
+            <li><a href="/draft/">Draft</a></li>
+            <li><a href="/tools/" class="active">Tools</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="/">Home</a><span>/</span>
+            <a href="/tools/">Tools</a><span>/</span>
+            Commander Bracket Calculator
+        </div>
+
+        <section class="hero-section">
+            <h1>Commander Bracket Calculator</h1>
+            <p class="subtitle">Paste your decklist to estimate its power level and bracket. Analyzes fast mana, tutors, interaction, combo pieces, card advantage, and mana curve.</p>
+        </section>
+
+        <div class="calc-layout">
+            <!-- Left: Input Panel -->
+            <div class="panel">
+                <h2>Deck Input</h2>
+                <div class="field-group">
+                    <label for="commanderInput">Commander Name</label>
+                    <input type="text" id="commanderInput" placeholder="e.g. Korvold, Fae-Cursed King" autocomplete="off">
+                    <div class="field-hint">Used for card preview image (optional)</div>
+                </div>
+                <div class="field-group">
+                    <label for="decklistInput">Decklist (99 cards)</label>
+                    <div class="sample-row">
+                        <button class="btn-secondary" onclick="loadSampleDeck()" type="button">Load Sample Deck</button>
+                    </div>
+                    <textarea id="decklistInput" placeholder="1 Sol Ring&#10;1 Demonic Tutor&#10;1 Counterspell&#10;1 Swords to Plowshares&#10;...&#10;&#10;Paste your full decklist, one card per line.&#10;Format: [quantity] [card name]"></textarea>
+                    <div class="field-hint">Format: "1 Card Name" per line. Lines starting with // are ignored.</div>
+                </div>
+                <button class="btn-primary" id="analyzeBtn" onclick="analyzeDeck()">
+                    <span id="btnText">Analyze Deck</span>
+                    <span id="btnSpinner" style="display:none"><span class="spinner"></span></span>
+                </button>
+            </div>
+
+            <!-- Right: Results Panel -->
+            <div class="panel">
+                <h2>Results</h2>
+                <div id="placeholder" style="text-align:center; padding: 3rem 1rem;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="margin-bottom:1rem; opacity:0.3;">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p style="color: var(--text-muted); font-size:0.9rem;">Enter your decklist and click Analyze to see your power level and bracket.</p>
+                </div>
+
+                <div id="results">
+                    <!-- Commander Preview -->
+                    <div id="commanderPreview" style="display:none;"></div>
+
+                    <!-- Power Gauge -->
+                    <div class="gauge-container">
+                        <div class="gauge-wrap">
+                            <svg class="gauge-svg" viewBox="0 0 220 220">
+                                <circle class="gauge-track" cx="110" cy="110" r="96"></circle>
+                                <circle class="gauge-fill" id="gaugeFill" cx="110" cy="110" r="96"
+                                    stroke-dasharray="603.19" stroke-dashoffset="603.19"></circle>
+                            </svg>
+                            <div class="gauge-center">
+                                <div class="gauge-number" id="gaugeNumber">0</div>
+                                <div class="gauge-label">Power Level</div>
+                            </div>
+                        </div>
+                        <div id="bracketBadge"></div>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-value" id="statCards">0</div>
+                            <div class="stat-label">Cards Parsed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="statCmc">0.0</div>
+                            <div class="stat-label">Avg CMC</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="statDetected">0</div>
+                            <div class="stat-label">Key Cards Found</div>
+                        </div>
+                    </div>
+
+                    <!-- Category Breakdown -->
+                    <div class="category-breakdown" id="categoryBreakdown"></div>
+
+                    <!-- Detected Cards -->
+                    <div class="detected-section" id="detectedSection"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">ScrollVault</div>
+            <div class="wubrg-dots">
+                <span class="mana-dot" style="background: #F9FAF4"></span>
+                <span class="mana-dot" style="background: #0E68AB"></span>
+                <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                <span class="mana-dot" style="background: #D3202A"></span>
+                <span class="mana-dot" style="background: #00733E"></span>
+            </div>
+            <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+            <ul class="footer-links">
+                <li><a href="/privacy.html">Privacy Policy</a></li>
+                <li><a href="/terms.html">Terms of Service</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/about/authors.html">Authors</a></li>
+                <li><a href="/about/editorial-policy.html">Editorial Policy</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   Commander Bracket / Power Level Calculator
+   ════════════════════════════════════════════════════════════════ */
+
+// ── Scryfall rate-limited fetch ──
+const SCRYFALL_DELAY = 100;
+let lastScryfallCall = 0;
+async function scryfallFetch(url) {
+    const now = Date.now();
+    const wait = Math.max(0, SCRYFALL_DELAY - (now - lastScryfallCall));
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+    lastScryfallCall = Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Scryfall error');
+    return res.json();
+}
+
+// ── Known Card Lists ──
+const FAST_MANA = [
+    'Sol Ring', 'Mana Crypt', 'Mana Vault', 'Chrome Mox', 'Mox Diamond', 'Mox Opal',
+    'Lotus Petal', 'Dark Ritual', 'Cabal Ritual', 'Jeweled Lotus', 'Ancient Tomb',
+    'Grim Monolith', "Lion's Eye Diamond", 'Simian Spirit Guide', 'Elvish Spirit Guide',
+    'Carpet of Flowers', 'Wild Growth', 'Utopia Sprawl', 'Birds of Paradise',
+    'Llanowar Elves', 'Elvish Mystic', 'Deathrite Shaman', 'Arcane Signet'
+];
+
+const TUTORS = [
+    'Demonic Tutor', 'Vampiric Tutor', 'Imperial Seal', 'Mystical Tutor',
+    'Enlightened Tutor', 'Worldly Tutor', 'Gamble', 'Survival of the Fittest',
+    'Natural Order', "Green Sun's Zenith", 'Chord of Calling', 'Collected Company',
+    'Finale of Devastation', 'Tooth and Nail', 'Defense of the Heart', 'Idyllic Tutor',
+    'Academy Rector', 'Buried Alive', 'Entomb', 'Intuition', 'Personal Tutor',
+    'Fabricate', 'Trinket Mage', 'Trophy Mage', 'Tribute Mage', 'Stoneforge Mystic',
+    'Recruiter of the Guard', 'Imperial Recruiter'
+];
+
+const INTERACTION = [
+    'Swords to Plowshares', 'Path to Exile', 'Cyclonic Rift', 'Counterspell',
+    'Swan Song', 'Fierce Guardianship', 'Force of Will', 'Force of Negation',
+    'Mana Drain', 'Pact of Negation', 'Deadly Rollick', 'Deflecting Swat',
+    'Beast Within', 'Generous Gift', 'Chaos Warp', "Nature's Claim", 'Abrupt Decay',
+    "Assassin's Trophy", 'Anguished Unmaking', 'Farewell', 'Toxic Deluge',
+    'Vandalblast', 'Austere Command', 'Wrath of God', 'Damnation', 'Blasphemous Act'
+];
+
+const COMBO_PIECES = [
+    "Thassa's Oracle", 'Demonic Consultation', 'Tainted Pact', 'Laboratory Maniac',
+    'Jace, Wielder of Mysteries', 'Isochron Scepter', 'Dramatic Reversal',
+    'Basalt Monolith', 'Rings of Brighthearth', 'Walking Ballista',
+    'Heliod, Sun-Crowned', 'Kiki-Jiki, Mirror Breaker', 'Splinter Twin',
+    'Zealous Conscripts', 'Pestermite', 'Deceiver Exarch', 'Dualcaster Mage',
+    'Ghostly Flicker', 'Peregrine Drake', 'Deadeye Navigator', 'Palinchron',
+    'Food Chain', 'Squee, the Immortal', 'Eternal Scourge', 'Underworld Breach',
+    'Brain Freeze', "Lion's Eye Diamond", 'Grinding Station', 'Altar of Dementia',
+    'Phyrexian Altar', "Ashnod's Altar"
+];
+
+const CARD_ADVANTAGE = [
+    'Rhystic Study', 'Mystic Remora', 'Necropotence', 'Sylvan Library',
+    'Esper Sentinel', 'Smothering Tithe', 'Black Market Connections',
+    'Phyrexian Arena', 'Dark Confidant', 'Ad Nauseam', 'Peer into the Abyss',
+    'Consecrated Sphinx', 'Tymna the Weaver'
+];
+
+// ── Build lookup map (lowercase name -> category info) ──
+const CARD_DB = {};
+function registerCards(list, category) {
+    for (const name of list) {
+        const key = name.toLowerCase();
+        if (!CARD_DB[key]) CARD_DB[key] = [];
+        CARD_DB[key].push(category);
+    }
+}
+registerCards(FAST_MANA, 'fastMana');
+registerCards(TUTORS, 'tutors');
+registerCards(INTERACTION, 'interaction');
+registerCards(COMBO_PIECES, 'combos');
+registerCards(CARD_ADVANTAGE, 'cardAdvantage');
+
+// ── Category display metadata ──
+const CATEGORY_META = {
+    fastMana:      { label: 'Fast Mana',       color: '#facc15' },
+    tutors:        { label: 'Tutors',           color: '#a78bfa' },
+    interaction:   { label: 'Interaction',      color: '#60a5fa' },
+    combos:        { label: 'Combo Pieces',     color: '#f87171' },
+    cardAdvantage: { label: 'Card Advantage',   color: '#34d399' }
+};
+
+// ── Decklist Parser ──
+function parseDeckList(text) {
+    const entries = [];
+    for (const line of text.split('\n')) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('//') || trimmed.toLowerCase() === 'sideboard') continue;
+        const match = trimmed.match(/^(\d+)\s+(.+)/);
+        if (match) {
+            entries.push({ count: parseInt(match[1]), name: match[2].trim() });
+        }
+    }
+    return entries;
+}
+
+// ── Scoring Functions ──
+function scoreFastMana(count) {
+    if (count === 0) return 0;
+    if (count <= 2) return 3;
+    if (count <= 5) return 5;
+    if (count <= 8) return 7;
+    if (count <= 11) return 9;
+    return 10;
+}
+
+function scoreTutors(count) {
+    if (count === 0) return 0;
+    if (count <= 2) return 3;
+    if (count <= 4) return 5;
+    if (count <= 7) return 7;
+    if (count <= 9) return 9;
+    return 10;
+}
+
+function scoreInteraction(count) {
+    if (count === 0) return 0;
+    if (count <= 3) return 2;
+    if (count <= 6) return 4;
+    if (count <= 9) return 6;
+    if (count <= 12) return 8;
+    return 10;
+}
+
+function scoreCombos(count) {
+    if (count === 0) return 0;
+    if (count <= 2) return 4;
+    if (count <= 4) return 7;
+    return 10;
+}
+
+function scoreCardAdvantage(count) {
+    if (count === 0) return 0;
+    if (count <= 2) return 3;
+    if (count <= 4) return 6;
+    if (count <= 6) return 8;
+    return 10;
+}
+
+function cmcModifier(avgCmc) {
+    if (avgCmc < 2.5) return 2;
+    if (avgCmc <= 3.0) return 1;
+    if (avgCmc <= 3.5) return 0;
+    if (avgCmc <= 4.0) return -1;
+    return -2;
+}
+
+function getBracket(power) {
+    if (power <= 3) return { num: 1, name: 'Casual / Low', cssClass: 'bracket-1', color: '#4ade80' };
+    if (power <= 5) return { num: 2, name: 'Mid',          cssClass: 'bracket-2', color: '#60a5fa' };
+    if (power <= 7) return { num: 3, name: 'High',         cssClass: 'bracket-3', color: '#fb923c' };
+    return             { num: 4, name: 'cEDH',         cssClass: 'bracket-4', color: '#f87171' };
+}
+
+// ── Detect land cards heuristically ──
+const BASIC_LANDS = ['plains', 'island', 'swamp', 'mountain', 'forest',
+    'snow-covered plains', 'snow-covered island', 'snow-covered swamp',
+    'snow-covered mountain', 'snow-covered forest', 'wastes'];
+
+function isLikelyLand(name) {
+    const lower = name.toLowerCase();
+    if (BASIC_LANDS.includes(lower)) return true;
+    // Common land keywords
+    const landKeywords = ['command tower', 'ancient tomb', 'city of brass', 'mana confluence',
+        'exotic orchard', 'reflecting pool', 'fetch', 'shock', 'temple',
+        'pathway', 'triome', 'cave of', 'vault of'];
+    // If card name contains common land patterns
+    for (const kw of landKeywords) {
+        if (lower.includes(kw)) return true;
+    }
+    return false;
+}
+
+// ── Estimate CMC from card name heuristically ──
+// Since we cannot query Scryfall for every card, we provide rough estimates
+// for known cards and a default for unknowns.
+const KNOWN_CMC = {};
+function setCmc(name, cmc) { KNOWN_CMC[name.toLowerCase()] = cmc; }
+
+// Fast mana
+setCmc('Sol Ring', 1); setCmc('Mana Crypt', 0); setCmc('Mana Vault', 1);
+setCmc('Chrome Mox', 0); setCmc('Mox Diamond', 0); setCmc('Mox Opal', 0);
+setCmc('Lotus Petal', 0); setCmc('Dark Ritual', 1); setCmc('Cabal Ritual', 2);
+setCmc('Jeweled Lotus', 0); setCmc('Grim Monolith', 2); setCmc("Lion's Eye Diamond", 0);
+setCmc('Simian Spirit Guide', 3); setCmc('Elvish Spirit Guide', 3);
+setCmc('Carpet of Flowers', 1); setCmc('Wild Growth', 1); setCmc('Utopia Sprawl', 1);
+setCmc('Birds of Paradise', 1); setCmc('Llanowar Elves', 1); setCmc('Elvish Mystic', 1);
+setCmc('Deathrite Shaman', 1); setCmc('Arcane Signet', 2); setCmc('Ancient Tomb', 0);
+
+// Tutors
+setCmc('Demonic Tutor', 2); setCmc('Vampiric Tutor', 1); setCmc('Imperial Seal', 1);
+setCmc('Mystical Tutor', 1); setCmc('Enlightened Tutor', 1); setCmc('Worldly Tutor', 1);
+setCmc('Gamble', 1); setCmc('Survival of the Fittest', 2); setCmc('Natural Order', 4);
+setCmc("Green Sun's Zenith", 1); setCmc('Chord of Calling', 3); setCmc('Collected Company', 4);
+setCmc('Finale of Devastation', 2); setCmc('Tooth and Nail', 7); setCmc('Defense of the Heart', 4);
+setCmc('Idyllic Tutor', 3); setCmc('Academy Rector', 4); setCmc('Buried Alive', 3);
+setCmc('Entomb', 1); setCmc('Intuition', 3); setCmc('Personal Tutor', 1);
+setCmc('Fabricate', 3); setCmc('Trinket Mage', 3); setCmc('Trophy Mage', 3);
+setCmc('Tribute Mage', 3); setCmc('Stoneforge Mystic', 2);
+setCmc('Recruiter of the Guard', 3); setCmc('Imperial Recruiter', 3);
+
+// Interaction
+setCmc('Swords to Plowshares', 1); setCmc('Path to Exile', 1); setCmc('Cyclonic Rift', 2);
+setCmc('Counterspell', 2); setCmc('Swan Song', 1); setCmc('Fierce Guardianship', 3);
+setCmc('Force of Will', 5); setCmc('Force of Negation', 3); setCmc('Mana Drain', 2);
+setCmc('Pact of Negation', 0); setCmc('Deadly Rollick', 4); setCmc('Deflecting Swat', 3);
+setCmc('Beast Within', 3); setCmc('Generous Gift', 3); setCmc('Chaos Warp', 3);
+setCmc("Nature's Claim", 1); setCmc('Abrupt Decay', 2); setCmc("Assassin's Trophy", 2);
+setCmc('Anguished Unmaking', 3); setCmc('Farewell', 6); setCmc('Toxic Deluge', 3);
+setCmc('Vandalblast', 1); setCmc('Austere Command', 6); setCmc('Wrath of God', 4);
+setCmc('Damnation', 4); setCmc('Blasphemous Act', 9);
+
+// Combos
+setCmc("Thassa's Oracle", 2); setCmc('Demonic Consultation', 1); setCmc('Tainted Pact', 2);
+setCmc('Laboratory Maniac', 3); setCmc('Jace, Wielder of Mysteries', 4);
+setCmc('Isochron Scepter', 2); setCmc('Dramatic Reversal', 2); setCmc('Basalt Monolith', 3);
+setCmc('Rings of Brighthearth', 3); setCmc('Walking Ballista', 0);
+setCmc('Heliod, Sun-Crowned', 3); setCmc('Kiki-Jiki, Mirror Breaker', 5);
+setCmc('Splinter Twin', 4); setCmc('Zealous Conscripts', 5); setCmc('Pestermite', 3);
+setCmc('Deceiver Exarch', 3); setCmc('Dualcaster Mage', 3); setCmc('Ghostly Flicker', 3);
+setCmc('Peregrine Drake', 5); setCmc('Deadeye Navigator', 6); setCmc('Palinchron', 7);
+setCmc('Food Chain', 3); setCmc('Squee, the Immortal', 3); setCmc('Eternal Scourge', 3);
+setCmc('Underworld Breach', 2); setCmc('Brain Freeze', 2); setCmc('Grinding Station', 2);
+setCmc('Altar of Dementia', 2); setCmc('Phyrexian Altar', 3); setCmc("Ashnod's Altar", 3);
+
+// Card advantage
+setCmc('Rhystic Study', 3); setCmc('Mystic Remora', 1); setCmc('Necropotence', 3);
+setCmc('Sylvan Library', 2); setCmc('Esper Sentinel', 1); setCmc('Smothering Tithe', 4);
+setCmc('Black Market Connections', 3); setCmc('Phyrexian Arena', 3);
+setCmc('Dark Confidant', 2); setCmc('Ad Nauseam', 5); setCmc('Peer into the Abyss', 7);
+setCmc('Consecrated Sphinx', 6); setCmc('Tymna the Weaver', 3);
+
+function getEstimatedCmc(name) {
+    const lower = name.toLowerCase();
+    if (KNOWN_CMC.hasOwnProperty(lower)) return KNOWN_CMC[lower];
+    if (isLikelyLand(name)) return null; // Lands have no CMC for averaging
+    return 3; // Default estimate for unknown nonland cards
+}
+
+// ── Main Analysis ──
+async function analyzeDeck() {
+    const deckText = document.getElementById('decklistInput').value.trim();
+    if (!deckText) {
+        alert('Please paste a decklist first.');
+        return;
+    }
+
+    const btn = document.getElementById('analyzeBtn');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+    btn.disabled = true;
+    btnText.textContent = 'Analyzing...';
+    btnSpinner.style.display = 'inline-block';
+
+    try {
+        const entries = parseDeckList(deckText);
+        if (entries.length === 0) {
+            alert('No cards found. Make sure each line starts with a number, e.g. "1 Sol Ring".');
+            return;
+        }
+
+        // Count total cards
+        let totalCards = 0;
+        for (const e of entries) totalCards += e.count;
+
+        // Classify cards
+        const detected = {
+            fastMana: [],
+            tutors: [],
+            interaction: [],
+            combos: [],
+            cardAdvantage: []
+        };
+        const counts = {
+            fastMana: 0,
+            tutors: 0,
+            interaction: 0,
+            combos: 0,
+            cardAdvantage: 0
+        };
+
+        // Track CMC
+        let cmcTotal = 0;
+        let cmcCount = 0;
+
+        for (const entry of entries) {
+            const nameKey = entry.name.toLowerCase();
+
+            // Check against known card lists
+            if (CARD_DB[nameKey]) {
+                for (const cat of CARD_DB[nameKey]) {
+                    detected[cat].push(entry.name);
+                    counts[cat] += entry.count;
+                }
+            }
+
+            // CMC tracking
+            const cmc = getEstimatedCmc(entry.name);
+            if (cmc !== null) {
+                cmcTotal += cmc * entry.count;
+                cmcCount += entry.count;
+            }
+        }
+
+        const avgCmc = cmcCount > 0 ? cmcTotal / cmcCount : 3.0;
+
+        // Score each category
+        const scores = {
+            fastMana: scoreFastMana(counts.fastMana),
+            tutors: scoreTutors(counts.tutors),
+            interaction: scoreInteraction(counts.interaction),
+            combos: scoreCombos(counts.combos),
+            cardAdvantage: scoreCardAdvantage(counts.cardAdvantage)
+        };
+
+        // Weighted power level
+        const cmcMod = cmcModifier(avgCmc);
+        let rawPower = (
+            scores.fastMana * 0.25 +
+            scores.tutors * 0.20 +
+            scores.interaction * 0.15 +
+            scores.combos * 0.25 +
+            scores.cardAdvantage * 0.15 +
+            cmcMod
+        );
+        const powerLevel = Math.round(Math.min(10, Math.max(1, rawPower)) * 10) / 10;
+        const powerInt = Math.round(powerLevel);
+        const bracket = getBracket(powerInt);
+
+        // Total key cards found
+        let totalDetected = 0;
+        for (const cat of Object.keys(counts)) totalDetected += counts[cat];
+
+        // ── Fetch commander image (async, non-blocking for results) ──
+        const commanderName = document.getElementById('commanderInput').value.trim();
+        let commanderImagePromise = null;
+        if (commanderName) {
+            commanderImagePromise = scryfallFetch(
+                'https://api.scryfall.com/cards/named?fuzzy=' + encodeURIComponent(commanderName)
+            ).catch(() => null);
+        }
+
+        // ── Render Results ──
+        document.getElementById('placeholder').style.display = 'none';
+        document.getElementById('results').classList.add('visible');
+
+        // Stats
+        document.getElementById('statCards').textContent = totalCards;
+        document.getElementById('statCmc').textContent = avgCmc.toFixed(2);
+        document.getElementById('statDetected').textContent = totalDetected;
+
+        // Power gauge animation
+        animateGauge(powerLevel, bracket);
+
+        // Bracket badge
+        document.getElementById('bracketBadge').innerHTML =
+            `<div class="bracket-badge ${bracket.cssClass}">Bracket ${bracket.num} &mdash; ${bracket.name}</div>`;
+
+        // Category breakdown bars
+        renderCategoryBars(scores, counts);
+
+        // Detected cards lists
+        renderDetectedCards(detected);
+
+        // Commander image (when ready)
+        const previewEl = document.getElementById('commanderPreview');
+        if (commanderImagePromise) {
+            const cardData = await commanderImagePromise;
+            if (cardData) {
+                const imgUrl = cardData.image_uris
+                    ? cardData.image_uris.normal
+                    : (cardData.card_faces && cardData.card_faces[0].image_uris
+                        ? cardData.card_faces[0].image_uris.normal
+                        : null);
+                const typeLine = cardData.type_line || '';
+                const oracleText = cardData.oracle_text
+                    ? cardData.oracle_text.substring(0, 120) + (cardData.oracle_text.length > 120 ? '...' : '')
+                    : '';
+                if (imgUrl) {
+                    previewEl.style.display = 'flex';
+                    previewEl.innerHTML = `
+                        <div class="commander-preview">
+                            <img src="${imgUrl}" alt="${escapeHtml(cardData.name)}" class="commander-img" loading="lazy">
+                            <div class="commander-info">
+                                <h3>${escapeHtml(cardData.name)}</h3>
+                                <p>${escapeHtml(typeLine)}</p>
+                                <p style="margin-top:0.5rem; color:var(--text-secondary); font-size:0.8rem;">${escapeHtml(oracleText)}</p>
+                            </div>
+                        </div>`;
+                } else {
+                    previewEl.style.display = 'none';
+                }
+            } else {
+                previewEl.style.display = 'none';
+            }
+        } else {
+            previewEl.style.display = 'none';
+        }
+
+        // Scroll to results on mobile
+        if (window.innerWidth <= 960) {
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+    } finally {
+        btn.disabled = false;
+        btnText.textContent = 'Analyze Deck';
+        btnSpinner.style.display = 'none';
+    }
+}
+
+// ── Gauge Animation ──
+function animateGauge(power, bracket) {
+    const fill = document.getElementById('gaugeFill');
+    const numberEl = document.getElementById('gaugeNumber');
+    const circumference = 2 * Math.PI * 96; // r=96
+
+    // Set color based on bracket
+    fill.style.stroke = bracket.color;
+
+    // Animate the stroke-dashoffset
+    const targetOffset = circumference - (power / 10) * circumference;
+    // Reset first
+    fill.style.transition = 'none';
+    fill.style.strokeDashoffset = circumference;
+    // Force reflow
+    fill.getBoundingClientRect();
+    // Animate
+    fill.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.6s ease';
+    fill.style.strokeDashoffset = targetOffset;
+
+    // Animate number counting up
+    const startTime = performance.now();
+    const duration = 1000;
+    const startVal = 0;
+    const endVal = power;
+
+    function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = startVal + (endVal - startVal) * eased;
+        numberEl.textContent = current.toFixed(1);
+        numberEl.style.color = bracket.color;
+        if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+}
+
+// ── Render Category Bars ──
+function renderCategoryBars(scores, counts) {
+    const container = document.getElementById('categoryBreakdown');
+    let html = '<h3>Category Breakdown</h3>';
+
+    for (const [key, meta] of Object.entries(CATEGORY_META)) {
+        const score = scores[key];
+        const count = counts[key];
+        const pct = (score / 10) * 100;
+        html += `
+        <div class="cat-row">
+            <div class="cat-header">
+                <span class="cat-name">${meta.label}</span>
+                <span class="cat-score">${score}/10</span>
+            </div>
+            <div class="cat-bar-bg">
+                <div class="cat-bar-fill" style="width:${pct}%; background:${meta.color};"></div>
+            </div>
+            <div class="cat-count">${count} card${count !== 1 ? 's' : ''} detected</div>
+        </div>`;
+    }
+    container.innerHTML = html;
+
+    // Animate bars (start from 0 width)
+    requestAnimationFrame(() => {
+        const fills = container.querySelectorAll('.cat-bar-fill');
+        for (const bar of fills) {
+            const target = bar.style.width;
+            bar.style.width = '0%';
+            bar.getBoundingClientRect();
+            bar.style.width = target;
+        }
+    });
+}
+
+// ── Render Detected Cards ──
+function renderDetectedCards(detected) {
+    const container = document.getElementById('detectedSection');
+    let html = '<h3>Detected Key Cards</h3>';
+
+    for (const [key, meta] of Object.entries(CATEGORY_META)) {
+        const cards = detected[key];
+        const hasCards = cards.length > 0;
+        html += `
+        <div class="detected-group">
+            <button class="detected-toggle${hasCards ? '' : ''}" onclick="toggleDetected(this)" type="button">
+                <span>${meta.label} (${cards.length})</span>
+                <span class="arrow">&#9660;</span>
+            </button>
+            <div class="detected-list">
+                ${hasCards
+                    ? '<ul>' + cards.map(c => `<li>${escapeHtml(c)}</li>`).join('') + '</ul>'
+                    : '<p style="color:var(--text-muted); font-size:0.82rem; padding:0.25rem 0;">No cards detected in this category.</p>'
+                }
+            </div>
+        </div>`;
+    }
+    container.innerHTML = html;
+}
+
+function toggleDetected(btn) {
+    btn.classList.toggle('open');
+    const list = btn.nextElementSibling;
+    list.classList.toggle('open');
+}
+
+// ── Utility ──
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+
+// ── Sample Deck ──
+function loadSampleDeck() {
+    document.getElementById('commanderInput').value = 'Korvold, Fae-Cursed King';
+    document.getElementById('decklistInput').value = `1 Sol Ring
+1 Mana Crypt
+1 Arcane Signet
+1 Birds of Paradise
+1 Llanowar Elves
+1 Elvish Mystic
+1 Deathrite Shaman
+1 Dark Ritual
+1 Demonic Tutor
+1 Vampiric Tutor
+1 Worldly Tutor
+1 Gamble
+1 Finale of Devastation
+1 Buried Alive
+1 Entomb
+1 Counterspell
+1 Swan Song
+1 Beast Within
+1 Abrupt Decay
+1 Assassin's Trophy
+1 Chaos Warp
+1 Cyclonic Rift
+1 Toxic Deluge
+1 Blasphemous Act
+1 Damnation
+1 Thassa's Oracle
+1 Demonic Consultation
+1 Tainted Pact
+1 Food Chain
+1 Squee, the Immortal
+1 Phyrexian Altar
+1 Rhystic Study
+1 Mystic Remora
+1 Necropotence
+1 Sylvan Library
+1 Phyrexian Arena
+1 Dark Confidant
+1 Smothering Tithe
+1 Carpet of Flowers
+1 Wild Growth
+1 Utopia Sprawl
+1 Rampant Growth
+1 Farseek
+1 Cultivate
+1 Kodama's Reach
+1 Dockside Extortionist
+1 Tendershoot Dryad
+1 Tireless Tracker
+1 Eternal Witness
+1 Reclamation Sage
+1 Sakura-Tribe Elder
+1 Massacre Girl
+1 Ravenous Chupacabra
+1 Mulldrifter
+1 Baleful Strix
+1 Grave Titan
+1 Avenger of Zendikar
+1 Craterhoof Behemoth
+1 Bolas's Citadel
+1 The Great Henge
+1 Lightning Greaves
+1 Skullclamp
+1 Sensei's Divining Top
+1 Command Tower
+1 Exotic Orchard
+1 Mana Confluence
+1 City of Brass
+1 Zagoth Triome
+1 Overgrown Tomb
+1 Blood Crypt
+1 Breeding Pool
+1 Verdant Catacombs
+1 Bloodstained Mire
+1 Polluted Delta
+1 Misty Rainforest
+1 Scalding Tarn
+1 Windswept Heath
+1 Marsh Flats
+1 Flooded Strand
+1 Prismatic Vista
+1 Fabled Passage
+1 Bayou
+1 Badlands
+1 Underground Sea
+1 Tropical Island
+1 Volcanic Island
+1 Stomping Ground
+1 Watery Grave
+1 Steam Vents
+1 Temple Garden
+1 Godless Shrine
+1 Hallowed Fountain
+1 Sacred Foundry
+1 Ancient Tomb
+1 Reliquary Tower
+1 Urborg, Tomb of Yawgmoth
+1 Cabal Coffers
+1 Forest
+1 Swamp
+1 Island
+1 Mountain`;
+}
+</script>
+
+</body>
+</html>

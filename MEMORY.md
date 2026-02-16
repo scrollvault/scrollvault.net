@@ -12,3 +12,9 @@ Key preferences:
 - Feature flags are used for new functionality (ENABLE_FEATURED_CARDS_INJECTION).
 - Weekly land verification runs Sundays 03:00 UTC (job ID b7fc33f5-c0a2-4616-a42d-460d63fc9404).
 - When uncertain, ask before external actions (email, social, etc.).
+
+Tools pages (10 hand-crafted, DO NOT overwrite):
+- tools/index.html, tools/manabase, tools/lands, tools/hypergeometric
+- tools/hand-simulator, tools/price-checker, tools/commander-bracket, tools/sealed
+- decks/index.html, draft/index.html
+Nav uses single "Tools" link pointing to /tools/ (not individual Lands/Mana Base links).

@@ -1,0 +1,923 @@
+<!-- HAND-CRAFTED - DO NOT MODIFY VIA AGENTS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opening Hand Simulator | ScrollVault</title>
+    <meta name="description" content="Simulate opening hands for your MTG deck. Paste your decklist, draw sample hands, and practice London mulligans with card images from Scryfall.">
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:title" content="Opening Hand Simulator | ScrollVault">
+    <meta property="og:description" content="Paste your MTG decklist and simulate opening hands with London mulligan support.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scrollvault.net/tools/hand-simulator/">
+    <link rel="canonical" href="https://scrollvault.net/tools/hand-simulator/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Opening Hand Simulator",
+        "description": "Simulate MTG opening hands with London mulligan support",
+        "url": "https://scrollvault.net/tools/hand-simulator/",
+        "applicationCategory": "UtilityApplication",
+        "publisher": { "@type": "Organization", "name": "ScrollVault", "url": "https://scrollvault.net" }
+    }
+    </script>
+<style>
+/* ── Theme Variables ── */
+:root {
+    --bg-dark: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --card-border: rgba(255,255,255,0.08);
+    --card-hover-glow: rgba(139,92,246,0.25);
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --nav-bg: rgba(15,15,15,0.95);
+    --nav-border: rgba(255,255,255,0.06);
+    --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #a78bfa; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+
+/* ── Nav ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); flex-direction: column; padding: 1rem; gap: 0; }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 0.75rem 1rem; display: block; border-bottom: 1px solid var(--card-border); }
+    .nav-links a:last-child { border-bottom: none; }
+    .mobile-menu-btn { display: block; }
+}
+
+/* ── Footer ── */
+footer { border-top: 1px solid var(--card-border); padding: 2rem 0; text-align: center; }
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.wubrg-dots { display: flex; gap: 0.5rem; }
+.mana-dot { width: 12px; height: 12px; border-radius: 50%; }
+.footer-text { color: var(--text-muted); font-size: 0.8rem; max-width: 500px; }
+.footer-links { list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+.footer-links a { color: var(--text-muted); font-size: 0.8rem; }
+.footer-links a:hover { color: #a78bfa; }
+
+/* ── Main ── */
+main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
+
+/* ── Breadcrumb ── */
+.breadcrumb { padding: 1.25rem 0 0; font-size: 0.85rem; color: var(--text-muted); }
+.breadcrumb a { color: var(--text-secondary); }
+.breadcrumb a:hover { color: #a78bfa; }
+.breadcrumb span { margin: 0 0.4rem; }
+
+/* ── Hero ── */
+.hero-section { padding: 2rem 0 2.5rem; text-align: center; }
+.hero-section h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-section .subtitle { color: var(--text-secondary); font-size: 1.05rem; max-width: 640px; margin: 0 auto; }
+
+/* ── Layout ── */
+.sim-layout { display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem; }
+@media (max-width: 960px) {
+    .sim-layout { grid-template-columns: 1fr; }
+}
+
+/* ── Panels ── */
+.panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; }
+.panel-title { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; }
+.panel-title .icon { font-size: 1.2rem; }
+
+/* ── Input Panel ── */
+.deck-textarea { width: 100%; min-height: 200px; background: var(--bg-dark); border: 1px solid var(--card-border); border-radius: 8px; padding: 0.75rem; color: var(--text-primary); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; resize: vertical; line-height: 1.5; }
+.deck-textarea:focus { outline: none; border-color: #a855f7; box-shadow: 0 0 0 2px rgba(168,85,247,0.2); }
+.deck-textarea::placeholder { color: var(--text-muted); }
+
+.format-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; }
+.format-label { font-size: 0.85rem; color: var(--text-secondary); white-space: nowrap; }
+.format-select { background: var(--bg-dark); border: 1px solid var(--card-border); border-radius: 6px; padding: 0.4rem 0.6rem; color: var(--text-primary); font-size: 0.85rem; cursor: pointer; flex: 1; }
+.format-select:focus { outline: none; border-color: #a855f7; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.65rem 1.25rem; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; }
+.btn-primary { background: var(--gradient-purple); color: #fff; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(168,85,247,0.4); }
+.btn-primary:active { transform: translateY(0); }
+.btn-secondary { background: rgba(255,255,255,0.06); color: var(--text-secondary); border: 1px solid var(--card-border); }
+.btn-secondary:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+.btn-danger { background: rgba(220,38,38,0.15); color: #f87171; border: 1px solid rgba(220,38,38,0.3); }
+.btn-danger:hover { background: rgba(220,38,38,0.25); }
+.btn-success { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+.btn-success:hover { background: rgba(34,197,94,0.25); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.btn-row { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+.btn-full { width: 100%; }
+
+/* ── Deck Stats ── */
+.deck-stats { margin-top: 1rem; padding: 0.75rem; background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.15); border-radius: 8px; display: none; }
+.deck-stats.visible { display: block; }
+.deck-stats-title { font-size: 0.8rem; color: #a78bfa; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.stat-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 0.2rem 0; }
+.stat-row .label { color: var(--text-secondary); }
+.stat-row .value { color: var(--text-primary); font-weight: 600; }
+.card-breakdown { margin-top: 0.5rem; max-height: 160px; overflow-y: auto; }
+.card-breakdown::-webkit-scrollbar { width: 4px; }
+.card-breakdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+.breakdown-item { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.15rem 0; }
+.breakdown-item .name { color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 0.5rem; }
+.breakdown-item .count { color: var(--text-muted); font-weight: 500; flex-shrink: 0; }
+
+/* ── Hand Display Area ── */
+.hand-area { min-height: 400px; display: flex; flex-direction: column; }
+.hand-status { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+.hand-status-text { font-size: 0.95rem; color: var(--text-secondary); }
+.hand-status-text strong { color: var(--text-primary); }
+.mulligan-badge { display: inline-block; padding: 0.2rem 0.6rem; background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3); border-radius: 20px; font-size: 0.75rem; color: #c084fc; font-weight: 600; }
+
+.hand-controls { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+
+/* ── Card Grid / Fan ── */
+.hand-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; padding: 1rem 0; }
+.hand-card { position: relative; width: 170px; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-md); }
+.hand-card:hover { transform: translateY(-12px) scale(1.04); box-shadow: 0 12px 24px rgba(0,0,0,0.6), 0 0 20px var(--card-hover-glow); z-index: 10; }
+.hand-card img { width: 100%; display: block; border-radius: 10px; }
+.hand-card.selected { outline: 3px solid #f87171; outline-offset: 2px; opacity: 0.6; }
+.hand-card.selected::after { content: 'BOTTOM'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(220,38,38,0.85); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 4px; letter-spacing: 0.05em; }
+
+/* ── Placeholder Card ── */
+.card-placeholder { width: 170px; height: 237px; background: linear-gradient(145deg, #252525 0%, #1a1a1a 100%); border: 2px solid var(--card-border); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; transition: all 0.3s ease; cursor: pointer; }
+.card-placeholder:hover { transform: translateY(-12px) scale(1.04); border-color: rgba(168,85,247,0.4); }
+.card-placeholder.selected { outline: 3px solid #f87171; outline-offset: 2px; opacity: 0.6; }
+.card-placeholder.selected::after { content: 'BOTTOM'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(220,38,38,0.85); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 4px; letter-spacing: 0.05em; }
+.card-placeholder .card-icon { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.4; }
+.card-placeholder .card-name { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; word-break: break-word; }
+
+/* ── Hand Stats ── */
+.hand-stats { margin-top: 1.25rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
+.hand-stat-card { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 8px; padding: 0.75rem; text-align: center; }
+.hand-stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hand-stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.15rem; }
+
+/* ── Mulligan Bottom Picker ── */
+.bottom-picker-bar { background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.2); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem; display: none; }
+.bottom-picker-bar.visible { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+.bottom-picker-text { font-size: 0.85rem; color: #fca5a5; }
+.bottom-picker-text strong { color: #f87171; }
+
+/* ── Empty State ── */
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 1rem; flex: 1; }
+.empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.3; }
+.empty-state .title { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.empty-state .desc { font-size: 0.85rem; color: var(--text-muted); max-width: 320px; }
+
+/* ── Loading Spinner ── */
+.loading-card { width: 170px; height: 237px; background: linear-gradient(145deg, #252525 0%, #1a1a1a 100%); border: 1px solid var(--card-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.spinner { width: 28px; height: 28px; border: 3px solid rgba(168,85,247,0.2); border-top-color: #a855f7; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .hero-section h1 { font-size: 1.75rem; }
+    .hero-section .subtitle { font-size: 0.9rem; }
+    .sim-layout { grid-template-columns: 1fr; }
+    .hand-card, .card-placeholder, .loading-card { width: 130px; }
+    .card-placeholder { height: 181px; }
+    .loading-card { height: 181px; }
+    .hand-grid { gap: 0.5rem; }
+    .hand-stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .hand-card, .card-placeholder, .loading-card { width: 105px; }
+    .card-placeholder { height: 146px; }
+    .loading-card { height: 146px; }
+    .card-placeholder .card-icon { font-size: 1.5rem; }
+    .card-placeholder .card-name { font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="container nav-content">
+        <a href="/" class="nav-logo">ScrollVault</a>
+        <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/news/">News</a></li>
+            <li><a href="/guides/">Guides</a></li>
+            <li><a href="/decks/">Top Decks</a></li>
+            <li><a href="/draft/">Draft</a></li>
+            <li><a href="/tools/" class="active">Tools</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="/">Home</a><span>/</span>
+            <a href="/tools/">Tools</a><span>/</span>
+            Opening Hand Simulator
+        </div>
+
+        <div class="hero-section">
+            <h1>Opening Hand Simulator</h1>
+            <p class="subtitle">Paste your decklist, draw sample opening hands, and practice London mulligans with card images from Scryfall.</p>
+        </div>
+
+        <div class="sim-layout">
+            <!-- Left: Input Panel -->
+            <div class="input-col">
+                <div class="panel">
+                    <div class="panel-title"><span class="icon">&#9813;</span> Decklist</div>
+                    <div class="format-row">
+                        <span class="format-label">Format:</span>
+                        <select class="format-select" id="formatSelect" onchange="handleFormatChange()">
+                            <option value="60" selected>Standard (60)</option>
+                            <option value="60">Modern (60)</option>
+                            <option value="99">Commander (99)</option>
+                            <option value="40">Limited (40)</option>
+                        </select>
+                    </div>
+                    <textarea class="deck-textarea" id="deckInput" placeholder="4 Lightning Bolt&#10;4 Monastery Swiftspear&#10;4 Goblin Guide&#10;4 Eidolon of the Great Revel&#10;4 Searing Blaze&#10;4 Lava Spike&#10;4 Rift Bolt&#10;4 Skullcrack&#10;4 Shard Volley&#10;4 Inspiring Vantage&#10;20 Mountain"></textarea>
+                    <div class="btn-row">
+                        <button class="btn btn-primary btn-full" id="loadBtn" onclick="loadDeck()">Load Deck</button>
+                    </div>
+
+                    <div class="deck-stats" id="deckStats">
+                        <div class="deck-stats-title">Deck Stats</div>
+                        <div class="stat-row">
+                            <span class="label">Total Cards</span>
+                            <span class="value" id="statTotal">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="label">Expected Size</span>
+                            <span class="value" id="statExpected">60</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="label">Unique Cards</span>
+                            <span class="value" id="statUnique">0</span>
+                        </div>
+                        <div class="card-breakdown" id="cardBreakdown"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Hand Display -->
+            <div class="hand-col">
+                <div class="panel hand-area" id="handPanel">
+                    <!-- Empty state -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="icon">&#127183;</div>
+                        <div class="title">No deck loaded</div>
+                        <div class="desc">Paste a decklist on the left and click "Load Deck" to start drawing hands.</div>
+                    </div>
+
+                    <!-- Hand controls (hidden until deck loaded) -->
+                    <div id="handUI" style="display:none;">
+                        <div class="hand-status">
+                            <div class="hand-status-text" id="handStatusText">Draw your opening hand.</div>
+                            <div id="mulliganBadge" style="display:none;"></div>
+                        </div>
+
+                        <div class="bottom-picker-bar" id="bottomPicker">
+                            <span class="bottom-picker-text">Select <strong id="bottomCount">0</strong> card(s) to put on the bottom.</span>
+                            <button class="btn btn-danger" id="confirmBottomBtn" onclick="confirmBottom()" disabled>Confirm Bottom</button>
+                        </div>
+
+                        <div class="hand-controls" id="handControls">
+                            <button class="btn btn-primary" id="drawBtn" onclick="drawHand()">Draw Hand</button>
+                            <button class="btn btn-danger" id="mulliganBtn" onclick="mulligan()" disabled>Mulligan</button>
+                            <button class="btn btn-success" id="keepBtn" onclick="keepHand()" disabled>Keep</button>
+                            <button class="btn btn-secondary" id="newHandBtn" onclick="newHand()">New Hand</button>
+                        </div>
+
+                        <div class="hand-grid" id="handGrid"></div>
+
+                        <div class="hand-stats" id="handStats" style="display:none;">
+                            <div class="hand-stat-card">
+                                <div class="hand-stat-value" id="statLands">0</div>
+                                <div class="hand-stat-label">Lands</div>
+                            </div>
+                            <div class="hand-stat-card">
+                                <div class="hand-stat-value" id="statNonlands">0</div>
+                                <div class="hand-stat-label">Non-Lands</div>
+                            </div>
+                            <div class="hand-stat-card">
+                                <div class="hand-stat-value" id="statAvgCmc">0</div>
+                                <div class="hand-stat-label">Avg MV</div>
+                            </div>
+                            <div class="hand-stat-card">
+                                <div class="hand-stat-value" id="statColors">-</div>
+                                <div class="hand-stat-label">Colors</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">ScrollVault</div>
+            <div class="wubrg-dots">
+                <span class="mana-dot" style="background: #F9FAF4"></span>
+                <span class="mana-dot" style="background: #0E68AB"></span>
+                <span class="mana-dot" style="background: #150B00; border: 1px solid rgba(255,255,255,0.2)"></span>
+                <span class="mana-dot" style="background: #D3202A"></span>
+                <span class="mana-dot" style="background: #00733E"></span>
+            </div>
+            <p class="footer-text">&copy; 2026 scrollvault.net. Magic: The Gathering is a trademark of Wizards of the Coast. Card images &copy; Wizards of the Coast via Scryfall.</p>
+            <ul class="footer-links">
+                <li><a href="/privacy.html">Privacy Policy</a></li>
+                <li><a href="/terms.html">Terms of Service</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/about/authors.html">Authors</a></li>
+                <li><a href="/about/editorial-policy.html">Editorial Policy</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ScrollVault — Opening Hand Simulator
+   ═══════════════════════════════════════════════════════════ */
+
+// ── Scryfall API layer ──
+const SCRYFALL_DELAY = 100;
+let lastScryfallCall = 0;
+const imageCache = {};
+
+async function scryfallFetch(url) {
+    const now = Date.now();
+    const wait = Math.max(0, SCRYFALL_DELAY - (now - lastScryfallCall));
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+    lastScryfallCall = Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Scryfall error');
+    return res.json();
+}
+
+function cacheGet(key) {
+    try {
+        const item = JSON.parse(localStorage.getItem('sv_' + key));
+        if (item && Date.now() - item.ts < 7 * 24 * 60 * 60 * 1000) return item.data;
+    } catch {}
+    return null;
+}
+
+function cacheSet(key, data) {
+    try { localStorage.setItem('sv_' + key, JSON.stringify({ ts: Date.now(), data })); } catch {}
+}
+
+async function getCardImage(name) {
+    const cacheKey = 'img_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+
+    // In-memory cache first
+    if (imageCache[cacheKey]) return imageCache[cacheKey];
+
+    // LocalStorage cache
+    const cached = cacheGet(cacheKey);
+    if (cached) {
+        imageCache[cacheKey] = cached;
+        return cached;
+    }
+
+    try {
+        const data = await scryfallFetch('https://api.scryfall.com/cards/named?fuzzy=' + encodeURIComponent(name));
+        let imgUrl = null;
+
+        if (data.image_uris && data.image_uris.normal) {
+            imgUrl = data.image_uris.normal;
+        } else if (data.card_faces && data.card_faces[0] && data.card_faces[0].image_uris) {
+            imgUrl = data.card_faces[0].image_uris.normal;
+        }
+
+        const result = {
+            image: imgUrl,
+            type_line: data.type_line || '',
+            mana_cost: data.mana_cost || '',
+            cmc: data.cmc || 0,
+            colors: data.colors || [],
+            color_identity: data.color_identity || []
+        };
+
+        imageCache[cacheKey] = result;
+        cacheSet(cacheKey, result);
+        return result;
+    } catch (e) {
+        const fallback = { image: null, type_line: '', mana_cost: '', cmc: 0, colors: [], color_identity: [] };
+        imageCache[cacheKey] = fallback;
+        return fallback;
+    }
+}
+
+// ── Decklist Parser ──
+function parseDeckList(text) {
+    const cards = [];
+    const counts = {};
+    for (const line of text.split('\n')) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('//') || trimmed.toLowerCase() === 'sideboard') continue;
+        // Stop at sideboard separator (blank line followed by cards is handled by continuing on blank)
+        const match = trimmed.match(/^(\d+)\s+(.+)/);
+        if (match) {
+            const count = parseInt(match[1]);
+            const name = match[2].trim();
+            if (!counts[name]) counts[name] = 0;
+            counts[name] += count;
+            for (let i = 0; i < count; i++) cards.push(name);
+        }
+    }
+    return { cards, counts };
+}
+
+// ── Fisher-Yates Shuffle ──
+function shuffleArray(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+// ── State ──
+let deckCards = [];        // Full decklist (array of card names)
+let deckCounts = {};       // { "Lightning Bolt": 4, ... }
+let library = [];          // Current shuffled library
+let currentHand = [];      // Array of card name strings
+let mulliganCount = 0;     // How many mulligans taken
+let cardsToBottom = 0;     // Cards that must go to bottom
+let selectedBottom = new Set(); // Indices of cards selected to bottom
+let handKept = false;      // Whether hand was kept
+let phase = 'idle';        // idle | drawn | picking | kept
+let cardDataCache = {};    // { cardName: scryfallData }
+
+// ── DOM refs ──
+const $deckInput = () => document.getElementById('deckInput');
+const $deckStats = () => document.getElementById('deckStats');
+const $handUI = () => document.getElementById('handUI');
+const $emptyState = () => document.getElementById('emptyState');
+const $handGrid = () => document.getElementById('handGrid');
+const $handStats = () => document.getElementById('handStats');
+const $handStatusText = () => document.getElementById('handStatusText');
+const $mulliganBadge = () => document.getElementById('mulliganBadge');
+const $bottomPicker = () => document.getElementById('bottomPicker');
+const $bottomCount = () => document.getElementById('bottomCount');
+const $confirmBottomBtn = () => document.getElementById('confirmBottomBtn');
+const $drawBtn = () => document.getElementById('drawBtn');
+const $mulliganBtn = () => document.getElementById('mulliganBtn');
+const $keepBtn = () => document.getElementById('keepBtn');
+
+// ── Format preset ──
+function handleFormatChange() {
+    // Just update the expected size label
+    const size = document.getElementById('formatSelect').value;
+    document.getElementById('statExpected').textContent = size;
+}
+
+// ── Load Deck ──
+function loadDeck() {
+    const text = $deckInput().value.trim();
+    if (!text) return;
+
+    const { cards, counts } = parseDeckList(text);
+    if (cards.length === 0) return;
+
+    deckCards = cards;
+    deckCounts = counts;
+
+    // Show stats
+    const expectedSize = parseInt(document.getElementById('formatSelect').value);
+    document.getElementById('statTotal').textContent = cards.length;
+    document.getElementById('statExpected').textContent = expectedSize;
+    const uniqueNames = Object.keys(counts);
+    document.getElementById('statUnique').textContent = uniqueNames.length;
+
+    // Card breakdown
+    const breakdownEl = document.getElementById('cardBreakdown');
+    // Sort by count descending then name
+    const sorted = uniqueNames.sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
+    breakdownEl.innerHTML = sorted.map(name =>
+        `<div class="breakdown-item"><span class="name">${escHtml(name)}</span><span class="count">&times;${counts[name]}</span></div>`
+    ).join('');
+
+    $deckStats().classList.add('visible');
+
+    // Show hand UI, hide empty state
+    $emptyState().style.display = 'none';
+    $handUI().style.display = 'block';
+
+    // Reset state
+    resetHandState();
+    updateButtonStates();
+    $handStatusText().innerHTML = `Deck loaded &mdash; <strong>${cards.length} cards</strong>. Click "Draw Hand" to begin.`;
+
+    // Pre-fetch card images for unique cards (in background, rate-limited)
+    prefetchCardImages(uniqueNames);
+}
+
+async function prefetchCardImages(names) {
+    for (const name of names) {
+        if (!cardDataCache[name]) {
+            const data = await getCardImage(name);
+            cardDataCache[name] = data;
+        }
+    }
+}
+
+function resetHandState() {
+    currentHand = [];
+    mulliganCount = 0;
+    cardsToBottom = 0;
+    selectedBottom = new Set();
+    handKept = false;
+    phase = 'idle';
+    $handGrid().innerHTML = '';
+    $handStats().style.display = 'none';
+    $bottomPicker().classList.remove('visible');
+    $mulliganBadge().style.display = 'none';
+}
+
+// ── Draw Hand ──
+function drawHand() {
+    library = shuffleArray(deckCards);
+    currentHand = library.splice(0, 7);
+    mulliganCount = 0;
+    cardsToBottom = 0;
+    selectedBottom = new Set();
+    handKept = false;
+    phase = 'drawn';
+
+    $bottomPicker().classList.remove('visible');
+    $mulliganBadge().style.display = 'none';
+    $handStatusText().innerHTML = `Opening hand &mdash; <strong>7 cards</strong>. Keep or mulligan?`;
+
+    renderHand();
+    updateHandStats();
+    updateButtonStates();
+}
+
+// ── Mulligan ──
+function mulligan() {
+    if (phase !== 'drawn') return;
+    if (currentHand.length <= 1) return; // Can't mull to 0
+
+    mulliganCount++;
+    cardsToBottom = mulliganCount; // London mulligan: put N cards back where N = number of mulligans
+
+    // Reshuffle entire deck and draw 7
+    library = shuffleArray(deckCards);
+    currentHand = library.splice(0, 7);
+    selectedBottom = new Set();
+    handKept = false;
+
+    // Show mulligan badge
+    const badge = $mulliganBadge();
+    badge.style.display = 'inline-block';
+    const ordinal = getOrdinal(mulliganCount);
+    badge.className = 'mulligan-badge';
+    badge.textContent = ordinal + ' mulligan';
+
+    if (cardsToBottom > 0 && cardsToBottom < 7) {
+        phase = 'picking';
+        $bottomPicker().classList.add('visible');
+        $bottomCount().textContent = cardsToBottom;
+        $handStatusText().innerHTML = `Drew 7 cards. Select <strong>${cardsToBottom}</strong> to put on the bottom, then confirm.`;
+    } else if (cardsToBottom >= 7) {
+        // Mulled to 0, auto-keep
+        currentHand = [];
+        phase = 'kept';
+        handKept = true;
+        $bottomPicker().classList.remove('visible');
+        $handStatusText().innerHTML = `Mulliganed to <strong>0 cards</strong>. Better luck next game!`;
+    } else {
+        phase = 'drawn';
+        $handStatusText().innerHTML = `Opening hand after mulligan &mdash; <strong>7 cards</strong>. Keep or mulligan?`;
+    }
+
+    renderHand();
+    updateHandStats();
+    updateButtonStates();
+}
+
+function getOrdinal(n) {
+    const s = ['th','st','nd','rd'];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+// ── Select cards to bottom ──
+function toggleBottomCard(index) {
+    if (phase !== 'picking') return;
+
+    if (selectedBottom.has(index)) {
+        selectedBottom.delete(index);
+    } else {
+        if (selectedBottom.size >= cardsToBottom) return; // Already selected enough
+        selectedBottom.add(index);
+    }
+
+    // Update visual
+    const cards = $handGrid().querySelectorAll('.hand-card, .card-placeholder');
+    cards.forEach((el, i) => {
+        if (selectedBottom.has(i)) {
+            el.classList.add('selected');
+        } else {
+            el.classList.remove('selected');
+        }
+    });
+
+    // Update confirm button
+    const remaining = cardsToBottom - selectedBottom.size;
+    $bottomCount().textContent = remaining;
+    $confirmBottomBtn().disabled = (selectedBottom.size !== cardsToBottom);
+
+    if (remaining === 0) {
+        $handStatusText().innerHTML = `All <strong>${cardsToBottom}</strong> cards selected. Click "Confirm Bottom" to finalize.`;
+    } else {
+        $handStatusText().innerHTML = `Select <strong>${remaining}</strong> more card(s) to put on the bottom.`;
+    }
+}
+
+function confirmBottom() {
+    if (selectedBottom.size !== cardsToBottom) return;
+
+    // Remove selected cards from hand (highest indices first to avoid shifting)
+    const indices = [...selectedBottom].sort((a, b) => b - a);
+    for (const idx of indices) {
+        const removed = currentHand.splice(idx, 1)[0];
+        library.push(removed); // Put on bottom of library
+    }
+
+    selectedBottom = new Set();
+    cardsToBottom = 0;
+    phase = 'kept';
+    handKept = true;
+
+    $bottomPicker().classList.remove('visible');
+    $handStatusText().innerHTML = `Hand kept with <strong>${currentHand.length} cards</strong>. Click "New Hand" to try again.`;
+
+    renderHand();
+    updateHandStats();
+    updateButtonStates();
+}
+
+// ── Keep ──
+function keepHand() {
+    if (phase === 'picking') {
+        // If in picking phase with London mull, they must select cards first
+        // But if they want to just keep without selecting, that's an error
+        return;
+    }
+    if (phase !== 'drawn') return;
+
+    phase = 'kept';
+    handKept = true;
+
+    $handStatusText().innerHTML = `Hand kept with <strong>${currentHand.length} cards</strong>. Click "New Hand" to try again.`;
+    updateButtonStates();
+}
+
+// ── New Hand (full reset) ──
+function newHand() {
+    resetHandState();
+    updateButtonStates();
+    $handStatusText().innerHTML = `Deck ready &mdash; <strong>${deckCards.length} cards</strong>. Click "Draw Hand" to begin.`;
+}
+
+// ── Button state manager ──
+function updateButtonStates() {
+    const draw = $drawBtn();
+    const mull = $mulliganBtn();
+    const keep = $keepBtn();
+
+    switch (phase) {
+        case 'idle':
+            draw.disabled = false;
+            mull.disabled = true;
+            keep.disabled = true;
+            break;
+        case 'drawn':
+            draw.disabled = true;
+            mull.disabled = false;
+            keep.disabled = false;
+            break;
+        case 'picking':
+            draw.disabled = true;
+            mull.disabled = true;
+            keep.disabled = true;
+            break;
+        case 'kept':
+            draw.disabled = true;
+            mull.disabled = true;
+            keep.disabled = true;
+            break;
+    }
+}
+
+// ── Render hand ──
+function renderHand() {
+    const grid = $handGrid();
+    grid.innerHTML = '';
+
+    currentHand.forEach((name, index) => {
+        const data = cardDataCache[name];
+
+        if (data && data.image) {
+            // Card with image
+            const div = document.createElement('div');
+            div.className = 'hand-card';
+            if (selectedBottom.has(index)) div.classList.add('selected');
+            div.onclick = () => toggleBottomCard(index);
+
+            const img = document.createElement('img');
+            img.src = data.image;
+            img.alt = name;
+            img.loading = 'lazy';
+            img.onerror = () => {
+                // Replace with placeholder on error
+                div.outerHTML = buildPlaceholderHTML(name, index);
+            };
+            div.appendChild(img);
+            grid.appendChild(div);
+        } else if (data && !data.image) {
+            // No image available, show placeholder
+            grid.insertAdjacentHTML('beforeend', buildPlaceholderHTML(name, index));
+        } else {
+            // Still loading, show spinner then replace
+            const loadDiv = document.createElement('div');
+            loadDiv.className = 'loading-card';
+            loadDiv.innerHTML = '<div class="spinner"></div>';
+            grid.appendChild(loadDiv);
+
+            // Fetch and replace
+            getCardImage(name).then(fetchedData => {
+                cardDataCache[name] = fetchedData;
+                if (fetchedData && fetchedData.image) {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'hand-card';
+                    if (selectedBottom.has(index)) cardDiv.classList.add('selected');
+                    cardDiv.onclick = () => toggleBottomCard(index);
+                    const img = document.createElement('img');
+                    img.src = fetchedData.image;
+                    img.alt = name;
+                    img.loading = 'lazy';
+                    cardDiv.appendChild(img);
+                    loadDiv.replaceWith(cardDiv);
+                } else {
+                    loadDiv.outerHTML = buildPlaceholderHTML(name, index);
+                }
+            });
+        }
+    });
+}
+
+function buildPlaceholderHTML(name, index) {
+    const sel = selectedBottom.has(index) ? ' selected' : '';
+    return `<div class="card-placeholder${sel}" onclick="toggleBottomCard(${index})" style="position:relative;">
+        <div class="card-icon">&#127183;</div>
+        <div class="card-name">${escHtml(name)}</div>
+    </div>`;
+}
+
+// ── Hand Stats ──
+function updateHandStats() {
+    if (currentHand.length === 0) {
+        $handStats().style.display = 'none';
+        return;
+    }
+
+    $handStats().style.display = 'grid';
+
+    let lands = 0;
+    let nonlands = 0;
+    let totalCmc = 0;
+    const colorsSet = new Set();
+
+    for (const name of currentHand) {
+        const data = cardDataCache[name];
+        if (data) {
+            const typeLine = (data.type_line || '').toLowerCase();
+            if (typeLine.includes('land')) {
+                lands++;
+            } else {
+                nonlands++;
+                totalCmc += data.cmc || 0;
+            }
+            // Collect colors
+            if (data.colors && data.colors.length) {
+                data.colors.forEach(c => colorsSet.add(c));
+            }
+            if (data.color_identity && data.color_identity.length) {
+                data.color_identity.forEach(c => colorsSet.add(c));
+            }
+        } else {
+            // Unknown, count as nonland
+            nonlands++;
+        }
+    }
+
+    document.getElementById('statLands').textContent = lands;
+    document.getElementById('statNonlands').textContent = nonlands;
+    document.getElementById('statAvgCmc').textContent = nonlands > 0 ? (totalCmc / nonlands).toFixed(1) : '0';
+
+    const colorMap = { W: '#F9FAF4', U: '#0E68AB', B: '#71717a', R: '#D3202A', G: '#00733E' };
+    const colorOrder = ['W', 'U', 'B', 'R', 'G'];
+    const presentColors = colorOrder.filter(c => colorsSet.has(c));
+
+    if (presentColors.length > 0) {
+        document.getElementById('statColors').innerHTML = presentColors.map(c =>
+            `<span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${colorMap[c]};vertical-align:middle;margin:0 1px;${c === 'B' ? 'border:1px solid rgba(255,255,255,0.3);' : ''}"></span>`
+        ).join('');
+    } else {
+        document.getElementById('statColors').textContent = 'C';
+    }
+}
+
+// ── Delayed hand stats update ──
+// When cards are still loading, we re-check stats after fetches complete
+function scheduleStatsUpdate() {
+    setTimeout(() => {
+        if (currentHand.length > 0) {
+            updateHandStats();
+        }
+    }, 2000);
+}
+
+// Hook into drawHand and mulligan to schedule deferred stats
+const _origDrawHand = drawHand;
+const _origMulligan = mulligan;
+
+// We already call updateHandStats inside drawHand/mulligan, but card data
+// might not be loaded yet. Schedule a deferred update too.
+(function patchDraw() {
+    const origRender = renderHand;
+    // We'll just use a simpler approach: poll until all card data is loaded
+    setInterval(() => {
+        if (phase !== 'idle' && currentHand.length > 0) {
+            const allLoaded = currentHand.every(n => cardDataCache[n]);
+            if (allLoaded) {
+                updateHandStats();
+            }
+        }
+    }, 1500);
+})();
+
+// ── Utility ──
+function escHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// ── Keyboard shortcut ──
+document.addEventListener('keydown', (e) => {
+    // Don't capture if typing in textarea
+    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+
+    switch(e.key.toLowerCase()) {
+        case 'd':
+            if (!$drawBtn().disabled) drawHand();
+            break;
+        case 'm':
+            if (!$mulliganBtn().disabled) mulligan();
+            break;
+        case 'k':
+            if (!$keepBtn().disabled) keepHand();
+            break;
+        case 'n':
+            newHand();
+            break;
+    }
+});
+</script>
+
+</body>
+</html>

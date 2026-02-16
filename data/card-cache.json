@@ -12910,5 +12910,141 @@
   "legal angle": {
     "name": "Legal Angle",
     "not_found": true
+  },
+  "facts verified": {
+    "name": "Facts Verified",
+    "not_found": true
+  },
+  "news just": {
+    "name": "News Just",
+    "not_found": true
+  },
+  "news just editorial": {
+    "name": "News Just Editorial",
+    "not_found": true
+  },
+  "news just editorial philosophy": {
+    "name": "News Just Editorial Philosophy",
+    "not_found": true
+  },
+  "editorial philosophy": {
+    "name": "Editorial Philosophy",
+    "not_found": true
+  },
+  "editorial philosophy the": {
+    "name": "Editorial Philosophy The",
+    "not_found": true
+  },
+  "philosophy the": {
+    "name": "Philosophy The",
+    "not_found": true
+  },
+  "radio silence": {
+    "name": "Radio Silence",
+    "not_found": true
+  },
+  "radio silence i": {
+    "name": "Radio Silence I",
+    "not_found": true
+  },
+  "silence i": {
+    "name": "Silence",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/c/1c2b13b1-31f0-4676-88a7-53f3a190e9a2.jpg?1562826686",
+    "normal": "https://cards.scryfall.io/normal/front/1/c/1c2b13b1-31f0-4676-88a7-53f3a190e9a2.jpg?1562826686",
+    "artist": "Wayne Reynolds",
+    "set": "m14",
+    "not_found": false
+  },
+  "april o'neil": {
+    "name": "April O'Neil, Hacktivist",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/0/f0147f6d-b797-4d5e-aca2-a9d309896eca.jpg?1760102651",
+    "normal": "https://cards.scryfall.io/normal/front/f/0/f0147f6d-b797-4d5e-aca2-a9d309896eca.jpg?1760102651",
+    "artist": "Xabi Gaztelua",
+    "set": "tmt",
+    "not_found": false
+  },
+  "sometimes wizards": {
+    "name": "Sometimes Wizards",
+    "not_found": true
+  },
+  "brief' actually": {
+    "name": "Brief' Actually",
+    "not_found": true
+  },
+  "brief' actually means": {
+    "name": "Brief' Actually Means",
+    "not_found": true
+  },
+  "brief' actually means the": {
+    "name": "Brief' Actually Means The",
+    "not_found": true
+  },
+  "actually means": {
+    "name": "Actually Means",
+    "not_found": true
+  },
+  "actually means the": {
+    "name": "Actually Means The",
+    "not_found": true
+  },
+  "means the": {
+    "name": "Means The",
+    "not_found": true
+  },
+  "post' can": {
+    "name": "Post' Can",
+    "not_found": true
+  },
+  "post' can be": {
+    "name": "Post' Can Be",
+    "not_found": true
+  },
+  "can be": {
+    "name": "Can Be",
+    "not_found": true
+  },
+  "can be the right": {
+    "name": "Can Be the Right",
+    "not_found": true
+  },
+  "be the right": {
+    "name": "Kellan, the Fae-Blooded // Birthright Boon",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/b/1bc9df4c-b033-4e97-a76d-57e5630e54e4.jpg?1703744679",
+    "normal": "https://cards.scryfall.io/normal/front/1/b/1bc9df4c-b033-4e97-a76d-57e5630e54e4.jpg?1703744679",
+    "artist": "Anna Steinbauer",
+    "set": "woe",
+    "not_found": false
+  },
+  "be the right call": {
+    "name": "Be the Right Call",
+    "not_found": true
+  },
+  "right call": {
+    "name": "Right Call",
+    "not_found": true
+  },
+  "right call amateur": {
+    "name": "Right Call Amateur",
+    "not_found": true
+  },
+  "call amateur": {
+    "name": "Call Amateur",
+    "not_found": true
+  },
+  "news drought": {
+    "name": "News Drought",
+    "not_found": true
+  },
+  "news drought if": {
+    "name": "News Drought If",
+    "not_found": true
+  },
+  "drought if": {
+    "name": "Drought",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/7/97736696-3de3-416d-94cf-4fac792f23f0.jpg?1562923137",
+    "normal": "https://cards.scryfall.io/normal/front/9/7/97736696-3de3-416d-94cf-4fac792f23f0.jpg?1562923137",
+    "artist": "NéNé Thomas",
+    "set": "ice",
+    "not_found": false
   }
 }
