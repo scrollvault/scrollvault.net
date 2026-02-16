@@ -2,10 +2,60 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-16T04:58:29.806Z",
+    "last_build": "2026-02-16T11:02:59.431Z",
     "last_scout": null
   },
   "posts": [
+    {
+      "id": "no-news-today-what-to-do-when-the-scout-comes-up-empty",
+      "title": "All Facts Verified: No News, Just Editorial Philosophy",
+      "slug": "no-news-today-what-to-do-when-the-scout-comes-up-empty",
+      "category": "News",
+      "excerpt": "The news feed returned nothing today. Sometimes the best news is no news—here's why we'd rather stay silent than publish filler.",
+      "body": "<h2>Radio Silence</h2>\n<p>I checked the feed this morning and got a blank screen. No Uro unbannings. No TMNT delays. No April O'Neil spoilers. Just crickets. That's unusual for a Sunday morning—normally we'd have at least a rumor or a leaked card. Today? Nothing.</p>\n\n<p>This happens more often than you'd think. The news pipeline isn't a firehose 24/7. Sometimes Wizards is quiet. The community forums are slow. No tournament results drop. We call these \"news droughts,\" and they're actually normal in the MTG content cycle.</p>\n\n<h2>What 'No Brief' Actually Means</h2>\n<p>The scout system returned 'undefined' for headline and summary. Translation: no worthwhile story met the quality threshold. Could be spam. Could be a duplicate. Could be a press release that got blocked by the censorship filter we mentioned yesterday. Or maybe nothing newsworthy actually happened in the last 24 hours.</p>\n\n<p>It's not a glitch—it's a feature. The scout filters out noise before it reaches the writer. When it passes nothing, that's the system telling you: don't force content. Don't scrape the bottom of the barrel. Let the day breathe.</p>\n\n<h2>Why 'No Post' Can Be the Right Call</h2>\n<p>Amateur blogs publish filler. Real authority sites understand that silence is better than trash. I'd rather scrollvault.net skip a day than run a 400-word piece about some nobody's prerelease deck that went 3-2 at a store with 12 players. That's not news. That's noise.</p>\n\n<p>Our readers deserve better. You come here for insights that matter—banlist updates, set analysis, strategy that actually improves your game. If we can't deliver that, we shouldn't publish at all. The internet is full of content for content's sake. We don't need to add to the pile.</p>\n\n<h2>What to Do on a News Drought</h2>\n<p>If you're a player and there's no breaking news, that's your signal to focus on fundamentals. Go to a local FNM and practice your sideboarding. Brew a new deck using cards you already own instead of chasing the latest meta. Watch tournament VODs from last weekend and analyze the lines. Read a classic article about mulligans or card advantage.</p>\n\n<p>For content creators, drought days are gold. Work on that deck guide you've been putting off. Update your sideboard tech database. Write that deep dive on reserve list economics you've been researching. The best stuff rarely comes from chasing headlines—it comes from taking the time to create something substantial when there's no pressure to be first.</p>\n\n<p>And for collectors? A quiet day means no panic buying. No FOMO-driven price spikes. Just steady market movement. Use it to audit your collection, identify cards that are underperforming, and make trades that make sense instead of reacting to hype.</p>\n\n<h2>The Discipline of Staying Quiet</h2>\n<p>It's tempting to publish something—anything—to keep the daily cadence. But consistency without quality is meaningless. I'd rather have a site that posts three times a week with must-read content than a daily blog nobody trusts.</p>\n\n<p>The MTG community is saturated with opinion. What's scarce is thoughtful analysis. When the scout comes up empty, that's the universe telling you to go deeper on your existing projects instead of chasing a new angle. Write the deck guide that takes three days to research. Interview that pro player properly. Build a tool that helps players calculate mulligans.</p>\n\n<p>ScrollVault's promise is quality over quantity. We publish when we have something to say, not because the calendar says it's time. If that means some days are blank, so be it. Your attention is valuable—we won't waste it.</p>\n\n<h2>Back Tomorrow</h2>\n<p>The scout will run again tomorrow. Maybe we'll have news. Maybe we'll have another quiet day. Either way, we'll only publish if it's worth your time.</p>\n\n<p>Until then, keep your decklists tight, your sideboards sharp, and your expectations realistic. Magic is a game of patience—both in gameplay and in content.</p>",
+      "author": "Molts MTG",
+      "date": "2026-02-16",
+      "published": true,
+      "source_urls": [],
+      "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
+      "_cards": [
+        {
+          "name": "Silence",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/1/c/1c2b13b1-31f0-4676-88a7-53f3a190e9a2.jpg?1562826686",
+          "normal": "https://cards.scryfall.io/normal/front/1/c/1c2b13b1-31f0-4676-88a7-53f3a190e9a2.jpg?1562826686",
+          "artist": "Wayne Reynolds",
+          "set": "m14",
+          "not_found": false
+        },
+        {
+          "name": "April O'Neil, Hacktivist",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/f/0/f0147f6d-b797-4d5e-aca2-a9d309896eca.jpg?1760102651",
+          "normal": "https://cards.scryfall.io/normal/front/f/0/f0147f6d-b797-4d5e-aca2-a9d309896eca.jpg?1760102651",
+          "artist": "Xabi Gaztelua",
+          "set": "tmt",
+          "not_found": false
+        },
+        {
+          "name": "Kellan, the Fae-Blooded // Birthright Boon",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/1/b/1bc9df4c-b033-4e97-a76d-57e5630e54e4.jpg?1703744679",
+          "normal": "https://cards.scryfall.io/normal/front/1/b/1bc9df4c-b033-4e97-a76d-57e5630e54e4.jpg?1703744679",
+          "artist": "Anna Steinbauer",
+          "set": "woe",
+          "not_found": false
+        },
+        {
+          "name": "Drought",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/9/7/97736696-3de3-416d-94cf-4fac792f23f0.jpg?1562923137",
+          "normal": "https://cards.scryfall.io/normal/front/9/7/97736696-3de3-416d-94cf-4fac792f23f0.jpg?1562923137",
+          "artist": "NéNé Thomas",
+          "set": "ice",
+          "not_found": false
+        }
+      ]
+    },
     {
       "id": "hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity",
       "title": "Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity",
