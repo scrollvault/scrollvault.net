@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="/guides/mana-bases.html"><title>MTG Mana Base Guide | scrollvault.net</title>
-    <meta name="description" content="Learn how to build the perfect mana base for any Magic: The Gathering format. Land counts, color balance, and optimal dual land ratios.">
-    <meta property="og:url" content="/guides/mana-bases.html"><meta property="og:type" content="website">
-    <meta property="og:title" content="MTG Mana Base Guide">
-    <meta property="og:description" content="Learn how to build the perfect mana base for any Magic: The Gathering format. Land counts, color balance, and optimal dual land ratios.">
+    <link rel="canonical" href="https://scrollvault.net/guides/mana-bases.html"><title>MTG Manabase Guide — Frank Karsten Mana Math Explained | scrollvault.net</title>
+    <meta name="description" content="Complete guide to building an MTG manabase using Frank Karsten's mana math. Land counts for Standard, Modern, Pioneer, and Commander with hypergeometric probability tables.">
+    <meta property="og:url" content="https://scrollvault.net/guides/mana-bases.html"><meta property="og:type" content="website">
+    <meta property="og:title" content="MTG Manabase Guide — Frank Karsten Mana Math Explained">
+    <meta property="og:description" content="Complete guide to building an MTG manabase using Frank Karsten's mana math. Land counts for Standard, Modern, Pioneer, and Commander with hypergeometric probability tables.">
     <meta property="og:site_name" content="ScrollVault">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many lands should I play in my MTG deck?","acceptedAnswer":{"@type":"Answer","text":"Most 60-card constructed decks run 24-26 lands depending on mana curve. Aggressive decks with low curves can go as low as 20-22, while control decks may want 26-27. Commander decks typically run 36-38 lands plus 10 or more ramp pieces."}},{"@type":"Question","name":"How do I balance colors in a multicolor mana base?","acceptedAnswer":{"@type":"Answer","text":"Count the colored mana symbols in your deck and allocate land sources proportionally. Use dual lands (shocks, fetches, checks) to cover multiple colors. A good rule of thumb is to have at least 14 sources of each primary color and 10-12 for splash colors."}},{"@type":"Question","name":"What is the best mana base for Commander?","acceptedAnswer":{"@type":"Answer","text":"The ideal Commander mana base depends on your color count and budget. Start with 36-38 lands, include all relevant fetch lands and shock lands you can afford, add check lands and fast lands for consistency, and finish with utility lands. Use mana rocks like Sol Ring, Arcane Signet, and Signets for additional fixing."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many lands should I put in my MTG deck?","acceptedAnswer":{"@type":"Answer","text":"For a 60-card deck, 23-26 lands is standard. Aggro decks run 22-23, midrange 24-25, and control 25-26. Commander decks (99 cards) need 35-38 lands plus mana rocks. Use Frank Karsten's mana math or a manabase calculator for precise counts based on your specific mana curve and color requirements."}},{"@type":"Question","name":"What is Frank Karsten's mana math for MTG?","acceptedAnswer":{"@type":"Answer","text":"Frank Karsten's mana math uses hypergeometric probability to calculate the exact number of colored mana sources needed to cast spells on curve with ~90% consistency. Key numbers for 60-card decks: 14 sources for a single-pip spell, 18 for double-pip, 21+ for triple-pip. This research is the gold standard used by competitive Magic players to build optimal mana bases."}},{"@type":"Question","name":"How do I build a manabase for Commander?","acceptedAnswer":{"@type":"Answer","text":"Start with 36-38 lands in your 99-card deck. Include fetch lands and shock lands for reliable fixing, add check lands and fast lands for budget options, and finish with utility lands like Command Tower and Exotic Orchard. Add 10+ mana rocks (Sol Ring, Arcane Signet, Signets) for ramp. Use a manabase calculator to determine exact colored source counts based on your casting costs."}}]}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -51,26 +51,49 @@
     </nav>
     <main id="main-content">
         <header class="page-header">
-            <div class="container"><h1>MTG Mana Base Guide</h1></div>
+            <div class="container"><h1>MTG Manabase Guide — Frank Karsten Mana Math Explained</h1></div>
         </header>
         <div class="page-body">
 
-            <p>Building a solid mana base is the foundation of any successful Magic deck. Whether you're in Standard, Modern, Pioneer, or Commander, understanding how many lands you need, how to balance your colors, and when to play special lands is critical.</p>
-            <h2>Key Principles</h2>
-            <p><strong>Color Balance:</strong> Ensure you have enough sources for each color in your mana cost. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to get precise numbers.</p>
-            <p><strong>Mana Curve:</strong> Higher curves need more lands; low curves can shave a few.</p>
-            <p><strong>Format Considerations:</strong> Some formats have fetch lands, shock lands, or fast lands that affect your decisions.</p>
-            <h2>Land Count Guidelines</h2>
+            <p>Your manabase is the foundation of every Magic: The Gathering deck. A well-built manabase ensures you can cast your spells on curve, while a bad one loses games before they start. This guide covers everything you need to know about building the optimal manabase for any format.</p>
+
+            <h2>Frank Karsten's Mana Math</h2>
+            <p>The gold standard for manabase construction comes from <strong>Frank Karsten</strong>, a Hall of Fame player and mathematician who published groundbreaking research on MTG mana math. Using <strong>hypergeometric probability</strong>, Karsten calculated exactly how many colored mana sources you need to consistently cast your spells on curve. His key finding: you need roughly <strong>14 sources</strong> to reliably cast a single-pip spell on turn one, and <strong>18+ sources</strong> for double-pip costs.</p>
+            <p>Try our <a href="/tools/manabase/">Manabase Calculator</a> to apply Karsten's math to your own deck automatically.</p>
+
+            <h2>Land Count Guidelines by Format</h2>
             <ul>
-                <li>Standard: 24-26 lands (depending on curve)</li>
-                <li>Modern: 24-26 lands with mana fixers</li>
-                <li>Pioneer: 24-26 lands</li>
-                <li>Commander: 36-38 lands on average, with 10+ ramp pieces</li>
+                <li><strong>Standard (60 cards):</strong> 24&ndash;26 lands. Aggro decks can go as low as 22 with a very low curve.</li>
+                <li><strong>Modern (60 cards):</strong> 20&ndash;24 lands. Fetch lands effectively thin your deck; many Modern decks run fewer lands than Standard.</li>
+                <li><strong>Pioneer (60 cards):</strong> 23&ndash;26 lands. Similar to Standard but without fetch land thinning.</li>
+                <li><strong>Commander (99+1 cards):</strong> 35&ndash;38 lands plus 10+ mana rocks and ramp spells. More colors means more dual lands for fixing.</li>
+                <li><strong>Limited (40 cards):</strong> 17 lands is the default. Aggressive decks can go to 16; slow decks may want 18.</li>
             </ul>
-            <h2>Dual Lands and Mana Fixing</h2>
-            <p>Dual lands are the backbone of multicolored decks. Check our <a href="/guides/dual-lands.html">Dual Land Cycles</a> guide for a complete list of fetch, shock, check, and fast lands and which formats they're legal in.</p>
-            <h2>Using the Calculator</h2>
-            <p>Our <a href="/tools/manabase/">Mana Base Calculator</a> lets you input your deck's color distribution and get tailored land recommendations. It's a great starting point, but always playtest and adjust.</p>
+
+            <h2>Colored Source Requirements</h2>
+            <p>Based on Karsten's mana math, here are the colored sources you need in a 60-card deck to cast spells on curve with ~90% reliability:</p>
+            <ul>
+                <li><strong>Single pip (1W):</strong> 14 sources of that color</li>
+                <li><strong>Double pip (WW):</strong> 18 sources</li>
+                <li><strong>Triple pip (WWW):</strong> 21+ sources</li>
+                <li><strong>Early single pip (W on turn 1):</strong> 14 untapped sources</li>
+            </ul>
+            <p>For Commander, multiply these numbers by roughly 1.6x due to the larger deck size (99 cards). Our <a href="/tools/manabase/">manabase calculator</a> handles this math automatically.</p>
+
+            <h2>Types of Mana Fixing</h2>
+            <p><strong>Dual lands</strong> are the backbone of multicolor mana bases. The best dual land cycles (fetch lands, shock lands, original duals) enter untapped and fix multiple colors. See our <a href="/guides/dual-lands.html">complete dual land guide</a> for every cycle and their format legality.</p>
+            <p><strong>Mana rocks</strong> like Sol Ring, Arcane Signet, and Signets provide additional fixing, especially in Commander. Count 2-mana rocks as roughly half a land when building your manabase.</p>
+
+            <h2>Common Manabase Mistakes</h2>
+            <ul>
+                <li>Running too few colored sources for double-pip costs (e.g., only 12 white sources for a WW card)</li>
+                <li>Playing too many tap lands, which slows your curve by a full turn</li>
+                <li>Ignoring mana curve when choosing land count &mdash; a 2.5 average CMC deck needs fewer lands than a 3.5 CMC deck</li>
+                <li>Not accounting for utility lands that don't produce colored mana</li>
+            </ul>
+
+            <h2>Use the Calculator</h2>
+            <p>Our <a href="/tools/manabase/">MTG Manabase Calculator</a> implements Frank Karsten's mana math for every format. Input your deck's color distribution and mana curve, and it will recommend the exact number of lands and colored sources you need. It covers Standard, Modern, Pioneer, Legacy, and Commander.</p>
         
         </div>
     </main>
