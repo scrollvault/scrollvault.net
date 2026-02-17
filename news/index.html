@@ -10,9 +10,8 @@
     <meta property="og:description" content="Breaking news, ban updates, tournament results, and announcements from the world of Magic: The Gathering.">
     <meta property="og:site_name" content="ScrollVault">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"MTG News","description":"Breaking news, ban updates, tournament results, and announcements from the world of Magic: The Gathering.","url":"https://scrollvault.net/news/"}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -109,20 +108,36 @@
         </div>
     </nav>
     <main id="main-content">
-        <section class="hero-featured" style="background: var(--gradient-purple); background-size: cover; background-position: center;" role="img" aria-label="Featured: Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner' - card art">
+        <section class="hero-featured" style="background: var(--gradient-purple); background-size: cover; background-position: center;" role="img" aria-label="Featured: Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything - card art">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="container">
                     <span class="post-category category-news">News</span>
-                    <h1><a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</a></h1>
-                    <p class="hero-excerpt">Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.</p>
-                    <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html" class="hero-cta">Read More &rarr;</a>
+                    <h1><a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html">Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</a></h1>
+                    <p class="hero-excerpt">Feb 2026's massive B&amp;R update: Biorhythm unbanned in Commander, Historic overhauled, Necropotence restricted. Plus: TMNT delays, Arena Challenge Lobbies, Magic Pride's partner format.</p>
+                    <a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html" class="hero-cta">Read More &rarr;</a>
                 </div>
             </div>
         </section>
 
         <div class="container content-wrapper">
             <section class="posts-grid" id="postsGrid">
+                <article class="post-card" data-category="news">
+                    <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html" class="card-link">
+                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</h2>
+                            <p class="post-excerpt">Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Today</span>
+                            </div>
+                            <span class="read-more">Read More &rarr;</span>
+                        </div>
+                    </a>
+                </article>
+
                 <article class="post-card" data-category="news">
                     <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html" class="card-link">
                         <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
@@ -502,6 +517,13 @@
                     <h3 class="widget-title">Recent Posts</h3>
                     <ul class="recent-posts">
                         <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything"></div>
+                            <div>
+                                <a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html">Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</a>
+                                <span class="recent-post-date">-1 days ago</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'"></div>
                             <div>
                                 <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</a>
@@ -529,13 +551,6 @@
                                 <span class="recent-post-date">2 days ago</span>
                             </div>
                         </li>
-                        <li class="recent-post-item">
-                            <div class="recent-post-thumb" style="background: var(--gradient-blue);" role="img" aria-label="Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know"></div>
-                            <div>
-                                <a href="/posts/arena-powered-cube-returns-2026.html">Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know</a>
-                                <span class="recent-post-date">2 days ago</span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <div class="sidebar-widget">
@@ -546,7 +561,7 @@
                                 <span class="category-dot" style="background: var(--pill-news);"></span>
                                 News
                             </span>
-                            <span class="category-count">24</span>
+                            <span class="category-count">25</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=strategy]').click()">
                             <span class="category-name">
@@ -628,6 +643,6 @@
             if (t) { filterBtns.forEach(b => b.classList.remove('active')); document.querySelector('[data-filter="all"]').classList.add('active'); }
         }
     </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html"},{"@type":"ListItem","position":4,"url":"https://scrollvault.net/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html"},{"@type":"ListItem","position":5,"url":"https://scrollvault.net/posts/arena-powered-cube-returns-2026.html"},{"@type":"ListItem","position":6,"url":"https://scrollvault.net/posts/companion-app-update-player-profiles-are-finally-here.html"},{"@type":"ListItem","position":7,"url":"https://scrollvault.net/posts/the-one-ring-hasbro-lawsuit-mtg.html"},{"@type":"ListItem","position":8,"url":"https://scrollvault.net/posts/force-negation-returns-historic-shakeup.html"},{"@type":"ListItem","position":9,"url":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"},{"@type":"ListItem","position":10,"url":"https://scrollvault.net/posts/eldrazi-temple-ban-historic-overhaul-necropotence-restricted.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html"},{"@type":"ListItem","position":4,"url":"https://scrollvault.net/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html"},{"@type":"ListItem","position":5,"url":"https://scrollvault.net/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html"},{"@type":"ListItem","position":6,"url":"https://scrollvault.net/posts/arena-powered-cube-returns-2026.html"},{"@type":"ListItem","position":7,"url":"https://scrollvault.net/posts/companion-app-update-player-profiles-are-finally-here.html"},{"@type":"ListItem","position":8,"url":"https://scrollvault.net/posts/the-one-ring-hasbro-lawsuit-mtg.html"},{"@type":"ListItem","position":9,"url":"https://scrollvault.net/posts/force-negation-returns-historic-shakeup.html"},{"@type":"ListItem","position":10,"url":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"}]}</script>
 </body>
 </html>

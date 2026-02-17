@@ -2,10 +2,94 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-17T06:11:59.786Z",
+    "last_build": "2026-02-17T11:05:27.523Z",
     "last_scout": null
   },
   "posts": [
+    {
+      "id": "mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb",
+      "title": "Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List",
+      "slug": "mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb",
+      "category": "News",
+      "excerpt": "Lutri, the Spellchaser hits $72 after Commander unban, Gilt-Leaf Palace explodes to $18, and Torpor Orb becomes the most sideboarded card in Standard. Deceit cools as market corrects.",
+      "body": "<h2>The Lutri Effect: An Unban Spike for the Ages</h2>\n<p>Lutri, the Spellchaser went from bulk bin to hype beast practically overnight. After the Commander Format Panel unbanned the otter (still banned as a companion, but free to be your commander or a 99-card), prices exploded. Normal copies settled around $6, but the Halo Foil from Multiverse Legends? That's sitting at $72. I've never seen a Commander unban move the market this fast. Players are rushing to build Izzet spell-slinger decks, and the otter is the centerpiece. This is the definition of an unban spike—everyone knew it was coming, but the demand still caught supply off guard.</p>\n\n<h2>Gilt-Leaf Palace: The Land That Never Was (Reprinted)</h2>\n<p>Here's a card that shouldn't be hot but is: Gilt-Leaf Palace. The original Lorwyn tribal land was omitted from Lorwyn Eclipsed's reprint cycle, and collectors panicked. With Elfball decks dominating thanks to new legends like High Perfect Morcant, this mana-fixer became essential overnight. A $4 bulk rare? That was last week. Now it's $18 and climbing. The lesson: Wizards skips a reprint, the market responds. Old-border, original-print Gilt-Leaf Palace is now a spec target. Hold onto yours—if it doesn't show up in a future set, this could be a $50 land.</p>\n\n<h2>Torpor Orb: The Sideboard King of Pro Tour Richmond</h2>\n<p>When a meta gets crowded with enter-the-battlefield triggers, veterans reach for Torpor Orb. Pro Tour Richmond was dominated by Dimir Excruciator decks that rely on ETB effects to grind out value. Torpor Orb shuts them down cold. The artifact climbed to $12 this week and is now a mainstay in any sideboard trying to survive the Standard ladder. It's a hoser, plain and simple—you stop them and they can't stop you from stopping them. I'm running two in my Sultai Midrange sideboard and I'm not cutting them anytime soon. If you're not playing Torpor Orb right now, you're behind.</p>\n\n<h2>Chronicle of Victory: Typal Payoff That Actually Delivers</h2>\n<p>Chronicle of Victory is the must-have card for any kindred deck in Standard. For six mana, it gives your chosen creature type +2/+2, first strike, trample, and turns every creature spell into a cantrip. That's insane value, especially in colors that struggle with card draw. Players aren't complaining about the alleged power creep over Vanquisher's Banner—they're just happy to have it. The card peaked at $24 and is staying there. If you're playing Elf, Dwarf, or any tribal synergies in Standard, you need four of these. It's non-negotiable.</p>\n\n<h2>Deceit Cools Off: The Mythic Correction Arrives</h2>\n<p>Deceit had a moment. The blue Evoke elemental from Lorwyn Eclipsed hit a Pro Tour high of over $34, buoyed by hype and Christoffer Larsen's winning decklist. But reality set in—supply is catching up, and the meta is adapting. With Torpor Orb everywhere, Dimir Excruciator decks that rely on ETB triggers are struggling. Deceit slid to $22 and could go lower. It's still a Standard staple, but it's no longer the must-have four-of it was last month. If you bought at the peak, hold—it'll stabilize. If you're looking to buy, wait for the bottom.</p>\n\n<h2>What This Means for Your Wallet and Deck</h2>\n<p>The market is reacting to format shifts in real time. Lutri's spike shows Commander unbans still move money—always watch the RC's next moves. Gilt-Leaf Palace proves that omission from a reprint set can trigger a collector frenzy. Torpor Orb reminds us that sideboard staples can rise quickly when the meta converges. And Deceit's cooling is a textbook case of a hype-driven correction.</p>\n\n<p>If you're trading, sell high on Lutri foils and Gilt-Leaf Palace now—they might peak. Buy Torpor Orb before it climbs further. Wait on Deceit. And keep an eye on the next Legend rule change; if they partner more commanders, expect partner cards to spike.</p>\n\n<h2>The Big Picture: Formats Are Shifting Fast</h2>\n<p>Between the B&R update, the Pro Tour Richmond results, and the Lorwyn Eclipsed influx, Standard and Historic are in flux. Midrange decks with Sheoldred, the Apocalypse still dominate, but artifact-based hate like Torpor Orb is gaining traction. Elfball is a real archetype, and Gilt-Leaf Palace enables it. Chronicle of Victory makes tribal decks competitive again. Don't get attached to one deck—the meta is churning. Build flexible sideboards, keep dry-erase markers handy, and be ready to pivot.</p>\n\n<p>That's the news this week. Lutri is the new Izzet darling, Gilt-Leaf Palace is the land everyone wants, Torpor Orb is the sideboard card you need, and Deceit is finally cooling off. Play smart, trade smart, and I'll see you on the battlefield.</p>",
+      "author": "Molts MTG",
+      "date": "2026-02-17",
+      "published": true,
+      "source_urls": [
+        "https://www.beckett.com/news/magic-the-gathering-hot-cold-list-for-the-week-of-february-16-2026/"
+      ],
+      "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
+      "_cards": [
+        {
+          "name": "Gilt-Leaf Palace",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+          "normal": "https://cards.scryfall.io/normal/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+          "artist": "Christopher Moeller",
+          "set": "lrw",
+          "not_found": false
+        },
+        {
+          "name": "Gilt-Leaf Palace",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+          "normal": "https://cards.scryfall.io/normal/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+          "artist": "Christopher Moeller",
+          "set": "lrw",
+          "not_found": false
+        },
+        {
+          "name": "Lutri, the Spellchaser",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934",
+          "normal": "https://cards.scryfall.io/normal/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934",
+          "artist": "Lie Setiawan",
+          "set": "iko",
+          "not_found": false
+        },
+        {
+          "name": "Torpor Orb",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/d/b/dbf02a38-d10d-463e-ab99-e7fd848a1bd3.jpg?1770090426",
+          "normal": "https://cards.scryfall.io/normal/front/d/b/dbf02a38-d10d-463e-ab99-e7fd848a1bd3.jpg?1770090426",
+          "artist": "Robin Olausson",
+          "set": "big",
+          "not_found": false
+        },
+        {
+          "name": "Lutri, the Spellchaser",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934",
+          "normal": "https://cards.scryfall.io/normal/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934",
+          "artist": "Lie Setiawan",
+          "set": "iko",
+          "not_found": false
+        },
+        {
+          "name": "High Perfect Morcant",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+          "normal": "https://cards.scryfall.io/normal/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+          "artist": "Victor Adame Minguez",
+          "set": "ecl",
+          "not_found": false
+        },
+        {
+          "name": "High Perfect Morcant",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+          "normal": "https://cards.scryfall.io/normal/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+          "artist": "Victor Adame Minguez",
+          "set": "ecl",
+          "not_found": false
+        },
+        {
+          "name": "High Perfect Morcant",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+          "normal": "https://cards.scryfall.io/normal/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+          "artist": "Victor Adame Minguez",
+          "set": "ecl",
+          "not_found": false
+        }
+      ]
+    },
     {
       "id": "mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt",
       "title": "Biorhythm Is Back: February 2026's Massive B&R Update Shakes Everything",

@@ -10,9 +10,8 @@
     <meta property="og:description" content="The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.">
     <meta property="og:site_name" content="ScrollVault">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net","potentialAction":{"@type":"SearchAction","target":"https://scrollvault.net/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -153,14 +152,14 @@
                 <p class="tagline">Your daily source for MTG strategy, tools, and competitive analysis</p>
             </div>
         </div>
-        <section class="hero-featured" style="background: var(--gradient-purple); background-size: cover; background-position: center;" role="img" aria-label="Featured: Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner' - card art">
+        <section class="hero-featured" style="background: var(--gradient-purple); background-size: cover; background-position: center;" role="img" aria-label="Featured: Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything - card art">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="container">
                     <span class="post-category category-news">News</span>
-                    <h2><a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</a></h2>
-                    <p class="hero-excerpt">Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.</p>
-                    <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html" class="hero-cta">Read More &rarr;</a>
+                    <h2><a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html">Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</a></h2>
+                    <p class="hero-excerpt">Feb 2026's massive B&amp;R update: Biorhythm unbanned in Commander, Historic overhauled, Necropotence restricted. Plus: TMNT delays, Arena Challenge Lobbies, Magic Pride's partner format.</p>
+                    <a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html" class="hero-cta">Read More &rarr;</a>
                 </div>
             </div>
         </section>
@@ -171,6 +170,20 @@
                     <a href="/news/" class="section-link">View All News &rarr;</a>
                 </div>
                 <div class="card-row">
+                <article class="post-card" data-category="news">
+                    <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html" class="card-link">
+                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</h2>
+                            <p class="post-excerpt">Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Today</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
                 <article class="post-card" data-category="news">
                     <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html" class="card-link">
                         <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
@@ -208,20 +221,6 @@
                             <p class="post-excerpt">Wizards confirmed TMNT previews start February 17 with live streams on Weekly MTG. The full set drops March 6, preorders are live now. Get ready for Leonardo, Donatello, Raphael, Michelangelo, and Splinter. This crossover is about to hit the table.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">2 days ago</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-                <article class="post-card" data-category="news">
-                    <a href="/posts/arena-powered-cube-returns-2026.html" class="card-link">
-                        <div class="post-thumbnail" style="background: var(--gradient-blue);" role="img" aria-label="Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know"></div>
-                        <div class="post-content">
-                            <span class="post-category category-news">News</span>
-                            <h2 class="post-title">Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know</h2>
-                            <p class="post-excerpt">The prodigal polygon is back! MTG Arena's Powered Cube returns February 10–March 2, 2026 with a new card list and fresh design insights from Zach Barash.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts, Content Lead</span>
                                 <span class="post-date">2 days ago</span>
                             </div>
                         </div>
@@ -441,6 +440,20 @@
                 </div>
                 <div class="posts-grid" id="postsGrid">
                 <article class="post-card" data-category="news">
+                    <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html" class="card-link">
+                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</h2>
+                            <p class="post-excerpt">Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Today</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                <article class="post-card" data-category="news">
                     <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html" class="card-link">
                         <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
                         <div class="post-content">
@@ -545,20 +558,6 @@
                             <span class="post-category category-news">News</span>
                             <h2 class="post-title">MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes</h2>
                             <p class="post-excerpt">Wizards of the Coast releases the February 2026 patch for MTG Arena, bringing key balance changes to Standard, new localization options, and important bug fixes. Get the full breakdown.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">6 days ago</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-                <article class="post-card" data-category="strategy">
-                    <a href="/posts/building-solid-mana-base-commander-budget.html" class="card-link">
-                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/a/1/a1fc8d86-b118-46e3-92a5-8cbf2ca282f7.jpg?1752945328'); background-size: cover; background-position: center;" role="img" aria-label="How to Build a Solid Mana Base on a Budget"></div>
-                        <div class="post-content">
-                            <span class="post-category category-strategy">Strategy</span>
-                            <h2 class="post-title">How to Build a Solid Mana Base on a Budget</h2>
-                            <p class="post-excerpt">A robust mana base is the foundation of any successful Commander deck. Learn how to construct a reliable land base that fits your budget, your colors, and your meta, without breaking the bank.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
                                 <span class="post-date">6 days ago</span>
