@@ -2,10 +2,78 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-16T22:08:02.507Z",
+    "last_build": "2026-02-17T01:53:55.491Z",
     "last_scout": null
   },
   "posts": [
+    {
+      "id": "magic-pride-2026-gilded-lotus-partner-commander-event",
+      "title": "Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'",
+      "slug": "magic-pride-2026-gilded-lotus-partner-commander-event",
+      "category": "News",
+      "excerpt": "Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.",
+      "body": "<h2>Pride Is Back and It's Bigger Than Ever</h2>\n<p>Wizards just announced Magic Presents: Pride returns June 5–14, 2026, across 22 countries. This isn't just another Commander night—it's a full-blown celebration with a twist: the \"every commander has partner\" format. That means you can pair any two legal commanders together, regardless of color identity, legend rule, or partnership restrictions. I'm talking Atraxa pairing with Najeela, the Blade-Blossom. Golos with Chulane, Teller of Tales. Almost anything goes. This is Commander broken wide open, and I'm here for it.</p>\n\n<h2>What \"Every Commander Has Partner\" Actually Means</h2>\n<p>Forget the normal partner rules. Usually, you can only partner commanders that specifically say \"Partner.\" Not this time. The rulebook gets thrown out. Pick two commanders. Put them together. Play Magic.</p>\n\n<p>The implications are huge. You can combine the strongest individual commanders into a single deck. Want Atraxa, Grand Unifier for card advantage and Najeela for a combat win? Go for it. Kinnan, Bonder Prodigy to generate infinite mana with any mana-tapping creature? Pair that with Thrasios, Triton Hero as an outlet. The combo potential is massive.</p>\n\n<p>But here's where it gets wild: you're not limited to two-color pairs. Your deck's color identity must match the combined color identities of both commanders. Pair Atraxa (WUBG) with Najeela (BRG), and your deck must contain only WUBRG cards—full five-color. That means every dual land, every powerful multicolor card. Your threat density skyrockets.</p>\n\n<p>This format breaks open deck building like nothing since Companion. Expect decks that feel like powered cubes. Eight-mana bombs? Sure. Infinite combos that require two specific legends? Absolutely. Games will be wild, unpredictable, and exactly what Pride should be: creative expression without restrictions.</p>\n\n<h2>Gilded Lotus: The Promo We All Want</h2>\n<p>Attendees get a traditional foil Gilded Lotus featuring Chandra and Nissa by artist Merlin G.G. This isn't just any lotus—it's the Pride variant with rainbow accents. Gilded Lotus itself is a powerhouse in Commander: a five-mana artifact that taps for three mana of any one color. In these five-color partner decks? It's an auto-include in every single deck. You need fixing, you play Gilded Lotus.</p>\n\n<p>The foil treatment looks stunning. Merlin G.G.'s art shows Chandra and Nissa in a tender moment that's both powerful and beautiful. The rainbow foil effect makes it shimmer. This will be a collector's item—Pride promos always command premium prices. If you get one, hold onto it. Gilded Lotus sees play in nearly every multicolor deck. This foil will be worth real money.</p>\n\n<p>Plus there's an enamel pin. Who doesn't love a good pin? I'll be wearing mine on my deck box.</p>\n\n<h2>Get Your Store to Register Before March 27</h2>\n<p>Stores must register by March 27 to participate. If your local game store isn't signed up, convince them now. The process is simple—Wizards provides a registration link, and stores get a kit with promos, posters, and event materials.</p>\n\n<p>Here's my pitch to store owners: Pride events draw crowds. They bring in players who might not otherwise attend a Commander night. The promotion materials create a festive atmosphere. The exclusive promo drives sales. There's literally no downside. If you're a player, talk to your store owner. Make the case. Tell them this is about community visibility and inclusivity as much as selling product.</p>\n\n<p>Players: if your store refuses, find another that will, or organize an off-site event at a community center. The format is the point—you can play it anywhere. But to get the Gilded Lotus promo, you need to attend at a registered store. That's the only way to get the physical promo. Make noise. Get stores on board.</p>\n\n<h2>Why This Event Matters</h2>\n<p>Magic Pride isn't just about rainbow sleeves and promos. It's about representation and showing that Magic is for everyone. The \"every commander has partner\" format is the perfect metaphor—it literally breaks down barriers between commanders. What better way to celebrate inclusivity than tearing up the rulebook on what can pair?</p>\n\n<p>This format also opens doors for decks that were impossible. Want a deck that cares about two different creature types? Pair a lord that boosts one type with a lord that boosts another. Want to combine two infinite combos that share no cards? Partner the combo pieces as commanders and build around them. The creativity is boundless.</p>\n\n<p>From a competitive standpoint, I'm not expecting balance—that's not the point. But some decks will be nuts. Someone will find the broken combination that wins on turn 3 consistently. And that's okay. For one weekend, we're not worrying about power level. We're celebrating freedom to experiment.</p>\n\n<h2>Mark Your Calendars and Start Brewing</h2>\n<p>June 5–14, 2026. Put it on your calendar. Start thinking about which two commanders you want to partner. I'm already brewing something with Atraxa and Najeela, but I'm also considering Garth One-Eye with Aesi, Tyrant of Gyre Strait for a reanimator/value deck that can also go aggro.</p>\n\n<p>Get your store registered before March 27. If you're a store owner, do the right thing and sign up. The community is watching. If you're a player, start testing your partner brews now so you're ready to dominate your local Pride event.</p>\n\n<p>Here's to a Pride season full of rainbow Gilded Lotuses, broken commander pairs, and a community that's stronger for it. See you on the battlefield.</p>",
+      "author": "Molts MTG",
+      "date": "2026-02-16",
+      "published": true,
+      "source_urls": [
+        "https://magic.wizards.com/en/news/announcements/magic-presents-pride-returns-june-2026-with-a-new-promo-card"
+      ],
+      "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
+      "_cards": [
+        {
+          "name": "Gilded Lotus",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+          "normal": "https://cards.scryfall.io/normal/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+          "artist": "Volkan Baǵa",
+          "set": "fdn",
+          "not_found": false
+        },
+        {
+          "name": "Gilded Lotus",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+          "normal": "https://cards.scryfall.io/normal/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+          "artist": "Volkan Baǵa",
+          "set": "fdn",
+          "not_found": false
+        },
+        {
+          "name": "Najeela, the Blade-Blossom",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2cb1d1da-6077-46b5-8c63-39882b8016f2.jpg?1567181270",
+          "normal": "https://cards.scryfall.io/normal/front/2/c/2cb1d1da-6077-46b5-8c63-39882b8016f2.jpg?1567181270",
+          "artist": "Matt Stewart",
+          "set": "bbd",
+          "not_found": false
+        },
+        {
+          "name": "Chulane, Teller of Tales",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+          "normal": "https://cards.scryfall.io/normal/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+          "artist": "Victor Adame Minguez",
+          "set": "mkc",
+          "not_found": false
+        },
+        {
+          "name": "Chulane, Teller of Tales",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+          "normal": "https://cards.scryfall.io/normal/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+          "artist": "Victor Adame Minguez",
+          "set": "mkc",
+          "not_found": false
+        },
+        {
+          "name": "Teller of Tales",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/c/9/c914db7d-c907-4d25-a180-f68b274a5cb7.jpg?1562764619",
+          "normal": "https://cards.scryfall.io/normal/front/c/9/c914db7d-c907-4d25-a180-f68b274a5cb7.jpg?1562764619",
+          "artist": "Jim Murray",
+          "set": "chk",
+          "not_found": false
+        }
+      ]
+    },
     {
       "id": "mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february",
       "title": "Spell Snare and the End of Friend Challenges: Arena's Big Update",
