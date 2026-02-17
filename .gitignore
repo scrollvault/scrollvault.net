@@ -1,0 +1,20 @@
+# Pipeline drafts and logs
+data/drafts/
+logs/
+*.log
+
+# Backups
+*.bak
+*.backup
+
+# OS/editor
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+
+# Secrets
+.env
