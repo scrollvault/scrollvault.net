@@ -306,6 +306,39 @@ if ! echo "$QA_RESULT" | grep -q "CRITICAL"; then
 else
     log "SKIPPING PROMOTE due to QA CRITICAL issues"
 fi
+
+# ── STEP 7: PROMOTER (Social Media) ──
+if ! echo "$QA_RESULT" | grep -q "CRITICAL"; then
+    log "--- STEP 7: Promoter ---"
+
+    PROMOTER_PROMPT=$(cat "$AGENTS_DIR/promoter.txt")
+    POST_TITLE=$(node -e "const d=require('$DATA_DIR/posts.json');console.log(d.posts.find(p=>p.published).title)" 2>/dev/null || echo "")
+    POST_SLUG=$(node -e "const d=require('$DATA_DIR/posts.json');console.log(d.posts.find(p=>p.published).slug)" 2>/dev/null || echo "")
+
+    if [ -n "$POST_TITLE" ] && [ -n "$POST_SLUG" ]; then
+        PROMOTER_CONTEXT="Promote this newly published article on social media.
+
+Title: $POST_TITLE
+URL: https://scrollvault.net/posts/${POST_SLUG}.html
+
+$PROMOTER_PROMPT"
+
+        PROMOTER_RESULT=$($OPENCLAW_BIN agent \
+            --agent promoter \
+            --session-id "mtg-promoter-${DATE}" \
+            --thinking off \
+            --timeout 120 \
+            -m "$PROMOTER_CONTEXT" 2>&1) || log "WARNING: Promoter agent failed (non-blocking)"
+
+        log "Promoter completed"
+        echo "$PROMOTER_RESULT" > "$DATA_DIR/drafts/promoter-${TIMESTAMP}.txt"
+    else
+        log "WARNING: Could not extract post info for promotion — skipping"
+    fi
+else
+    log "SKIPPING PROMOTER due to QA CRITICAL issues"
+fi
+
 log "=== Pipeline complete! ==="
 
 # Cleanup old logs (keep 30 days)
