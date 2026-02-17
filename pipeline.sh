@@ -293,22 +293,26 @@ QA_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
 log "QA completed"
 echo "$QA_RESULT" > "$DATA_DIR/drafts/qa-${TIMESTAMP}.txt"
 
-# Check if QA found critical issues
-if echo "$QA_RESULT" | grep -q "CRITICAL"; then
-    log "WARNING: QA found CRITICAL issues — review $DATA_DIR/drafts/qa-${TIMESTAMP}.txt"
+# Check QA verdict — look for machine-readable sentinel on the last line
+QA_PASSED=true
+if echo "$QA_RESULT" | grep -q "QA_VERDICT:FAIL"; then
+    QA_PASSED=false
+    log "WARNING: QA found issues — review $DATA_DIR/drafts/qa-${TIMESTAMP}.txt"
+elif ! echo "$QA_RESULT" | grep -q "QA_VERDICT:PASS"; then
+    # No verdict found — agent may have failed to produce structured output
+    log "WARNING: QA did not produce a verdict — assuming PASS (review $DATA_DIR/drafts/qa-${TIMESTAMP}.txt)"
 fi
 
-
 # ── PROMOTE TO PRODUCTION (if QA passed) ──
-if ! echo "$QA_RESULT" | grep -q "CRITICAL"; then
+if [ "$QA_PASSED" = true ]; then
     log "--- PROMOTE TO PRODUCTION ---"
     "$SCRIPT_DIR/deploy-prod.sh" 2>&1 | tee -a "$LOG_FILE" || log "ERROR: Promote failed!"
 else
-    log "SKIPPING PROMOTE due to QA CRITICAL issues"
+    log "SKIPPING PROMOTE due to QA FAIL verdict"
 fi
 
 # ── STEP 7: PROMOTER (Social Media) ──
-if ! echo "$QA_RESULT" | grep -q "CRITICAL"; then
+if [ "$QA_PASSED" = true ]; then
     log "--- STEP 7: Promoter ---"
 
     PROMOTER_PROMPT=$(cat "$AGENTS_DIR/promoter.txt")
@@ -336,7 +340,7 @@ $PROMOTER_PROMPT"
         log "WARNING: Could not extract post info for promotion — skipping"
     fi
 else
-    log "SKIPPING PROMOTER due to QA CRITICAL issues"
+    log "SKIPPING PROMOTER due to QA FAIL verdict"
 fi
 
 log "=== Pipeline complete! ==="

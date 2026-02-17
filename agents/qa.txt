@@ -114,6 +114,12 @@ Build: [post count from posts.json]
 
 Overall: PASS / FAIL (X issues found)
 
+IMPORTANT: Your very last line of output MUST be one of these exact strings:
+  QA_VERDICT:PASS
+  QA_VERDICT:FAIL
+
+This is machine-parsed by the pipeline. Do not include this keyword anywhere else in your output.
+
 [If any FAIL, list specific issues and suggested fixes]
 
 SEVERITY LEVELS:
