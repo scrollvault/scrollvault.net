@@ -76,7 +76,15 @@
     .article-hero .article-title { font-size: 1.6rem; }
     .article-body p, .article-body li { font-size: 1rem; }
     .article-body > p:first-of-type::first-letter { font-size: 2.75rem; }
-}</style>
+}
+.ctx-links { margin: 2.5rem 0 1.5rem; padding: 1.5rem 2rem; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; }
+.ctx-links h3 { margin: 0 0 1rem; font-size: 1.1rem; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; }
+.ctx-links ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.ctx-links li { flex: 1 1 calc(50% - 0.75rem); min-width: 200px; }
+.ctx-links a { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem; transition: border-color 0.2s, background 0.2s; }
+.ctx-links a:hover { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.1); }
+.ctx-links .ctx-icon { font-size: 1.1rem; flex-shrink: 0; }
+@media (max-width: 600px) { .ctx-links li { flex: 1 1 100%; } }</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -150,6 +158,16 @@
             <a href="https://magic.gg/news/what-kai-budde-meant-to-magic" target="_blank" rel="noopener">https://magic.gg/news/what-kai-budde-meant-to-magic</a>
             <a href="https://magic.gg/news/the-eternal-juggernaut-a-tribute-to-kai-budde" target="_blank" rel="noopener">https://magic.gg/news/the-eternal-juggernaut-a-tribute-to-kai-budde</a>
         </div>
+
+        <div class="ctx-links">
+            <h3>Tools &amp; Guides You Might Like</h3>
+            <ul>
+                <li><a href="/guides/formats.html"><span class="ctx-icon">📋</span> MTG Formats Explained</a></li>
+                <li><a href="/tools/sealed/"><span class="ctx-icon">📦</span> Sealed Pool Simulator</a></li>
+                <li><a href="/tools/commander-bracket/"><span class="ctx-icon">📊</span> Commander Bracket Calculator</a></li>
+                <li><a href="/tools/manabase/"><span class="ctx-icon">🧮</span> Mana Base Calculator</a></li>
+            </ul>
+        </div>
             </section>
         </article>
 
@@ -157,31 +175,31 @@
         <h2>Related Posts</h2>
         <div class="related-grid">
             <div class="related-card">
-                <a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html">
-                    <div class="related-card-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything"></div>
+                <a href="/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html">
+                    <div class="related-card-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Sheoldred's Arena Dream: First Limited Championship Qualifier Announced"></div>
                     <div class="related-card-info">
                         <div class="rc-category" style="color: var(--pill-news)">News</div>
-                        <div class="rc-title">Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</div>
+                        <div class="rc-title">Sheoldred's Arena Dream: First Limited Championship Qualifier Announced</div>
                         <div class="rc-date">-1 days ago</div>
                     </div>
                 </a>
             </div>
             <div class="related-card">
-                <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html">
-                    <div class="related-card-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'"></div>
+                <a href="/posts/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb.html">
+                    <div class="related-card-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List"></div>
                     <div class="related-card-info">
                         <div class="rc-category" style="color: var(--pill-news)">News</div>
-                        <div class="rc-title">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</div>
+                        <div class="rc-title">Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List</div>
                         <div class="rc-date">Today</div>
                     </div>
                 </a>
             </div>
             <div class="related-card">
-                <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html">
-                    <div class="related-card-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
+                <a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html">
+                    <div class="related-card-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything"></div>
                     <div class="related-card-info">
                         <div class="rc-category" style="color: var(--pill-news)">News</div>
-                        <div class="rc-title">Spell Snare and the End of Friend Challenges: Arena's Big Update</div>
+                        <div class="rc-title">Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</div>
                         <div class="rc-date">Today</div>
                     </div>
                 </a>

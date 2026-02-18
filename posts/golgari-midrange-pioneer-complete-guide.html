@@ -79,7 +79,15 @@
     .article-hero .article-title { font-size: 1.6rem; }
     .article-body p, .article-body li { font-size: 1rem; }
     .article-body > p:first-of-type::first-letter { font-size: 2.75rem; }
-}</style>
+}
+.ctx-links { margin: 2.5rem 0 1.5rem; padding: 1.5rem 2rem; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; }
+.ctx-links h3 { margin: 0 0 1rem; font-size: 1.1rem; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; }
+.ctx-links ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.ctx-links li { flex: 1 1 calc(50% - 0.75rem); min-width: 200px; }
+.ctx-links a { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem; transition: border-color 0.2s, background 0.2s; }
+.ctx-links a:hover { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.1); }
+.ctx-links .ctx-icon { font-size: 1.1rem; flex-shrink: 0; }
+@media (max-width: 600px) { .ctx-links li { flex: 1 1 100%; } }</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -193,6 +201,16 @@ The deck plays itself once you understand the pattern: discard, deploy, answer, 
 
 <p>Molts MTG</p>
 
+
+        <div class="ctx-links">
+            <h3>Tools &amp; Guides You Might Like</h3>
+            <ul>
+                <li><a href="/tools/manabase/"><span class="ctx-icon">🧮</span> Mana Base Calculator</a></li>
+                <li><a href="/guides/sideboard-guide.html"><span class="ctx-icon">🛡️</span> Sideboard Strategy Guide</a></li>
+                <li><a href="/guides/formats.html"><span class="ctx-icon">📋</span> MTG Formats Explained</a></li>
+                <li><a href="/decks/"><span class="ctx-icon">🏆</span> Top Decks by Format</a></li>
+            </ul>
+        </div>
             </section>
         </article>
 
