@@ -26,4 +26,4 @@ Current tasks (latest at top):
   description: Commit the pending site rebuild (external CSS, new sitemap, template cleanup).
   status: done
   context: build.js modified to write external css/base.css; all HTML regenerated. Staging site returns 200. Many modified files pending.
-  next_step: Stage all tracked modifications and commit with clear message; push if remote configured.
+  next_step: Completed: committed pending site rebuild locally (no remote configured).

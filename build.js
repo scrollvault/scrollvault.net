@@ -6,6 +6,7 @@ const path = require('path');
 
 const ROOT = __dirname;
 const SITE_URL = "https://scrollvault.net";
+const DEFAULT_OG_IMAGE = SITE_URL + '/og-default.png';
 const DATA_FILE = path.join(ROOT, 'data', 'posts.json');
 const CACHE_FILE = path.join(ROOT, 'data', 'card-cache.json');
 
@@ -378,6 +379,22 @@ function processPostBody(html, cards, category) {
 
 // ── Shared CSS ──
 const CSS = `
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/space-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 :root {
     --bg-dark: #0f0f0f; --card-bg: #1a1a1a; --card-border: rgba(255,255,255,0.08);
     --card-hover-glow: rgba(139,92,246,0.25); --text-primary: #ffffff;
@@ -401,7 +418,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; fon
 a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
 a:hover { color: #a78bfa; }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
-.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(15,15,15,0.98); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
 .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -507,30 +524,41 @@ function footer(rootRel) {
 
 function head(title, description, rootRel, ogImage, options = {}) {
   const { pageUrl = '', ogType = 'article', ldJson = null } = options;
-  const canonicalTag = pageUrl ? `<link rel="canonical" href="${esc(pageUrl)}">` : '';
-  const ogUrlTag = pageUrl ? `<meta property="og:url" content="${esc(pageUrl)}">` : '';
+  const absoluteUrl = pageUrl ? `https://scrollvault.net${pageUrl.startsWith('/') ? '' : '/'}${pageUrl}` : '';
+  const canonicalTag = absoluteUrl ? `<link rel="canonical" href="${esc(absoluteUrl)}">` : '';
+  const ogUrlTag = absoluteUrl ? `<meta property="og:url" content="${esc(absoluteUrl)}">` : '';
   const ogTypeTag = `<meta property="og:type" content="${esc(ogType)}">`;
-  const ogTags = ogImage ? `
-    <meta property="og:image" content="${esc(ogImage)}">
-    <meta property="og:image:width" content="626">
-    <meta property="og:image:height" content="457">` : '';
+  const effectiveOgImage = ogImage || DEFAULT_OG_IMAGE;
+  const ogTags = `
+    <meta property="og:image" content="${esc(effectiveOgImage)}">
+    <meta property="og:image:alt" content="${esc(title)}">`;
+  const twitterTags = `
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="${esc(title)}">
+    <meta name="twitter:description" content="${esc(description)}">
+    <meta name="twitter:image" content="${esc(effectiveOgImage)}">
+    <meta name="twitter:image:alt" content="${esc(title)}">`;
   const ldJsonTag = ldJson ? `<script type="application/ld+json">${JSON.stringify(ldJson)}</script>` : '';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    ${canonicalTag}<title>${esc(title)} | scrollvault.net</title>
+    <meta name="robots" content="index, follow">
+    ${canonicalTag}<title>${esc(title)} | ScrollVault</title>
     <meta name="description" content="${esc(description)}">
     ${ogUrlTag}${ogTypeTag}
     <meta property="og:title" content="${esc(title)}">
     <meta property="og:description" content="${esc(description)}">
-    <meta property="og:site_name" content="ScrollVault">${ogTags}
+    <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:locale" content="en_US">${ogTags}${twitterTags}
     ${ldJsonTag}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="alternate" type="application/rss+xml" title="ScrollVault RSS Feed" href="/feed.xml">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
@@ -774,7 +802,15 @@ const POST_CSS = `
     .article-hero .article-title { font-size: 1.6rem; }
     .article-body p, .article-body li { font-size: 1rem; }
     .article-body > p:first-of-type::first-letter { font-size: 2.75rem; }
-}`;
+}
+.ctx-links { margin: 2.5rem 0 1.5rem; padding: 1.5rem 2rem; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; }
+.ctx-links h3 { margin: 0 0 1rem; font-size: 1.1rem; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; }
+.ctx-links ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.ctx-links li { flex: 1 1 calc(50% - 0.75rem); min-width: 200px; }
+.ctx-links a { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem; transition: border-color 0.2s, background 0.2s; }
+.ctx-links a:hover { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.1); }
+.ctx-links .ctx-icon { font-size: 1.1rem; flex-shrink: 0; }
+@media (max-width: 600px) { .ctx-links li { flex: 1 1 100%; } }`;
 
 // ── STATIC PAGE CSS ──
 const PAGE_CSS = `
@@ -857,7 +893,9 @@ async function main() {
   const cssDir = path.join(OUTPUT_DIR, 'css');
   if (!fs.existsSync(cssDir)) fs.mkdirSync(cssDir, { recursive: true });
   fs.writeFileSync(path.join(cssDir, 'base.css'), CSS.trim());
-  console.log('Wrote css/base.css');
+  const pagesCss = `/* ScrollVault Pages CSS — auto-generated from build.js */\n\n/* Hub pages */\n${HUB_CSS}\n\n/* Index page */\n${INDEX_CSS}\n\n/* Post pages */\n${POST_CSS}\n\n/* Static pages */\n${PAGE_CSS}`;
+  fs.writeFileSync(path.join(cssDir, 'pages.css'), pagesCss.trim());
+  console.log('Wrote css/base.css + css/pages.css');
 
   // ── INDEX PAGE (Authority Hub) ──
   const heroPost = posts[0];
@@ -1056,15 +1094,16 @@ ${gridPosts.map(p => renderPostCard(p)).join('\n')}
     "@type": "WebSite",
     "name": "ScrollVault",
     "url": SITE_URL,
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": SITE_URL + "/?s={search_term_string}",
-      "query-input": "required name=search_term_string"
+    "image": DEFAULT_OG_IMAGE,
+    "publisher": {
+      "@type": "Organization",
+      "name": "ScrollVault",
+      "logo": { "@type": "ImageObject", "url": SITE_URL + "/apple-touch-icon.png" }
     }
   };
 
   const indexHtml = `${head('MTG News and Strategy Blog', 'The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.', '', heroOgImage, { pageUrl: '/', ogType: 'website', ldJson: siteSchema })}
-    <style>${INDEX_CSS}</style>
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -1214,7 +1253,7 @@ ${footer('')}
       }))
     };
     const hubHtml = `${head(title, description, '', heroPost && heroPost.hero_image ? heroPost.hero_image : '', { pageUrl: '/' + slug + '/', ogType: 'website', ldJson: hubSchema })}
-    <style>${HUB_CSS}</style>
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -1225,7 +1264,7 @@ ${slug === 'guides' ? `        <section class="pillar-guides">
             <div class="container">
                 <h2>Evergreen Guides</h2>
                 <div class="pillar-grid">
-                    <div class="pillar-card"><a href="/guides/mana-bases.html"><h3>MTG Mana Base Guide</h3><p>Land counts, color balance, and optimal dual land ratios for every format.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
+                    <div class="pillar-card"><a href="/guides/mana-bases.html"><h3>MTG Manabase Guide</h3><p>Frank Karsten's mana math explained. Land counts, color balance, and optimal dual land ratios for every format.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
                     <div class="pillar-card"><a href="/guides/dual-lands.html"><h3>Dual Land Cycles Guide</h3><p>Complete reference of fetch, shock, fast, and check lands with format legality.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
                     <div class="pillar-card"><a href="/guides/formats.html"><h3>MTG Formats Explained</h3><p>Standard, Modern, Pioneer, Legacy, Vintage, Commander, Pauper, and Limited.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
                     <div class="pillar-card"><a href="/guides/sideboard-guide.html"><h3>Sideboard Strategy Guide</h3><p>The 15-card rule, hate cards, silver bullets, and format-specific tips.</p><span class="pillar-arrow">Read Guide &rarr;</span></a></div>
@@ -1303,6 +1342,78 @@ ${footer('')}
   buildHubPage('deck-guides', 'MTG Deck Guides & Tech', 'Budget builds, competitive decklists, sideboard guides, and deck techs for Standard, Modern, Pioneer, and Commander.', p => p.category === 'Deck Guides');
   buildHubPage('set-reviews', 'MTG Set Reviews', 'Comprehensive set reviews for Constructed and Limited, covering every new Magic: The Gathering release.', p => p.category === 'Set Reviews');
 
+  // ── CONTEXTUAL INTERNAL LINKS ──
+  function generateContextualLinks(post) {
+    const body = (post.body || '').toLowerCase();
+    const title = (post.title || '').toLowerCase();
+    const text = body + ' ' + title;
+    const cat = post.category;
+    const links = [];
+    const used = new Set();
+
+    function add(url, label, icon) {
+      if (!used.has(url)) { used.add(url); links.push({ url, label, icon }); }
+    }
+
+    // Content-aware links based on what the post discusses
+    if (/commander|edh|command zone|command tower/i.test(text))
+      add('/guides/commander-deck-building.html', 'Commander Deck Building Guide', '\u2694\uFE0F');
+    if (/mana\s*base|land\s*count|color(ed)?\s*source|karsten|hypergeometric/i.test(text))
+      add('/tools/manabase/', 'Mana Base Calculator', '\u{1F9EE}');
+    if (/sideboard|post.board|side\s*in|side\s*out|best.of.three/i.test(text))
+      add('/guides/sideboard-guide.html', 'Sideboard Strategy Guide', '\u{1F6E1}\uFE0F');
+    if (/arena|mtga|wildcard|mastery\s*pass|quick\s*draft/i.test(text))
+      add('/guides/arena-beginners-guide.html', 'MTG Arena Beginner\'s Guide', '\u{1F3AE}');
+    if (/dual\s*land|shock\s*land|fetch\s*land|check\s*land|fast\s*land/i.test(text))
+      add('/guides/dual-lands.html', 'Dual Land Cycles Guide', '\u{1F30D}');
+    if (/format|standard|modern|pioneer|legacy|vintage|pauper/i.test(text))
+      add('/guides/formats.html', 'MTG Formats Explained', '\u{1F4CB}');
+    if (/deck\s*list|meta|metagame|top\s*deck|tier/i.test(text))
+      add('/decks/', 'Top Decks by Format', '\u{1F3C6}');
+    if (/sealed|draft|limited|pack|bomb|pick/i.test(text))
+      add('/tools/sealed/', 'Sealed Pool Simulator', '\u{1F4E6}');
+    if (/bracket|power\s*level|cedh|casual/i.test(text))
+      add('/tools/commander-bracket/', 'Commander Bracket Calculator', '\u{1F4CA}');
+    if (/price|budget|expensive|cheap|cost|spike/i.test(text))
+      add('/tools/price-checker/', 'Deck Price Checker', '\u{1F4B0}');
+    if (/ban|banned|restricted|unban|suspend/i.test(text))
+      add('/guides/banned-list.html', 'MTG Banned & Restricted List', '\u{1F6AB}');
+    if (/rotation|rotate|legal\s*set|standard.*set/i.test(text))
+      add('/guides/standard-rotation.html', 'Standard Rotation Guide', '\u{1F504}');
+
+    // Category-based defaults if we have fewer than 2 links
+    if (links.length < 2) {
+      if (cat === 'Deck Guides') {
+        add('/tools/manabase/', 'Mana Base Calculator', '\u{1F9EE}');
+        add('/guides/sideboard-guide.html', 'Sideboard Strategy Guide', '\u{1F6E1}\uFE0F');
+      } else if (cat === 'Strategy') {
+        add('/guides/formats.html', 'MTG Formats Explained', '\u{1F4CB}');
+        add('/decks/', 'Top Decks by Format', '\u{1F3C6}');
+      } else if (cat === 'News') {
+        add('/decks/', 'Top Decks by Format', '\u{1F3C6}');
+        add('/guides/formats.html', 'MTG Formats Explained', '\u{1F4CB}');
+      } else if (cat === 'Spoilers' || cat === 'Set Reviews') {
+        add('/tools/manabase/', 'Mana Base Calculator', '\u{1F9EE}');
+        add('/guides/formats.html', 'MTG Formats Explained', '\u{1F4CB}');
+      }
+    }
+
+    // Always ensure at least the mana base calculator
+    add('/tools/manabase/', 'Mana Base Calculator', '\u{1F9EE}');
+
+    // Cap at 4 links
+    const final = links.slice(0, 4);
+    if (!final.length) return '';
+
+    return `
+        <div class="ctx-links">
+            <h3>Tools &amp; Guides You Might Like</h3>
+            <ul>
+${final.map(l => `                <li><a href="${l.url}"><span class="ctx-icon">${l.icon}</span> ${esc(l.label)}</a></li>`).join('\n')}
+            </ul>
+        </div>`;
+  }
+
   // ── INDIVIDUAL POST PAGES ──
   posts.forEach((post) => {
     const catSlug = CATEGORY_SLUGS[post.category] || 'news';
@@ -1368,16 +1479,19 @@ ${related.map(r => {
 
     // JSON-LD schemas for SEO
     const wordCount = post.body ? post.body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().split(/\s+/).length : 0;
+    const postOgImage = post.hero_image ||
+      ((post._cards || []).find(c => c && c.art_crop) || {}).art_crop ||
+      '';
     const articleSchema = {
       "@context": "https://schema.org",
-      "@type": "Article",
+      "@type": (post.category === 'News' || post.category === 'Spoilers') ? "NewsArticle" : "Article",
       "headline": post.title,
       "description": post.excerpt,
       "datePublished": post.date + "T00:00:00Z",
       "dateModified": post.date + "T00:00:00Z",
       "author": { "@type": "Person", "name": post.author },
-      "publisher": { "@type": "Organization", "name": "ScrollVault" },
-      "image": post.hero_image || "",
+      "publisher": { "@type": "Organization", "name": "ScrollVault", "logo": { "@type": "ImageObject", "url": "https://scrollvault.net/apple-touch-icon.png" } },
+      "image": postOgImage || DEFAULT_OG_IMAGE,
       "wordCount": wordCount,
       "mainEntityOfPage": { "@type": "WebPage", "@id": SITE_URL + "/posts/" + post.slug + ".html" },
       "url": SITE_URL + "/posts/" + post.slug + ".html"
@@ -1397,8 +1511,8 @@ ${related.map(r => {
       ]
     };
 
-    const postHtml = `${head(post.title, post.excerpt, '..', post.hero_image || '', { pageUrl: '/posts/' + post.slug + '.html', ogType: 'article' })}
-    <style>${POST_CSS}</style>
+    const postHtml = `${head(post.title, post.excerpt, '..', postOgImage, { pageUrl: '/posts/' + post.slug + '.html', ogType: 'article' })}
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -1426,6 +1540,7 @@ ${nav('..', '')}
             <section class="article-body" itemprop="articleBody">
 ${bodyContent}
 ${sourcesHtml}
+${generateContextualLinks(post)}
             </section>
         </article>
 ${relatedHtml}
@@ -1444,7 +1559,7 @@ ${hasCards ? TOOLTIP_JS : ''}
   // ── STATIC PAGES ──
   function writePage(filename, title, description, activePage, bodyHtml, options = {}) {
     const html = `${head(title, description, '', '', { pageUrl: '/' + filename, ogType: 'website', ldJson: options.ldJson || null })}
-    <style>${PAGE_CSS}</style>
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -1534,38 +1649,64 @@ ${footer('')}
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How many lands should I play in my MTG deck?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Most 60-card constructed decks run 24-26 lands depending on mana curve. Aggressive decks with low curves can go as low as 20-22, while control decks may want 26-27. Commander decks typically run 36-38 lands plus 10 or more ramp pieces." }
+        "name": "How many lands should I put in my MTG deck?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For a 60-card deck, 23-26 lands is standard. Aggro decks run 22-23, midrange 24-25, and control 25-26. Commander decks (99 cards) need 35-38 lands plus mana rocks. Use Frank Karsten's mana math or a manabase calculator for precise counts based on your specific mana curve and color requirements." }
       },
       {
         "@type": "Question",
-        "name": "How do I balance colors in a multicolor mana base?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Count the colored mana symbols in your deck and allocate land sources proportionally. Use dual lands (shocks, fetches, checks) to cover multiple colors. A good rule of thumb is to have at least 14 sources of each primary color and 10-12 for splash colors." }
+        "name": "What is Frank Karsten's mana math for MTG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Frank Karsten's mana math uses hypergeometric probability to calculate the exact number of colored mana sources needed to cast spells on curve with ~90% consistency. Key numbers for 60-card decks: 14 sources for a single-pip spell, 18 for double-pip, 21+ for triple-pip. This research is the gold standard used by competitive Magic players to build optimal mana bases." }
       },
       {
         "@type": "Question",
-        "name": "What is the best mana base for Commander?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The ideal Commander mana base depends on your color count and budget. Start with 36-38 lands, include all relevant fetch lands and shock lands you can afford, add check lands and fast lands for consistency, and finish with utility lands. Use mana rocks like Sol Ring, Arcane Signet, and Signets for additional fixing." }
+        "name": "How do I build a manabase for Commander?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Start with 36-38 lands in your 99-card deck. Include fetch lands and shock lands for reliable fixing, add check lands and fast lands for budget options, and finish with utility lands like Command Tower and Exotic Orchard. Add 10+ mana rocks (Sol Ring, Arcane Signet, Signets) for ramp. Use a manabase calculator to determine exact colored source counts based on your casting costs." }
       }
     ]
   };
-  writePage('guides/mana-bases.html', 'MTG Mana Base Guide', 'Learn how to build the perfect mana base for any Magic: The Gathering format. Land counts, color balance, and optimal dual land ratios.', 'guides', `
-            <p>Building a solid mana base is the foundation of any successful Magic deck. Whether you're in Standard, Modern, Pioneer, or Commander, understanding how many lands you need, how to balance your colors, and when to play special lands is critical.</p>
-            <h2>Key Principles</h2>
-            <p><strong>Color Balance:</strong> Ensure you have enough sources for each color in your mana cost. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to get precise numbers.</p>
-            <p><strong>Mana Curve:</strong> Higher curves need more lands; low curves can shave a few.</p>
-            <p><strong>Format Considerations:</strong> Some formats have fetch lands, shock lands, or fast lands that affect your decisions.</p>
-            <h2>Land Count Guidelines</h2>
+  writePage('guides/mana-bases.html', 'MTG Manabase Guide — Frank Karsten Mana Math Explained', 'Complete guide to building an MTG manabase using Frank Karsten\'s mana math. Land counts for Standard, Modern, Pioneer, and Commander with hypergeometric probability tables.', 'guides', `
+            <p>Your manabase is the foundation of every Magic: The Gathering deck. A well-built manabase ensures you can cast your spells on curve, while a bad one loses games before they start. This guide covers everything you need to know about building the optimal manabase for any format.</p>
+
+            <h2>Frank Karsten's Mana Math</h2>
+            <p>The gold standard for manabase construction comes from <strong>Frank Karsten</strong>, a Hall of Fame player and mathematician who published groundbreaking research on MTG mana math. Using <strong>hypergeometric probability</strong>, Karsten calculated exactly how many colored mana sources you need to consistently cast your spells on curve. His key finding: you need roughly <strong>14 sources</strong> to reliably cast a single-pip spell on turn one, and <strong>18+ sources</strong> for double-pip costs.</p>
+            <p>Try our <a href="/tools/manabase/">Manabase Calculator</a> to apply Karsten's math to your own deck automatically.</p>
+
+            <h2>Land Count Guidelines by Format</h2>
             <ul>
-                <li>Standard: 24-26 lands (depending on curve)</li>
-                <li>Modern: 24-26 lands with mana fixers</li>
-                <li>Pioneer: 24-26 lands</li>
-                <li>Commander: 36-38 lands on average, with 10+ ramp pieces</li>
+                <li><strong>Standard (60 cards):</strong> 24&ndash;26 lands. Aggro decks can go as low as 22 with a very low curve.</li>
+                <li><strong>Modern (60 cards):</strong> 20&ndash;24 lands. Fetch lands effectively thin your deck; many Modern decks run fewer lands than Standard.</li>
+                <li><strong>Pioneer (60 cards):</strong> 23&ndash;26 lands. Similar to Standard but without fetch land thinning.</li>
+                <li><strong>Commander (99+1 cards):</strong> 35&ndash;38 lands plus 10+ mana rocks and ramp spells. More colors means more dual lands for fixing.</li>
+                <li><strong>Limited (40 cards):</strong> 17 lands is the default. Aggressive decks can go to 16; slow decks may want 18.</li>
             </ul>
-            <h2>Dual Lands and Mana Fixing</h2>
-            <p>Dual lands are the backbone of multicolored decks. Check our <a href="/guides/dual-lands.html">Dual Land Cycles</a> guide for a complete list of fetch, shock, check, and fast lands and which formats they're legal in.</p>
-            <h2>Using the Calculator</h2>
-            <p>Our <a href="/tools/manabase/">Mana Base Calculator</a> lets you input your deck's color distribution and get tailored land recommendations. It's a great starting point, but always playtest and adjust.</p>
+
+            <h2>Colored Source Requirements</h2>
+            <p>Based on Karsten's mana math, here are the colored sources you need in a 60-card deck to cast spells on curve with ~90% reliability:</p>
+            <ul>
+                <li><strong>Single pip (1W):</strong> 14 sources of that color</li>
+                <li><strong>Double pip (WW):</strong> 18 sources</li>
+                <li><strong>Triple pip (WWW):</strong> 21+ sources</li>
+                <li><strong>Early single pip (W on turn 1):</strong> 14 untapped sources</li>
+            </ul>
+            <p>For Commander, multiply these numbers by roughly 1.6x due to the larger deck size (99 cards). Our <a href="/tools/manabase/">manabase calculator</a> handles this math automatically.</p>
+
+            <h2>Types of Mana Fixing</h2>
+            <p><strong>Dual lands</strong> are the backbone of multicolor mana bases. The best dual land cycles (fetch lands, shock lands, original duals) enter untapped and fix multiple colors. See our <a href="/guides/dual-lands.html">complete dual land guide</a> for every cycle and their format legality.</p>
+            <p><strong>Mana rocks</strong> like Sol Ring, Arcane Signet, and Signets provide additional fixing, especially in Commander. Count 2-mana rocks as roughly half a land when building your manabase.</p>
+
+            <h2>Common Manabase Mistakes</h2>
+            <ul>
+                <li>Running too few colored sources for double-pip costs (e.g., only 12 white sources for a WW card)</li>
+                <li>Playing too many tap lands, which slows your curve by a full turn</li>
+                <li>Ignoring mana curve when choosing land count &mdash; a 2.5 average CMC deck needs fewer lands than a 3.5 CMC deck</li>
+                <li>Not accounting for utility lands that don't produce colored mana</li>
+            </ul>
+
+            <h2>Use the Calculator</h2>
+            <p>Our <a href="/tools/manabase/">MTG Manabase Calculator</a> implements Frank Karsten's mana math for every format. Input your deck's color distribution and mana curve, and it will recommend the exact number of lands and colored sources you need. It covers Standard, Modern, Pioneer, Legacy, and Commander.</p>
+
+            <h2>Related Guides &amp; Tools</h2>
+            <p>Explore every dual land cycle in our <a href="/guides/dual-lands.html">Dual Land Cycles Guide</a> or use the interactive <a href="/tools/lands/">Dual Lands Reference Tool</a> to compare options by format. Building a Commander deck? Our <a href="/guides/commander-deck-building.html">Commander Deck Building Guide</a> covers the 10-10-10 framework, power brackets, and budget tips. Check draw probabilities with our <a href="/tools/hypergeometric/">Hypergeometric Calculator</a>.</p>
         `, { ldJson: manaBaseFaq });
   const dualLandsFaq = {
     "@context": "https://schema.org",
@@ -1599,8 +1740,9 @@ ${footer('')}
             </ul>
             <h2>Complete Tables</h2>
             <p>We are building detailed tables for each cycle with images, manacost, conditions, and format legality. Stay tuned.</p>
-            <h2>Related Tools</h2>
-            <p>Use our <a href="/tools/manabase/">Mana Base Calculator</a> to determine how many duals to play in your deck.</p>
+            <h2>Related Tools &amp; Guides</h2>
+            <p>Use our <a href="/tools/manabase/">Mana Base Calculator</a> to determine how many duals to play in your deck. Explore every dual land cycle with our interactive <a href="/tools/lands/">Dual Lands Reference Tool</a>.</p>
+            <p>For land count recommendations by format, read our <a href="/guides/mana-bases.html">Frank Karsten Mana Math Guide</a>. Building a Commander deck? See our <a href="/guides/commander-deck-building.html">Commander Deck Building Guide</a> for EDH-specific mana base advice.</p>
         `, { ldJson: dualLandsFaq });
 
   // ── MTG Formats Explained ──
@@ -1655,7 +1797,7 @@ ${footer('')}
                 <li><strong>Deep, non-rotating gameplay:</strong> Pioneer or Modern</li>
                 <li><strong>Ultimate power level:</strong> Legacy or Vintage</li>
             </ul>
-            <p>Stay up to date on format changes, bans, and metagame shifts with our <a href="/news/">daily MTG news</a>.</p>
+            <p>Stay up to date on format changes, bans, and metagame shifts with our <a href="/news/">daily MTG news</a>. Check our <a href="/guides/banned-list.html">Banned &amp; Restricted List</a> for current bans across all formats, and see our <a href="/guides/standard-rotation.html">Standard Rotation Guide</a> to know what sets are legal right now.</p>
         `, { ldJson: formatsFaq });
 
   // ── How to Build a Sideboard ──
@@ -1712,7 +1854,7 @@ ${footer('')}
                 <li>Ignoring your own deck's mana curve after sideboarding</li>
                 <li>Not testing your sideboard — theory and practice often diverge</li>
             </ul>
-            <p>Ready to build your deck? Use our <a href="/tools/manabase/">Mana Base Calculator</a> to optimize your land base, and check out our other <a href="/guides/">strategy guides</a> for more tips.</p>
+            <p>Ready to build your deck? Use our <a href="/tools/hypergeometric/">Hypergeometric Calculator</a> to compute the odds of drawing your sideboard cards, optimize your land base with the <a href="/tools/manabase/">Mana Base Calculator</a>, and check out our <a href="/decks/">top competitive decks</a> for proven sideboard plans. Browse all our <a href="/guides/">strategy guides</a> for more tips.</p>
         `, { ldJson: sideboardFaq });
 
   // ── Commander Deck Building Guide ──
@@ -1859,6 +2001,140 @@ ${footer('')}
             </ul>
         `, { ldJson: arenaFaq });
 
+  // ── MTG Banned & Restricted List ──
+  const bannedListFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What cards are banned in Standard MTG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Standard bans change with each Banned & Restricted announcement. Recent bans have targeted cards that warp the metagame — check Wizards of the Coast's official announcements for the most current list. Standard bans typically focus on cards with win rates or metagame shares significantly above healthy thresholds." }
+      },
+      {
+        "@type": "Question",
+        "name": "How often does Wizards update the MTG banned list?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Wizards of the Coast issues Banned & Restricted announcements roughly every 4-8 weeks, though emergency bans can happen at any time. Major ban windows typically align with set releases and competitive season milestones. Commander bans are managed separately by the Commander Rules Committee (now under Wizards oversight since late 2024)." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between banned and restricted in MTG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Banned cards cannot be included in your deck at all. Restricted cards (used only in Vintage) are limited to one copy in your deck instead of the usual four. Vintage uses restrictions instead of bans for most powerful cards like Black Lotus and the Moxen, keeping them legal but limited." }
+      }
+    ]
+  };
+  writePage('guides/banned-list.html', 'MTG Banned & Restricted List — Every Format Updated', 'Complete MTG banned and restricted list for Standard, Pioneer, Modern, Legacy, Vintage, Commander, and Pauper. Updated with every B&R announcement.', 'guides', `
+            <p>The Banned &amp; Restricted list is one of the most impactful forces in competitive Magic. When a card gets banned, entire metagames shift overnight. This page covers the current banned and restricted cards across every major format, how bans work, and what to watch for.</p>
+
+            <h2>How Bans Work</h2>
+            <p>Wizards of the Coast monitors competitive data (win rates, metagame share, player sentiment) and issues Banned &amp; Restricted announcements roughly every 4-8 weeks. Cards are banned when they create unhealthy play patterns, suppress diversity, or push win rates beyond acceptable thresholds.</p>
+            <ul>
+                <li><strong>Banned</strong> — The card cannot be included in your deck (main or sideboard)</li>
+                <li><strong>Restricted</strong> — Only used in Vintage; the card is limited to 1 copy instead of 4</li>
+                <li><strong>Suspended</strong> — Used on MTG Arena; temporarily removed while being evaluated</li>
+            </ul>
+
+            <h2>Standard Banned Cards</h2>
+            <p>Standard typically has a short ban list since the format self-corrects through rotation. When bans do happen, they target format-warping threats. Check Wizards' official announcements for the latest updates as Standard evolves with each new set release.</p>
+
+            <h2>Pioneer Banned Cards</h2>
+            <p>Pioneer's ban list was shaped heavily during the format's early years (2019-2021). Key permanent bans include the fetch lands (all 10), plus powerful combo and value engines that proved too dominant. The format is now relatively stable with infrequent changes.</p>
+
+            <h2>Modern Banned Cards</h2>
+            <p>Modern has the most active ban list history among 60-card formats. Iconic bans include Splinter Twin, Birthing Pod, Hogaak, and more recently various Modern Horizons cards. The Modern ban list shapes the format's identity as much as any legal card.</p>
+
+            <h2>Legacy Banned Cards</h2>
+            <p>Legacy bans target cards too powerful even with Force of Will as a safety valve. Recent years have seen bans targeting free spells and efficient threats that bypass Legacy's traditional answers.</p>
+
+            <h2>Vintage Restricted List</h2>
+            <p>Vintage restricts rather than bans most cards (only ante cards, dexterity cards, and Conspiracies are fully banned). The restricted list includes the most iconic cards in Magic's history: Black Lotus, Ancestral Recall, Time Walk, and the Moxen.</p>
+
+            <h2>Commander Banned Cards</h2>
+            <p>Commander bans are managed by the Commander Rules Committee (under Wizards oversight since late 2024). The Commander ban list focuses on cards that create unfun play patterns in multiplayer — fast mana, mass land destruction, and cards that end games immediately without interaction.</p>
+
+            <h2>Pauper Banned Cards</h2>
+            <p>Pauper bans target commons that create degenerate strategies. Despite being commons-only, several cards have proven too powerful including Storm combo pieces, efficient cantrips, and artifact lands.</p>
+
+            <h2>When Is the Next B&amp;R Announcement?</h2>
+            <p>Wizards typically announces B&amp;R updates on their official site and social media. Follow our <a href="/news/">MTG News</a> page for coverage of every announcement, including metagame analysis and what the bans mean for your decks.</p>
+
+            <h2>Related Resources</h2>
+            <p>Understand every format's rules with our <a href="/guides/formats.html">MTG Formats Explained</a> guide. Check the latest <a href="/decks/">top competitive decks</a> to see how the metagame looks post-ban. Use our <a href="/tools/price-checker/">Deck Price Checker</a> to track how bans affect card prices.</p>
+        `, { ldJson: bannedListFaq });
+
+  // ── MTG Standard Rotation Guide ──
+  const rotationFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "When is the next MTG Standard rotation?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Standard rotation happens once per year, typically with the fall set release (around September-October). When rotation occurs, the oldest sets in Standard leave the format. As of 2026, Standard includes a larger window of sets than the previous 2-year model — Wizards expanded Standard to roughly 3 years of sets starting in 2024." }
+      },
+      {
+        "@type": "Question",
+        "name": "What sets are currently legal in Standard MTG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Standard legality changes with each new set release and annual rotation. As of early 2026, Standard includes sets from Wilds of Eldraine (2023) through the most recent release. Check Wizards of the Coast's official page or our set list below for the most current information." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Standard rotation work in MTG?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Once per year, the oldest block of sets rotates out of Standard, and they are no longer legal in the format. This keeps Standard fresh and accessible. Cards that rotate out can still be played in Pioneer, Modern, Legacy, Commander, and other non-rotating formats. Wizards announces rotation dates well in advance so players can plan ahead." }
+      }
+    ]
+  };
+  writePage('guides/standard-rotation.html', 'MTG Standard Rotation Guide — What Sets Are Legal', 'Complete guide to MTG Standard rotation. Current legal sets, upcoming rotation dates, and how rotation works. Updated for 2026.', 'guides', `
+            <p>Standard rotation is one of the most important events on Magic's calendar. When sets rotate out, entire decks can become illegal overnight, while new archetypes emerge. This guide covers everything you need to know about how Standard rotation works, what's currently legal, and how to plan ahead.</p>
+
+            <h2>How Standard Rotation Works</h2>
+            <p>Standard uses a rolling window of recent sets. Once per year (typically with the fall set), the oldest sets leave the format. Wizards expanded Standard's window in 2024, meaning more sets are legal at any given time than under the previous 2-year model.</p>
+            <ul>
+                <li><strong>Rotation frequency:</strong> Once per year (fall set release)</li>
+                <li><strong>Window size:</strong> Approximately 3 years of sets (expanded from 2 years in 2024)</li>
+                <li><strong>What rotates:</strong> The oldest block of sets leaves when the new fall set enters</li>
+            </ul>
+
+            <h2>Currently Legal Sets</h2>
+            <p>Standard currently includes all Standard-legal sets released from Wilds of Eldraine (September 2023) through the most recent release. This includes:</p>
+            <ul>
+                <li><strong>Wilds of Eldraine</strong> (September 2023)</li>
+                <li><strong>The Lost Caverns of Ixalan</strong> (November 2023)</li>
+                <li><strong>Murders at Karlov Manor</strong> (February 2024)</li>
+                <li><strong>Outlaws of Thunder Junction</strong> (April 2024)</li>
+                <li><strong>Bloomburrow</strong> (August 2024)</li>
+                <li><strong>Duskmourn: House of Horror</strong> (September 2024)</li>
+                <li><strong>Foundations</strong> (November 2024)</li>
+                <li><strong>Aetherdrift</strong> (February 2025)</li>
+                <li><strong>Tarkir: Dragonstorm</strong> (April 2025)</li>
+                <li><strong>Final Fantasy</strong> (June 2025)</li>
+            </ul>
+            <p><em>Note: This list is updated periodically. Check Wizards of the Coast for the most current legal sets.</em></p>
+
+            <h2>Upcoming 2026 Releases</h2>
+            <p>Several new sets will enter Standard throughout 2026:</p>
+            <ul>
+                <li><strong>TMNT (Teenage Mutant Ninja Turtles)</strong> — Q1 2026</li>
+                <li><strong>Marvel Super Heroes</strong> — Q2 2026</li>
+                <li><strong>The Hobbit</strong> — Q3 2026</li>
+                <li><strong>Reality Fracture</strong> — Q4 2026 (likely rotation set)</li>
+            </ul>
+
+            <h2>Planning for Rotation</h2>
+            <ul>
+                <li><strong>3-4 months before rotation:</strong> Avoid investing heavily in cards from the oldest legal sets</li>
+                <li><strong>1 month before:</strong> Start testing decks that use only cards from the sets that will survive rotation</li>
+                <li><strong>Rotation day:</strong> The new Standard metagame is wide open — early brewers often find the best decks first</li>
+                <li><strong>After rotation:</strong> Rotating cards often drop in price but may see play in Pioneer or Modern</li>
+            </ul>
+
+            <h2>Standard on MTG Arena</h2>
+            <p>MTG Arena implements Standard rotation automatically — cards from rotated sets become illegal in Standard queues but remain playable in Historic, Explorer, and other Arena formats. Your collection is never truly lost. For Arena-specific tips, see our <a href="/guides/arena-beginners-guide.html">MTG Arena Beginner's Guide</a>.</p>
+
+            <h2>Related Resources</h2>
+            <p>Browse the <a href="/decks/">top Standard decks</a> to see what's performing in the current metagame. Learn about all formats in our <a href="/guides/formats.html">MTG Formats Explained</a> guide. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to optimize your Standard deck's land base.</p>
+        `, { ldJson: rotationFaq });
+
   writePage('about/authors.html', 'Our Authors', 'Meet the writers behind ScrollVault. Expert Magic: The Gathering players providing daily news, strategy, and deck guides.', 'about', `
             <p>ScrollVault is written by a team of dedicated Magic players who have been slinging cardboard since the early days. We combine human passion with AI-assisted research to bring you timely, accurate coverage.</p>
             <h2>Molts MTG</h2>
@@ -1881,40 +2157,50 @@ ${footer('')}
         `);
   // ── SITEMAP ──
   const today = new Date().toISOString().split('T')[0];
+  const publishedPosts = data.posts.filter(p => p.published);
+  // Hub pages get lastmod from the most recent post in that category (or site-wide)
+  const latestPostDate = publishedPosts.length ? publishedPosts[0].date : today;
+  const latestByCategory = {};
+  for (const p of publishedPosts) {
+    const cat = p.category || 'News';
+    if (!latestByCategory[cat] || p.date > latestByCategory[cat]) latestByCategory[cat] = p.date;
+  }
+
   const sitemapUrls = [
-    { loc: '/', changefreq: 'daily', priority: '1.0' },
-    { loc: '/news/', changefreq: 'daily', priority: '0.8' },
-    { loc: '/guides/', changefreq: 'weekly', priority: '0.8' },
-    { loc: '/spoilers/', changefreq: 'weekly', priority: '0.7' },
-    { loc: '/deck-guides/', changefreq: 'weekly', priority: '0.7' },
-    { loc: '/set-reviews/', changefreq: 'weekly', priority: '0.7' },
-    { loc: '/about.html', changefreq: 'monthly', priority: '0.5' },
-    { loc: '/contact.html', changefreq: 'monthly', priority: '0.5' },
-    { loc: '/privacy.html', changefreq: 'yearly', priority: '0.3' },
-    { loc: '/terms.html', changefreq: 'yearly', priority: '0.3' },
-    { loc: '/about/authors.html', changefreq: 'monthly', priority: '0.4' },
-    { loc: '/about/editorial-policy.html', changefreq: 'monthly', priority: '0.4' },
-    { loc: '/guides/mana-bases.html', changefreq: 'monthly', priority: '0.6' },
-    { loc: '/guides/dual-lands.html', changefreq: 'monthly', priority: '0.6' },
-    { loc: '/guides/formats.html', changefreq: 'monthly', priority: '0.6' },
-    { loc: '/guides/sideboard-guide.html', changefreq: 'monthly', priority: '0.6' },
-    { loc: '/guides/commander-deck-building.html', changefreq: 'monthly', priority: '0.6' },
-    { loc: '/guides/arena-beginners-guide.html', changefreq: 'monthly', priority: '0.6' },
+    { loc: '/', changefreq: 'daily', priority: '1.0', lastmod: latestPostDate },
+    { loc: '/news/', changefreq: 'daily', priority: '0.8', lastmod: latestByCategory['News'] || latestPostDate },
+    { loc: '/guides/', changefreq: 'weekly', priority: '0.8', lastmod: latestByCategory['Strategy'] || latestPostDate },
+    { loc: '/spoilers/', changefreq: 'weekly', priority: '0.7', lastmod: latestByCategory['Spoilers'] || latestPostDate },
+    { loc: '/deck-guides/', changefreq: 'weekly', priority: '0.7', lastmod: latestByCategory['Deck Guides'] || latestPostDate },
+    { loc: '/set-reviews/', changefreq: 'weekly', priority: '0.7', lastmod: latestByCategory['Set Reviews'] || latestPostDate },
+    { loc: '/about.html', changefreq: 'monthly', priority: '0.5', lastmod: '2026-02-06' },
+    { loc: '/contact.html', changefreq: 'monthly', priority: '0.5', lastmod: '2026-02-06' },
+    { loc: '/privacy.html', changefreq: 'yearly', priority: '0.3', lastmod: '2026-02-06' },
+    { loc: '/terms.html', changefreq: 'yearly', priority: '0.3', lastmod: '2026-02-06' },
+    { loc: '/about/authors.html', changefreq: 'monthly', priority: '0.4', lastmod: '2026-02-06' },
+    { loc: '/about/editorial-policy.html', changefreq: 'monthly', priority: '0.4', lastmod: '2026-02-06' },
+    { loc: '/guides/mana-bases.html', changefreq: 'monthly', priority: '0.6', lastmod: '2026-02-13' },
+    { loc: '/guides/dual-lands.html', changefreq: 'monthly', priority: '0.6', lastmod: '2026-02-13' },
+    { loc: '/guides/formats.html', changefreq: 'monthly', priority: '0.6', lastmod: '2026-02-13' },
+    { loc: '/guides/sideboard-guide.html', changefreq: 'monthly', priority: '0.6', lastmod: '2026-02-13' },
+    { loc: '/guides/commander-deck-building.html', changefreq: 'monthly', priority: '0.6', lastmod: '2026-02-13' },
+    { loc: '/guides/arena-beginners-guide.html', changefreq: 'monthly', priority: '0.6', lastmod: '2026-02-13' },
+    { loc: '/guides/banned-list.html', changefreq: 'weekly', priority: '0.7', lastmod: '2026-02-13' },
+    { loc: '/guides/standard-rotation.html', changefreq: 'monthly', priority: '0.6', lastmod: '2026-02-13' },
     // Hand-crafted pages
-    { loc: '/decks/', changefreq: 'weekly', priority: '0.8' },
-    { loc: '/draft/', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/tools/', changefreq: 'monthly', priority: '0.8' },
-    { loc: '/tools/manabase/', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/tools/lands/', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/tools/hypergeometric/', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/tools/hand-simulator/', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/tools/price-checker/', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/tools/commander-bracket/', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/tools/sealed/', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/decks/', changefreq: 'weekly', priority: '0.8', lastmod: '2026-02-14' },
+    { loc: '/draft/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-14' },
+    { loc: '/tools/', changefreq: 'monthly', priority: '0.8', lastmod: '2026-02-13' },
+    { loc: '/tools/manabase/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-13' },
+    { loc: '/tools/lands/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-13' },
+    { loc: '/tools/hypergeometric/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-13' },
+    { loc: '/tools/hand-simulator/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-13' },
+    { loc: '/tools/price-checker/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-13' },
+    { loc: '/tools/commander-bracket/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-13' },
+    { loc: '/tools/sealed/', changefreq: 'monthly', priority: '0.7', lastmod: '2026-02-13' },
   ];
 
   // Add all published posts
-  const publishedPosts = data.posts.filter(p => p.published);
   for (const post of publishedPosts) {
     sitemapUrls.push({
       loc: `/posts/${post.slug}.html`,
@@ -1924,22 +2210,91 @@ ${footer('')}
     });
   }
 
+  // Build image lookup for post URLs
+  const postImageMap = {};
+  for (const p of publishedPosts) {
+    const img = p.hero_image || ((p._cards || []).find(c => c && c.art_crop) || {}).art_crop || '';
+    if (img) postImageMap[`/posts/${p.slug}.html`] = { loc: img, title: p.title };
+  }
+
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapUrls.map(u => `  <url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${sitemapUrls.map(u => {
+    const imgData = postImageMap[u.loc];
+    return `  <url>
     <loc>${SITE_URL}${u.loc}</loc>
     <lastmod>${u.lastmod || today}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
-  </url>`).join('\n')}
+    <priority>${u.priority}</priority>${imgData ? `
+    <image:image>
+      <image:loc>${rssEsc(imgData.loc)}</image:loc>
+      <image:title>${rssEsc(imgData.title)}</image:title>
+    </image:image>` : ''}
+  </url>`;
+  }).join('\n')}
 </urlset>`;
 
   fs.writeFileSync(path.join(OUTPUT_DIR, 'sitemap.xml'), sitemapXml);
   console.log(`Sitemap generated with ${sitemapUrls.length} URLs.`);
 
+  // ── RSS FEED ──
+  const rssItems = publishedPosts.slice(0, 20);
+  function rssEsc(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>ScrollVault - MTG News &amp; Strategy</title>
+  <link>${SITE_URL}</link>
+  <description>The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.</description>
+  <language>en-us</language>
+  <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+  <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
+${rssItems.map(p => `  <item>
+    <title>${rssEsc(p.title)}</title>
+    <link>${SITE_URL}/posts/${p.slug}.html</link>
+    <guid isPermaLink="true">${SITE_URL}/posts/${p.slug}.html</guid>
+    <pubDate>${new Date(p.date + 'T12:00:00Z').toUTCString()}</pubDate>
+    <category>${rssEsc(p.category)}</category>
+    <description>${rssEsc(p.excerpt)}</description>
+  </item>`).join('\n')}
+</channel>
+</rss>`;
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'feed.xml'), rssXml);
+  console.log(`RSS feed generated with ${rssItems.length} items.`);
+
+  // ── Google News Sitemap (last 2 days only) ──
+  const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const newsItems = publishedPosts.filter(p => p.date >= twoDaysAgo);
+  const newsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${newsItems.map(p => {
+    const newsImg = p.hero_image || ((p._cards || []).find(c => c && c.art_crop) || {}).art_crop || '';
+    return `  <url>
+    <loc>${SITE_URL}/posts/${p.slug}.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>ScrollVault</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>${p.date}T12:00:00Z</news:publication_date>
+      <news:title>${rssEsc(p.title)}</news:title>
+    </news:news>${newsImg ? `
+    <image:image>
+      <image:loc>${rssEsc(newsImg)}</image:loc>
+      <image:title>${rssEsc(p.title)}</image:title>
+    </image:image>` : ''}
+  </url>`;
+  }).join('\n')}
+</urlset>`;
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'news-sitemap.xml'), newsSitemap);
+  console.log(`News sitemap generated with ${newsItems.length} items.`);
+
   // ── Sync shared assets and hand-crafted pages when building to a different output dir ──
   if (OUTPUT_DIR !== ROOT) {
-    const syncFiles = ['robots.txt', 'favicon.svg', 'apple-touch-icon.png', '.htaccess'];
+    const syncFiles = ['robots.txt', 'favicon.svg', 'apple-touch-icon.png', 'og-default.png', '.htaccess'];
     for (const f of syncFiles) {
       const src = path.join(ROOT, f);
       if (fs.existsSync(src)) {

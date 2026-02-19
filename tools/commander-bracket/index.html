@@ -12,9 +12,8 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://scrollvault.net/tools/commander-bracket/">
     <link rel="canonical" href="https://scrollvault.net/tools/commander-bracket/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
@@ -31,6 +30,22 @@
     }
     </script>
 <style>
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/space-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 /* ── Theme Variables ── */
 :root {
     --bg-dark: #0f0f0f;
@@ -57,7 +72,7 @@ a:hover { color: #a78bfa; }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
 
 /* ── Nav ── */
-.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
 .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -370,17 +385,21 @@ async function scryfallFetch(url) {
 
 // ── Known Card Lists ──
 const FAST_MANA = [
-    'Sol Ring', 'Mana Crypt', 'Mana Vault', 'Chrome Mox', 'Mox Diamond', 'Mox Opal',
-    'Lotus Petal', 'Dark Ritual', 'Cabal Ritual', 'Jeweled Lotus', 'Ancient Tomb',
+    'Sol Ring', 'Mana Vault', 'Chrome Mox', 'Mox Diamond', 'Mox Opal',
+    'Lotus Petal', 'Dark Ritual', 'Cabal Ritual', 'Ancient Tomb',
     'Grim Monolith', "Lion's Eye Diamond", 'Simian Spirit Guide', 'Elvish Spirit Guide',
     'Carpet of Flowers', 'Wild Growth', 'Utopia Sprawl', 'Birds of Paradise',
     'Llanowar Elves', 'Elvish Mystic', 'Deathrite Shaman', 'Arcane Signet'
 ];
 
+// Banned cards loaded from /data/land-legality.json at runtime
+let BANNED_CARDS = [];
+let BANNED_DATE = '';
+
 const TUTORS = [
     'Demonic Tutor', 'Vampiric Tutor', 'Imperial Seal', 'Mystical Tutor',
     'Enlightened Tutor', 'Worldly Tutor', 'Gamble', 'Survival of the Fittest',
-    'Natural Order', "Green Sun's Zenith", 'Chord of Calling', 'Collected Company',
+    'Natural Order', "Green Sun's Zenith", 'Chord of Calling',
     'Finale of Devastation', 'Tooth and Nail', 'Defense of the Heart', 'Idyllic Tutor',
     'Academy Rector', 'Buried Alive', 'Entomb', 'Intuition', 'Personal Tutor',
     'Fabricate', 'Trinket Mage', 'Trophy Mage', 'Tribute Mage', 'Stoneforge Mystic',
@@ -444,10 +463,12 @@ function parseDeckList(text) {
     const entries = [];
     for (const line of text.split('\n')) {
         const trimmed = line.trim();
-        if (!trimmed || trimmed.startsWith('//') || trimmed.toLowerCase() === 'sideboard') continue;
-        const match = trimmed.match(/^(\d+)\s+(.+)/);
+        if (!trimmed || trimmed.startsWith('//') || trimmed.toLowerCase() === 'sideboard' || trimmed.toLowerCase() === 'sideboard:') continue;
+        const match = trimmed.match(/^(\d+)x?\s+(.+)/i);
         if (match) {
-            entries.push({ count: parseInt(match[1]), name: match[2].trim() });
+            // Strip MTGA set codes like "(M25) 141"
+            let name = match[2].trim().replace(/\s*\([A-Z0-9]+\)\s*\d+\s*$/, '').trim();
+            entries.push({ count: parseInt(match[1]), name });
         }
     }
     return entries;
@@ -511,90 +532,70 @@ function getBracket(power) {
     return             { num: 4, name: 'cEDH',         cssClass: 'bracket-4', color: '#f87171' };
 }
 
-// ── Detect land cards heuristically ──
-const BASIC_LANDS = ['plains', 'island', 'swamp', 'mountain', 'forest',
-    'snow-covered plains', 'snow-covered island', 'snow-covered swamp',
-    'snow-covered mountain', 'snow-covered forest', 'wastes'];
-
-function isLikelyLand(name) {
-    const lower = name.toLowerCase();
-    if (BASIC_LANDS.includes(lower)) return true;
-    // Common land keywords
-    const landKeywords = ['command tower', 'ancient tomb', 'city of brass', 'mana confluence',
-        'exotic orchard', 'reflecting pool', 'fetch', 'shock', 'temple',
-        'pathway', 'triome', 'cave of', 'vault of'];
-    // If card name contains common land patterns
-    for (const kw of landKeywords) {
-        if (lower.includes(kw)) return true;
+// ── Scryfall batch lookup for real card data ──
+async function lookupCards(entries) {
+    const cardMap = {}; // name (lowercase) → { cmc, type_line, legalities }
+    // Deduplicate names
+    const uniqueNames = [];
+    const seen = new Set();
+    for (const e of entries) {
+        const key = e.name.toLowerCase();
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniqueNames.push(e.name);
+        }
     }
-    return false;
+    // Scryfall /cards/collection accepts up to 75 identifiers per request
+    for (let i = 0; i < uniqueNames.length; i += 75) {
+        const batch = uniqueNames.slice(i, i + 75);
+        const identifiers = batch.map(n => ({ name: n }));
+        try {
+            const now = Date.now();
+            const wait = Math.max(0, SCRYFALL_DELAY - (now - lastScryfallCall));
+            if (wait > 0) await new Promise(r => setTimeout(r, wait));
+            lastScryfallCall = Date.now();
+            const res = await fetch('https://api.scryfall.com/cards/collection', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identifiers })
+            });
+            if (!res.ok) continue;
+            const data = await res.json();
+            for (const card of (data.data || [])) {
+                cardMap[card.name.toLowerCase()] = {
+                    cmc: card.cmc || 0,
+                    type_line: card.type_line || '',
+                    legalities: card.legalities || {}
+                };
+                // Also index by just the front face name for DFCs
+                if (card.card_faces && card.card_faces.length > 0) {
+                    const frontName = card.card_faces[0].name.toLowerCase();
+                    if (frontName !== card.name.toLowerCase()) {
+                        cardMap[frontName] = cardMap[card.name.toLowerCase()];
+                    }
+                }
+            }
+        } catch (e) {
+            // If Scryfall fails, continue — cards not found will use fallback CMC
+        }
+    }
+    return cardMap;
 }
 
-// ── Estimate CMC from card name heuristically ──
-// Since we cannot query Scryfall for every card, we provide rough estimates
-// for known cards and a default for unknowns.
-const KNOWN_CMC = {};
-function setCmc(name, cmc) { KNOWN_CMC[name.toLowerCase()] = cmc; }
-
-// Fast mana
-setCmc('Sol Ring', 1); setCmc('Mana Crypt', 0); setCmc('Mana Vault', 1);
-setCmc('Chrome Mox', 0); setCmc('Mox Diamond', 0); setCmc('Mox Opal', 0);
-setCmc('Lotus Petal', 0); setCmc('Dark Ritual', 1); setCmc('Cabal Ritual', 2);
-setCmc('Jeweled Lotus', 0); setCmc('Grim Monolith', 2); setCmc("Lion's Eye Diamond", 0);
-setCmc('Simian Spirit Guide', 3); setCmc('Elvish Spirit Guide', 3);
-setCmc('Carpet of Flowers', 1); setCmc('Wild Growth', 1); setCmc('Utopia Sprawl', 1);
-setCmc('Birds of Paradise', 1); setCmc('Llanowar Elves', 1); setCmc('Elvish Mystic', 1);
-setCmc('Deathrite Shaman', 1); setCmc('Arcane Signet', 2); setCmc('Ancient Tomb', 0);
-
-// Tutors
-setCmc('Demonic Tutor', 2); setCmc('Vampiric Tutor', 1); setCmc('Imperial Seal', 1);
-setCmc('Mystical Tutor', 1); setCmc('Enlightened Tutor', 1); setCmc('Worldly Tutor', 1);
-setCmc('Gamble', 1); setCmc('Survival of the Fittest', 2); setCmc('Natural Order', 4);
-setCmc("Green Sun's Zenith", 1); setCmc('Chord of Calling', 3); setCmc('Collected Company', 4);
-setCmc('Finale of Devastation', 2); setCmc('Tooth and Nail', 7); setCmc('Defense of the Heart', 4);
-setCmc('Idyllic Tutor', 3); setCmc('Academy Rector', 4); setCmc('Buried Alive', 3);
-setCmc('Entomb', 1); setCmc('Intuition', 3); setCmc('Personal Tutor', 1);
-setCmc('Fabricate', 3); setCmc('Trinket Mage', 3); setCmc('Trophy Mage', 3);
-setCmc('Tribute Mage', 3); setCmc('Stoneforge Mystic', 2);
-setCmc('Recruiter of the Guard', 3); setCmc('Imperial Recruiter', 3);
-
-// Interaction
-setCmc('Swords to Plowshares', 1); setCmc('Path to Exile', 1); setCmc('Cyclonic Rift', 2);
-setCmc('Counterspell', 2); setCmc('Swan Song', 1); setCmc('Fierce Guardianship', 3);
-setCmc('Force of Will', 5); setCmc('Force of Negation', 3); setCmc('Mana Drain', 2);
-setCmc('Pact of Negation', 0); setCmc('Deadly Rollick', 4); setCmc('Deflecting Swat', 3);
-setCmc('Beast Within', 3); setCmc('Generous Gift', 3); setCmc('Chaos Warp', 3);
-setCmc("Nature's Claim", 1); setCmc('Abrupt Decay', 2); setCmc("Assassin's Trophy", 2);
-setCmc('Anguished Unmaking', 3); setCmc('Farewell', 6); setCmc('Toxic Deluge', 3);
-setCmc('Vandalblast', 1); setCmc('Austere Command', 6); setCmc('Wrath of God', 4);
-setCmc('Damnation', 4); setCmc('Blasphemous Act', 9);
-
-// Combos
-setCmc("Thassa's Oracle", 2); setCmc('Demonic Consultation', 1); setCmc('Tainted Pact', 2);
-setCmc('Laboratory Maniac', 3); setCmc('Jace, Wielder of Mysteries', 4);
-setCmc('Isochron Scepter', 2); setCmc('Dramatic Reversal', 2); setCmc('Basalt Monolith', 3);
-setCmc('Rings of Brighthearth', 3); setCmc('Walking Ballista', 0);
-setCmc('Heliod, Sun-Crowned', 3); setCmc('Kiki-Jiki, Mirror Breaker', 5);
-setCmc('Splinter Twin', 4); setCmc('Zealous Conscripts', 5); setCmc('Pestermite', 3);
-setCmc('Deceiver Exarch', 3); setCmc('Dualcaster Mage', 3); setCmc('Ghostly Flicker', 3);
-setCmc('Peregrine Drake', 5); setCmc('Deadeye Navigator', 6); setCmc('Palinchron', 7);
-setCmc('Food Chain', 3); setCmc('Squee, the Immortal', 3); setCmc('Eternal Scourge', 3);
-setCmc('Underworld Breach', 2); setCmc('Brain Freeze', 2); setCmc('Grinding Station', 2);
-setCmc('Altar of Dementia', 2); setCmc('Phyrexian Altar', 3); setCmc("Ashnod's Altar", 3);
-
-// Card advantage
-setCmc('Rhystic Study', 3); setCmc('Mystic Remora', 1); setCmc('Necropotence', 3);
-setCmc('Sylvan Library', 2); setCmc('Esper Sentinel', 1); setCmc('Smothering Tithe', 4);
-setCmc('Black Market Connections', 3); setCmc('Phyrexian Arena', 3);
-setCmc('Dark Confidant', 2); setCmc('Ad Nauseam', 5); setCmc('Peer into the Abyss', 7);
-setCmc('Consecrated Sphinx', 6); setCmc('Tymna the Weaver', 3);
-
-function getEstimatedCmc(name) {
-    const lower = name.toLowerCase();
-    if (KNOWN_CMC.hasOwnProperty(lower)) return KNOWN_CMC[lower];
-    if (isLikelyLand(name)) return null; // Lands have no CMC for averaging
-    return 3; // Default estimate for unknown nonland cards
+// Load banned list from JSON
+function loadBanList() {
+    return fetch('/data/land-legality.json')
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(data => {
+            if (data && data.commanderBanned) {
+                BANNED_CARDS = data.commanderBanned;
+                BANNED_DATE = data.updated || '';
+            }
+        })
+        .catch(() => {}); // Keep empty fallback
 }
+// Load ban list on page init
+loadBanList();
 
 // ── Main Analysis ──
 async function analyzeDeck() {
@@ -608,7 +609,7 @@ async function analyzeDeck() {
     const btnText = document.getElementById('btnText');
     const btnSpinner = document.getElementById('btnSpinner');
     btn.disabled = true;
-    btnText.textContent = 'Analyzing...';
+    btnText.textContent = 'Looking up cards...';
     btnSpinner.style.display = 'inline-block';
 
     try {
@@ -618,9 +619,27 @@ async function analyzeDeck() {
             return;
         }
 
+        // Scryfall batch lookup for real card data
+        btnText.textContent = 'Analyzing deck...';
+        const cardMap = await lookupCards(entries);
+
         // Count total cards
         let totalCards = 0;
         for (const e of entries) totalCards += e.count;
+
+        // Check for banned cards using both Scryfall data and JSON banlist
+        const bannedSet = new Set(BANNED_CARDS.map(c => c.toLowerCase()));
+        const foundBanned = [];
+        for (const entry of entries) {
+            const lower = entry.name.toLowerCase();
+            const scryfallData = cardMap[lower];
+            // Check Scryfall legalities OR our JSON banlist
+            const isBannedScryfall = scryfallData && scryfallData.legalities.commander === 'banned';
+            const isBannedList = bannedSet.has(lower);
+            if (isBannedScryfall || isBannedList) {
+                foundBanned.push(entry.name);
+            }
+        }
 
         // Classify cards
         const detected = {
@@ -638,7 +657,7 @@ async function analyzeDeck() {
             cardAdvantage: 0
         };
 
-        // Track CMC
+        // Track CMC using Scryfall data
         let cmcTotal = 0;
         let cmcCount = 0;
 
@@ -653,10 +672,16 @@ async function analyzeDeck() {
                 }
             }
 
-            // CMC tracking
-            const cmc = getEstimatedCmc(entry.name);
-            if (cmc !== null) {
-                cmcTotal += cmc * entry.count;
+            // CMC tracking using Scryfall data
+            const scryfallData = cardMap[nameKey];
+            if (scryfallData) {
+                // Skip lands for CMC averaging
+                if (scryfallData.type_line.includes('Land')) continue;
+                cmcTotal += scryfallData.cmc * entry.count;
+                cmcCount += entry.count;
+            } else {
+                // Fallback: assume CMC 3 for unknown non-land cards
+                cmcTotal += 3 * entry.count;
                 cmcCount += entry.count;
             }
         }
@@ -712,8 +737,14 @@ async function analyzeDeck() {
         animateGauge(powerLevel, bracket);
 
         // Bracket badge
-        document.getElementById('bracketBadge').innerHTML =
-            `<div class="bracket-badge ${bracket.cssClass}">Bracket ${bracket.num} &mdash; ${bracket.name}</div>`;
+        let badgeHtml = `<div class="bracket-badge ${bracket.cssClass}">Bracket ${bracket.num} &mdash; ${bracket.name}</div>`;
+        if (foundBanned.length > 0) {
+            badgeHtml += `<div style="margin-top:0.75rem;padding:0.6rem 1rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;font-size:0.85rem;color:#fca5a5;">
+                <strong style="color:#f87171;">Banned Cards Detected:</strong> ${foundBanned.map(c => escapeHtml(c)).join(', ')}
+                <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.25rem;">These cards are banned in Commander${BANNED_DATE ? ' (banlist updated ' + escapeHtml(BANNED_DATE) + ')' : ''}. Remove them for a legal decklist.</div>
+            </div>`;
+        }
+        document.getElementById('bracketBadge').innerHTML = badgeHtml;
 
         // Category breakdown bars
         renderCategoryBars(scores, counts);
@@ -884,7 +915,6 @@ function escapeHtml(str) {
 function loadSampleDeck() {
     document.getElementById('commanderInput').value = 'Korvold, Fae-Cursed King';
     document.getElementById('decklistInput').value = `1 Sol Ring
-1 Mana Crypt
 1 Arcane Signet
 1 Birds of Paradise
 1 Llanowar Elves
@@ -898,29 +928,21 @@ function loadSampleDeck() {
 1 Finale of Devastation
 1 Buried Alive
 1 Entomb
-1 Counterspell
-1 Swan Song
 1 Beast Within
 1 Abrupt Decay
 1 Assassin's Trophy
 1 Chaos Warp
-1 Cyclonic Rift
 1 Toxic Deluge
 1 Blasphemous Act
 1 Damnation
-1 Thassa's Oracle
-1 Demonic Consultation
-1 Tainted Pact
 1 Food Chain
 1 Squee, the Immortal
 1 Phyrexian Altar
-1 Rhystic Study
-1 Mystic Remora
 1 Necropotence
 1 Sylvan Library
 1 Phyrexian Arena
 1 Dark Confidant
-1 Smothering Tithe
+1 Black Market Connections
 1 Carpet of Flowers
 1 Wild Growth
 1 Utopia Sprawl
@@ -928,16 +950,12 @@ function loadSampleDeck() {
 1 Farseek
 1 Cultivate
 1 Kodama's Reach
-1 Dockside Extortionist
-1 Tendershoot Dryad
 1 Tireless Tracker
 1 Eternal Witness
 1 Reclamation Sage
 1 Sakura-Tribe Elder
 1 Massacre Girl
 1 Ravenous Chupacabra
-1 Mulldrifter
-1 Baleful Strix
 1 Grave Titan
 1 Avenger of Zendikar
 1 Craterhoof Behemoth
@@ -946,44 +964,47 @@ function loadSampleDeck() {
 1 Lightning Greaves
 1 Skullclamp
 1 Sensei's Divining Top
+1 Pitiless Plunderer
+1 Mayhem Devil
+1 Prossh, Skyraider of Kher
+1 Tendershoot Dryad
+1 Ophiomancer
+1 Dictate of Erebos
+1 Butcher of Malakir
+1 Viscera Seer
+1 Zulaport Cutthroat
+1 Blood Artist
+1 Goblin Bombardment
+1 Greater Good
 1 Command Tower
 1 Exotic Orchard
 1 Mana Confluence
 1 City of Brass
-1 Zagoth Triome
 1 Overgrown Tomb
 1 Blood Crypt
-1 Breeding Pool
+1 Stomping Ground
 1 Verdant Catacombs
 1 Bloodstained Mire
-1 Polluted Delta
-1 Misty Rainforest
-1 Scalding Tarn
-1 Windswept Heath
-1 Marsh Flats
-1 Flooded Strand
+1 Wooded Foothills
 1 Prismatic Vista
 1 Fabled Passage
 1 Bayou
 1 Badlands
-1 Underground Sea
-1 Tropical Island
-1 Volcanic Island
-1 Stomping Ground
-1 Watery Grave
-1 Steam Vents
-1 Temple Garden
-1 Godless Shrine
-1 Hallowed Fountain
-1 Sacred Foundry
+1 Taiga
+1 Karplusan Forest
+1 Sulfurous Springs
+1 Llanowar Wastes
+1 Dragonskull Summit
+1 Rootbound Crag
+1 Woodland Cemetery
 1 Ancient Tomb
-1 Reliquary Tower
+1 Phyrexian Tower
 1 Urborg, Tomb of Yawgmoth
 1 Cabal Coffers
-1 Forest
-1 Swamp
-1 Island
-1 Mountain`;
+1 Reliquary Tower
+4 Forest
+4 Swamp
+3 Mountain`;
 }
 </script>
 

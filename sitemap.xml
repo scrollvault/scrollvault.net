@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://scrollvault.net/</loc>
     <lastmod>2026-02-18</lastmod>
@@ -14,7 +15,7 @@
   </url>
   <url>
     <loc>https://scrollvault.net/guides/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -26,159 +27,169 @@
   </url>
   <url>
     <loc>https://scrollvault.net/deck-guides/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/set-reviews/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/about.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/contact.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/privacy.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/terms.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/about/authors.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/about/editorial-policy.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/mana-bases.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/dual-lands.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/formats.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/sideboard-guide.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/commander-deck-building.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/arena-beginners-guide.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/banned-list.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/guides/standard-rotation.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/decks/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/draft/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/manabase/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/lands/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/hypergeometric/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/hand-simulator/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/price-checker/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/commander-bracket/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/tools/sealed/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://scrollvault.net/posts/leonardo-arena-preview-season-ninja-leak-response.html</loc>
+    <lastmod>2026-02-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543</image:loc>
+      <image:title>Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html</loc>
@@ -191,258 +202,390 @@
     <lastmod>2026-02-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244</image:loc>
+      <image:title>Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/1/7/17d1a10f-ce21-4914-9984-c7c559161230.jpg?1770634935</image:loc>
+      <image:title>Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766</image:loc>
+      <image:title>Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/b/7/b7551b61-656e-4f37-b9da-73174db983b7.jpg?1767659595</image:loc>
+      <image:title>Spell Snare and the End of Friend Challenges: Arena's Big Update</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838</image:loc>
+      <image:title>Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html</loc>
     <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.jpg?1760103919</image:loc>
+      <image:title>Heroes in a Half Shell: TMNT Previews Kick Off February 17</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/companion-app-update-player-profiles-are-finally-here.html</loc>
     <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/6/b/6b95e8bd-2686-4790-afeb-9b17d482f156.jpg?1600995556</image:loc>
+      <image:title>Companion App Update: Player Profiles Are a Lightning Bolt for Players</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/murktide-regent-mastering-tempo-modern.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://scrollvault.net/posts/mono-red-aggro-is-back-monastery-swiftspear-leads-the-charge.html</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/2/0/20c4aae1-7665-4df7-bd51-a1d95bf8a17d.jpg?1626094651</image:loc>
+      <image:title>Murktide Regent: Mastering Tempo in Modern Murktide</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/bloodletter-of-aclazotz-secret-lair-roll-for-initiative.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1699044094</image:loc>
+      <image:title>Bloodletter of Aclazotz Shines in Roll for Initiative Secret Lair</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/lightning-bolt-survives-another-day-pro-tour-shakeups-sheoldreds-reign-and-counterspells-comeback.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://scrollvault.net/posts/shadowheart-leads-charge-secret-lairs-dd-roll-initiative.html</loc>
-    <lastmod>2026-02-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/b/2/b281a308-ab6b-47b6-bec7-632c9aaecede.jpg?1599706001</image:loc>
+      <image:title>Lightning Bolt Survives Another Day: Pro Tour Shakeups, Sheoldred's Reign, and Counterspell's Comeback</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/remembering-kai-budde-german-juggernaut.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/9/e/9ed2329f-d055-4a60-955b-384722504278.jpg?1562927042</image:loc>
+      <image:title>Remembering Kai Budde: The German Juggernaut's Legendary Legacy</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/teferi-hero-azorius-control-standard-guide.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/5/d/5d10b752-d9cb-419d-a5c4-d4ee1acb655e.jpg?1562736365</image:loc>
+      <image:title>Teferi, Hero of Dominaria Is Dominating: Your Azorius Control Standard Guide</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/prophet-of-kruphix-spikes-428-commander-stock-market-goes-wild.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/4/5/45de923f-fdab-460c-96f4-f62aefa9ad73.jpg?1562817436</image:loc>
+      <image:title>Prophet of Kruphix Spikes 428%: Commander 'Stock Market' Goes Wild</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/orcish-bowmasters-five-cards-shaking-modern.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/7/c/7c024bae-5631-4e20-ac69-df392ac9e109.jpg?1745319944</image:loc>
+      <image:title>Orcish Bowmasters Is Just the Beginning: Five Cards Shaking Up Modern</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/grafdigger-cage-beats-standard-top-deck.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/0/a/0a135e09-b534-4836-9a10-3a9a4a9f8c53.jpg?1592517646</image:loc>
+      <image:title>Grafdigger Cage Beats Standard's Best Deck</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/jeskai-lotus-combo-vintage.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/0/e/0e013033-3995-4ba8-b0c3-0614c79aaaab.jpg?1592517825</image:loc>
+      <image:title>Lotus Field Domination: Jeskai Combo in Vintage</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/nykthos-shrine-to-nyx-pioneer-masters-mtg-arena.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/8/3/834b27a0-dfd7-4f96-8cde-cacac4b24acc.jpg?1594077253</image:loc>
+      <image:title>Nykthos Shrine to Nyx is Coming to MTG Arena - Pioneer Masters Announcement</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/mana-crypt-banned-commander-rc-update.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/c/9/c96ac326-de44-470b-a592-a4c2a052c091.jpg?1721426418</image:loc>
+      <image:title>Mana Crypt Finally Banned in Commander - The RC Actually Did Something</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/pack-rat-draft-mind-games.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/1/7/170693f5-13db-4191-99b1-e527ffb5b88e.jpg?1562783180</image:loc>
+      <image:title>Pack Rat: Your Secret Weapon for Draft Mind Games</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/wizards-retro-artifacts-reprint-set-2026.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://scrollvault.net/posts/secret-lair-roll-for-initiative-superdrop.html</loc>
-    <lastmod>2026-02-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/f/3/f340cbf7-5bbe-45b9-a4bf-d1caa500ff93.jpg?1764119729</image:loc>
+      <image:title>Mana Crypt Is Back: Wizards Drops Retro Artifacts Reprint Set</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/baneslayer-angel-back-ratings-mythics-foundations-magic-2.html</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/4/b/4bd3014b-94bb-4a9f-92cf-239a2dcc7e97.jpg?1594734758</image:loc>
+      <image:title>Baneslayer Angel is Back: Real Ratings for Every Mythic in Foundations of Magic 2</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/kaito-shizuki-just-broke-standard-and-so-did-these-other-cards.html</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/2/d/2d35a710-3008-4e27-8afd-6e83329f9917.jpg?1654568510</image:loc>
+      <image:title>Kaito Shizuki Just Broke Standard (And So Did These Other Cards)</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/rest-in-peace-building-better-sideboards.html</loc>
     <lastmod>2026-01-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/1/d108c2b1-236e-4b8d-8445-d9749ccc4fea.jpg?1739804156</image:loc>
+      <image:title>Rest in Peace: How to Build a Sideboard That Actually Wins Games</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/temur-rhinos-crash-course-modern.html</loc>
     <lastmod>2026-01-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/a/8/a8cca2a2-69e3-4136-936c-7a2774c19351.jpg?1707507991</image:loc>
+      <image:title>Temur Rhinos Just Got Nuts: How to Crash Modern with Free Rhinos</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/boros-charm-nuts-ravnica-remastered-draft-truths.html</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/e/0/e0d8c9f6-cbbd-4694-b100-01cfb81036cc.jpg?1736305704</image:loc>
+      <image:title>Boros Charm Is Nuts and Other Ravnica Remastered Draft Truths</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/mulligan-math-when-serum-visions.html</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/5/b/5b75eb6b-d76c-4b92-b042-13493f9ef164.jpg?1712354203</image:loc>
+      <image:title>Mulligan Math: When Serum Visions Beats a Five-Card Hand</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/paper-pro-tour-returns-million-dollar-prize-pool.html</loc>
     <lastmod>2026-02-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/f/2/f26e1f55-284c-4540-bf5c-ebc7ab9687ab.jpg?1720687932</image:loc>
+      <image:title>Tarmogoyf Is Back: Paper Pro Tour Returns with Million Dollar Prize Pool</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/golgari-midrange-pioneer-complete-guide.html</loc>
     <lastmod>2026-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568</image:loc>
+      <image:title>Sheoldred the Apocalypse: Why Golgari Midrange Dominates Pioneer</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/tarkir-dragonstorm-draft-dragonlord-ojutai-soars.html</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/2/3/230cd568-f7ed-4571-a609-36522add91d0.jpg?1561966412</image:loc>
+      <image:title>Tarkir Dragonstorm Draft: Dragonlord Ojutai Soars</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/new-liliana-planeswalker-leaked-shes-even-scarier.html</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://scrollvault.net/posts/mastering-tempo-modern-murktide.html</loc>
-    <lastmod>2026-02-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/1/d12c8c97-6491-452c-811d-943441a7ef9f.jpg?1673307126</image:loc>
+      <image:title>New Liliana Planeswalker Leaked: She's Even Scarier Than We Thought</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/mono-red-aggro-is-back.html</loc>
     <lastmod>2026-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543</image:loc>
+      <image:title>Monastery Swiftspear Is Back: How Mono-Red Aggro Took Over Standard</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/dimir-excruciator-deck-slayed-badgermole-cub-horde.html</loc>
     <lastmod>2026-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/5/4/542c89b6-48c6-4fcb-8a4c-b5ed2fa1d384.jpg?1726286201</image:loc>
+      <image:title>Dimir Excruciator: The Deck That Slayed the Badgermole Cub Horde</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/mtg-news-roundup-february-2026.html</loc>
     <lastmod>2026-02-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568</image:loc>
+      <image:title>Sheoldred Rules Modern Again After Unexpected Ban Reversal</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/lutri-spellchaser-unbanned-commander.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934</image:loc>
+      <image:title>Lutri, the Spellchaser Unbanned: Commander Just Got More Fun</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/scholar-of-the-lost-trove-banned-historic-shakeup.html</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/a/a/aa254a86-3c30-408d-9c14-befd472f9740.jpg?1770635117</image:loc>
+      <image:title>Scholar of the Lost Trove Banned: Historic Just Got Nuked</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543</image:loc>
+      <image:title>MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/building-solid-mana-base-commander-budget.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568</image:loc>
+      <image:title>How to Build a Solid Mana Base on a Budget</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/eldrazi-temple-ban-historic-overhaul-necropotence-restricted.html</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/c/b/cbab7e1f-305e-4733-aa70-b27285740925.jpg?1690006046</image:loc>
+      <image:title>Eldrazi Temple Ban: Historic's Massive Overhaul and Necropotence Restricted</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/force-negation-returns-historic-shakeup.html</loc>
     <lastmod>2026-02-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1764119635</image:loc>
+      <image:title>Force of Negation Just Returned to Historic and Everything's Different Now</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/the-one-ring-hasbro-lawsuit-mtg.html</loc>
@@ -455,5 +598,9 @@
     <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cards.scryfall.io/art_crop/front/6/1/6124a691-ae83-4d22-a177-0aee65b47064.jpg?1767951721</image:loc>
+      <image:title>Arena Powered Cube Returns: Dates, Card List, and What Players Need to Know</image:title>
+    </image:image>
   </url>
 </urlset>

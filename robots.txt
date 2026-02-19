@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://scrollvault.net/sitemap.xml
+Sitemap: https://scrollvault.net/news-sitemap.xml
+Sitemap: https://scrollvault.net/feed.xml

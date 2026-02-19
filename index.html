@@ -3,122 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://scrollvault.net/"><title>MTG News and Strategy Blog | scrollvault.net</title>
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://scrollvault.net/"><title>MTG News and Strategy Blog | ScrollVault</title>
     <meta name="description" content="The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.">
     <meta property="og:url" content="https://scrollvault.net/"><meta property="og:type" content="website">
     <meta property="og:title" content="MTG News and Strategy Blog">
     <meta property="og:description" content="The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.">
     <meta property="og:site_name" content="ScrollVault">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net","potentialAction":{"@type":"SearchAction","target":"https://scrollvault.net/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543">
+    <meta property="og:image:alt" content="MTG News and Strategy Blog">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="MTG News and Strategy Blog">
+    <meta name="twitter:description" content="The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.">
+    <meta name="twitter:image" content="https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543">
+    <meta name="twitter:image:alt" content="MTG News and Strategy Blog">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net","image":"https://scrollvault.net/og-default.png","publisher":{"@type":"Organization","name":"ScrollVault","logo":{"@type":"ImageObject","url":"https://scrollvault.net/apple-touch-icon.png"}}}</script>
     <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="alternate" type="application/rss+xml" title="ScrollVault RSS Feed" href="/feed.xml">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
-    <style>
-/* Screen-reader only */
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-/* Hero */
-.hero-featured { position: relative; min-height: 420px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
-.hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
-.hero-featured .hero-content { position: relative; z-index: 1; padding: 2.5rem 0; width: 100%; }
-.hero-featured .post-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
-.hero-featured h1, .hero-featured h2 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
-.hero-featured .hero-excerpt { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; line-height: 1.7; margin-bottom: 1.5rem; }
-.hero-cta { display: inline-block; padding: 0.75rem 2rem; background: var(--gradient-purple); border-radius: 8px; font-weight: 600; font-size: 0.95rem; color: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
-.hero-attribution { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
-
-/* Brand bar */
-.brand-bar { padding: 1rem 0; border-bottom: 1px solid var(--card-border); text-align: center; }
-.brand-bar .wubrg-dots { margin-bottom: 0.35rem; }
-.brand-bar .tagline { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 0.3px; }
-
-/* Home sections */
-.home-section { padding: 2.5rem 0; border-bottom: 1px solid var(--card-border); }
-.home-section:last-of-type { border-bottom: none; }
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-.section-header h2 { font-size: 1.5rem; }
-.section-link { color: #a78bfa; font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
-.section-link:hover { color: #c4b5fd; }
-
-/* Horizontal card row (News / Strategy) */
-.card-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-.post-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer; }
-.post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
-.post-card a.card-link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; }
-.post-thumbnail { height: 160px; width: 100%; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-.post-thumbnail::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%); }
-.post-content { padding: 1rem; display: flex; flex-direction: column; flex: 1; }
-.post-category { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; width: fit-content; }
-.category-news { background: var(--pill-news); color: white; }
-.category-strategy { background: var(--pill-strategy); color: white; }
-.category-spoilers { background: var(--pill-spoilers); color: white; }
-.category-deck-guides { background: var(--pill-deck-guides); color: white; }
-.category-set-reviews { background: var(--pill-set-reviews); color: white; }
-.post-title { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.4; }
-.post-excerpt { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.post-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--card-border); }
-.read-more { color: #a78bfa; font-weight: 600; font-size: 0.8rem; margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.25rem; }
-.read-more:hover { color: #c4b5fd; }
-
-/* Tools compact grid */
-.tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.tool-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 1.25rem; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
-.tool-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(139,92,246,0.4); }
-.tool-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
-.tool-card h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
-.tool-card p { color: var(--text-muted); font-size: 0.8rem; line-height: 1.4; }
-
-/* Format tabs (Decks) */
-.format-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
-.format-tab { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); padding: 0.4rem 1.1rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
-.format-tab:hover { border-color: rgba(139,92,246,0.5); color: var(--text-primary); }
-.format-tab.active { background: var(--gradient-purple); border-color: transparent; color: white; }
-.format-panel { display: none; }
-.format-panel.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.deck-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 1.25rem; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.deck-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.deck-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-.deck-card .tier-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-.tier-1 { background: rgba(16,185,129,0.2); color: #34d399; }
-.tier-2 { background: rgba(59,130,246,0.2); color: #60a5fa; }
-.tier-3 { background: rgba(245,158,11,0.2); color: #fbbf24; }
-.deck-card .deck-meta { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; }
-
-/* Articles section (search + filter + grid) */
-.articles-controls { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.articles-search { flex: 0 0 280px; padding: 0.6rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 8px; color: var(--text-primary); font-size: 0.9rem; font-family: inherit; }
-.articles-search:focus { outline: none; border-color: #8b5cf6; }
-.articles-search::placeholder { color: var(--text-muted); }
-.filter-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.filter-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
-.filter-btn:hover { border-color: rgba(139,92,246,0.5); color: var(--text-primary); }
-.filter-btn.active { background: var(--gradient-purple); border-color: transparent; color: white; }
-.posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-.post-card.hidden { display: none; }
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .hero-featured { min-height: 320px; }
-    .hero-featured h1, .hero-featured h2 { font-size: 1.75rem; }
-    .card-row { grid-template-columns: 1fr; }
-    .tools-grid { grid-template-columns: repeat(2, 1fr); }
-    .format-panel.active { grid-template-columns: 1fr; }
-    .posts-grid { grid-template-columns: 1fr; }
-    .articles-controls { flex-direction: column; }
-    .articles-search { flex: 1 1 100%; width: 100%; }
-    .filter-btn { padding: 0.35rem 0.85rem; font-size: 0.75rem; }
-    .format-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
-}
-@media (min-width: 769px) and (max-width: 991px) {
-    .card-row { grid-template-columns: repeat(2, 1fr); }
-    .tools-grid { grid-template-columns: repeat(2, 1fr); }
-    .posts-grid { grid-template-columns: repeat(2, 1fr); }
-    .format-panel.active { grid-template-columns: repeat(2, 1fr); }
-}</style>
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -152,14 +63,15 @@
                 <p class="tagline">Your daily source for MTG strategy, tools, and competitive analysis</p>
             </div>
         </div>
-        <section class="hero-featured" style="background: var(--gradient-purple); background-size: cover; background-position: center;" role="img" aria-label="Featured: Sheoldred's Arena Dream: First Limited Championship Qualifier Announced - card art">
+        <section class="hero-featured" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543'); background-size: cover; background-position: center;" role="img" aria-label="Featured: Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak - card art">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="container">
-                    <span class="post-category category-news">News</span>
-                    <h2><a href="/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html">Sheoldred's Arena Dream: First Limited Championship Qualifier Announced</a></h2>
-                    <p class="hero-excerpt">Wizards just announced the first-ever MTG Arena Limited Championship Qualifier—limited grinders now have a direct path to the 2027 Magic Limited Championship. Plus, Teenage Mutant Ninja Turtles preorders are live.</p>
-                    <a href="/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html" class="hero-cta">Read More &rarr;</a>
+                    <span class="post-category category-spoilers">Spoilers</span>
+                    <h2><a href="/posts/leonardo-arena-preview-season-ninja-leak-response.html">Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak</a></h2>
+                    <p class="hero-excerpt">Someone leaked TMNT cards early, so Wizards launched full preview season right after. Arena drops March 5 with release events, tabletop prerelease fires February 21-23, and the $49.99 bundles mirror Ravnica Remastered pricing.</p>
+                    <a href="/posts/leonardo-arena-preview-season-ninja-leak-response.html" class="hero-cta">Read More &rarr;</a>
+                <p class="hero-attribution">Art: &ldquo;Monastery Swiftspear&rdquo; by Gabor Szikszai</p>
                 </div>
             </div>
         </section>
@@ -171,6 +83,20 @@
                 </div>
                 <div class="card-row">
                 <article class="post-card" data-category="news">
+                    <a href="/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html" class="card-link">
+                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Sheoldred's Arena Dream: First Limited Championship Qualifier Announced"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Sheoldred's Arena Dream: First Limited Championship Qualifier Announced</h2>
+                            <p class="post-excerpt">Wizards just announced the first-ever MTG Arena Limited Championship Qualifier—limited grinders now have a direct path to the 2027 Magic Limited Championship. Plus, Teenage Mutant Ninja Turtles preorders are live.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Today</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                <article class="post-card" data-category="news">
                     <a href="/posts/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb.html" class="card-link">
                         <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List"></div>
                         <div class="post-content">
@@ -179,7 +105,7 @@
                             <p class="post-excerpt">Lutri, the Spellchaser hits $72 after Commander unban, Gilt-Leaf Palace explodes to $18, and Torpor Orb becomes the most sideboarded card in Standard. Deceit cools as market corrects.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Today</span>
+                                <span class="post-date">Yesterday</span>
                             </div>
                         </div>
                     </a>
@@ -193,7 +119,7 @@
                             <p class="post-excerpt">Feb 2026's massive B&amp;R update: Biorhythm unbanned in Commander, Historic overhauled, Necropotence restricted. Plus: TMNT delays, Arena Challenge Lobbies, Magic Pride's partner format.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Today</span>
+                                <span class="post-date">Yesterday</span>
                             </div>
                         </div>
                     </a>
@@ -207,21 +133,7 @@
                             <p class="post-excerpt">Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Yesterday</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-                <article class="post-card" data-category="news">
-                    <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html" class="card-link">
-                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
-                        <div class="post-content">
-                            <span class="post-category category-news">News</span>
-                            <h2 class="post-title">Spell Snare and the End of Friend Challenges: Arena's Big Update</h2>
-                            <p class="post-excerpt">MTG Arena just fixed social play with Challenge Lobbies, dropped TMNT preorder bundles, and set up Arena Championship 11. Spell Snare is getting depth art and these changes are actually huge.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Yesterday</span>
+                                <span class="post-date">2 days ago</span>
                             </div>
                         </div>
                     </a>
@@ -238,7 +150,7 @@
                 <div class="card-row">
                 <article class="post-card" data-category="strategy">
                     <a href="/posts/building-solid-mana-base-commander-budget.html" class="card-link">
-                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/a/1/a1fc8d86-b118-46e3-92a5-8cbf2ca282f7.jpg?1752945328'); background-size: cover; background-position: center;" role="img" aria-label="How to Build a Solid Mana Base on a Budget"></div>
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568'); background-size: cover; background-position: center;" role="img" aria-label="How to Build a Solid Mana Base on a Budget"></div>
                         <div class="post-content">
                             <span class="post-category category-strategy">Strategy</span>
                             <h2 class="post-title">How to Build a Solid Mana Base on a Budget</h2>
@@ -265,12 +177,12 @@
                     </a>
                 </article>
                 <article class="post-card" data-category="deck-guides">
-                    <a href="/posts/mono-red-aggro-is-back-monastery-swiftspear-leads-the-charge.html" class="card-link">
-                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543'); background-size: cover; background-position: center;" role="img" aria-label="Mono-Red Aggro Is Back: Monastery Swiftspear Leads the Charge"></div>
+                    <a href="/posts/teferi-hero-azorius-control-standard-guide.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/5/d/5d10b752-d9cb-419d-a5c4-d4ee1acb655e.jpg?1562736365'); background-size: cover; background-position: center;" role="img" aria-label="Teferi, Hero of Dominaria Is Dominating: Your Azorius Control Standard Guide"></div>
                         <div class="post-content">
                             <span class="post-category category-deck-guides">Deck Guides</span>
-                            <h2 class="post-title">Mono-Red Aggro Is Back: Monastery Swiftspear Leads the Charge</h2>
-                            <p class="post-excerpt">Mono-Red Aggro has surged to tier 1 in Standard with Monastery Swiftspear and Kumano Faces Kakkazan leading the charge. Budget-friendly, fast, and surprisingly resilient—this deck is crushing it at FNM and on MTG Arena. Here's the complete guide to building and piloting the new red menace.</p>
+                            <h2 class="post-title">Teferi, Hero of Dominaria Is Dominating: Your Azorius Control Standard Guide</h2>
+                            <p class="post-excerpt">Azorius Control is the deck to beat in Standard right now. Teferi, Hero of Dominaria and Supreme Verdict form the backbone of a strategy that makes aggro players cry.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
                                 <span class="post-date">1 week ago</span>
@@ -278,13 +190,13 @@
                         </div>
                     </a>
                 </article>
-                <article class="post-card" data-category="deck-guides">
-                    <a href="/posts/teferi-hero-azorius-control-standard-guide.html" class="card-link">
-                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/5/d/5d10b752-d9cb-419d-a5c4-d4ee1acb655e.jpg?1562736365'); background-size: cover; background-position: center;" role="img" aria-label="Teferi, Hero of Dominaria Is Dominating: Your Azorius Control Standard Guide"></div>
+                <article class="post-card" data-category="strategy">
+                    <a href="/posts/grafdigger-cage-beats-standard-top-deck.html" class="card-link">
+                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/0/a/0a135e09-b534-4836-9a10-3a9a4a9f8c53.jpg?1592517646'); background-size: cover; background-position: center;" role="img" aria-label="Grafdigger Cage Beats Standard's Best Deck"></div>
                         <div class="post-content">
-                            <span class="post-category category-deck-guides">Deck Guides</span>
-                            <h2 class="post-title">Teferi, Hero of Dominaria Is Dominating: Your Azorius Control Standard Guide</h2>
-                            <p class="post-excerpt">Azorius Control is the deck to beat in Standard right now. Teferi, Hero of Dominaria and Supreme Verdict form the backbone of a strategy that makes aggro players cry.</p>
+                            <span class="post-category category-strategy">Strategy</span>
+                            <h2 class="post-title">Grafdigger Cage Beats Standard's Best Deck</h2>
+                            <p class="post-excerpt">The top deck in Standard is crushing dreams, but Grafdigger Cage might be your secret weapon. Learn how to flip bad matchups and dominate the meta with these five cards.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
                                 <span class="post-date">1 week ago</span>
@@ -440,6 +352,20 @@
                 </div>
                 <div class="posts-grid" id="postsGrid">
                 <article class="post-card" data-category="news">
+                    <a href="/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html" class="card-link">
+                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Sheoldred's Arena Dream: First Limited Championship Qualifier Announced"></div>
+                        <div class="post-content">
+                            <span class="post-category category-news">News</span>
+                            <h2 class="post-title">Sheoldred's Arena Dream: First Limited Championship Qualifier Announced</h2>
+                            <p class="post-excerpt">Wizards just announced the first-ever MTG Arena Limited Championship Qualifier—limited grinders now have a direct path to the 2027 Magic Limited Championship. Plus, Teenage Mutant Ninja Turtles preorders are live.</p>
+                            <div class="post-meta">
+                                <span class="post-author">Molts MTG</span>
+                                <span class="post-date">Today</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                <article class="post-card" data-category="news">
                     <a href="/posts/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb.html" class="card-link">
                         <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List"></div>
                         <div class="post-content">
@@ -448,7 +374,7 @@
                             <p class="post-excerpt">Lutri, the Spellchaser hits $72 after Commander unban, Gilt-Leaf Palace explodes to $18, and Torpor Orb becomes the most sideboarded card in Standard. Deceit cools as market corrects.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Today</span>
+                                <span class="post-date">Yesterday</span>
                             </div>
                         </div>
                     </a>
@@ -462,7 +388,7 @@
                             <p class="post-excerpt">Feb 2026's massive B&amp;R update: Biorhythm unbanned in Commander, Historic overhauled, Necropotence restricted. Plus: TMNT delays, Arena Challenge Lobbies, Magic Pride's partner format.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Today</span>
+                                <span class="post-date">Yesterday</span>
                             </div>
                         </div>
                     </a>
@@ -476,7 +402,7 @@
                             <p class="post-excerpt">Magic Pride 2026 brings a revolutionary Commander format where any two commanders can partner. The Gilded Lotus promo is stunning. Here's how to get your store registered before March 27.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Yesterday</span>
+                                <span class="post-date">2 days ago</span>
                             </div>
                         </div>
                     </a>
@@ -490,7 +416,7 @@
                             <p class="post-excerpt">MTG Arena just fixed social play with Challenge Lobbies, dropped TMNT preorder bundles, and set up Arena Championship 11. Spell Snare is getting depth art and these changes are actually huge.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">Yesterday</span>
+                                <span class="post-date">2 days ago</span>
                             </div>
                         </div>
                     </a>
@@ -504,7 +430,7 @@
                             <p class="post-excerpt">Hasbro faces a shareholder lawsuit over its management of the Magic 30th Anniversary set. The legal challenge could force Wizards to re-evaluate scarcity strategies. Here's what this means for players and the future of Magic.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">2 days ago</span>
+                                <span class="post-date">3 days ago</span>
                             </div>
                         </div>
                     </a>
@@ -518,7 +444,7 @@
                             <p class="post-excerpt">Wizards confirmed TMNT previews start February 17 with live streams on Weekly MTG. The full set drops March 6, preorders are live now. Get ready for Leonardo, Donatello, Raphael, Michelangelo, and Splinter. This crossover is about to hit the table.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
-                                <span class="post-date">3 days ago</span>
+                                <span class="post-date">4 days ago</span>
                             </div>
                         </div>
                     </a>
@@ -532,7 +458,7 @@
                             <p class="post-excerpt">The prodigal polygon is back! MTG Arena's Powered Cube returns February 10–March 2, 2026 with a new card list and fresh design insights from Zach Barash.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts, Content Lead</span>
-                                <span class="post-date">3 days ago</span>
+                                <span class="post-date">4 days ago</span>
                             </div>
                         </div>
                     </a>
@@ -544,20 +470,6 @@
                             <span class="post-category category-news">News</span>
                             <h2 class="post-title">Companion App Update: Player Profiles Are a Lightning Bolt for Players</h2>
                             <p class="post-excerpt">Wizards just announced Player Profiles for the Companion app, and it's the organized play tracking feature we've been begging for. Finally, you'll be able to see your event history, favorite local stores, and get a personalized inbox. This is a huge win for players who actually go to FNM.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">4 days ago</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-                <article class="post-card" data-category="news">
-                    <a href="/posts/the-one-ring-hasbro-lawsuit-mtg.html" class="card-link">
-                        <div class="post-thumbnail" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal"></div>
-                        <div class="post-content">
-                            <span class="post-category category-news">News</span>
-                            <h2 class="post-title">The One Ring Lawsuit: Hasbro's $500M MTG Printing Scandal</h2>
-                            <p class="post-excerpt">Hasbro faces a $500M lawsuit over alleged MTG card overprinting. If true, it could tank your card values overnight. Here's what players need to know.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
                                 <span class="post-date">5 days ago</span>

@@ -45,7 +45,9 @@ High-level view of all active workstreams.
 - Do NOT re-add Compute3 as a provider or fallback.
 
 ## Activity Log
-- 2026-02-16: Published 2 post(s) – [Spell Snare and the End of Friend Challenges: Arena's Big Update](/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html) and [All Facts Verified: No News, Just Editorial Philosophy](/posts/no-news-today-what-to-do-when-the-scout-comes-up-empty.html)
+- 2026-02-18: Published 1 post(s) – [Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak](/posts/leonardo-arena-preview-season-ninja-leak-response.html)
+- 2026-02-17: Published 2 post(s) – [Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List](/posts/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb.html) and [Biorhythm Is Back: February 2026's Massive B&R Update Shakes Everything](/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html)
+- 2026-02-16: Published 3 post(s) – [Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'](/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html), [Spell Snare and the End of Friend Challenges: Arena's Big Update](/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html), and [All Facts Verified: No News, Just Editorial Philosophy](/posts/no-news-today-what-to-do-when-the-scout-comes-up-empty.html)
 - 2026-02-15: Published 1 post(s) – [Hasbro's 30th Anniversary Set Fiasco: Black Lotus and the Price of Scarcity](/posts/hasbros-30th-anniversary-set-fiasco-black-lotus-and-the-price-of-scarcity.html)
 - 2026-02-14: Published 1 post(s) – [Heroes in a Half Shell: TMNT Previews Kick Off February 17](/posts/heroes-in-a-half-shell-tmnt-previews-kick-off-february-17.html)
 - 2026-02-14: Published 1 post(s) – [Divination in Action: How We Scout MTG News](/posts/divination-in-action-how-we-scout-mtg-news.html)

@@ -1,0 +1,80 @@
+{
+  "title": "Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List",
+  "duration_estimate": 47,
+  "sections": [
+    {
+      "timestamp": "0:00",
+      "section": "Hook",
+      "narration": "Three cards. Seventy-two dollars. One otter. Welcome to the February Hot List—these are the cards exploding right now.",
+      "visual": "Fast-paced title card with 'February Hot List' and flashing price arrows"
+    },
+    {
+      "timestamp": "0:12",
+      "section": "Lutri",
+      "narration": "First up—Lutri, the Spellchaser. This otter went from bulk to seventy-two dollars overnight. The Commander Format Panel unbanned it as your commander. The Halo Foil from Multiverse Legends? Seventy-two dollars. Players are building Izzet spell-slinger decks around this thing. Demand absolutely blindsided supply.",
+      "visual": "Lutri card full screen with animated price tag showing $6 jumping to $72",
+      "card_visual": "Lutri, the Spellchaser"
+    },
+    {
+      "timestamp": "0:48",
+      "section": "Gilt-Leaf Palace",
+      "narration": "Next—Gilt-Leaf Palace. This Lorwyn tribal land was supposed to get reprinted in Lorwyn Eclipsed. It didn't. Collectors panicked. Four dollars last week. Now? Eighteen and climbing. Old-border printings are spec targets. If it dodges the next reprint, this could hit fifty dollars.",
+      "visual": "Gilt-Leaf Palace card with price ticker showing $4 to $18 surge",
+      "card_visual": "Gilt-Leaf Palace"
+    },
+    {
+      "timestamp": "1:22",
+      "section": "High Perfect Morcant",
+      "narration": "Why is Gilt-Leaf Palace spiking? Meet High Perfect Morcant. This new legend is driving Elfball dominance. When a commander can spike a twenty-year-old land, you know the deck is real. The synergy is undeniable—Morcant needs that mana, and players need Morcant.",
+      "visual": "High Perfect Morcant card art with Elfball archetype callout",
+      "card_visual": "High Perfect Morcant"
+    },
+    {
+      "timestamp": "1:50",
+      "section": "Torpor Orb",
+      "narration": "Finally—the sideboard king. Torpor Orb. Pro Tour Richmond was packed with ETB decks. Veterans reached for this. It climbed to twelve dollars and it's now a Standard mainstay. Drop Orb, shut down their triggers, win the game. If you're not sideboarding this, you're behind.",
+      "visual": "Torpor Orb card with tournament playmat background",
+      "card_visual": "Torpor Orb"
+    },
+    {
+      "timestamp": "2:18",
+      "section": "Outro",
+      "narration": "That's your February hot list. Lutri at seventy-two, Palace at eighteen, Morcant driving the meta, and Orb ruling sideboards. Which spike surprised you? Subscribe for market alerts every week.",
+      "visual": "End screen with subscribe button and card thumbnails"
+    }
+  ],
+  "cards_used": [
+    "Lutri, the Spellchaser",
+    "Gilt-Leaf Palace",
+    "High Perfect Morcant",
+    "Torpor Orb"
+  ],
+  "scenes": [
+    {
+      "text": "First up—Lutri, the Spellchaser. This otter went from bulk to seventy-two dollars overnight. The Commander Format Panel unbanned it as your commander. The Halo Foil from Multiverse Legends? Seventy-two dollars.",
+      "card_name": "Lutri, the Spellchaser",
+      "show_avatar": true,
+      "duration_estimate": 12
+    },
+    {
+      "text": "Next—Gilt-Leaf Palace. This Lorwyn tribal land was supposed to get reprinted in Lorwyn Eclipsed. It didn't. Collectors panicked. Four dollars last week. Now? Eighteen and climbing. Old-border printings are spec targets.",
+      "card_name": "Gilt-Leaf Palace",
+      "show_avatar": false,
+      "duration_estimate": 12
+    },
+    {
+      "text": "Why is Gilt-Leaf Palace spiking? Meet High Perfect Morcant. This new legend is driving Elfball dominance. When a commander can spike a twenty-year-old land, you know the deck is real.",
+      "card_name": "High Perfect Morcant",
+      "show_avatar": false,
+      "duration_estimate": 12
+    },
+    {
+      "text": "Finally—the sideboard king. Torpor Orb. Pro Tour Richmond was packed with ETB decks. Veterans reached for this. It climbed to twelve dollars and it's now a Standard mainstay.",
+      "card_name": "Torpor Orb",
+      "show_avatar": true,
+      "duration_estimate": 11
+    }
+  ],
+  "hook": "First up—Lutri, the Spellchaser",
+  "script": "First up—Lutri, the Spellchaser. This otter went from bulk to seventy-two dollars overnight. The Commander Format Panel unbanned it as your commander. The Halo Foil from Multiverse Legends? Seventy-two dollars. Next—Gilt-Leaf Palace. This Lorwyn tribal land was supposed to get reprinted in Lorwyn Eclipsed. It didn't. Collectors panicked. Four dollars last week. Now? Eighteen and climbing. Old-border printings are spec targets. Why is Gilt-Leaf Palace spiking? Meet High Perfect Morcant. This new legend is driving Elfball dominance. When a commander can spike a twenty-year-old land, you know the deck is real. Finally—the sideboard king. Torpor Orb. Pro Tour Richmond was packed with ETB decks. Veterans reached for this. It climbed to twelve dollars and it's now a Standard mainstay."
+}

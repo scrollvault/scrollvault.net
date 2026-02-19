@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://scrollvault.net/guides/mana-bases.html"><title>MTG Manabase Guide — Frank Karsten Mana Math Explained | scrollvault.net</title>
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://scrollvault.net/guides/mana-bases.html"><title>MTG Manabase Guide — Frank Karsten Mana Math Explained | ScrollVault</title>
     <meta name="description" content="Complete guide to building an MTG manabase using Frank Karsten's mana math. Land counts for Standard, Modern, Pioneer, and Commander with hypergeometric probability tables.">
     <meta property="og:url" content="https://scrollvault.net/guides/mana-bases.html"><meta property="og:type" content="website">
     <meta property="og:title" content="MTG Manabase Guide — Frank Karsten Mana Math Explained">
     <meta property="og:description" content="Complete guide to building an MTG manabase using Frank Karsten's mana math. Land counts for Standard, Modern, Pioneer, and Commander with hypergeometric probability tables.">
     <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://scrollvault.net/og-default.png">
+    <meta property="og:image:alt" content="MTG Manabase Guide — Frank Karsten Mana Math Explained">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="MTG Manabase Guide — Frank Karsten Mana Math Explained">
+    <meta name="twitter:description" content="Complete guide to building an MTG manabase using Frank Karsten's mana math. Land counts for Standard, Modern, Pioneer, and Commander with hypergeometric probability tables.">
+    <meta name="twitter:image" content="https://scrollvault.net/og-default.png">
+    <meta name="twitter:image:alt" content="MTG Manabase Guide — Frank Karsten Mana Math Explained">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many lands should I put in my MTG deck?","acceptedAnswer":{"@type":"Answer","text":"For a 60-card deck, 23-26 lands is standard. Aggro decks run 22-23, midrange 24-25, and control 25-26. Commander decks (99 cards) need 35-38 lands plus mana rocks. Use Frank Karsten's mana math or a manabase calculator for precise counts based on your specific mana curve and color requirements."}},{"@type":"Question","name":"What is Frank Karsten's mana math for MTG?","acceptedAnswer":{"@type":"Answer","text":"Frank Karsten's mana math uses hypergeometric probability to calculate the exact number of colored mana sources needed to cast spells on curve with ~90% consistency. Key numbers for 60-card decks: 14 sources for a single-pip spell, 18 for double-pip, 21+ for triple-pip. This research is the gold standard used by competitive Magic players to build optimal mana bases."}},{"@type":"Question","name":"How do I build a manabase for Commander?","acceptedAnswer":{"@type":"Answer","text":"Start with 36-38 lands in your 99-card deck. Include fetch lands and shock lands for reliable fixing, add check lands and fast lands for budget options, and finish with utility lands like Command Tower and Exotic Orchard. Add 10+ mana rocks (Sol Ring, Arcane Signet, Signets) for ramp. Use a manabase calculator to determine exact colored source counts based on your casting costs."}}]}</script>
     <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="alternate" type="application/rss+xml" title="ScrollVault RSS Feed" href="/feed.xml">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
-    <style>
-.page-header { padding: 4rem 0 2rem; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, transparent 70%); }
-.page-header h1 { font-size: 2.25rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.page-body { max-width: 800px; margin: 0 auto; padding: 2rem 1rem 4rem; }
-.page-body h2 { font-size: 1.4rem; margin: 2rem 0 1rem; }
-.page-body p { color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.8; }
-.page-body ul { color: var(--text-secondary); margin: 1rem 0 1.25rem 1.5rem; line-height: 1.8; }
-.page-body a { color: #a78bfa; }
-.contact-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 2rem; text-align: center; margin: 2rem 0; }
-.contact-card a.email-link { display: inline-block; font-size: 1.25rem; color: #a78bfa; font-weight: 600; padding: 0.75rem 2rem; border: 2px solid #a855f7; border-radius: 8px; transition: all 0.2s ease; }
-.contact-card a.email-link:hover { background: rgba(168,85,247,0.15); }
-@media (max-width: 768px) { .page-header h1 { font-size: 1.75rem; } }</style>
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>

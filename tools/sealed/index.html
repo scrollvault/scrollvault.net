@@ -12,9 +12,8 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://scrollvault.net/tools/sealed/">
     <link rel="canonical" href="https://scrollvault.net/tools/sealed/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
@@ -31,6 +30,22 @@
     }
     </script>
 <style>
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/space-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 /* ── Theme Variables ── */
 :root {
     --bg-dark: #0f0f0f;
@@ -62,7 +77,7 @@ a:hover { color: #a78bfa; }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
 
 /* ── Nav ── */
-.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
 .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -118,7 +133,7 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
 .btn-secondary.active { background: rgba(168,85,247,0.15); border-color: #a855f7; color: #a78bfa; }
 
 /* ── Loading ── */
-.loading-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; gap: 1.5rem; }
+.loading-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; gap: 1.5rem; }
 .loading-overlay.visible { display: flex; }
 .spinner { width: 48px; height: 48px; border: 3px solid var(--card-border); border-top-color: #a855f7; border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -252,7 +267,7 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
         <!-- Screen 2: Pool View -->
         <div class="pool-section" id="poolSection">
             <div class="pool-controls">
-                <h2>Your Pool <span style="color:var(--text-muted);font-weight:400;font-size:0.9rem;" id="poolCount">(84 cards)</span></h2>
+                <h2>Your Pool <span style="color:var(--text-muted);font-weight:400;font-size:0.9rem;" id="poolCount">(90 cards)</span></h2>
                 <div class="sort-buttons">
                     <button class="btn-secondary active" data-sort="color" onclick="sortPool('color')">Color</button>
                     <button class="btn-secondary" data-sort="type" onclick="sortPool('type')">Type</button>
@@ -527,7 +542,7 @@ const setSelection = document.getElementById('setSelection');
             setSelect.appendChild(opt);
         });
 
-        openPacksBtn.disabled = false;
+        // Don't enable button yet — wait for user to select a set
     } catch (e) {
         setSelect.innerHTML = '<option value="">Failed to load sets. Refresh to retry.</option>';
         console.error('Failed to load sets:', e);
@@ -543,6 +558,8 @@ setSelect.addEventListener('change', function () {
     } else {
         setIcon.style.display = 'none';
     }
+    // Enable button only when a valid set is selected
+    openPacksBtn.disabled = !setSelect.value;
 });
 
 openPacksBtn.addEventListener('click', () => openPacks());
@@ -558,11 +575,17 @@ async function openPacks() {
         const cards = await fetchSetCards(code);
         if (!cards) throw new Error('No cards found');
 
+        // Filter out basic lands from the pool
+        const BASICS = new Set(['plains', 'island', 'swamp', 'mountain', 'forest',
+            'snow-covered plains', 'snow-covered island', 'snow-covered swamp',
+            'snow-covered mountain', 'snow-covered forest', 'wastes']);
+        const nonBasicCards = cards.filter(c => !BASICS.has(c.name.toLowerCase()));
+
         // Categorize by rarity
-        const commons = cards.filter(c => c.rarity === 'common');
-        const uncommons = cards.filter(c => c.rarity === 'uncommon');
-        const rares = cards.filter(c => c.rarity === 'rare');
-        const mythics = cards.filter(c => c.rarity === 'mythic');
+        const commons = nonBasicCards.filter(c => c.rarity === 'common');
+        const uncommons = nonBasicCards.filter(c => c.rarity === 'uncommon');
+        const rares = nonBasicCards.filter(c => c.rarity === 'rare');
+        const mythics = nonBasicCards.filter(c => c.rarity === 'mythic');
 
         if (commons.length < 10 || uncommons.length < 3 || rares.length < 1) {
             throw new Error('Not enough cards of each rarity to build boosters.');
@@ -669,9 +692,9 @@ function generateBooster(commons, uncommons, rares, mythics) {
         booster.push({ ...card });
     }
 
-    // 10 Commons (try to avoid duplicates within booster)
+    // 11 Commons (try to avoid duplicates within booster)
     const usedC = new Set();
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 11; i++) {
         let attempts = 0;
         let card;
         do {

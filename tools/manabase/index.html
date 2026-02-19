@@ -3,22 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mana Base Calculator | ScrollVault</title>
-    <meta name="description" content="Calculate the optimal mana base for your Magic: The Gathering deck. Uses Frank Karsten's math and hypergeometric probability to recommend land counts per color.">
+    <title>MTG Mana Base Calculator — How Many Lands? | Frank Karsten Math</title>
+    <meta name="description" content="Free MTG mana base calculator powered by Frank Karsten's math. Find exactly how many lands and colored sources your deck needs. Works for Standard, Modern, Pioneer, Commander &amp; Limited. Import your decklist for instant results.">
+    <meta name="robots" content="index, follow">
     <meta property="og:site_name" content="ScrollVault">
-    <meta property="og:title" content="Mana Base Calculator | ScrollVault">
-    <meta property="og:description" content="Calculate the optimal mana base for your MTG deck using hypergeometric probability and Frank Karsten's proven math.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="MTG Mana Base Calculator — How Many Lands Do You Need?">
+    <meta property="og:description" content="Free mana base calculator for Magic: The Gathering. Uses Frank Karsten's proven hypergeometric math to compute exact land counts and colored sources for every format.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://scrollvault.net/tools/manabase/">
+    <meta property="og:image" content="https://scrollvault.net/og-default.png">
+    <meta property="og:image:alt" content="MTG Mana Base Calculator — How Many Lands Do You Need?">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="MTG Mana Base Calculator — Frank Karsten's Land Math">
+    <meta name="twitter:description" content="Free mana base calculator for MTG. Karsten's hypergeometric math for exact land counts in Standard, Modern, Pioneer, and Commander.">
+    <meta name="twitter:image" content="https://scrollvault.net/og-default.png">
+    <meta name="twitter:image:alt" content="MTG Mana Base Calculator — How Many Lands Do You Need?">
     <link rel="canonical" href="https://scrollvault.net/tools/manabase/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="/tools/manabase/import.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
 <style>
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/space-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 /* ── Theme Variables ── */
 :root {
     --bg-dark: #0f0f0f;
@@ -50,7 +76,7 @@ a:hover { color: #a78bfa; }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
 
 /* ── Nav ── */
-.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
 .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -224,6 +250,17 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 .info-box a { color: #a78bfa; text-decoration: underline; }
 .info-box a:hover { color: #c4b5fd; }
 
+/* ── FAQ Section ── */
+.faq-section { margin-top: 2rem; }
+.faq-section h2 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--text-primary); }
+.faq-section details { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 0.75rem; overflow: hidden; }
+.faq-section summary { padding: 1rem 1.25rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; color: var(--text-primary); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.faq-section summary::-webkit-details-marker { display: none; }
+.faq-section summary::after { content: '+'; font-size: 1.2rem; color: var(--text-muted); flex-shrink: 0; margin-left: 1rem; }
+.faq-section details[open] summary::after { content: '\2212'; }
+.faq-section details[open] summary { border-bottom: 1px solid var(--card-border); }
+.faq-section details p { padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
     .hero-section h1 { font-size: 1.75rem; }
@@ -258,19 +295,42 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
         <div class="container">
             <div class="breadcrumb">
                 <a href="/">Home</a><span>/</span>
-                <a href="/tools/lands/">Tools</a><span>/</span>
+                <a href="/tools/">Tools</a><span>/</span>
                 Mana Base Calculator
             </div>
 
             <div class="hero-section">
-                <h1>Mana Base Calculator</h1>
-                <p class="subtitle">Build a mathematically optimal mana base for your deck. Powered by hypergeometric probability and Frank Karsten's research.</p>
+                <h1>MTG Mana Base Calculator</h1>
+                <p class="subtitle">How many lands should you run? Use Frank Karsten's mana math to calculate exact colored source counts for any MTG format. Import your decklist or enter your mana curve to build the perfect mana base.</p>
             </div>
 
             <div class="calc-layout">
                 <!-- ═══ LEFT: Input Panel ═══ -->
                 <div class="panel" id="inputPanel">
                     <h2><span class="icon">&#9881;</span> Deck Configuration</h2>
+
+                    <!-- Tab Toggle -->
+                    <div class="input-tabs">
+                        <button class="input-tab active" data-tab="manual" onclick="switchTab('manual')">Manual</button>
+                        <button class="input-tab" data-tab="import" onclick="switchTab('import')">Import Decklist</button>
+                    </div>
+
+                    <!-- Import Panel (hidden by default) -->
+                    <div id="importPanel">
+                        <p class="import-desc">Paste your decklist below. Supports MTGA, Moxfield, and standard "4 Card Name" format.</p>
+                        <textarea class="import-textarea" id="decklistInput" placeholder="4 Lightning Bolt
+4 Monastery Swiftspear
+4 Goblin Guide
+4 Eidolon of the Great Revel
+4 Searing Blaze
+20 Mountain
+..."></textarea>
+                        <div class="import-status" id="importStatus"></div>
+                        <button class="calc-btn" style="margin-top:0.75rem;" onclick="importDecklist()">Parse &amp; Calculate</button>
+                    </div>
+
+                    <!-- Manual Panel -->
+                    <div id="manualPanel" class="active">
 
                     <!-- Format Selector -->
                     <h3>Format</h3>
@@ -374,6 +434,8 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
                     </div>
 
                     <button class="calc-btn" id="calcBtn" onclick="calculate()">Calculate Mana Base</button>
+
+                    </div><!-- /manualPanel -->
                 </div>
 
                 <!-- ═══ RIGHT: Results Panel ═══ -->
@@ -391,17 +453,96 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 
             <!-- Info Box -->
             <div class="info-box">
-                <h3>&#128218; About the Math</h3>
+                <h3>&#128218; How This Mana Calculator Works</h3>
                 <p>
-                    This calculator is based on <strong>Frank Karsten's</strong> seminal research on mana bases in Magic: The Gathering,
-                    originally published in his ChannelFireball article
-                    <a href="https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/how-many-colored-mana-sources-do-you-need-to-consistently-cast-your-spells-a-guilds-of-ravnica-update/" target="_blank" rel="noopener">"How Many Colored Mana Sources Do You Need to Consistently Cast Your Spells?"</a>.
-                    The core idea: for each colored mana symbol in your deck's casting costs, you need a certain number of
-                    lands that produce that color. The probability calculations use the <strong>hypergeometric distribution</strong>
-                    to determine the likelihood of drawing enough colored sources by the turn you need to cast each spell.
-                    This implementation uses <code>logChoose</code> (log of binomial coefficients) for numerical stability
-                    with large deck sizes like Commander. The recommended land counts aim for approximately a 90% chance of
-                    having the required colors on curve.
+                    This MTG mana calculator implements <strong>Frank Karsten's mana math</strong>, the gold standard for manabase calculations.
+                    Originally published in his ChannelFireball article
+                    <a href="https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/how-many-colored-mana-sources-do-you-need-to-consistently-cast-your-spells-a-guilds-of-ravnica-update/" target="_blank" rel="noopener">"How Many Colored Mana Sources Do You Need to Consistently Cast Your Spells?"</a>,
+                    Karsten's research uses <strong>hypergeometric probability</strong> to determine exactly how many mana sources of each color you need
+                    to consistently cast your spells on curve.
+                </p>
+                <p style="margin-top: 0.5rem;">
+                    For each colored mana symbol in your deck's casting costs, the calculator computes the optimal number of lands that produce that color.
+                    It targets approximately a <strong>90% probability</strong> of having the right colors by the turn you need them.
+                    Works for Standard, Modern, Pioneer, Legacy, and Commander mana bases &mdash; including 99-card singleton decks.
+                    For a deeper look at manabase theory, read our <a href="/guides/mana-bases.html">complete mana base guide</a>.
+                    Also see our <a href="/guides/dual-lands.html">dual land cycles reference</a> for every land cycle by format, and our <a href="/guides/commander-deck-building.html">Commander deck building guide</a> for EDH-specific mana base advice.
+                </p>
+            </div>
+
+            <!-- FAQ Section (visible content for SEO + users) -->
+            <section class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+
+                <details open>
+                    <summary>How many lands should I put in my MTG deck?</summary>
+                    <p>For a 60-card deck (Standard, Modern, Pioneer), 23&ndash;26 lands is typical depending on your mana curve. Aggro decks run 22&ndash;23 lands, midrange runs 24&ndash;25, and control runs 25&ndash;26. For Commander (99 cards + commander), 35&ndash;38 lands is the standard range. Use a manabase calculator based on Frank Karsten&rsquo;s math for precise counts tailored to your specific deck.</p>
+                </details>
+
+                <details>
+                    <summary>How many lands for a 60-card deck?</summary>
+                    <p>Most competitive 60-card decks play between 22 and 26 lands. The exact number depends on your average mana value (mana curve). Low-curve aggro decks like Mono-Red or Burn can get away with 20&ndash;22 lands, especially if they run cheap cantrips. Midrange decks typically want 24 lands, while control and ramp strategies often play 25&ndash;27. Enter your mana curve into the calculator above for a personalized recommendation.</p>
+                </details>
+
+                <details>
+                    <summary>How many lands for Commander / EDH?</summary>
+                    <p>Commander decks (99 cards + commander) typically run 35&ndash;38 lands. The ratio is slightly different from 60-card formats because of the larger deck size and singleton restriction. Decks with a low mana curve and lots of mana rocks can go as low as 33, while 4+ color decks or landfall strategies may want 38&ndash;40. Don&rsquo;t forget to count mana-producing artifacts like Sol Ring and signets when planning your mana base.</p>
+                </details>
+
+                <details>
+                    <summary>What is Frank Karsten's mana math?</summary>
+                    <p>Frank Karsten&rsquo;s mana math is the gold standard for calculating MTG mana bases. Using hypergeometric probability, Karsten determined exactly how many colored sources you need to cast your spells on curve with approximately 90% consistency. For example, a card costing 1WW in a 60-card deck needs about 18 white sources. His research, published on ChannelFireball, is the foundation used by competitive players and this calculator.</p>
+                </details>
+
+                <details>
+                    <summary>How many colored sources do I need?</summary>
+                    <p>The number of colored sources depends on how many pips of that color appear in your casting costs and what turn you need them. Karsten&rsquo;s guidelines for a 60-card deck: a single colored pip on turn 1 needs ~14 sources, a single pip on turn 3 needs ~12, and double pips (like 1WW) need ~18 sources. This calculator does the math automatically &mdash; just input your colored mana symbols and it computes the sources needed per color.</p>
+                </details>
+
+                <details>
+                    <summary>What is the 40% rule for lands?</summary>
+                    <p>The &ldquo;40% rule&rdquo; is a rough guideline that suggests about 40% of your deck should be lands. For a 60-card deck that&rsquo;s 24 lands, and for a 40-card Limited deck that&rsquo;s 16&ndash;17 lands. While this rule of thumb works as a starting point, the actual number should depend on your mana curve. Aggressive decks with lots of 1&ndash;2 drops can go below 40%, while control decks may want to stay at or above it.</p>
+                </details>
+
+                <details>
+                    <summary>How do dual lands affect my mana base?</summary>
+                    <p>Dual lands (lands that produce two or more colors) are crucial for multicolor decks because each one counts as a source for every color it produces. A Hallowed Fountain counts as both a white source and a blue source, reducing the total lands you need. Premium duals like shock lands and fetch lands are the most efficient because they enter untapped or have basic land types. This calculator&rsquo;s land suggestions section recommends specific dual land cycles based on your format and colors. See our complete <a href="/tools/lands/">dual lands reference guide</a> for every cycle by format.</p>
+                </details>
+
+                <details>
+                    <summary>How many lands for a 3-color Commander deck?</summary>
+                    <p>A three-color Commander deck typically runs 36&ndash;38 lands, but the real challenge is the color distribution. Each color needs at least 14&ndash;16 sources to reliably cast single-pip spells by turn 3. With three colors, you need heavy investment in multicolor lands: fetch lands, shock lands, triomes, and check lands that produce two of your three colors. Budget options include pain lands, filter lands, and the battlebond lands. Use this calculator with the Commander preset to see exactly how many sources of each color your 3-color deck requires.</p>
+                </details>
+
+                <details>
+                    <summary>What is the mana curve and why does it matter for lands?</summary>
+                    <p>The mana curve is the distribution of mana values (casting costs) across your nonland cards. It directly determines how many lands you need: a deck full of 1&ndash;2 drops can function on 22 lands, while a deck with lots of 4&ndash;6 drops needs 25+. The ideal curve depends on your strategy &mdash; aggro decks want a low curve peaking at 1&ndash;2, midrange peaks at 2&ndash;3, and control wants a flatter distribution with powerful top-end. Enter your curve into this mana base calculator to see exactly how your land count should scale.</p>
+                </details>
+
+                <details>
+                    <summary>How do I calculate mana for Limited / Draft decks?</summary>
+                    <p>For 40-card Limited decks (Draft and Sealed), the standard is 17 lands. The color split depends on your deck&rsquo;s pip distribution. A mostly-red deck splashing white might run 10 Mountains and 7 Plains, while an even two-color deck wants about 9/8 or 8/9. Use the Limited format preset in this calculator, enter your colored pips from your drafted cards, and it computes the optimal basic land split. Remember that in Limited, you rarely have dual lands, so your mana base is mostly basics.</p>
+                </details>
+
+                <details>
+                    <summary>How does this mana calculator differ from other MTG land calculators?</summary>
+                    <p>Most MTG land calculators only tell you how many total lands to run. This calculator goes further by implementing Frank Karsten&rsquo;s <strong>hypergeometric probability model</strong> &mdash; the same math used by Pro Tour players. It calculates the exact number of <em>colored sources</em> per color, shows your probability of casting each spell on curve, and recommends specific dual land cycles for your format. It also includes a decklist import feature that auto-detects your mana pips via Scryfall, so you can paste a deck and get instant results.</p>
+                </details>
+
+                <details>
+                    <summary>Should I count mana rocks as colored sources?</summary>
+                    <p>Mana rocks like Sol Ring, Arcane Signet, and Signets contribute to your mana production but are not technically &ldquo;lands.&rdquo; In Commander, mana rocks are essential &mdash; most decks run 8&ndash;12 ramp pieces. A rock that produces your color counts as roughly 0.5&ndash;0.75 of a colored source because it can be removed and doesn&rsquo;t affect your opening hand land count. The safe approach: build your land base as if rocks don&rsquo;t exist, then add rocks on top as acceleration. This calculator focuses on lands specifically, since they&rsquo;re the foundation.</p>
+                </details>
+            </section>
+
+            <!-- Related Tools -->
+            <div class="info-box" style="margin-top:1.5rem;">
+                <h3>&#128736; Related Mana Base Tools</h3>
+                <p>
+                    <strong><a href="/tools/lands/">Dual Lands Reference Guide</a></strong> &mdash; Browse every dual land cycle in Magic, filtered by color, speed, and format legality. See which lands are legal in Standard, Pioneer, Modern, and Commander.<br>
+                    <strong><a href="/tools/commander-bracket/">Commander Bracket Calculator</a></strong> &mdash; Analyze your Commander deck&rsquo;s power level. Detects fast mana, tutors, combo pieces, and estimates your bracket rating.<br>
+                    <strong><a href="/guides/commander-deck-building.html">Commander Deck Building Guide</a></strong> &mdash; Complete guide to building EDH decks, including mana base theory, color ratios, and ramp packages.<br>
+                    <strong><a href="/tools/hypergeometric/">Hypergeometric Calculator</a></strong> &mdash; Raw probability calculator for any MTG scenario. Compute draw odds for any card or combination.
                 </p>
             </div>
         </div>
@@ -447,60 +588,97 @@ let state = {
     totalLands: 24,
     activeColors: new Set(['W', 'U']),
     pips: { W: 12, U: 12, B: 0, R: 0, G: 0 },
-    curve: [0, 8, 10, 8, 6, 3, 1, 0]
+    curve: [0, 8, 10, 8, 6, 3, 1, 0],
+    mode: 'manual',       // 'manual' | 'imported'
+    cards: null,           // [{name, qty, mv, pips, isLand, producesColors}]
+    simResults: null       // from worker
 };
 
-// ── Format Presets ──
-const FORMAT_DUALS = {
-    standard: {
-        label: 'Standard',
-        duals: ['Shock Lands'],
-        hasFetches: false
-    },
-    pioneer: {
-        label: 'Pioneer',
-        duals: ['Shock Lands', 'Fetch Lands'],
-        hasFetches: true
-    },
-    modern: {
-        label: 'Modern',
-        duals: ['Shock Lands', 'Fetch Lands', 'Fast Lands'],
-        hasFetches: true
-    },
-    legacy: {
-        label: 'Legacy',
-        duals: ['Shock Lands', 'Fetch Lands', 'Original Duals', 'Fast Lands', 'Check Lands', 'Pain Lands'],
-        hasFetches: true
-    },
-    limited: {
-        label: 'Limited',
-        duals: ['Gates', 'Gain Lands', 'Taplands (as drafted)'],
-        hasFetches: false
-    },
-    commander: {
-        label: 'Commander',
-        duals: ['Shock Lands', 'Fetch Lands', 'Original Duals', 'Triomes', 'Command Tower', 'Exotic Orchard'],
-        hasFetches: true
-    },
-    custom: {
-        label: 'Custom',
-        duals: ['Any dual lands available in your format'],
-        hasFetches: false
-    }
+// Simulation worker
+var simWorker = null;
+var simWorkerFailed = false;
+
+// ── Comprehensive Dual Land Database ──
+// Each cycle: name, short description, tier (1=premium, 2=good, 3=budget), cards per color pair
+const LAND_CYCLES = {
+    // --- STANDARD-LEGAL ---
+    shockLands: { name: 'Shock Lands', desc: 'Pay 2 life or ETB tapped. Fetchable (has basic land types).', tier: 1, cards: {
+        WU:'Hallowed Fountain', WB:'Godless Shrine', WR:'Sacred Foundry', WG:'Temple Garden',
+        UB:'Watery Grave', UR:'Steam Vents', UG:'Breeding Pool', BR:'Blood Crypt', BG:'Overgrown Tomb', RG:'Stomping Ground' }},
+    surveilLands: { name: 'Surveil Lands', desc: 'ETB tapped. Surveil 1. Fetchable (has basic land types).', tier: 1, cards: {
+        WU:'Meticulous Archive', WB:'Shadowy Backstreet', WR:'Elegant Parlor', WG:'Lush Portico',
+        UB:'Undercity Sewers', UR:'Thundering Falls', UG:'Hedge Maze', BR:'Raucous Theater', BG:'Underground Mortuary', RG:'Commercial District' }},
+    fastLandsEnemy: { name: 'Fast Lands (Enemy)', desc: 'ETB untapped if you control 2 or fewer lands.', tier: 1, cards: {
+        WB:'Concealed Courtyard', UR:'Spirebluff Canal', BG:'Blooming Marsh', WR:'Inspiring Vantage', UG:'Botanical Sanctum' }},
+    vergeLands: { name: 'Verge Lands', desc: 'ETB untapped. Second color requires matching basic land type.', tier: 1, cards: {
+        WU:'Floodfarm Verge', UB:'Gloomlake Verge', BR:'Blazemire Verge', RG:'Thornspire Verge', WG:'Hushwood Verge',
+        WB:'Bleachbone Verge', UR:'Riverpyre Verge', BG:'Wastewood Verge', WR:'Sunbillow Verge', UG:'Willowrush Verge' }},
+    hauntLands: { name: 'Haunt Lands', desc: 'ETB tapped unless a player has 13 or less life.', tier: 2, cards: {
+        WU:'Abandoned Campground', UB:'Murky Sewer', BR:'Razortrap Gorge', RG:'Bleeding Woods', WG:'Etched Cornfield',
+        WB:'Neglected Manor', UR:'Peculiar Lighthouse', BG:'Strangled Cemetery', WR:'Raucous Carnival', UG:'Lakeside Shack' }},
+    restlessLands: { name: 'Restless Creature Lands', desc: 'ETB tapped. Can animate into a creature.', tier: 2, cards: {
+        WU:'Restless Anchorage', WB:'Restless Fortress', WR:'Restless Bivouac', WG:'Restless Prairie',
+        UB:'Restless Reef', UR:'Restless Spire', UG:'Restless Vinestalk', BR:'Restless Vents', BG:'Restless Cottage', RG:'Restless Ridgeline' }},
+    scryTemples: { name: 'Scry Temples', desc: 'ETB tapped. Scry 1.', tier: 3, cards: {
+        WU:'Temple of Enlightenment', WB:'Temple of Silence', WR:'Temple of Triumph', WG:'Temple of Plenty',
+        UB:'Temple of Deceit', UR:'Temple of Epiphany', UG:'Temple of Mystery', BR:'Temple of Malice', BG:'Temple of Malady', RG:'Temple of Abandon' }},
+    gainLands: { name: 'Gain Lands', desc: 'ETB tapped. Gain 1 life.', tier: 3, cards: {
+        WU:'Tranquil Cove', WB:'Scoured Barrens', WR:'Wind-Scarred Crag', WG:'Blossoming Sands',
+        UB:'Dismal Backwater', UR:'Swiftwater Cliffs', UG:'Thornwood Falls', BR:'Bloodfell Caves', BG:'Jungle Hollow', RG:'Rugged Highlands' }},
+    guildgates: { name: 'Guildgates', desc: 'ETB tapped. Gate subtype.', tier: 3, cards: {
+        WU:'Azorius Guildgate', WB:'Orzhov Guildgate', WR:'Boros Guildgate', WG:'Selesnya Guildgate',
+        UB:'Dimir Guildgate', UR:'Izzet Guildgate', UG:'Simic Guildgate', BR:'Rakdos Guildgate', BG:'Golgari Guildgate', RG:'Gruul Guildgate' }},
+
+    // --- PIONEER-ONLY (not in current Standard) ---
+    checkLands: { name: 'Check Lands', desc: 'ETB untapped if you control a matching basic land type.', tier: 1, cards: {
+        WU:'Glacial Fortress', WB:'Isolated Chapel', WR:'Clifftop Retreat', WG:'Sunpetal Grove',
+        UB:'Drowned Catacomb', UR:'Sulfur Falls', UG:'Hinterland Harbor', BR:'Dragonskull Summit', BG:'Woodland Cemetery', RG:'Rootbound Crag' }},
+    pathwayLands: { name: 'Pathway Lands', desc: 'MDFC. Choose a side (untapped, one color once played).', tier: 2, cards: {
+        WU:'Hengegate Pathway', WB:'Brightclimb Pathway', WR:'Needleverge Pathway', WG:'Branchloft Pathway',
+        UB:'Clearwater Pathway', UR:'Riverglide Pathway', UG:'Barkchannel Pathway', BR:'Blightstep Pathway', BG:'Darkbore Pathway', RG:'Cragcrown Pathway' }},
+    slowLands: { name: 'Slow Lands', desc: 'ETB untapped if you control 2+ other lands.', tier: 1, cards: {
+        WU:'Deserted Beach', WB:'Shattered Sanctum', WR:'Sundown Pass', WG:'Overgrown Farmland',
+        UB:'Shipwreck Marsh', UR:'Stormcarved Coast', UG:'Dreamroot Cascade', BR:'Haunted Ridge', BG:'Deathcap Glade', RG:'Rockfall Vale' }},
+    painLands: { name: 'Pain Lands', desc: 'ETB untapped. 1 damage for colored mana, free colorless.', tier: 1, cards: {
+        WU:'Adarkar Wastes', WB:'Caves of Koilos', WR:'Battlefield Forge', WG:'Brushland',
+        UB:'Underground River', UR:'Shivan Reef', UG:'Yavimaya Coast', BR:'Sulfurous Springs', BG:'Llanowar Wastes', RG:'Karplusan Forest' }},
+    revealLands: { name: 'Reveal Lands', desc: 'ETB untapped if you reveal a matching basic from hand.', tier: 2, cards: {
+        WU:'Port Town', WB:'Shineshadow Snarl', WR:'Furycalm Snarl', WG:'Fortified Village',
+        UB:'Choked Estuary', UR:'Frostboil Snarl', UG:'Vineglimmer Snarl', BR:'Foreboding Ruins', BG:'Necroblossom Snarl', RG:'Game Trail' }},
+
+    // --- MODERN-ONLY ---
+    fetchLands: { name: 'Fetch Lands', desc: 'Pay 1 life, sac: search for a land with basic land type.', tier: 1, cards: {
+        WU:'Flooded Strand', WB:'Marsh Flats', WR:'Arid Mesa', WG:'Windswept Heath',
+        UB:'Polluted Delta', UR:'Scalding Tarn', UG:'Misty Rainforest', BR:'Bloodstained Mire', BG:'Verdant Catacombs', RG:'Wooded Foothills' }},
+    fastLands: { name: 'Fast Lands', desc: 'ETB untapped if you control 2 or fewer lands.', tier: 1, cards: {
+        WU:'Seachrome Coast', WB:'Concealed Courtyard', WR:'Inspiring Vantage', WG:'Razorverge Thicket',
+        UB:'Darkslick Shores', UR:'Spirebluff Canal', UG:'Botanical Sanctum', BR:'Blackcleave Cliffs', BG:'Blooming Marsh', RG:'Copperline Gorge' }},
+    horizonLands: { name: 'Horizon Lands', desc: 'Tap for color (1 dmg). Sac + pay 1 life: draw a card.', tier: 1, cards: {
+        WB:'Silent Clearing', WG:'Horizon Canopy', WR:'Sunbaked Canyon', UR:'Fiery Islet', UG:'Waterlogged Grove', BG:'Nurturing Peatland' }},
+    filterLands: { name: 'Filter Lands', desc: 'Tap for colorless. Or pay {1} color to get 2 mana in combo.', tier: 2, cards: {
+        WU:'Mystic Gate', WB:'Fetid Heath', WR:'Rugged Prairie', WG:'Wooded Bastion',
+        UB:'Sunken Ruins', UR:'Cascade Bluffs', UG:'Flooded Grove', BR:'Graven Cairns', BG:'Twilight Mire', RG:'Fire-Lit Thicket' }},
+
+    // --- LEGACY-ONLY ---
+    originalDuals: { name: 'Original Dual Lands', desc: 'No drawback. Two basic land types. Reserved List.', tier: 1, cards: {
+        WU:'Tundra', WB:'Scrubland', WR:'Plateau', WG:'Savannah',
+        UB:'Underground Sea', UR:'Volcanic Island', UG:'Tropical Island', BR:'Badlands', BG:'Bayou', RG:'Taiga' }},
+
+    // --- COMMANDER ---
+    bondLands: { name: 'Bond Lands', desc: 'ETB untapped if you have 2+ opponents.', tier: 1, cards: {
+        WU:'Sea of Clouds', WB:'Vault of Champions', WR:'Spectator Seating', WG:'Bountiful Promenade',
+        UB:'Morphic Pool', UR:'Training Center', UG:'Rejuvenating Springs', BR:'Luxury Suite', BG:'Undergrowth Stadium', RG:'Spire Garden' }}
 };
 
-// ── Dual Land Names by Color Pair ──
-const DUAL_NAMES = {
-    WU: { shock: 'Hallowed Fountain', fetch: 'Flooded Strand', original: 'Tundra', fast: 'Seachrome Coast', check: 'Glacial Fortress', pain: 'Adarkar Wastes' },
-    WB: { shock: 'Godless Shrine', fetch: 'Marsh Flats', original: 'Scrubland', fast: 'Concealed Courtyard', check: 'Isolated Chapel', pain: 'Caves of Koilos' },
-    WR: { shock: 'Sacred Foundry', fetch: 'Arid Mesa', original: 'Plateau', fast: 'Inspiring Vantage', check: 'Clifftop Retreat', pain: 'Battlefield Forge' },
-    WG: { shock: 'Temple Garden', fetch: 'Windswept Heath', original: 'Savannah', fast: 'Botanical Sanctum', check: 'Sunpetal Grove', pain: 'Brushland' },
-    UB: { shock: 'Watery Grave', fetch: 'Polluted Delta', original: 'Underground Sea', fast: 'Darkslick Shores', check: 'Drowned Catacomb', pain: 'Underground River' },
-    UR: { shock: 'Steam Vents', fetch: 'Scalding Tarn', original: 'Volcanic Island', fast: 'Spirebluff Canal', check: 'Sulfur Falls', pain: 'Shivan Reef' },
-    UG: { shock: 'Breeding Pool', fetch: 'Misty Rainforest', original: 'Tropical Island', fast: '', check: 'Hinterland Harbor', pain: 'Yavimaya Coast' },
-    BR: { shock: 'Blood Crypt', fetch: 'Bloodstained Mire', original: 'Badlands', fast: 'Blackcleave Cliffs', check: 'Dragonskull Summit', pain: 'Sulfurous Springs' },
-    BG: { shock: 'Overgrown Tomb', fetch: 'Verdant Catacombs', original: 'Bayou', fast: 'Blooming Marsh', check: 'Woodland Cemetery', pain: 'Llanowar Wastes' },
-    RG: { shock: 'Stomping Ground', fetch: 'Wooded Foothills', original: 'Taiga', fast: 'Copperline Gorge', check: 'Rootbound Crag', pain: 'Karplusan Forest' }
+// Which cycles are available in each format, in priority order (best first)
+const FORMAT_CYCLE_KEYS = {
+    standard: ['shockLands','fastLandsEnemy','vergeLands','surveilLands','hauntLands','restlessLands','scryTemples','gainLands','guildgates'],
+    pioneer:  ['shockLands','fastLandsEnemy','painLands','checkLands','slowLands','vergeLands','surveilLands','pathwayLands','revealLands','hauntLands','restlessLands','scryTemples'],
+    modern:   ['fetchLands','shockLands','fastLands','horizonLands','painLands','checkLands','filterLands','slowLands','surveilLands','pathwayLands','restlessLands','scryTemples'],
+    legacy:   ['fetchLands','originalDuals','shockLands','fastLands','horizonLands','painLands','checkLands','filterLands','slowLands','surveilLands'],
+    limited:  ['gainLands','guildgates','scryTemples'],
+    commander:['shockLands','fetchLands','bondLands','painLands','checkLands','fastLands','slowLands','filterLands','surveilLands','restlessLands','scryTemples'],
+    custom:   ['shockLands','fastLands','painLands','checkLands']
 };
 
 // ══════════════════════════════════════════
@@ -554,42 +732,150 @@ function hypergeometricCDF_atLeast(k, N, K, n) {
 // Karsten's land recommendation
 // ══════════════════════════════════════════
 
-// Given the number of pips in a color, return recommended colored sources
-// Based on Karsten's table (for 60-card, 7 card opening hand + draws)
-function karstenSourcesFor60(pips) {
-    // Approximate Karsten's recommendations
-    var table = {
-        1: 2, 2: 4, 3: 5, 4: 7, 5: 8, 6: 9, 7: 10, 8: 11, 9: 12,
-        10: 13, 11: 13, 12: 14, 13: 14, 14: 15, 15: 15, 16: 16,
-        17: 16, 18: 17, 19: 17, 20: 18
-    };
+// Real Karsten table: key = "pips-turn", value = sources needed in 60-card deck at 90% confidence
+// From Frank Karsten's ChannelFireball research
+var KARSTEN_TABLE = {
+    '1-1':14, '1-2':13, '1-3':12, '1-4':10, '1-5':9, '1-6':9,
+    '2-2':20, '2-3':18, '2-4':16, '2-5':15, '2-6':13,
+    '3-3':23, '3-4':21, '3-5':19, '3-6':17,
+    '4-4':24, '4-5':22, '4-6':20
+};
+
+function karstenLookup(pips, turn) {
+    // Look up sources needed for `pips` colored pips at `turn` in 60-card deck
     if (pips <= 0) return 0;
-    if (pips >= 20) return 18;
-    return table[pips] || Math.min(Math.round(pips * 0.9 + 1), 20);
+    var clampedPips = Math.min(pips, 4);
+    var clampedTurn = Math.max(clampedPips, Math.min(turn, 6));
+    var key = clampedPips + '-' + clampedTurn;
+    return KARSTEN_TABLE[key] || Math.min(14 + (clampedPips - 1) * 4, 24);
 }
 
-function recommendedSources(pips, deckSize, totalLands) {
-    // Scale Karsten's 60-card recommendations to other deck sizes
-    if (pips <= 0) return 0;
-    var base60 = karstenSourcesFor60(pips);
-    // Scale proportionally
+function findMostDemandingCard(color, cards) {
+    // Find the card with the most pips of this color at the lowest MV
+    // Returns {pips, turn} or null
+    var best = null;
+    if (!cards) return null;
+    for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        if (card.isLand) continue;
+        var colorPips = card.pips[color] || 0;
+        if (colorPips <= 0) continue;
+        var turn = card.mv;
+        if (turn < 1) turn = 1;
+        // More demanding = more pips or same pips at lower turn
+        if (!best || colorPips > best.pips || (colorPips === best.pips && turn < best.turn)) {
+            best = { pips: colorPips, turn: turn };
+        }
+    }
+    return best;
+}
+
+function recommendedSources(color, deckSize, totalLands, cards) {
+    // Per-card Karsten method: find the most demanding card for this color
+    var demand = findMostDemandingCard(color, cards);
+    if (!demand) {
+        // Fallback for manual mode: estimate from aggregate pips
+        return recommendedSourcesFromPips(state.pips[color], deckSize, totalLands);
+    }
+    var base60 = karstenLookup(demand.pips, demand.turn);
+    // Scale for non-60-card decks
     var scaleFactor = deckSize / 60;
-    var landFactor = totalLands / 24;
-    // Weighted scale
-    var scaled = base60 * ((scaleFactor + landFactor) / 2);
-    return Math.max(1, Math.round(scaled));
+    return Math.max(1, Math.round(base60 * scaleFactor));
+}
+
+function recommendedSourcesFromPips(totalPips, deckSize, totalLands) {
+    // Fallback for manual mode: estimate from aggregate pip count
+    // Use heuristic: map total pips to an approximate "most demanding" requirement
+    if (totalPips <= 0) return 0;
+    var totalSpells = state.curve.reduce(function(a, b) { return a + b; }, 0);
+    if (totalSpells === 0) return Math.max(1, Math.round(totalPips * 0.7));
+
+    // Estimate: average pips per spell with this color, and earliest turn needed
+    var avgPipsPerSpell = totalPips / totalSpells;
+    var estMaxPips = Math.min(4, Math.ceil(avgPipsPerSpell * 2));
+    // Find earliest MV with spells
+    var earliestTurn = 7;
+    for (var mv = 1; mv <= 7; mv++) {
+        if (state.curve[mv] > 0) { earliestTurn = mv; break; }
+    }
+    var base60 = karstenLookup(Math.max(1, estMaxPips), earliestTurn);
+    var scaleFactor = deckSize / 60;
+    return Math.max(1, Math.round(base60 * scaleFactor));
 }
 
 // ══════════════════════════════════════════
 // UI Initialization
 // ══════════════════════════════════════════
 
+// Slug → JS cycle key mapping (JSON uses slugs, JS uses camelCase)
+const SLUG_TO_KEYS = {
+  'shock-lands':    ['shockLands'],
+  'survey-lands':   ['surveilLands'],
+  'fast-lands':     ['fastLandsEnemy', 'fastLands'],
+  'verge-lands':    ['vergeLands'],
+  'haunt-lands':    ['hauntLands'],
+  'restless-lands': ['restlessLands'],
+  'scry-lands':     ['scryTemples'],
+  'gain-lands':     ['gainLands'],
+  'guildgates':     ['guildgates'],
+  'check-lands':    ['checkLands'],
+  'pathway-lands':  ['pathwayLands'],
+  'slow-lands':     ['slowLands'],
+  'pain-lands':     ['painLands'],
+  'reveal-lands':   ['revealLands'],
+  'fetch-lands':    ['fetchLands'],
+  'horizon-lands':  ['horizonLands'],
+  'filter-lands':   ['filterLands'],
+  'original-duals': ['originalDuals'],
+  'bond-lands':     ['bondLands']
+};
+// Tier-priority ordering: premium first, budget last
+const TIER_ORDER = [
+  'fetchLands','originalDuals','shockLands','fastLands','fastLandsEnemy',
+  'horizonLands','bondLands','painLands','checkLands','slowLands',
+  'vergeLands','filterLands','surveilLands','pathwayLands','revealLands',
+  'hauntLands','restlessLands','scryTemples','gainLands','guildgates'
+];
+
+function loadLandLegality() {
+  fetch('/data/land-legality.json')
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function(data) {
+      if (!data || !data.cycles) return;
+      // Build reverse map: JS key → legal formats
+      var keyLegal = {};
+      for (var slug in data.cycles) {
+        var jsKeys = SLUG_TO_KEYS[slug];
+        if (!jsKeys) continue;
+        for (var i = 0; i < jsKeys.length; i++) {
+          keyLegal[jsKeys[i]] = data.cycles[slug];
+        }
+      }
+      // Rebuild FORMAT_CYCLE_KEYS for each format
+      var fmts = ['standard','pioneer','modern','legacy','commander'];
+      for (var f = 0; f < fmts.length; f++) {
+        var fmt = fmts[f];
+        var keys = [];
+        for (var t = 0; t < TIER_ORDER.length; t++) {
+          var k = TIER_ORDER[t];
+          if (LAND_CYCLES[k] && keyLegal[k] && keyLegal[k][fmt]) {
+            keys.push(k);
+          }
+        }
+        if (keys.length > 0) FORMAT_CYCLE_KEYS[fmt] = keys;
+      }
+    })
+    .catch(function() {}); // Keep hardcoded fallback
+}
+
 function init() {
+    initWorker();
     setupFormatButtons();
     setupColorToggles();
     renderPipInputs();
     setupCurveListeners();
     updateCurveTotal();
+    loadLandLegality();
 }
 
 function setupFormatButtons() {
@@ -750,7 +1036,7 @@ function updateCurveTotal() {
 // Calculation
 // ══════════════════════════════════════════
 
-function calculate() {
+function calculate(fromImport) {
     // Read latest state
     state.deckSize = Math.max(20, parseInt(document.getElementById('deckSize').value) || 60);
     state.totalLands = Math.max(0, parseInt(document.getElementById('totalLands').value) || 0);
@@ -758,6 +1044,13 @@ function calculate() {
         var inp = document.getElementById('pip-' + c);
         if (inp) state.pips[c] = Math.max(0, parseInt(inp.value) || 0);
     });
+
+    // Reset to manual mode if not coming from import
+    if (!fromImport) {
+        state.mode = 'manual';
+        state.cards = null;
+        state.simResults = null;
+    }
 
     var activeList = COLORS.filter(function(c) { return state.activeColors.has(c) && state.pips[c] > 0; });
 
@@ -770,7 +1063,7 @@ function calculate() {
     var recommended = {};
     var totalRecommended = 0;
     activeList.forEach(function(c) {
-        recommended[c] = recommendedSources(state.pips[c], state.deckSize, state.totalLands);
+        recommended[c] = recommendedSources(c, state.deckSize, state.totalLands, state.cards);
         totalRecommended += recommended[c];
     });
 
@@ -848,44 +1141,28 @@ function calculate() {
     }
     html += '</div></div>';
 
-    // ── Hypergeometric Probability Table ──
-    html += '<div class="prob-section">';
-    html += '<h3>Probability of Having Color On Time</h3>';
-    html += '<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.75rem;">Chance of having at least the needed colored sources by each turn (opening hand = turn 1).</p>';
-    html += '<div class="prob-table-wrapper"><table class="prob-table">';
-    html += '<thead><tr><th>Turn</th>';
-    activeList.forEach(function(c) {
-        html += '<th style="color:' + COLOR_HEX[c] + '">' + COLOR_NAMES[c] + ' (' + recommended[c] + ')</th>';
-    });
-    html += '</tr></thead><tbody>';
-
-    for (var turn = 1; turn <= 7; turn++) {
-        var cardsDrawn = 6 + turn; // 7 opening hand + (turn-1) draws = 6+turn
-        html += '<tr><td class="turn-col">Turn ' + turn + ' (' + cardsDrawn + ' cards)</td>';
-        activeList.forEach(function(c) {
-            // How many of this color do we need by this turn?
-            // Approximate: need 1 source by turn the cheapest spell needs it,
-            // scaling up. Simple approach: need ceil(pips * turn / avgCMC) but
-            // use the practical approach of "need at least 1 by T1, and more later"
-            var needed = neededByTurn(c, turn);
-            var prob = hypergeometricCDF_atLeast(needed, state.deckSize, recommended[c], cardsDrawn);
-            var pctStr = (prob * 100).toFixed(1) + '%';
-            var cls = prob >= 0.9 ? 'prob-good' : (prob >= 0.7 ? 'prob-ok' : 'prob-bad');
-            html += '<td class="' + cls + '">' + pctStr + '</td>';
-        });
-        html += '</tr>';
+    // ── Cast Rate / Probability Section ──
+    html += '<div class="prob-section" id="simSection">';
+    html += '<h3>Cast Rate Analysis</h3>';
+    if (simWorkerFailed) {
+        html += '<div class="sim-fallback-notice">Simulation unavailable &mdash; showing estimated probabilities (hypergeometric).</div>';
+        html += renderFallbackProbTable(activeList, recommended);
+    } else {
+        html += '<div class="sim-progress" id="simProgress">';
+        html += '<div class="sim-progress-bar" id="simProgressBar" style="width:0%"></div>';
+        html += '<span class="sim-progress-text" id="simProgressText">Starting simulation...</span>';
+        html += '</div>';
+        html += '<div id="simResultsContainer"></div>';
     }
-    html += '</tbody></table></div></div>';
+    html += '</div>';
 
     // ── Suggested Mana Base ──
     html += '<div class="suggested-section">';
     html += '<h3>Suggested Mana Base</h3>';
 
-    var fmt = FORMAT_DUALS[state.format] || FORMAT_DUALS['custom'];
-
     // Calculate dual land suggestions
     if (activeList.length >= 2) {
-        html += buildDualSuggestions(activeList, recommended, colorlessLands, fmt);
+        html += buildDualSuggestions(activeList, recommended, colorlessLands);
     } else {
         // Mono color
         var c = activeList[0];
@@ -910,46 +1187,235 @@ function calculate() {
 
     document.getElementById('resultsContent').innerHTML = html;
 
+    // Launch Monte Carlo simulation (unless worker failed)
+    if (!simWorkerFailed) {
+        launchSimulation(activeList, recommended);
+    }
+
     // Scroll to results on mobile
     if (window.innerWidth <= 960) {
         document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
-function neededByTurn(color, turn) {
-    // Estimate how many sources of this color we need by a given turn
-    // Based on the curve: look at spells castable by this turn and their pip requirements
-    // Simplified: assume pips scale linearly, need at least 1 by turn 1-2, and max by late game
-    var totalPips = state.pips[color];
-    if (totalPips <= 0) return 0;
+// ══════════════════════════════════════════
+// Monte Carlo Simulation Integration
+// ══════════════════════════════════════════
 
-    // Find the max pips we'd need for any single card in our curve
-    // Since we don't have per-card data, approximate based on pip density
-    var totalSpells = state.curve.reduce(function(a, b) { return a + b; }, 0);
-    if (totalSpells === 0) return 1;
-
-    // Karsten's approach: for a spell with N pips of a color at MV M,
-    // you need N sources by turn M. Without per-card data, we estimate:
-    // Turn 1: need 1 source if we have 1-pip spells
-    // Turn 2: need 1 source
-    // Turn 3+: scale up to meet pip density
-    if (turn <= 1) return 1;
-    if (turn <= 2) return Math.min(2, Math.ceil(totalPips / totalSpells * 4));
-
-    // For later turns, estimate needed sources based on pip density
-    // and what portion of the deck we'd want to cast by then
-    var cumSpells = 0;
-    for (var mv = 0; mv <= Math.min(turn, 7); mv++) {
-        cumSpells += (state.curve[mv] || 0);
+function initWorker() {
+    try {
+        simWorker = new Worker('/tools/manabase/sim-worker.js');
+        simWorker.onerror = function(e) {
+            console.warn('Sim worker failed:', e.message);
+            simWorkerFailed = true;
+            if (simWorker) { simWorker.terminate(); simWorker = null; }
+        };
+    } catch (e) {
+        console.warn('Cannot create Web Worker:', e.message);
+        simWorkerFailed = true;
     }
-    var spellFraction = totalSpells > 0 ? cumSpells / totalSpells : 0;
+}
 
-    // Need enough to cast our proportional share of colored spells
-    var needed = Math.max(1, Math.ceil(totalPips / totalSpells * cumSpells * 0.3));
-    // But never more than what the color actually demands for a single casting
-    needed = Math.min(needed, Math.ceil(totalPips * 0.4));
-    // At minimum 1, at maximum something reasonable
-    return Math.max(1, Math.min(needed, turn));
+function buildDeckSpec() {
+    var spec = { size: state.deckSize, spells: [], lands: [] };
+
+    if (state.mode === 'imported' && state.cards) {
+        // Import mode: use actual per-card data
+        for (var i = 0; i < state.cards.length; i++) {
+            var card = state.cards[i];
+            if (card.isLand) {
+                spec.lands.push({ name: card.name, qty: card.qty, produces: card.producesColors || [] });
+            } else {
+                spec.spells.push({ name: card.name, qty: card.qty, mv: card.mv, pips: card.pips });
+            }
+        }
+    } else {
+        // Manual mode: synthesize virtual deck from pip counts and curve
+        var activeList = COLORS.filter(function(c) { return state.activeColors.has(c) && state.pips[c] > 0; });
+        var totalPipCount = 0;
+        activeList.forEach(function(c) { totalPipCount += state.pips[c]; });
+
+        // Create virtual spells for each MV slot
+        for (var mv = 1; mv <= 7; mv++) {
+            var spellCount = state.curve[mv] || 0;
+            if (spellCount <= 0) continue;
+
+            // Distribute pips proportionally across this MV
+            var virtualPips = {};
+            activeList.forEach(function(c) {
+                if (totalPipCount > 0) {
+                    virtualPips[c] = Math.min(mv, Math.round(state.pips[c] / totalPipCount * Math.min(mv, 2)));
+                } else {
+                    virtualPips[c] = 0;
+                }
+            });
+            // Ensure at least 1 total colored pip
+            var pipSum = 0;
+            for (var c in virtualPips) pipSum += virtualPips[c];
+            if (pipSum === 0 && activeList.length > 0) virtualPips[activeList[0]] = 1;
+
+            spec.spells.push({ name: mv + '-drop', qty: spellCount, mv: mv, pips: virtualPips });
+        }
+
+        // Add 0-MV spells if any
+        if (state.curve[0] > 0) {
+            spec.spells.push({ name: '0-drop', qty: state.curve[0], mv: 0, pips: { W:0, U:0, B:0, R:0, G:0 } });
+        }
+
+        // Lands: basics from recommended sources, distribute by pip proportion
+        var totalLands = state.totalLands;
+        activeList.forEach(function(c) {
+            var count = Math.round(totalLands * (state.pips[c] / Math.max(1, totalPipCount)));
+            if (count > 0) {
+                spec.lands.push({ name: basicLandName(c), qty: count, produces: [c] });
+            }
+        });
+
+        // Remaining lands as colorless
+        var assignedLands = spec.lands.reduce(function(s, l) { return s + l.qty; }, 0);
+        var remaining = totalLands - assignedLands;
+        if (remaining > 0) {
+            spec.lands.push({ name: 'Utility Land', qty: remaining, produces: [] });
+        }
+    }
+
+    return spec;
+}
+
+function launchSimulation(activeList, recommended) {
+    if (!simWorker || simWorkerFailed) return;
+
+    var deckSpec = buildDeckSpec();
+
+    // If deck spec is too small, skip simulation
+    var totalCards = 0;
+    deckSpec.spells.forEach(function(s) { totalCards += s.qty; });
+    deckSpec.lands.forEach(function(l) { totalCards += l.qty; });
+    if (totalCards < 10) return;
+
+    simWorker.onmessage = function(e) {
+        if (e.data.type === 'progress') {
+            var pct = Math.round((e.data.iteration / e.data.total) * 100);
+            var bar = document.getElementById('simProgressBar');
+            var text = document.getElementById('simProgressText');
+            if (bar) bar.style.width = pct + '%';
+            if (text) text.textContent = 'Simulating... ' + e.data.iteration.toLocaleString() + ' / ' + e.data.total.toLocaleString() + ' games';
+        } else if (e.data.type === 'complete') {
+            state.simResults = e.data.results;
+            renderSimResults(e.data.results, activeList, recommended);
+        }
+    };
+
+    simWorker.postMessage({
+        type: 'simulate',
+        deck: deckSpec,
+        params: { iterations: 50000, progressInterval: 5000 }
+    });
+}
+
+function renderSimResults(results, activeList, recommended) {
+    var container = document.getElementById('simResultsContainer');
+    var progress = document.getElementById('simProgress');
+    if (!container) return;
+    if (progress) progress.style.display = 'none';
+
+    var html = '';
+
+    // Summary
+    var overallHits = 0, overallTrials = 0;
+    results.perCard.forEach(function(card) {
+        if (card.mv >= 1 && card.mv <= 7) {
+            overallHits += card.castRate;
+            overallTrials++;
+        }
+    });
+    var overallRate = overallTrials > 0 ? (overallHits / overallTrials * 100).toFixed(1) : '0.0';
+    html += '<div class="sim-summary">Simulated ' + results.iterations.toLocaleString() + ' games in ' + (results.elapsed / 1000).toFixed(1) + 's &mdash; Overall castability: <strong>' + overallRate + '%</strong></div>';
+
+    // Cast rate table
+    if (state.mode === 'imported' && state.cards) {
+        // Per-card table
+        html += '<div class="prob-table-wrapper"><table class="prob-table">';
+        html += '<thead><tr><th style="text-align:left;">Card</th><th>Cost</th><th>Turn</th><th>Cast Rate</th></tr></thead><tbody>';
+        results.perCard.forEach(function(card) {
+            if (card.mv < 1) return;
+            var pctStr = (card.castRate * 100).toFixed(1) + '%';
+            var cls = card.castRate >= 0.9 ? 'prob-good' : (card.castRate >= 0.8 ? 'prob-ok' : 'prob-bad');
+            var icon = card.castRate >= 0.9 ? ' &#10003;' : (card.castRate < 0.8 ? ' &#10007;' : '');
+            html += '<tr>';
+            html += '<td class="turn-col" style="text-align:left;">' + card.name + '</td>';
+            html += '<td class="cast-mana">' + formatPips(card.pips) + '</td>';
+            html += '<td>' + card.mv + '</td>';
+            html += '<td class="' + cls + '">' + pctStr + icon + '</td>';
+            html += '</tr>';
+        });
+        html += '</tbody></table></div>';
+    } else {
+        // Manual mode: per-color benchmark table
+        html += '<div class="prob-table-wrapper"><table class="prob-table">';
+        html += '<thead><tr><th style="text-align:left;">Color</th><th>Hardest Requirement</th><th>Turn</th><th>Cast Rate</th></tr></thead><tbody>';
+        activeList.forEach(function(c) {
+            // Find the matching virtual spell for this color
+            var bestCard = null;
+            results.perCard.forEach(function(card) {
+                if (card.pips[c] > 0 && card.mv >= 1) {
+                    if (!bestCard || card.pips[c] > bestCard.pips[c] || (card.pips[c] === bestCard.pips[c] && card.mv < bestCard.mv)) {
+                        bestCard = card;
+                    }
+                }
+            });
+            if (!bestCard) return;
+            var pctStr = (bestCard.castRate * 100).toFixed(1) + '%';
+            var cls = bestCard.castRate >= 0.9 ? 'prob-good' : (bestCard.castRate >= 0.8 ? 'prob-ok' : 'prob-bad');
+            var pipDesc = '{' + c + '}'.repeat(bestCard.pips[c]) + ' spell';
+            html += '<tr>';
+            html += '<td class="turn-col" style="text-align:left;color:' + COLOR_HEX[c] + ';">' + COLOR_NAMES[c] + '</td>';
+            html += '<td class="cast-mana">' + pipDesc + '</td>';
+            html += '<td>' + bestCard.mv + '</td>';
+            html += '<td class="' + cls + '">' + pctStr + '</td>';
+            html += '</tr>';
+        });
+        html += '</tbody></table></div>';
+    }
+
+    container.innerHTML = html;
+}
+
+function formatPips(pips) {
+    var s = '';
+    COLORS.forEach(function(c) {
+        for (var i = 0; i < (pips[c] || 0); i++) {
+            s += '{' + c + '}';
+        }
+    });
+    return s || '{C}';
+}
+
+function renderFallbackProbTable(activeList, recommended) {
+    // Hypergeometric fallback when worker is unavailable
+    var html = '<div class="prob-table-wrapper"><table class="prob-table">';
+    html += '<thead><tr><th>Turn</th>';
+    activeList.forEach(function(c) {
+        html += '<th style="color:' + COLOR_HEX[c] + '">' + COLOR_NAMES[c] + ' (' + recommended[c] + ')</th>';
+    });
+    html += '</tr></thead><tbody>';
+
+    for (var turn = 1; turn <= 7; turn++) {
+        var cardsDrawn = 6 + turn;
+        html += '<tr><td class="turn-col">Turn ' + turn + ' (' + cardsDrawn + ' cards)</td>';
+        activeList.forEach(function(c) {
+            var needed = 1; // need at least 1 source of this color by each turn
+            var demand = findMostDemandingCard(c, state.cards);
+            if (demand && turn >= demand.turn) needed = demand.pips;
+            var prob = hypergeometricCDF_atLeast(needed, state.deckSize, recommended[c], cardsDrawn);
+            var pctStr = (prob * 100).toFixed(1) + '%';
+            var cls = prob >= 0.9 ? 'prob-good' : (prob >= 0.7 ? 'prob-ok' : 'prob-bad');
+            html += '<td class="' + cls + '">' + pctStr + '</td>';
+        });
+        html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    return html;
 }
 
 function basicLandName(c) {
@@ -964,9 +1430,11 @@ function getColorPair(c1, c2) {
     return c2 + c1;
 }
 
-function buildDualSuggestions(activeList, recommended, colorlessLands, fmt) {
+function buildDualSuggestions(activeList, recommended, colorlessLands) {
     var html = '';
     var pairs = [];
+    var formatKey = state.format;
+    var cycleKeys = FORMAT_CYCLE_KEYS[formatKey] || FORMAT_CYCLE_KEYS['custom'];
 
     // Generate all color pairs
     for (var i = 0; i < activeList.length; i++) {
@@ -975,84 +1443,129 @@ function buildDualSuggestions(activeList, recommended, colorlessLands, fmt) {
         }
     }
 
-    // Suggest dual lands for each pair
-    var totalDuals = 0;
-    var dualCounts = {};
-    var basicsNeeded = {};
+    // Find available lands per pair from format's cycles
+    var availableLands = {}; // pair -> [{cycle, name, tier}]
+    pairs.forEach(function(pair) { availableLands[pair] = []; });
 
-    // Initialize basics at full recommended
-    activeList.forEach(function(c) { basicsNeeded[c] = recommended[c]; });
+    cycleKeys.forEach(function(key) {
+        var cycle = LAND_CYCLES[key];
+        if (!cycle) return;
+        pairs.forEach(function(pair) {
+            var cardName = cycle.cards[pair];
+            if (cardName) {
+                availableLands[pair].push({ cycle: cycle.name, name: cardName, tier: cycle.tier, desc: cycle.desc });
+            }
+        });
+    });
 
-    // For each pair, suggest ~4 duals (or fewer for formats with less fixing)
-    var dualsPerPair = activeList.length <= 2 ? 4 : (activeList.length <= 3 ? 3 : 2);
-    if (state.format === 'limited') dualsPerPair = Math.min(2, dualsPerPair);
-    if (state.format === 'commander') dualsPerPair = activeList.length <= 3 ? 3 : 2;
+    // Build suggestion: list all available dual lands per color pair
+    html += '<div class="suggest-card">';
+    html += '<h4>Available Dual Lands (' + formatKey.charAt(0).toUpperCase() + formatKey.slice(1) + ')</h4>';
+    html += '<p>All dual land options for your color combination in this format, ordered by competitive tier.</p>';
+    html += '</div>';
 
     pairs.forEach(function(pair) {
         var c1 = pair[0], c2 = pair[1];
-        var count = dualsPerPair;
-        dualCounts[pair] = count;
-        totalDuals += count;
-        // Each dual reduces need for basics of both colors
-        basicsNeeded[c1] = Math.max(0, basicsNeeded[c1] - count);
-        basicsNeeded[c2] = Math.max(0, basicsNeeded[c2] - count);
+        var lands = availableLands[pair];
+        if (lands.length === 0) return;
+
+        html += '<div class="suggest-card">';
+        html += '<h4 style="display:flex;align-items:center;gap:0.5rem;">';
+        html += '<span class="pip-color-dot" style="width:20px;height:20px;font-size:0.55rem;background:' + COLOR_HEX[c1] + ';color:' + COLOR_TEXT[c1] + (c1==='B'?';border:1px solid rgba(255,255,255,0.2)':'') + '">' + c1 + '</span>';
+        html += '<span class="pip-color-dot" style="width:20px;height:20px;font-size:0.55rem;background:' + COLOR_HEX[c2] + ';color:' + COLOR_TEXT[c2] + (c2==='B'?';border:1px solid rgba(255,255,255,0.2)':'') + '">' + c2 + '</span>';
+        html += ' ' + COLOR_NAMES[c1] + ' / ' + COLOR_NAMES[c2] + ' (' + lands.length + ' options)';
+        html += '</h4>';
+        html += '<div class="suggest-lands" style="flex-direction:column;gap:0.3rem;">';
+
+        lands.forEach(function(land) {
+            var tierLabel = land.tier === 1 ? 'Premium' : (land.tier === 2 ? 'Good' : 'Budget');
+            var tierColor = land.tier === 1 ? '#4ade80' : (land.tier === 2 ? '#facc15' : '#71717a');
+            html += '<span class="suggest-land" style="justify-content:space-between;width:100%;">';
+            html += '<span><strong>' + land.name + '</strong> <span style="color:var(--text-muted);font-size:0.65rem;">(' + land.cycle + ')</span></span>';
+            html += '<span style="color:' + tierColor + ';font-size:0.65rem;font-weight:600;">' + tierLabel + '</span>';
+            html += '</span>';
+        });
+        html += '</div></div>';
     });
 
-    // Ensure we don't exceed total lands
-    var totalBasics = 0;
-    activeList.forEach(function(c) { totalBasics += basicsNeeded[c]; });
-    var allocated = totalDuals + totalBasics + colorlessLands;
-    if (allocated > state.totalLands) {
-        // Reduce colorless first, then basics proportionally
-        var excess = allocated - state.totalLands;
-        var removed = Math.min(excess, colorlessLands);
-        colorlessLands -= removed;
-        excess -= removed;
-        if (excess > 0) {
-            // Reduce basics proportionally
-            activeList.forEach(function(c) {
-                if (excess <= 0) return;
-                var cut = Math.min(Math.ceil(excess / activeList.length), basicsNeeded[c]);
-                basicsNeeded[c] -= cut;
-                excess -= cut;
-            });
+    // Suggested allocation — greedily fill duals by tier, then basics
+    var copiesPerCycle = (formatKey === 'commander') ? 1 : 4;
+    if (formatKey === 'limited') copiesPerCycle = 1;
+
+    // Minimum basics: at least 1 per color for fetch targets / consistency
+    var minBasicsPerColor = (formatKey === 'commander') ? 2 : 1;
+    var minBasics = minBasicsPerColor * activeList.length;
+    var maxDuals = Math.max(0, state.totalLands - colorlessLands - minBasics);
+
+    // Collect all available duals sorted by tier (premium first)
+    var allDuals = [];
+    pairs.forEach(function(pair) {
+        availableLands[pair].forEach(function(land) {
+            allDuals.push({ pair: pair, cycle: land.cycle, name: land.name, tier: land.tier });
+        });
+    });
+    allDuals.sort(function(a, b) { return a.tier - b.tier; });
+
+    // Greedily allocate playsets until we hit maxDuals
+    var suggestedDuals = [];
+    var totalDualCount = 0;
+    allDuals.forEach(function(d) {
+        if (totalDualCount >= maxDuals) return;
+        var qty = Math.min(copiesPerCycle, maxDuals - totalDualCount);
+        suggestedDuals.push({ name: d.name, cycle: d.cycle, tier: d.tier, qty: qty, pair: d.pair });
+        totalDualCount += qty;
+    });
+
+    // Track how many sources each color gets from duals
+    var sourcesFromDuals = {};
+    activeList.forEach(function(c) { sourcesFromDuals[c] = 0; });
+    suggestedDuals.forEach(function(d) {
+        sourcesFromDuals[d.pair[0]] += d.qty;
+        sourcesFromDuals[d.pair[1]] += d.qty;
+    });
+
+    // Remaining slots = basics, split proportionally by pip count
+    var basicTotal = state.totalLands - totalDualCount - colorlessLands;
+    var basicsPerColor = {};
+    var totalPipCount = 0;
+    activeList.forEach(function(c) { totalPipCount += state.pips[c]; });
+    activeList.forEach(function(c) {
+        if (totalPipCount > 0) {
+            basicsPerColor[c] = Math.max(minBasicsPerColor, Math.round(basicTotal * state.pips[c] / totalPipCount));
+        } else {
+            basicsPerColor[c] = Math.max(minBasicsPerColor, Math.round(basicTotal / activeList.length));
+        }
+    });
+    // Fix rounding to match basicTotal exactly
+    var assignedBasics = 0;
+    activeList.forEach(function(c) { assignedBasics += basicsPerColor[c]; });
+    var bDiff = basicTotal - assignedBasics;
+    if (bDiff !== 0) {
+        var sortedByPips = activeList.slice().sort(function(a, b) { return state.pips[b] - state.pips[a]; });
+        var idx = 0;
+        while (bDiff > 0 && idx < sortedByPips.length) { basicsPerColor[sortedByPips[idx]]++; bDiff--; idx++; }
+        while (bDiff < 0 && idx < sortedByPips.length) {
+            if (basicsPerColor[sortedByPips[idx]] > 0) { basicsPerColor[sortedByPips[idx]]--; bDiff++; }
+            idx++;
         }
     }
 
-    // Build suggestion cards
-    // Dual Lands
+    // Suggested split
     html += '<div class="suggest-card">';
-    html += '<h4>Dual Lands (' + fmt.label + ')</h4>';
-    html += '<p>Recommended dual land slots for your color combination. Available cycles: ' + fmt.duals.join(', ') + '.</p>';
-    html += '<div class="suggest-lands">';
-    pairs.forEach(function(pair) {
-        var dualInfo = DUAL_NAMES[pair];
-        var c1 = pair[0], c2 = pair[1];
-        var count = dualCounts[pair];
-        var landName = '';
-        if (dualInfo) {
-            if (fmt.hasFetches) {
-                landName = dualInfo.shock + (dualInfo.fetch ? ' / ' + dualInfo.fetch : '');
-            } else if (state.format === 'standard') {
-                landName = dualInfo.shock;
-            } else {
-                landName = COLOR_NAMES[c1] + '/' + COLOR_NAMES[c2] + ' dual';
-            }
-        } else {
-            landName = COLOR_NAMES[c1] + '/' + COLOR_NAMES[c2] + ' dual';
-        }
-        html += '<span class="suggest-land"><span class="sl-count">' + count + '</span> ' + landName + '</span>';
+    html += '<h4>Suggested Split (' + totalDualCount + ' duals, ' + basicTotal + ' basics)</h4>';
+    html += '<p>Fill with premium duals first for best mana consistency. Adjust based on your curve and aggression level.</p>';
+    html += '<div class="suggest-lands" style="flex-direction:column;gap:0.3rem;">';
+    suggestedDuals.forEach(function(d) {
+        var tierLabel = d.tier === 1 ? 'Premium' : (d.tier === 2 ? 'Good' : 'Budget');
+        var tierColor = d.tier === 1 ? '#4ade80' : (d.tier === 2 ? '#facc15' : '#71717a');
+        html += '<span class="suggest-land" style="justify-content:space-between;width:100%;">';
+        html += '<span><span class="sl-count">' + d.qty + '</span> ' + d.name + ' <span style="color:var(--text-muted);font-size:0.65rem;">(' + d.cycle + ')</span></span>';
+        html += '<span style="color:' + tierColor + ';font-size:0.65rem;font-weight:600;">' + tierLabel + '</span>';
+        html += '</span>';
     });
-    html += '</div></div>';
-
-    // Basic Lands
-    html += '<div class="suggest-card">';
-    html += '<h4>Basic Lands</h4>';
-    html += '<p>Fill remaining slots with basic lands proportional to your color requirements.</p>';
-    html += '<div class="suggest-lands">';
     activeList.forEach(function(c) {
-        if (basicsNeeded[c] > 0) {
-            html += '<span class="suggest-land"><span class="sl-count">' + basicsNeeded[c] + '</span> ' + basicLandName(c) + '</span>';
+        if (basicsPerColor[c] > 0) {
+            html += '<span class="suggest-land"><span class="sl-count">' + basicsPerColor[c] + '</span> ' + basicLandName(c) + '</span>';
         }
     });
     if (colorlessLands > 0) {
@@ -1061,21 +1574,22 @@ function buildDualSuggestions(activeList, recommended, colorlessLands, fmt) {
     html += '</div></div>';
 
     // Triomes for 3+ color decks
-    if (activeList.length >= 3 && (state.format === 'modern' || state.format === 'legacy' || state.format === 'commander')) {
+    if (activeList.length >= 3 && (formatKey === 'pioneer' || formatKey === 'modern' || formatKey === 'legacy' || formatKey === 'commander')) {
         html += '<div class="suggest-card">';
         html += '<h4>Consider Triomes</h4>';
         html += '<p>With ' + activeList.length + ' colors, Triomes (3-color lands from Ikoria/Streets of New Capenna) provide excellent fixing. They are fetchable and provide three colors, at the cost of always entering tapped.</p>';
         html += '</div>';
     }
 
-    // Commander special: Command Tower, Exotic Orchard
-    if (state.format === 'commander' && activeList.length >= 2) {
+    // Commander special
+    if (formatKey === 'commander' && activeList.length >= 2) {
         html += '<div class="suggest-card">';
         html += '<h4>Commander Staples</h4>';
         html += '<p>Don\'t forget Commander-specific lands that provide all your colors:</p>';
         html += '<div class="suggest-lands">';
         html += '<span class="suggest-land"><span class="sl-count">1</span> Command Tower</span>';
         html += '<span class="suggest-land"><span class="sl-count">1</span> Exotic Orchard</span>';
+        html += '<span class="suggest-land"><span class="sl-count">1</span> Path of Ancestry</span>';
         if (activeList.length >= 3) {
             html += '<span class="suggest-land"><span class="sl-count">1</span> Chromatic Lantern (mana rock)</span>';
         }
@@ -1090,12 +1604,344 @@ function showEmptyResults(msg) {
 }
 
 // ══════════════════════════════════════════
+// Decklist Import
+// ══════════════════════════════════════════
+
+function switchTab(tab) {
+    var tabs = document.querySelectorAll('.input-tab');
+    tabs.forEach(function(t) {
+        t.classList.toggle('active', t.dataset.tab === tab);
+    });
+    document.getElementById('manualPanel').classList.toggle('active', tab === 'manual');
+    document.getElementById('importPanel').classList.toggle('active', tab === 'import');
+}
+
+function setImportStatus(msg, type) {
+    var el = document.getElementById('importStatus');
+    el.className = 'import-status visible ' + type;
+    el.innerHTML = msg;
+}
+
+function hideImportStatus() {
+    var el = document.getElementById('importStatus');
+    el.className = 'import-status';
+    el.innerHTML = '';
+}
+
+function parseDecklist(text) {
+    var lines = text.split('\n');
+    var cards = [];
+    var lineRe = /^\s*(\d+)x?\s+(.+?)(?:\s+\([A-Z0-9]+\)\s*\d+.*)?$/;
+    var sideboardRe = /^\s*(Sideboard|SB:|Companion|Maybeboard)/i;
+    var skipRe = /^\s*(\/\/|Commander|Deck)/i;
+    var startedParsing = false;
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        // Sideboard header = stop parsing
+        if (sideboardRe.test(line)) break;
+        // Blank line after we've started = sideboard separator (MTGA format)
+        if (!line) {
+            if (startedParsing) break;
+            continue;
+        }
+        // Skip comment and section header lines
+        if (skipRe.test(line)) continue;
+        var m = line.match(lineRe);
+        if (m) {
+            startedParsing = true;
+            var qty = parseInt(m[1]);
+            var name = m[2].trim();
+            // Handle split/MDFC — use front face
+            var slashIdx = name.indexOf(' // ');
+            if (slashIdx > 0) name = name.substring(0, slashIdx);
+            cards.push({ qty: qty, name: name });
+        }
+    }
+    // Deduplicate by name
+    var deduped = {};
+    cards.forEach(function(c) {
+        var key = c.name.toLowerCase();
+        if (deduped[key]) {
+            deduped[key].qty += c.qty;
+        } else {
+            deduped[key] = { qty: c.qty, name: c.name };
+        }
+    });
+    return Object.values(deduped);
+}
+
+function parseManaCost(costStr) {
+    // Parse Scryfall mana_cost string like "{1}{W}{U}" or "{2}{R}{R}"
+    var pips = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    var mv = 0;
+    if (!costStr) return { pips: pips, mv: mv };
+    var symbolRe = /\{([^}]+)\}/g;
+    var match;
+    while ((match = symbolRe.exec(costStr)) !== null) {
+        var sym = match[1];
+        if (sym === 'X') {
+            // X costs = 0 for MV
+            continue;
+        } else if (/^\d+$/.test(sym)) {
+            // Generic mana
+            mv += parseInt(sym);
+        } else if (/^[WUBRG]$/.test(sym)) {
+            // Single colored pip
+            pips[sym]++;
+            mv++;
+        } else if (/^[WUBRG]\/P$/.test(sym)) {
+            // Phyrexian pip — count as the color
+            pips[sym[0]]++;
+            mv++;
+        } else if (/^[WUBRG]\/[WUBRG]$/.test(sym)) {
+            // Hybrid pip — need a source of either color, count 1 for each
+            pips[sym[0]]++;
+            pips[sym[2]]++;
+            mv++;
+        } else if (/^2\/[WUBRG]$/.test(sym)) {
+            // Twobrid — count as the color
+            pips[sym[2]]++;
+            mv += 2;
+        } else {
+            // Snow, colorless pips, etc. — just add to MV
+            mv++;
+        }
+    }
+    return { pips: pips, mv: mv };
+}
+
+async function lookupCards(cards) {
+    // Split into batches of 75
+    var batches = [];
+    for (var i = 0; i < cards.length; i += 75) {
+        batches.push(cards.slice(i, i + 75));
+    }
+    var allFound = [];
+    var notFound = [];
+    for (var b = 0; b < batches.length; b++) {
+        if (b > 0) {
+            // Respect Scryfall rate limit
+            await new Promise(function(r) { setTimeout(r, 100); });
+        }
+        var identifiers = batches[b].map(function(c) { return { name: c.name }; });
+        var resp = await fetch('https://api.scryfall.com/cards/collection', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ identifiers: identifiers })
+        });
+        if (!resp.ok) {
+            throw new Error('Scryfall API returned ' + resp.status);
+        }
+        var data = await resp.json();
+        if (data.data) allFound = allFound.concat(data.data);
+        if (data.not_found) notFound = notFound.concat(data.not_found);
+    }
+    return { found: allFound, notFound: notFound };
+}
+
+function autoDetectFormat(deckSize) {
+    if (deckSize === 40) return 'limited';
+    if (deckSize >= 98 && deckSize <= 101) return 'commander';
+    return null; // user selects for 60-card
+}
+
+function updateUIFromState() {
+    // Update deck size and total lands inputs
+    document.getElementById('deckSize').value = state.deckSize;
+    document.getElementById('totalLands').value = state.totalLands;
+
+    // Update format buttons
+    var detectedFormat = autoDetectFormat(state.deckSize);
+    if (detectedFormat) {
+        state.format = detectedFormat;
+        var btns = document.querySelectorAll('.format-btn');
+        btns.forEach(function(b) {
+            b.classList.toggle('active', b.dataset.format === detectedFormat);
+        });
+    }
+
+    // Update color toggles
+    var toggles = document.querySelectorAll('.color-toggle');
+    toggles.forEach(function(t) {
+        var c = t.dataset.color;
+        t.classList.toggle('active', state.activeColors.has(c));
+    });
+
+    // Rebuild pip inputs
+    renderPipInputs();
+
+    // Update curve inputs
+    var curveInputs = document.querySelectorAll('#curveInputs input');
+    curveInputs.forEach(function(inp) {
+        var mv = parseInt(inp.dataset.mv);
+        inp.value = state.curve[mv] || 0;
+    });
+
+    updateCurveTotal();
+}
+
+async function importDecklist() {
+    var textarea = document.getElementById('decklistInput');
+    var text = textarea.value.trim();
+
+    if (!text) {
+        setImportStatus('Paste a decklist to import.', 'error');
+        return;
+    }
+
+    hideImportStatus();
+
+    // Step 1: Parse
+    var cards = parseDecklist(text);
+    if (cards.length === 0) {
+        setImportStatus('No valid card lines found. Use format: <strong>4 Card Name</strong>', 'error');
+        return;
+    }
+
+    var totalCards = cards.reduce(function(s, c) { return s + c.qty; }, 0);
+    setImportStatus('<span class="import-spinner"></span> Parsed ' + cards.length + ' unique cards (' + totalCards + ' total). Looking up card data...', 'loading');
+
+    // Step 2: Scryfall lookup
+    var result;
+    try {
+        result = await lookupCards(cards);
+    } catch (e) {
+        setImportStatus('Could not reach Scryfall API. Check your connection.', 'error');
+        return;
+    }
+
+    // Build a lookup map: lowercase name -> scryfall card object
+    var cardMap = {};
+    result.found.forEach(function(card) {
+        cardMap[card.name.toLowerCase()] = card;
+    });
+
+    // Step 3: Process results — build per-card data AND aggregate state
+    var totalPips = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    var curve = [0, 0, 0, 0, 0, 0, 0, 0]; // MV 0-7+
+    var totalLands = 0;
+    var totalSpells = 0;
+    var colorsFound = new Set();
+    var perCardData = []; // [{name, qty, mv, pips, isLand, producesColors}]
+
+    cards.forEach(function(c) {
+        var scryfallCard = cardMap[c.name.toLowerCase()];
+        if (!scryfallCard) return;
+
+        var typeLine = scryfallCard.type_line || '';
+        if (/\bLand\b/i.test(typeLine)) {
+            totalLands += c.qty;
+            // Extract produced colors from Scryfall data
+            var producesColors = [];
+            if (scryfallCard.produced_mana) {
+                producesColors = scryfallCard.produced_mana.filter(function(m) { return 'WUBRG'.indexOf(m) >= 0; });
+            }
+            perCardData.push({ name: scryfallCard.name, qty: c.qty, mv: 0, pips: { W:0, U:0, B:0, R:0, G:0 }, isLand: true, producesColors: producesColors });
+            return;
+        }
+
+        // Get mana costs — handle adventures, split cards, and MDFCs
+        var layout = scryfallCard.layout || '';
+        var faces = scryfallCard.card_faces || [];
+
+        // For multi-face cards, always use individual faces to avoid double-counting
+        // Top-level mana_cost on adventures/splits concatenates both faces
+        var allPips = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+        var mainMV = 0;
+
+        if ((layout === 'adventure' || layout === 'split') && faces.length > 1) {
+            // Count pips from all faces, use front face MV for curve
+            faces.forEach(function(face, idx) {
+                var parsed = parseManaCost(face.mana_cost || '');
+                COLORS.forEach(function(col) { allPips[col] += parsed.pips[col]; });
+                if (idx === 0) mainMV = parsed.mv;
+            });
+        } else {
+            // Normal cards, MDFCs, transforms — use front face only
+            var mainCost = scryfallCard.mana_cost || '';
+            if (!mainCost && faces.length > 0) {
+                mainCost = faces[0].mana_cost || '';
+            }
+            var mainParsed = parseManaCost(mainCost);
+            allPips = mainParsed.pips;
+            mainMV = mainParsed.mv;
+        }
+
+        // Build per-card data
+        perCardData.push({ name: scryfallCard.name, qty: c.qty, mv: mainMV, pips: Object.assign({}, allPips), isLand: false, producesColors: null });
+
+        // Accumulate pips * quantity
+        COLORS.forEach(function(col) {
+            var pipCount = allPips[col] * c.qty;
+            totalPips[col] += pipCount;
+            if (allPips[col] > 0) colorsFound.add(col);
+        });
+
+        // Mana curve — use front face MV, cap at 7
+        var mvSlot = Math.min(mainMV, 7);
+        curve[mvSlot] += c.qty;
+        totalSpells += c.qty;
+    });
+
+    // Check edge cases
+    if (totalSpells === 0 && totalLands > 0) {
+        setImportStatus('Decklist contains only lands. Add some spells!', 'error');
+        return;
+    }
+    if (totalSpells === 0 && totalLands === 0) {
+        var nfNames = result.notFound.map(function(nf) { return nf.name || JSON.stringify(nf); });
+        setImportStatus('No cards recognized by Scryfall.' + (nfNames.length > 0 ? ' Not found: ' + nfNames.join(', ') : ''), 'error');
+        return;
+    }
+
+    // Step 4: Populate state
+    state.activeColors = colorsFound;
+    state.pips = totalPips;
+    state.curve = curve;
+    state.deckSize = totalSpells + totalLands;
+    state.totalLands = totalLands;
+    state.mode = 'imported';
+    state.cards = perCardData;
+    state.simResults = null;
+
+    // Step 5: Update UI
+    updateUIFromState();
+
+    // Step 6: Switch to manual tab so user can review
+    switchTab('manual');
+
+    // Step 7: Auto-calculate
+    calculate(true);
+
+    // Step 8: Show success status (on the import panel for when they switch back)
+    var statusMsg = 'Imported ' + totalSpells + ' spells, ' + totalLands + ' lands (' + state.deckSize + ' cards).';
+    if (colorsFound.size > 0) {
+        statusMsg += ' Colors: ' + Array.from(colorsFound).join('');
+    }
+    if (result.notFound.length > 0) {
+        statusMsg += '<br>Not found (' + result.notFound.length + '): ';
+        var nfList = '<ul class="import-notfound">';
+        result.notFound.forEach(function(nf) {
+            nfList += '<li>' + (nf.name || JSON.stringify(nf)) + '</li>';
+        });
+        nfList += '</ul>';
+        statusMsg += nfList;
+        setImportStatus(statusMsg, 'info');
+    } else {
+        setImportStatus(statusMsg, 'success');
+    }
+}
+
+// ══════════════════════════════════════════
 // Init
 // ══════════════════════════════════════════
 init();
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Mana Base Calculator","url":"https://scrollvault.net/tools/manabase/","applicationCategory":"UtilitiesApplication","description":"Calculate the optimal mana base for your Magic: The Gathering deck using hypergeometric probability and Frank Karsten's proven math.","isPartOf":{"@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"MTG Mana Calculator","url":"https://scrollvault.net/tools/manabase/","applicationCategory":"UtilitiesApplication","description":"Free MTG mana calculator and manabase tool using Frank Karsten's mana math. Get optimal land counts for Standard, Modern, Pioneer, and Commander with hypergeometric probability.","isPartOf":{"@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many lands should I put in my MTG deck?","acceptedAnswer":{"@type":"Answer","text":"For a 60-card deck (Standard, Modern, Pioneer), 23-26 lands is typical depending on your mana curve. Aggro decks run 22-23, midrange runs 24-25, and control runs 25-26. For Commander (99 cards + commander), 35-38 lands is the standard range. Use a manabase calculator based on Frank Karsten's math for precise counts tailored to your specific deck."}},{"@type":"Question","name":"How many lands for a 60-card deck?","acceptedAnswer":{"@type":"Answer","text":"Most competitive 60-card decks play between 22 and 26 lands. The exact number depends on your average mana value (mana curve). Low-curve aggro decks like Mono-Red or Burn can get away with 20-22 lands, especially if they run cheap cantrips. Midrange decks typically want 24 lands, while control and ramp strategies often play 25-27. Enter your mana curve into the calculator for a personalized recommendation."}},{"@type":"Question","name":"How many lands for Commander / EDH?","acceptedAnswer":{"@type":"Answer","text":"Commander decks (99 cards + commander) typically run 35-38 lands. The ratio is slightly different from 60-card formats because of the larger deck size and singleton restriction. Decks with a low mana curve and lots of mana rocks can go as low as 33, while 4+ color decks or landfall strategies may want 38-40. Don't forget to count mana-producing artifacts like Sol Ring and signets when planning your mana base."}},{"@type":"Question","name":"What is Frank Karsten's mana math?","acceptedAnswer":{"@type":"Answer","text":"Frank Karsten's mana math is the gold standard for calculating MTG mana bases. Using hypergeometric probability, Karsten determined exactly how many colored sources you need to cast your spells on curve with approximately 90% consistency. For example, a card costing 1WW in a 60-card deck needs about 18 white sources. His research, published on ChannelFireball, is the foundation used by competitive players and this calculator."}},{"@type":"Question","name":"How many colored sources do I need?","acceptedAnswer":{"@type":"Answer","text":"The number of colored sources depends on how many pips of that color appear in your casting costs and what turn you need them. Karsten's guidelines for a 60-card deck: a single colored pip on turn 1 needs about 14 sources, a single pip on turn 3 needs about 12, and double pips (like 1WW) need about 18 sources. This calculator does the math automatically — just input your colored mana symbols and it computes the sources needed per color."}},{"@type":"Question","name":"What is the 40% rule for lands?","acceptedAnswer":{"@type":"Answer","text":"The 40% rule is a rough guideline that suggests about 40% of your deck should be lands. For a 60-card deck that's 24 lands, and for a 40-card Limited deck that's 16-17 lands. While this rule of thumb works as a starting point, the actual number should depend on your mana curve. Aggressive decks with lots of 1-2 drops can go below 40%, while control decks may want to stay at or above it."}},{"@type":"Question","name":"How do dual lands affect my mana base?","acceptedAnswer":{"@type":"Answer","text":"Dual lands (lands that produce two or more colors) are crucial for multicolor decks because each one counts as a source for every color it produces. A Hallowed Fountain counts as both a white source and a blue source, reducing the total lands you need. Premium duals like shock lands and fetch lands are the most efficient because they enter untapped or have basic land types. This calculator's land suggestions section recommends specific dual land cycles based on your format and colors."}},{"@type":"Question","name":"How many lands for a 3-color Commander deck?","acceptedAnswer":{"@type":"Answer","text":"A three-color Commander deck typically runs 36-38 lands, but the real challenge is the color distribution. Each color needs at least 14-16 sources to reliably cast single-pip spells by turn 3. With three colors, you need heavy investment in multicolor lands: fetch lands, shock lands, triomes, and check lands that produce two of your three colors. Budget options include pain lands, filter lands, and the battlebond lands."}},{"@type":"Question","name":"What is the mana curve and why does it matter for lands?","acceptedAnswer":{"@type":"Answer","text":"The mana curve is the distribution of mana values (casting costs) across your nonland cards. It directly determines how many lands you need: a deck full of 1-2 drops can function on 22 lands, while a deck with lots of 4-6 drops needs 25+. The ideal curve depends on your strategy — aggro decks want a low curve peaking at 1-2, midrange peaks at 2-3, and control wants a flatter distribution with powerful top-end."}},{"@type":"Question","name":"How do I calculate mana for Limited / Draft decks?","acceptedAnswer":{"@type":"Answer","text":"For 40-card Limited decks (Draft and Sealed), the standard is 17 lands. The color split depends on your deck's pip distribution. A mostly-red deck splashing white might run 10 Mountains and 7 Plains, while an even two-color deck wants about 9/8 or 8/9. Use the Limited format preset in this calculator, enter your colored pips from your drafted cards, and it computes the optimal basic land split."}},{"@type":"Question","name":"How does this mana calculator differ from other MTG land calculators?","acceptedAnswer":{"@type":"Answer","text":"Most MTG land calculators only tell you how many total lands to run. This calculator goes further by implementing Frank Karsten's hypergeometric probability model — the same math used by Pro Tour players. It calculates the exact number of colored sources per color, shows your probability of casting each spell on curve, and recommends specific dual land cycles for your format. It also includes a decklist import feature that auto-detects your mana pips via Scryfall."}},{"@type":"Question","name":"Should I count mana rocks as colored sources?","acceptedAnswer":{"@type":"Answer","text":"Mana rocks like Sol Ring, Arcane Signet, and Signets contribute to your mana production but are not technically lands. In Commander, mana rocks are essential — most decks run 8-12 ramp pieces. A rock that produces your color counts as roughly 0.5-0.75 of a colored source because it can be removed and doesn't affect your opening hand land count. The safe approach: build your land base as if rocks don't exist, then add rocks on top as acceleration."}}]}
 </script>
 </body>
 </html>

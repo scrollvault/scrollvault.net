@@ -12,9 +12,8 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://scrollvault.net/tools/hand-simulator/">
     <link rel="canonical" href="https://scrollvault.net/tools/hand-simulator/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
@@ -31,6 +30,22 @@
     }
     </script>
 <style>
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/css/fonts/space-grotesk-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 /* ── Theme Variables ── */
 :root {
     --bg-dark: #0f0f0f;
@@ -57,7 +72,7 @@ a:hover { color: #a78bfa; }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
 
 /* ── Nav ── */
-.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid var(--nav-border); z-index: 1000; height: 64px; display: flex; align-items: center; }
 .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -441,14 +456,21 @@ async function getCardImage(name) {
 function parseDeckList(text) {
     const cards = [];
     const counts = {};
+    let hitSideboard = false;
     for (const line of text.split('\n')) {
         const trimmed = line.trim();
-        if (!trimmed || trimmed.startsWith('//') || trimmed.toLowerCase() === 'sideboard') continue;
-        // Stop at sideboard separator (blank line followed by cards is handled by continuing on blank)
-        const match = trimmed.match(/^(\d+)\s+(.+)/);
+        // Stop at sideboard section
+        if (trimmed.toLowerCase() === 'sideboard' || trimmed.toLowerCase() === 'sideboard:') {
+            hitSideboard = true;
+            continue;
+        }
+        if (hitSideboard) continue;
+        if (!trimmed || trimmed.startsWith('//')) continue;
+        const match = trimmed.match(/^(\d+)x?\s+(.+)/i);
         if (match) {
             const count = parseInt(match[1]);
-            const name = match[2].trim();
+            // Strip MTGA set codes like "(M25) 141" or "(DMU) 42"
+            let name = match[2].trim().replace(/\s*\([A-Z0-9]+\)\s*\d+\s*$/, '').trim();
             if (!counts[name]) counts[name] = 0;
             counts[name] += count;
             for (let i = 0; i < count; i++) cards.push(name);
@@ -586,8 +608,8 @@ function drawHand() {
 
 // ── Mulligan ──
 function mulligan() {
-    if (phase !== 'drawn') return;
-    if (currentHand.length <= 1) return; // Can't mull to 0
+    if (phase !== 'drawn' && phase !== 'picking') return;
+    if (mulliganCount >= 6) return; // Can't mull to 0
 
     mulliganCount++;
     cardsToBottom = mulliganCount; // London mulligan: put N cards back where N = number of mulligans
@@ -731,7 +753,7 @@ function updateButtonStates() {
             break;
         case 'picking':
             draw.disabled = true;
-            mull.disabled = true;
+            mull.disabled = false;
             keep.disabled = true;
             break;
         case 'kept':

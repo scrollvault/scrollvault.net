@@ -16,6 +16,9 @@ export GOG_KEYRING_PASSWORD=moltbot
 
 mkdir -p "$LOG_DIR" "$DATA_DIR/drafts"
 
+# Clean bloated agent sessions before each run
+bash "$SCRIPT_DIR/scripts/cleanup-sessions.sh" 2>/dev/null || true
+
 DATE=$(date +%Y-%m-%d)
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 LOG_FILE="$LOG_DIR/pipeline-${TIMESTAMP}.log"
@@ -92,7 +95,7 @@ $SCOUT_PROMPT"
 
 SCOUT_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     --agent scout \
-    --session-id "mtg-scout-${DATE}" \
+    --session-id "mtg-scout-${TIMESTAMP}" \
     --thinking medium \
     --timeout 240 \
     -m "$SCOUT_CONTEXT" 2>&1) || fail "Scout agent failed after $MAX_RETRIES attempts"
@@ -129,7 +132,15 @@ try {
 }
 " "$SCOUT_JSON" 2>/dev/null) || TOP_STORY="{}"
 
-log "Top story selected: $(echo "$TOP_STORY" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));console.log(d.headline||'unknown')" 2>/dev/null || echo 'unknown')"
+HEADLINE=$(echo "$TOP_STORY" | node -e "const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));console.log(d.headline||d.title||'')" 2>/dev/null || echo "")
+log "Top story selected: ${HEADLINE:-unknown}"
+
+# Bail if scout found nothing worth writing about
+if [ -z "$HEADLINE" ] || [ "$TOP_STORY" = "{}" ] || [ "$TOP_STORY" = "null" ] || [ "$TOP_STORY" = "undefined" ]; then
+    log "No new stories found. Nothing to publish today."
+    log "Scout output saved to $DATA_DIR/drafts/scout-${TIMESTAMP}.txt"
+    exit 0
+fi
 
 if [ "$DRY_RUN" = "--dry-run" ]; then
     log "DRY RUN - stopping after scout"
@@ -150,7 +161,7 @@ $WRITER_PROMPT"
 
 WRITER_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     --agent writer \
-    --session-id "mtg-writer-${DATE}" \
+    --session-id "mtg-writer-${TIMESTAMP}" \
     --thinking low \
     --timeout 240 \
     -m "$WRITER_CONTEXT" 2>&1) || fail "Writer agent failed after $MAX_RETRIES attempts"
@@ -172,7 +183,7 @@ $EDITOR_PROMPT"
 
 EDITOR_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     --agent editor \
-    --session-id "mtg-editor-${DATE}" \
+    --session-id "mtg-editor-${TIMESTAMP}" \
     --thinking low \
     --timeout 240 \
     -m "$EDITOR_CONTEXT" 2>&1) || fail "Editor agent failed after $MAX_RETRIES attempts"
@@ -195,7 +206,7 @@ $FACTCHECKER_PROMPT"
 
 FACTCHECKER_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     --agent factchecker \
-    --session-id "mtg-factchecker-${DATE}" \
+    --session-id "mtg-factchecker-${TIMESTAMP}" \
     --thinking medium \
     --timeout 240 \
     -m "$FACTCHECKER_CONTEXT" 2>&1) || fail "Fact Checker agent failed after $MAX_RETRIES attempts"
@@ -236,7 +247,7 @@ $PUBLISHER_PROMPT"
 
 PUBLISHER_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     --agent publisher \
-    --session-id "mtg-publisher-${DATE}" \
+    --session-id "mtg-publisher-${TIMESTAMP}" \
     --thinking off \
     --timeout 300 \
     -m "$PUBLISHER_CONTEXT" 2>&1) || fail "Publisher agent failed after $MAX_RETRIES attempts"
@@ -285,7 +296,7 @@ $QA_PROMPT"
 
 QA_RESULT=$(run_with_retry $OPENCLAW_BIN agent \
     --agent qa \
-    --session-id "mtg-qa-${DATE}" \
+    --session-id "mtg-qa-${TIMESTAMP}" \
     --thinking off \
     --timeout 180 \
     -m "$QA_CONTEXT" 2>&1) || log "WARNING: QA agent failed (non-blocking)"
@@ -329,13 +340,25 @@ $PROMOTER_PROMPT"
 
         PROMOTER_RESULT=$($OPENCLAW_BIN agent \
             --agent promoter \
-            --session-id "mtg-promoter-${DATE}" \
+            --session-id "mtg-promoter-${TIMESTAMP}" \
             --thinking off \
             --timeout 120 \
             -m "$PROMOTER_CONTEXT" 2>&1) || log "WARNING: Promoter agent failed (non-blocking)"
 
         log "Promoter completed"
         echo "$PROMOTER_RESULT" > "$DATA_DIR/drafts/promoter-${TIMESTAMP}.txt"
+
+        # Track in bluesky-posted.json so daily script won't double-post
+        POSTED_FILE="$DATA_DIR/bluesky-posted.json"
+        [ -f "$POSTED_FILE" ] || echo '{"posts":[]}' > "$POSTED_FILE"
+        node -e "
+            const fs = require('fs');
+            const d = JSON.parse(fs.readFileSync('$POSTED_FILE','utf8'));
+            if (!d.posts.find(p => p.slug === '$POST_SLUG' && p.date === '$DATE')) {
+                d.posts.push({ slug: '$POST_SLUG', date: '$DATE', uri: 'pipeline' });
+                fs.writeFileSync('$POSTED_FILE', JSON.stringify(d, null, 2));
+            }
+        " 2>/dev/null || true
     else
         log "WARNING: Could not extract post info for promotion — skipping"
     fi
@@ -343,7 +366,34 @@ else
     log "SKIPPING PROMOTER due to QA FAIL verdict"
 fi
 
+# ── STEP 8: VIDEO GENERATION (non-blocking) ──
+if [ "$QA_PASSED" = true ] && [ -n "$POST_SLUG" ]; then
+    POST_CATEGORY=$(node -e "const d=require('$DATA_DIR/posts.json');const p=d.posts.find(p=>p.slug==='$POST_SLUG');console.log((p&&p.category)||'')" 2>/dev/null || echo "")
+    POST_TEXT="$POST_TITLE $POST_CATEGORY"
+
+    # Only generate video for Spoilers, Deck Guides, or major News
+    if echo "$POST_CATEGORY" | grep -qiE "spoilers|deck guides"; then
+        log "--- STEP 8: HeyGen Video (category: $POST_CATEGORY) ---"
+        bash "$SCRIPT_DIR/scripts/heygen-generate.sh" "$POST_SLUG" 2>&1 | tee -a "$LOG_FILE" || log "WARNING: HeyGen video failed (non-blocking)"
+    elif echo "$POST_TEXT" | grep -qiE "banned|spike|leak|combo|broken|preview|pro tour|secret lair|unban"; then
+        log "--- STEP 8: HeyGen Video (major news keywords) ---"
+        bash "$SCRIPT_DIR/scripts/heygen-generate.sh" "$POST_SLUG" 2>&1 | tee -a "$LOG_FILE" || log "WARNING: HeyGen video failed (non-blocking)"
+    else
+        log "Skipping video generation (routine $POST_CATEGORY)"
+    fi
+else
+    log "Skipping video generation (QA failed or no slug)"
+fi
+
 log "=== Pipeline complete! ==="
+
+# ── IndexNow ping (notify Bing/Yandex of new content) ──
+if [ -n "$POST_SLUG" ]; then
+    bash "$SCRIPT_DIR/scripts/indexnow-ping.sh" \
+        "https://scrollvault.net/posts/${POST_SLUG}.html" \
+        "https://scrollvault.net/sitemap.xml" \
+        "https://scrollvault.net/news-sitemap.xml" 2>/dev/null && log "IndexNow pinged" || log "IndexNow ping failed (non-blocking)"
+fi
 
 # Cleanup old logs (keep 30 days)
 find "$LOG_DIR" -name "pipeline-*.log" -mtime +30 -delete 2>/dev/null || true

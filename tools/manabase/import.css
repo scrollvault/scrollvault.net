@@ -1,0 +1,191 @@
+/* ── Decklist Import Feature ── */
+
+/* Tab Toggle */
+.input-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+.input-tab {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: 'Space Grotesk', -apple-system, sans-serif;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+.input-tab:hover {
+    border-color: rgba(139,92,246,0.4);
+    color: var(--text-primary);
+}
+.input-tab.active {
+    background: rgba(168,85,247,0.15);
+    border-color: rgba(168,85,247,0.5);
+    color: var(--text-primary);
+}
+
+/* Import Panel */
+#importPanel {
+    display: none;
+}
+#importPanel.active {
+    display: block;
+}
+#manualPanel {
+    display: none;
+}
+#manualPanel.active {
+    display: block;
+}
+
+/* Textarea */
+.import-textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 0.75rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+}
+.import-textarea::placeholder {
+    color: var(--text-muted);
+}
+.import-textarea:focus {
+    outline: none;
+    border-color: rgba(168,85,247,0.5);
+    background: rgba(168,85,247,0.05);
+}
+
+/* Import description */
+.import-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+}
+
+/* Status area */
+.import-status {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    display: none;
+    line-height: 1.5;
+}
+.import-status.visible {
+    display: block;
+}
+.import-status.info {
+    background: rgba(168,85,247,0.08);
+    border: 1px solid rgba(168,85,247,0.2);
+}
+.import-status.success {
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.2);
+    color: #4ade80;
+}
+.import-status.error {
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.2);
+    color: #f87171;
+}
+.import-status.loading {
+    background: rgba(168,85,247,0.08);
+    border: 1px solid rgba(168,85,247,0.2);
+}
+
+/* Loading spinner */
+.import-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(168,85,247,0.3);
+    border-top-color: #a855f7;
+    border-radius: 50%;
+    animation: import-spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+}
+@keyframes import-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Not-found cards list */
+.import-notfound {
+    margin-top: 0.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+.import-notfound li {
+    padding: 0.15rem 0;
+}
+.import-notfound li::before {
+    content: '\2717 ';
+    color: #f87171;
+}
+
+/* ── Simulation Progress Bar ── */
+.sim-progress {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    height: 32px;
+    position: relative;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.sim-progress-bar {
+    height: 100%;
+    background: var(--gradient-purple);
+    border-radius: 8px;
+    transition: width 0.3s;
+    opacity: 0.8;
+}
+.sim-progress-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* ── Simulation Summary ── */
+.sim-summary {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+/* ── Cast Rate Table ── */
+.cast-mana {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+.sim-fallback-notice {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.2);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
+}

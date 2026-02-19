@@ -1,0 +1,95 @@
+{
+  "title": "New Liliana Planeswalker Leaked: She's Even Scarier Than We Thought",
+  "duration_estimate": 36,
+  "sections": [
+    {
+      "timestamp": "0:00",
+      "section": "Hook",
+      "narration": "A new Liliana planeswalker just leaked, and it's already warping formats. She's not just another walker—she's the card that will define black strategies for the next two years. Let me break down why this might be the most broken planeswalker ever printed.",
+      "visual": "Glitchy reveal of black planeswalker silhouette with swirling necromantic energy"
+    },
+    {
+      "timestamp": "0:19",
+      "section": "Ability 1: Value Engine",
+      "narration": "Her +1 is obscene: exile any graveyard card, discard a land to draw, then each opponent discards a card. That's Dark Confidant's card draw engine baked into a loyalty ability while simultaneously stripping your opponent's hand. On the play, turn one Thoughtseize, turn three this Liliana—your opponent is already on defense.",
+      "visual": "Liliana of the Veil art compared against text overlay of new abilities",
+      "card_visual": "Liliana of the Veil"
+    },
+    {
+      "timestamp": "0:42",
+      "section": "Ability 2: Board Presence",
+      "narration": "The -3 pops two 2/2 Zombies that immediately threaten planeswalkers or choke the ground. Not flashy, but it gives immediate board presence and ensures she's never dead. These tokens synergize perfectly with your existing removal spells.",
+      "visual": "Two zombie token cards appearing with Liliana's silhouette in background",
+      "card_visual": null
+    },
+    {
+      "timestamp": "0:59",
+      "section": "The Ultimate Threat",
+      "narration": "But let's talk about the -7: exile an opponent's entire graveyard, then reanimate any creature or sorcery from it for free. Turn four you cast this with Fatal Push backup, turn five you -7 and steal their best threat. Your opponent just watched their own graveyard become your army.",
+      "visual": "Dark Confidant and Thoughtseize cards with animated graveyard exile effect",
+      "card_visual": "Dark Confidant"
+    },
+    {
+      "timestamp": "1:20",
+      "section": "Standard Synergy",
+      "narration": "Here's where it gets disgusting: she slots perfectly into established strategies. Dark Confidant already rewards discard—now you have a planeswalker that makes both players discard while drawing you cards. Every turn she ticks up, you're generating more value while your opponent loses resources.",
+      "visual": "Timeline showing: Turn 1 Thoughtseize, Turn 2 Dark Confidant, Turn 3 Liliana with Fatal Push ready",
+      "card_visual": "Thoughtseize"
+    },
+    {
+      "timestamp": "1:43",
+      "section": "Removal Package",
+      "narration": "The package is brutal: Thoughtseize wrecks their early game, Fatal Push handles any immediate threats, and this Liliana finishes the job. You're not just playing disruption—you're assembling a complete control grid that keeps you ahead every step of the way.",
+      "visual": "Thoughtseize being cast, followed by Fatal Push removing a blocker",
+      "card_visual": "Fatal Push"
+    },
+    {
+      "timestamp": "2:03",
+      "section": "Format Warper",
+      "narration": "In Standard, this single planeswalker could push black decks to tier zero. In Pioneer? It's even worse—with better graveyard enablers, that -7 becomes an instant win button against entire archetypes. Control, midrange, even Aristocrats—every black deck wants four copies.",
+      "visual": "Split screen showing Standard vs Pioneer logos, both dominated by graveyard symbols",
+      "card_visual": null
+    },
+    {
+      "timestamp": "2:30",
+      "section": "The Verdict",
+      "narration": "This Liliana is engineered to break formats. If she prints with these abilities, Standard and Pioneer are about to feel very different. Are you ready for the black apocalypse? Let me know your thoughts below, and hit subscribe for more leak analysis.",
+      "visual": "End screen with ominous skull overlay and subscribe call-to-action",
+      "card_visual": null
+    }
+  ],
+  "cards_used": [
+    "Dark Confidant",
+    "Fatal Push",
+    "Liliana of the Veil",
+    "Thoughtseize"
+  ],
+  "scenes": [
+    {
+      "text": "Her +1 is obscene: exile any graveyard card, discard a land to draw, then each opponent discards a card.",
+      "card_name": "Liliana of the Veil",
+      "show_avatar": true,
+      "duration_estimate": 8
+    },
+    {
+      "text": "But let's talk about the -7: exile an opponent's entire graveyard, then reanimate any creature or sorcery from it for free.",
+      "card_name": "Dark Confidant",
+      "show_avatar": false,
+      "duration_estimate": 8
+    },
+    {
+      "text": "Here's where it gets disgusting: she slots perfectly into established strategies. Dark Confidant already rewards discard—now you have a planeswalker that makes both players discard while drawing you cards.",
+      "card_name": "Thoughtseize",
+      "show_avatar": false,
+      "duration_estimate": 12
+    },
+    {
+      "text": "The package is brutal: Thoughtseize wrecks their early game, Fatal Push handles any immediate threats, and this Liliana finishes the job.",
+      "card_name": "Fatal Push",
+      "show_avatar": true,
+      "duration_estimate": 8
+    }
+  ],
+  "hook": "Her +1 is obscene: exile any graveyard card, disca",
+  "script": "Her +1 is obscene: exile any graveyard card, discard a land to draw, then each opponent discards a card. But let's talk about the -7: exile an opponent's entire graveyard, then reanimate any creature or sorcery from it for free. Here's where it gets disgusting: she slots perfectly into established strategies. Dark Confidant already rewards discard—now you have a planeswalker that makes both players discard while drawing you cards. The package is brutal: Thoughtseize wrecks their early game, Fatal Push handles any immediate threats, and this Liliana finishes the job."
+}

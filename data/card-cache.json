@@ -13046,5 +13046,1217 @@
     "artist": "NéNé Thomas",
     "set": "ice",
     "not_found": false
+  },
+  "snare and the end": {
+    "name": "Snare and the End",
+    "not_found": true
+  },
+  "end of friend": {
+    "name": "End of Friend",
+    "not_found": true
+  },
+  "end of friend challenges": {
+    "name": "End of Friend Challenges",
+    "not_found": true
+  },
+  "friend challenges": {
+    "name": "Friend Challenges",
+    "not_found": true
+  },
+  "arena's big": {
+    "name": "Arena's Big",
+    "not_found": true
+  },
+  "arena's big update": {
+    "name": "Arena's Big Update",
+    "not_found": true
+  },
+  "arena's big update mtg": {
+    "name": "Arena's Big Update MTG",
+    "not_found": true
+  },
+  "challenge lobbies": {
+    "name": "Challenge Lobbies",
+    "not_found": true
+  },
+  "arena championship": {
+    "name": "Arena Championship",
+    "not_found": true
+  },
+  "friend challenge": {
+    "name": "Friend Challenge",
+    "not_found": true
+  },
+  "friend challenge lobby": {
+    "name": "Friend Challenge Lobby",
+    "not_found": true
+  },
+  "friend challenge lobby is": {
+    "name": "Friend Challenge Lobby Is",
+    "not_found": true
+  },
+  "challenge lobby": {
+    "name": "Challenge Lobby",
+    "not_found": true
+  },
+  "challenge lobby is": {
+    "name": "Challenge Lobby Is",
+    "not_found": true
+  },
+  "challenge lobby is dead": {
+    "name": "Challenge Lobby Is Dead",
+    "not_found": true
+  },
+  "lobby is": {
+    "name": "Lobby Is",
+    "not_found": true
+  },
+  "lobby is dead": {
+    "name": "Lobby Is Dead",
+    "not_found": true
+  },
+  "lobby is dead long": {
+    "name": "Lobby Is Dead Long",
+    "not_found": true
+  },
+  "dead long": {
+    "name": "Dead Long",
+    "not_found": true
+  },
+  "dead long live": {
+    "name": "Dead Long Live",
+    "not_found": true
+  },
+  "live the challenge": {
+    "name": "Live the Challenge",
+    "not_found": true
+  },
+  "live the challenge lobby": {
+    "name": "Live the Challenge Lobby",
+    "not_found": true
+  },
+  "challenge lobby wizards": {
+    "name": "Challenge Lobby Wizards",
+    "not_found": true
+  },
+  "lobby wizards": {
+    "name": "Lobby Wizards",
+    "not_found": true
+  },
+  "friend challenge and direct": {
+    "name": "Friend Challenge and Direct",
+    "not_found": true
+  },
+  "challenge and direct": {
+    "name": "Challenge and Direct",
+    "not_found": true
+  },
+  "challenge and direct challenge": {
+    "name": "Challenge and Direct Challenge",
+    "not_found": true
+  },
+  "direct challenge": {
+    "name": "Direct Challenge",
+    "not_found": true
+  },
+  "gilded lotus": {
+    "name": "Gilded Lotus",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+    "normal": "https://cards.scryfall.io/normal/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+    "artist": "Volkan Baǵa",
+    "set": "fdn",
+    "not_found": false
+  },
+  "gilded lotus returns": {
+    "name": "Gilded Lotus",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+    "normal": "https://cards.scryfall.io/normal/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+    "artist": "Volkan Baǵa",
+    "set": "fdn",
+    "not_found": false
+  },
+  "lotus returns": {
+    "name": "Lotus Returns",
+    "not_found": true
+  },
+  "magic pride": {
+    "name": "Magic Pride",
+    "not_found": true
+  },
+  "commander has": {
+    "name": "Commander Has",
+    "not_found": true
+  },
+  "commander has partner'": {
+    "name": "Commander Has Partner'",
+    "not_found": true
+  },
+  "commander has partner' magic": {
+    "name": "Commander Has Partner' Magic",
+    "not_found": true
+  },
+  "partner' magic": {
+    "name": "Partner' Magic",
+    "not_found": true
+  },
+  "partner' magic pride": {
+    "name": "Partner' Magic Pride",
+    "not_found": true
+  },
+  "pride is": {
+    "name": "Pride Is",
+    "not_found": true
+  },
+  "pride is back": {
+    "name": "Pride Is Back",
+    "not_found": true
+  },
+  "back and it's": {
+    "name": "Back and It's",
+    "not_found": true
+  },
+  "back and it's bigger": {
+    "name": "Back and It's Bigger",
+    "not_found": true
+  },
+  "bigger than": {
+    "name": "Bigger Than",
+    "not_found": true
+  },
+  "bigger than ever": {
+    "name": "Bigger Than Ever",
+    "not_found": true
+  },
+  "bigger than ever wizards": {
+    "name": "Bigger Than Ever Wizards",
+    "not_found": true
+  },
+  "than ever": {
+    "name": "Than Ever",
+    "not_found": true
+  },
+  "than ever wizards": {
+    "name": "Than Ever Wizards",
+    "not_found": true
+  },
+  "ever wizards": {
+    "name": "Ever Wizards",
+    "not_found": true
+  },
+  "magic presents": {
+    "name": "Magic Presents",
+    "not_found": true
+  },
+  "najeela the blade-blossom": {
+    "name": "Najeela, the Blade-Blossom",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2cb1d1da-6077-46b5-8c63-39882b8016f2.jpg?1567181270",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2cb1d1da-6077-46b5-8c63-39882b8016f2.jpg?1567181270",
+    "artist": "Matt Stewart",
+    "set": "bbd",
+    "not_found": false
+  },
+  "chulane teller": {
+    "name": "Chulane, Teller of Tales",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+    "normal": "https://cards.scryfall.io/normal/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+    "artist": "Victor Adame Minguez",
+    "set": "mkc",
+    "not_found": false
+  },
+  "chulane teller of tales": {
+    "name": "Chulane, Teller of Tales",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+    "normal": "https://cards.scryfall.io/normal/front/d/1/d1499a4b-1af1-4913-8e26-57d0707264db.jpg?1706240978",
+    "artist": "Victor Adame Minguez",
+    "set": "mkc",
+    "not_found": false
+  },
+  "teller of tales": {
+    "name": "Teller of Tales",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/9/c914db7d-c907-4d25-a180-f68b274a5cb7.jpg?1562764619",
+    "normal": "https://cards.scryfall.io/normal/front/c/9/c914db7d-c907-4d25-a180-f68b274a5cb7.jpg?1562764619",
+    "artist": "Jim Murray",
+    "set": "chk",
+    "not_found": false
+  },
+  "commander has partner": {
+    "name": "Commander Has Partner",
+    "not_found": true
+  },
+  "commander has partner actually": {
+    "name": "Commander Has Partner Actually",
+    "not_found": true
+  },
+  "partner actually": {
+    "name": "Partner Actually",
+    "not_found": true
+  },
+  "partner actually means": {
+    "name": "Partner Actually Means",
+    "not_found": true
+  },
+  "partner actually means forget": {
+    "name": "Partner Actually Means Forget",
+    "not_found": true
+  },
+  "biorhythm is": {
+    "name": "Biorhythm",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/7/17d1a10f-ce21-4914-9984-c7c559161230.jpg?1770634935",
+    "normal": "https://cards.scryfall.io/normal/front/1/7/17d1a10f-ce21-4914-9984-c7c559161230.jpg?1770634935",
+    "artist": "Ron Spears",
+    "set": "9ed",
+    "not_found": false
+  },
+  "biorhythm is back": {
+    "name": "Biorhythm Is Back",
+    "not_found": true
+  },
+  "massive br": {
+    "name": "Massive BR",
+    "not_found": true
+  },
+  "massive br update": {
+    "name": "Massive BR Update",
+    "not_found": true
+  },
+  "massive br update shakes": {
+    "name": "Massive BR Update Shakes",
+    "not_found": true
+  },
+  "br update": {
+    "name": "BR Update",
+    "not_found": true
+  },
+  "br update shakes": {
+    "name": "BR Update Shakes",
+    "not_found": true
+  },
+  "br update shakes everything": {
+    "name": "BR Update Shakes Everything",
+    "not_found": true
+  },
+  "shakes everything": {
+    "name": "Shakes Everything",
+    "not_found": true
+  },
+  "shakes everything feb": {
+    "name": "Shakes Everything Feb",
+    "not_found": true
+  },
+  "everything feb": {
+    "name": "Everything Feb",
+    "not_found": true
+  },
+  "commander historic": {
+    "name": "Commander Historic",
+    "not_found": true
+  },
+  "arena challenge": {
+    "name": "Arena Challenge",
+    "not_found": true
+  },
+  "arena challenge lobbies": {
+    "name": "Arena Challenge Lobbies",
+    "not_found": true
+  },
+  "arena challenge lobbies magic": {
+    "name": "Arena Challenge Lobbies Magic",
+    "not_found": true
+  },
+  "challenge lobbies magic": {
+    "name": "Challenge Lobbies Magic",
+    "not_found": true
+  },
+  "challenge lobbies magic pride's": {
+    "name": "Challenge Lobbies Magic Pride's",
+    "not_found": true
+  },
+  "lobbies magic": {
+    "name": "Lobbies Magic",
+    "not_found": true
+  },
+  "lobbies magic pride's": {
+    "name": "Lobbies Magic Pride's",
+    "not_found": true
+  },
+  "magic pride's": {
+    "name": "Magic Pride's",
+    "not_found": true
+  },
+  "biorhythm is legal": {
+    "name": "Biorhythm Is Legal",
+    "not_found": true
+  },
+  "legal in commander": {
+    "name": "Legal in Commander",
+    "not_found": true
+  },
+  "legal in commander now": {
+    "name": "Legal in Commander Now",
+    "not_found": true
+  },
+  "commander now": {
+    "name": "Commander Now",
+    "not_found": true
+  },
+  "yes really": {
+    "name": "Yes Really",
+    "not_found": true
+  },
+  "commander and the commander": {
+    "name": "Commander and the Commander",
+    "not_found": true
+  },
+  "gavin verhey": {
+    "name": "Gavin Verhey",
+    "not_found": true
+  },
+  "lutri spikes": {
+    "name": "Lutri Spikes",
+    "not_found": true
+  },
+  "gilt-leaf palace": {
+    "name": "Gilt-Leaf Palace",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+    "normal": "https://cards.scryfall.io/normal/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+    "artist": "Christopher Moeller",
+    "set": "lrw",
+    "not_found": false
+  },
+  "gilt-leaf palace surges": {
+    "name": "Gilt-Leaf Palace",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+    "normal": "https://cards.scryfall.io/normal/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244",
+    "artist": "Christopher Moeller",
+    "set": "lrw",
+    "not_found": false
+  },
+  "palace surges": {
+    "name": "Palace Surges",
+    "not_found": true
+  },
+  "february hotcold": {
+    "name": "February HotCold",
+    "not_found": true
+  },
+  "february hotcold list": {
+    "name": "February HotCold List",
+    "not_found": true
+  },
+  "february hotcold list lutri": {
+    "name": "February HotCold List Lutri",
+    "not_found": true
+  },
+  "hotcold list": {
+    "name": "HotCold List",
+    "not_found": true
+  },
+  "hotcold list lutri": {
+    "name": "HotCold List Lutri",
+    "not_found": true
+  },
+  "lutri effect": {
+    "name": "Lutri Effect",
+    "not_found": true
+  },
+  "unban spike": {
+    "name": "Unban Spike",
+    "not_found": true
+  },
+  "spike for the ages": {
+    "name": "Spike for the Ages",
+    "not_found": true
+  },
+  "ages lutri": {
+    "name": "Ages Lutri",
+    "not_found": true
+  },
+  "ages lutri the spellchaser": {
+    "name": "Lutri, the Spellchaser",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934",
+    "normal": "https://cards.scryfall.io/normal/front/f/b/fb1189c9-7842-466e-8238-1e02677d8494.jpg?1770634934",
+    "artist": "Lie Setiawan",
+    "set": "iko",
+    "not_found": false
+  },
+  "halo foil": {
+    "name": "Halo Foil",
+    "not_found": true
+  },
+  "multiverse legends": {
+    "name": "Multiverse Legends",
+    "not_found": true
+  },
+  "never was": {
+    "name": "Never Was",
+    "not_found": true
+  },
+  "lorwyn eclipsed's": {
+    "name": "Lorwyn Eclipsed's",
+    "not_found": true
+  },
+  "high perfect": {
+    "name": "High Perfect Morcant",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+    "normal": "https://cards.scryfall.io/normal/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+    "artist": "Victor Adame Minguez",
+    "set": "ecl",
+    "not_found": false
+  },
+  "high perfect morcant": {
+    "name": "High Perfect Morcant",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+    "normal": "https://cards.scryfall.io/normal/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+    "artist": "Victor Adame Minguez",
+    "set": "ecl",
+    "not_found": false
+  },
+  "perfect morcant": {
+    "name": "High Perfect Morcant",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+    "normal": "https://cards.scryfall.io/normal/front/d/f/dfe7b8bf-c150-4be0-aef4-e8bb6f09787a.jpg?1765451570",
+    "artist": "Victor Adame Minguez",
+    "set": "ecl",
+    "not_found": false
+  },
+  "sideboard king": {
+    "name": "Sideboard King",
+    "not_found": true
+  },
+  "sideboard king of pro": {
+    "name": "Sideboard King of Pro",
+    "not_found": true
+  },
+  "king of pro": {
+    "name": "King of Pro",
+    "not_found": true
+  },
+  "king of pro tour": {
+    "name": "King of Pro Tour",
+    "not_found": true
+  },
+  "tour richmond": {
+    "name": "Tour Richmond",
+    "not_found": true
+  },
+  "sheoldred's arena": {
+    "name": "Sheoldred's Arena",
+    "not_found": true
+  },
+  "sheoldred's arena dream": {
+    "name": "Sheoldred's Arena Dream",
+    "not_found": true
+  },
+  "arena dream": {
+    "name": "Arena Dream",
+    "not_found": true
+  },
+  "limited championship": {
+    "name": "Limited Championship",
+    "not_found": true
+  },
+  "limited championship qualifier": {
+    "name": "Limited Championship Qualifier",
+    "not_found": true
+  },
+  "limited championship qualifier announced": {
+    "name": "Limited Championship Qualifier Announced",
+    "not_found": true
+  },
+  "championship qualifier": {
+    "name": "Championship Qualifier",
+    "not_found": true
+  },
+  "championship qualifier announced": {
+    "name": "Championship Qualifier Announced",
+    "not_found": true
+  },
+  "championship qualifier announced wizards": {
+    "name": "Championship Qualifier Announced Wizards",
+    "not_found": true
+  },
+  "qualifier announced": {
+    "name": "Qualifier Announced",
+    "not_found": true
+  },
+  "qualifier announced wizards": {
+    "name": "Qualifier Announced Wizards",
+    "not_found": true
+  },
+  "announced wizards": {
+    "name": "Announced Wizards",
+    "not_found": true
+  },
+  "mtg arena limited": {
+    "name": "MTG Arena Limited",
+    "not_found": true
+  },
+  "mtg arena limited championship": {
+    "name": "MTG Arena Limited Championship",
+    "not_found": true
+  },
+  "arena limited": {
+    "name": "Arena Limited",
+    "not_found": true
+  },
+  "arena limited championship": {
+    "name": "Arena Limited Championship",
+    "not_found": true
+  },
+  "arena limited championship qualifierlimited": {
+    "name": "Arena Limited Championship Qualifierlimited",
+    "not_found": true
+  },
+  "limited championship qualifierlimited": {
+    "name": "Limited Championship Qualifierlimited",
+    "not_found": true
+  },
+  "championship qualifierlimited": {
+    "name": "Championship Qualifierlimited",
+    "not_found": true
+  },
+  "magic limited": {
+    "name": "Magic Limited",
+    "not_found": true
+  },
+  "magic limited championship": {
+    "name": "Magic Limited Championship",
+    "not_found": true
+  },
+  "plus teenage": {
+    "name": "Plus Teenage",
+    "not_found": true
+  },
+  "plus teenage mutant": {
+    "name": "Plus Teenage Mutant",
+    "not_found": true
+  },
+  "plus teenage mutant ninja": {
+    "name": "Plus Teenage Mutant Ninja",
+    "not_found": true
+  },
+  "mutant ninja": {
+    "name": "Mutant Ninja",
+    "not_found": true
+  },
+  "mutant ninja turtles": {
+    "name": "Mutant Ninja Turtles",
+    "not_found": true
+  },
+  "leonardo cracks": {
+    "name": "Leonardo Cracks",
+    "not_found": true
+  },
+  "leonardo cracks the meta": {
+    "name": "Leonardo Cracks the Meta",
+    "not_found": true
+  },
+  "cracks the meta": {
+    "name": "Cracks the Meta",
+    "not_found": true
+  },
+  "tmnt preview": {
+    "name": "TMNT Preview",
+    "not_found": true
+  },
+  "tmnt preview season": {
+    "name": "TMNT Preview Season",
+    "not_found": true
+  },
+  "tmnt preview season kicks": {
+    "name": "TMNT Preview Season Kicks",
+    "not_found": true
+  },
+  "preview season": {
+    "name": "Preview Season",
+    "not_found": true
+  },
+  "preview season kicks": {
+    "name": "Preview Season Kicks",
+    "not_found": true
+  },
+  "preview season kicks off": {
+    "name": "Preview Season Kicks Off",
+    "not_found": true
+  },
+  "season kicks": {
+    "name": "Season Kicks",
+    "not_found": true
+  },
+  "season kicks off": {
+    "name": "Season Kicks Off",
+    "not_found": true
+  },
+  "season kicks off after": {
+    "name": "Season Kicks Off After",
+    "not_found": true
+  },
+  "kicks off": {
+    "name": "Kicks Off",
+    "not_found": true
+  },
+  "kicks off after": {
+    "name": "Kicks Off After",
+    "not_found": true
+  },
+  "kicks off after leak": {
+    "name": "Kicks Off After Leak",
+    "not_found": true
+  },
+  "off after": {
+    "name": "Off After",
+    "not_found": true
+  },
+  "off after leak": {
+    "name": "Off After Leak",
+    "not_found": true
+  },
+  "off after leak someone": {
+    "name": "Off After Leak Someone",
+    "not_found": true
+  },
+  "leak someone": {
+    "name": "Leak Someone",
+    "not_found": true
+  },
+  "leak that": {
+    "name": "Leak That",
+    "not_found": true
+  },
+  "leak that launched": {
+    "name": "Leak That Launched",
+    "not_found": true
+  },
+  "launched a preview": {
+    "name": "Launched a Preview",
+    "not_found": true
+  },
+  "launched a preview blitz": {
+    "name": "Launched a Preview Blitz",
+    "not_found": true
+  },
+  "preview blitz": {
+    "name": "Preview Blitz",
+    "not_found": true
+  },
+  "preview blitz it": {
+    "name": "Preview Blitz It",
+    "not_found": true
+  },
+  "blitz it": {
+    "name": "Blitz It",
+    "not_found": true
+  },
+  "am pt": {
+    "name": "AM PT",
+    "not_found": true
+  },
+  "am pt february": {
+    "name": "AM PT February",
+    "not_found": true
+  },
+  "pt february": {
+    "name": "PT February",
+    "not_found": true
+  },
+  "actually tell": {
+    "name": "Actually Tell",
+    "not_found": true
+  },
+  "patch breakdown": {
+    "name": "Patch Breakdown",
+    "not_found": true
+  },
+  "red menace": {
+    "name": "Red Menace",
+    "not_found": true
+  },
+  "red menace gets": {
+    "name": "Red Menace Gets",
+    "not_found": true
+  },
+  "red menace gets checked": {
+    "name": "Red Menace Gets Checked",
+    "not_found": true
+  },
+  "menace gets": {
+    "name": "Menace Gets",
+    "not_found": true
+  },
+  "menace gets checked": {
+    "name": "Menace Gets Checked",
+    "not_found": true
+  },
+  "menace gets checked if": {
+    "name": "Menace Gets Checked If",
+    "not_found": true
+  },
+  "gets checked": {
+    "name": "Gets Checked",
+    "not_found": true
+  },
+  "gets checked if": {
+    "name": "Gets Checked If",
+    "not_found": true
+  },
+  "checked if": {
+    "name": "Checked If",
+    "not_found": true
+  },
+  "stomp and rakdos": {
+    "name": "Stomp and Rakdos",
+    "not_found": true
+  },
+  "monastary swiftspear": {
+    "name": "Monastery Swiftspear",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543",
+    "normal": "https://cards.scryfall.io/normal/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543",
+    "artist": "Gabor Szikszai",
+    "set": "bro",
+    "not_found": false
+  },
+  "expect mono-red": {
+    "name": "Expect Mono-Red",
+    "not_found": true
+  },
+  "hearthstone brawl-style": {
+    "name": "Hearthstone Brawl-style",
+    "not_found": true
+  },
+  "reckless impulse": {
+    "name": "Reckless Impulse",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/9/6943c07f-ab0d-4f5a-bbe9-c0a83dc98546.jpg?1643591880",
+    "normal": "https://cards.scryfall.io/normal/front/6/9/6943c07f-ab0d-4f5a-bbe9-c0a83dc98546.jpg?1643591880",
+    "artist": "Mathias Kollros",
+    "set": "vow",
+    "not_found": false
+  },
+  "reckless impulse and slickshot": {
+    "name": "Reckless Impulse and Slickshot",
+    "not_found": true
+  },
+  "impulse and slickshot": {
+    "name": "Impulse and Slickshot",
+    "not_found": true
+  },
+  "impulse and slickshot show-off": {
+    "name": "Impulse and Slickshot Show-Off",
+    "not_found": true
+  },
+  "bases decide": {
+    "name": "Bases Decide",
+    "not_found": true
+  },
+  "bases decide games": {
+    "name": "Bases Decide Games",
+    "not_found": true
+  },
+  "bases decide games you": {
+    "name": "Bases Decide Games You",
+    "not_found": true
+  },
+  "decide games": {
+    "name": "Decide Games",
+    "not_found": true
+  },
+  "decide games you": {
+    "name": "Decide Games You",
+    "not_found": true
+  },
+  "islands and a forest": {
+    "name": "Islands and a Forest",
+    "not_found": true
+  },
+  "ptqs and command": {
+    "name": "PTQs and Command",
+    "not_found": true
+  },
+  "ptqs and command zone": {
+    "name": "PTQs and Command Zone",
+    "not_found": true
+  },
+  "command zone": {
+    "name": "The Command Zone",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/e/8ea684de-c544-444c-ab5c-5b86b0b0fc71.jpg?1760627323",
+    "normal": "https://cards.scryfall.io/normal/front/8/e/8ea684de-c544-444c-ab5c-5b86b0b0fc71.jpg?1760627323",
+    "artist": "",
+    "set": "punk",
+    "not_found": false
+  },
+  "doom foretold": {
+    "name": "Doom Foretold",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/7/e76c0c83-3e87-474d-bc72-1677eed32cfa.jpg?1572490732",
+    "normal": "https://cards.scryfall.io/normal/front/e/7/e76c0c83-3e87-474d-bc72-1677eed32cfa.jpg?1572490732",
+    "artist": "Daniel Ljunggren",
+    "set": "eld",
+    "not_found": false
+  },
+  "temple of silence": {
+    "name": "Temple of Silence",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/1/41393bce-01c1-4268-907e-de0fa8a76719.jpg?1743207789",
+    "normal": "https://cards.scryfall.io/normal/front/4/1/41393bce-01c1-4268-907e-de0fa8a76719.jpg?1743207789",
+    "artist": "Adam Paquette",
+    "set": "tdc",
+    "not_found": false
+  },
+  "counting like": {
+    "name": "Counting Like",
+    "not_found": true
+  },
+  "counting like a pro": {
+    "name": "Counting Like a Pro",
+    "not_found": true
+  },
+  "pro let's": {
+    "name": "Pro Let's",
+    "not_found": true
+  },
+  "kiki-jiki mirror": {
+    "name": "Kiki-Jiki, Mirror Breaker",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a2ff0ee3-9600-4c7d-acec-6ec90595384e.jpg?1562852476",
+    "normal": "https://cards.scryfall.io/normal/front/a/2/a2ff0ee3-9600-4c7d-acec-6ec90595384e.jpg?1562852476",
+    "artist": "Steven Belledin",
+    "set": "ima",
+    "not_found": false
+  },
+  "kiki-jiki mirror breaker": {
+    "name": "Kiki-Jiki, Mirror Breaker",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/2/a2ff0ee3-9600-4c7d-acec-6ec90595384e.jpg?1562852476",
+    "normal": "https://cards.scryfall.io/normal/front/a/2/a2ff0ee3-9600-4c7d-acec-6ec90595384e.jpg?1562852476",
+    "artist": "Steven Belledin",
+    "set": "ima",
+    "not_found": false
+  },
+  "mirror breaker": {
+    "name": "Mirror Breaker",
+    "not_found": true
+  },
+  "rampant growth": {
+    "name": "Rampant Growth",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/7/b7c47024-5e08-4b17-b41a-7647f8b814b9.jpg?1743206981",
+    "normal": "https://cards.scryfall.io/normal/front/b/7/b7c47024-5e08-4b17-b41a-7647f8b814b9.jpg?1743206981",
+    "artist": "Steven Belledin",
+    "set": "tdc",
+    "not_found": false
+  },
+  "pt los": {
+    "name": "PT Los",
+    "not_found": true
+  },
+  "tour dominance": {
+    "name": "Tour Dominance",
+    "not_found": true
+  },
+  "run that": {
+    "name": "Run That",
+    "not_found": true
+  },
+  "run that broke": {
+    "name": "Run That Broke",
+    "not_found": true
+  },
+  "run that broke stats": {
+    "name": "Run That Broke Stats",
+    "not_found": true
+  },
+  "broke stats": {
+    "name": "Broke Stats",
+    "not_found": true
+  },
+  "broke stats you": {
+    "name": "Broke Stats You",
+    "not_found": true
+  },
+  "stats you": {
+    "name": "Stats You",
+    "not_found": true
+  },
+  "pt tokyo": {
+    "name": "PT Tokyo",
+    "not_found": true
+  },
+  "next pro": {
+    "name": "Next of Kin",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/3/63c508aa-024e-418d-ac05-936ba3d2d425.jpg?1741141885",
+    "normal": "https://cards.scryfall.io/normal/front/6/3/63c508aa-024e-418d-ac05-936ba3d2d425.jpg?1741141885",
+    "artist": "Andreas Zafiratos",
+    "set": "ncc",
+    "not_found": false
+  },
+  "next pro tour": {
+    "name": "Next Pro Tour",
+    "not_found": true
+  },
+  "tour top": {
+    "name": "Tour Top",
+    "not_found": true
+  },
+  "unsummonmana leak": {
+    "name": "UnsummonMana Leak",
+    "not_found": true
+  },
+  "pt chicago": {
+    "name": "PT Chicago",
+    "not_found": true
+  },
+  "pt chicago rebel": {
+    "name": "PT Chicago Rebel",
+    "not_found": true
+  },
+  "chicago rebel": {
+    "name": "Chicago Rebel",
+    "not_found": true
+  },
+  "teferi just": {
+    "name": "Teferi Just",
+    "not_found": true
+  },
+  "teferi just took": {
+    "name": "Teferi Just Took",
+    "not_found": true
+  },
+  "teferi just took over": {
+    "name": "Teferi Just Took Over",
+    "not_found": true
+  },
+  "took over standard if": {
+    "name": "Took Over Standard If",
+    "not_found": true
+  },
+  "standard if": {
+    "name": "Standard If",
+    "not_found": true
+  },
+  "core engine": {
+    "name": "Core Engine",
+    "not_found": true
+  },
+  "power triangle": {
+    "name": "Power Triangle",
+    "not_found": true
+  },
+  "power triangle breakdown": {
+    "name": "Power Triangle Breakdown",
+    "not_found": true
+  },
+  "power triangle breakdown most": {
+    "name": "Power Triangle Breakdown Most",
+    "not_found": true
+  },
+  "-tick meta": {
+    "name": "-Tick Meta",
+    "not_found": true
+  },
+  "-tick meta killer": {
+    "name": "-Tick Meta Killer",
+    "not_found": true
+  },
+  "-tick meta killer if": {
+    "name": "-Tick Meta Killer If",
+    "not_found": true
+  },
+  "killer if": {
+    "name": "Killer If",
+    "not_found": true
+  },
+  "prismatic ending": {
+    "name": "Prismatic Ending",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/2/825969b9-3c70-4fca-8cab-696e9ca7cdb2.jpg?1626093920",
+    "normal": "https://cards.scryfall.io/normal/front/8/2/825969b9-3c70-4fca-8cab-696e9ca7cdb2.jpg?1626093920",
+    "artist": "John Stanko",
+    "set": "mh2",
+    "not_found": false
+  },
+  "fable of the mirror": {
+    "name": "Fable of the Mirror-Breaker // Reflection of Kiki-Jiki",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/4/24c0d87b-0049-4beb-b9cb-6f813b7aa7dc.jpg?1691108103",
+    "normal": "https://cards.scryfall.io/normal/front/2/4/24c0d87b-0049-4beb-b9cb-6f813b7aa7dc.jpg?1691108103",
+    "artist": "Joseph Meehan",
+    "set": "neo",
+    "not_found": false
+  },
+  "mirror breakertaps": {
+    "name": "Mirror Breakertaps",
+    "not_found": true
+  },
+  "urzas reanimate": {
+    "name": "Urzas Reanimate",
+    "not_found": true
+  },
+  "countdown timer": {
+    "name": "Countdown Timer",
+    "not_found": true
+  },
+  "countdown timer every": {
+    "name": "Countdown Timer Every",
+    "not_found": true
+  },
+  "timer every": {
+    "name": "Timer Every",
+    "not_found": true
+  },
+  "karn the great": {
+    "name": "Karn, the Great Creator",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/e/deb3721d-fba1-444f-8b31-1cd10c94c4a0.jpg?1702429246",
+    "normal": "https://cards.scryfall.io/normal/front/d/e/deb3721d-fba1-444f-8b31-1cd10c94c4a0.jpg?1702429246",
+    "artist": "Wisnu Tan",
+    "set": "rvr",
+    "not_found": false
+  },
+  "psychology behind": {
+    "name": "Psychology Behind",
+    "not_found": true
+  },
+  "psychology behind pack": {
+    "name": "Psychology Behind Pack",
+    "not_found": true
+  },
+  "psychology behind pack rat's": {
+    "name": "Psychology Behind Pack Rat's",
+    "not_found": true
+  },
+  "behind pack": {
+    "name": "Behind Pack",
+    "not_found": true
+  },
+  "behind pack rat's": {
+    "name": "Behind Pack Rat's",
+    "not_found": true
+  },
+  "behind pack rat's power": {
+    "name": "Behind Pack Rat's Power",
+    "not_found": true
+  },
+  "pack rat's": {
+    "name": "Pack Rat",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/7/170693f5-13db-4191-99b1-e527ffb5b88e.jpg?1562783180",
+    "normal": "https://cards.scryfall.io/normal/front/1/7/170693f5-13db-4191-99b1-e527ffb5b88e.jpg?1562783180",
+    "artist": "Kev Walker",
+    "set": "rtr",
+    "not_found": false
+  },
+  "pack rat's power": {
+    "name": "Pack Rat's Power",
+    "not_found": true
+  },
+  "pack rat's power move": {
+    "name": "Pack Rat's Power Move",
+    "not_found": true
+  },
+  "rat's power": {
+    "name": "Rat's Power",
+    "not_found": true
+  },
+  "rat's power move": {
+    "name": "Rat's Power Move",
+    "not_found": true
+  },
+  "rat's power move when": {
+    "name": "Rat's Power Move When",
+    "not_found": true
+  },
+  "power move": {
+    "name": "Power Move",
+    "not_found": true
+  },
+  "power move when": {
+    "name": "Power Move When",
+    "not_found": true
+  },
+  "move when": {
+    "name": "Move When",
+    "not_found": true
+  },
+  "advanced tell": {
+    "name": "Advanced Tell",
+    "not_found": true
+  },
+  "advanced tell reading": {
+    "name": "Advanced Tell Reading",
+    "not_found": true
+  },
+  "tell reading": {
+    "name": "Tell Reading",
+    "not_found": true
+  },
+  "beyond faces": {
+    "name": "Beyond Faces",
+    "not_found": true
+  },
+  "beyond faces body": {
+    "name": "Beyond Faces Body",
+    "not_found": true
+  },
+  "faces body": {
+    "name": "Faces Body",
+    "not_found": true
+  },
+  "sheoldred unban": {
+    "name": "Sheoldred Unban",
+    "not_found": true
+  },
+  "sheoldred unban shockwave": {
+    "name": "Sheoldred Unban Shockwave",
+    "not_found": true
+  },
+  "sheoldred unban shockwave toss": {
+    "name": "Sheoldred Unban Shockwave Toss",
+    "not_found": true
+  },
+  "unban shockwave": {
+    "name": "Unban Shockwave",
+    "not_found": true
+  },
+  "unban shockwave toss": {
+    "name": "Unban Shockwave Toss",
+    "not_found": true
+  },
+  "shockwave toss": {
+    "name": "Shockwave Toss",
+    "not_found": true
+  },
+  "red bull": {
+    "name": "Red Bull",
+    "not_found": true
+  },
+  "announcement that": {
+    "name": "Announcement That",
+    "not_found": true
+  },
+  "announcement that broke": {
+    "name": "Announcement That Broke",
+    "not_found": true
+  },
+  "broke the internet": {
+    "name": "Broke the Internet",
+    "not_found": true
+  },
+  "broke the internet wizards": {
+    "name": "Broke the Internet Wizards",
+    "not_found": true
+  },
+  "internet wizards": {
+    "name": "Internet Wizards",
+    "not_found": true
+  },
+  "pstclassic wotc": {
+    "name": "PSTclassic WotC",
+    "not_found": true
+  },
+  "reid duke": {
+    "name": "Reid Duke",
+    "not_found": true
+  },
+  "seth manfield": {
+    "name": "Seth Manfield",
+    "not_found": true
+  },
+  "team format decoded": {
+    "name": "Team Format Decoded",
+    "not_found": true
+  },
+  "three decks": {
+    "name": "Three Decks",
+    "not_found": true
   }
 }

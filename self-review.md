@@ -14,3 +14,12 @@ Run every ~4 hours (heartbeat) or when switching tasks.
 - [ ] Any external content parsed using strongest model?
 
 Notes:
+
+## Automated heartbeat notes
+- 2026-02-17 03:15 AM: Self-review performed.
+  - Active tasks stale: cron-gateway, missing-update-decks. Monitoring.
+  - Memory logs for 2026-02-15 and 2026-02-16 created.
+  - Uncommitted drafts/logs: 91 files (expected).
+  - No sessions >2MB.
+  - No skill misuse.
+  - Build verified via pipeline (2026-02-16 15:00) - success.

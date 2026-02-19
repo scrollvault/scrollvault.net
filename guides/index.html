@@ -3,94 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://scrollvault.net/guides/"><title>MTG Guides | scrollvault.net</title>
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://scrollvault.net/guides/"><title>MTG Guides | ScrollVault</title>
     <meta name="description" content="Strategy guides, deck techs, and in-depth analysis to help you master any format.">
     <meta property="og:url" content="https://scrollvault.net/guides/"><meta property="og:type" content="website">
     <meta property="og:title" content="MTG Guides">
     <meta property="og:description" content="Strategy guides, deck techs, and in-depth analysis to help you master any format.">
     <meta property="og:site_name" content="ScrollVault">
-    <meta property="og:image" content="https://cards.scryfall.io/art_crop/front/a/1/a1fc8d86-b118-46e3-92a5-8cbf2ca282f7.jpg?1752945328">
-    <meta property="og:image:width" content="626">
-    <meta property="og:image:height" content="457">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568">
+    <meta property="og:image:alt" content="MTG Guides">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="MTG Guides">
+    <meta name="twitter:description" content="Strategy guides, deck techs, and in-depth analysis to help you master any format.">
+    <meta name="twitter:image" content="https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568">
+    <meta name="twitter:image:alt" content="MTG Guides">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"MTG Guides","description":"Strategy guides, deck techs, and in-depth analysis to help you master any format.","url":"https://scrollvault.net/guides/"}</script>
     <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="alternate" type="application/rss+xml" title="ScrollVault RSS Feed" href="/feed.xml">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
-    <style>
-.hero-featured { position: relative; min-height: 500px; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
-.hero-featured .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%); }
-.hero-featured .hero-content { position: relative; z-index: 1; padding: 3rem 0; width: 100%; }
-.hero-featured .post-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
-.hero-featured h1 { font-size: 2.75rem; margin-bottom: 1rem; line-height: 1.2; max-width: 700px; }
-.hero-featured .hero-excerpt { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; line-height: 1.7; margin-bottom: 1.5rem; }
-.hero-cta { display: inline-block; padding: 0.75rem 2rem; background: var(--gradient-purple); border-radius: 8px; font-weight: 600; font-size: 0.95rem; color: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); color: white; }
-.hero-attribution { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
-.content-wrapper { display: grid; grid-template-columns: 1fr; gap: 2rem; padding: 2rem 0 4rem; }
-.posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-.post-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; cursor: pointer; }
-.post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
-.post-card a.card-link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; }
-.post-thumbnail { height: 180px; width: 100%; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-.post-thumbnail::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%); }
-.post-content { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
-.post-category { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem; width: fit-content; }
-.category-news { background: var(--pill-news); color: white; }
-.category-strategy { background: var(--pill-strategy); color: white; }
-.category-spoilers { background: var(--pill-spoilers); color: white; }
-.category-deck-guides { background: var(--pill-deck-guides); color: white; }
-.category-set-reviews { background: var(--pill-set-reviews); color: white; }
-.post-title { font-size: 1.125rem; margin-bottom: 0.75rem; line-height: 1.4; }
-.post-excerpt { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem; flex: 1; }
-.post-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.8rem; padding-top: 1rem; border-top: 1px solid var(--card-border); }
-.read-more { color: #a78bfa; font-weight: 600; font-size: 0.875rem; margin-top: 0.75rem; display: inline-flex; align-items: center; gap: 0.25rem; }
-.read-more:hover { color: #c4b5fd; }
-.sidebar { display: none; }
-@media (min-width: 992px) { .content-wrapper { grid-template-columns: 1fr 320px; } .sidebar { display: block; } }
-.sidebar-widget { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-.widget-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--card-border); }
-.search-box input { width: 100%; padding: 0.75rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 8px; color: var(--text-primary); font-size: 0.9rem; font-family: inherit; }
-.search-box input:focus { outline: none; border-color: #8b5cf6; }
-.search-box input::placeholder { color: var(--text-muted); }
-.recent-posts { list-style: none; }
-.recent-post-item { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--card-border); }
-.recent-post-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.recent-post-thumb { width: 56px; height: 42px; border-radius: 6px; background-size: cover; background-position: center; flex-shrink: 0; }
-.recent-posts a { font-size: 0.875rem; color: var(--text-secondary); display: block; line-height: 1.4; }
-.recent-posts a:hover { color: var(--text-primary); }
-.recent-post-date { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 0.25rem; }
-.categories-list { list-style: none; }
-.categories-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--card-border); cursor: pointer; }
-.categories-list li:last-child { border-bottom: none; }
-.category-name { display: flex; align-items: center; gap: 0.5rem; }
-.category-dot { width: 8px; height: 8px; border-radius: 50%; }
-.category-count { background: rgba(255,255,255,0.08); padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.75rem; color: var(--text-muted); }
-.about-widget { text-align: center; }
-.about-avatar { width: 80px; height: 80px; margin: 0 auto 1rem; background: var(--gradient-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
-.about-text { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
-.post-card.hidden { display: none; }
-.pillar-guides { padding: 2.5rem 0 0; }
-.pillar-guides h2 { font-size: 1.5rem; margin-bottom: 1.25rem; }
-.pillar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-.pillar-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px var(--card-hover-glow); }
-.pillar-card a { color: inherit; text-decoration: none; display: block; }
-.pillar-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-primary); }
-.pillar-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5; margin: 0; }
-.pillar-card .pillar-arrow { color: #a78bfa; font-weight: 600; font-size: 0.875rem; margin-top: 0.75rem; display: inline-block; }
-@media (max-width: 768px) {
-    .hero-featured { min-height: 360px; }
-    .hero-featured h1 { font-size: 1.75rem; }
-    .posts-grid { grid-template-columns: 1fr; }
-}
-@media (min-width: 769px) and (max-width: 991px) {
-    .posts-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 992px) { .posts-grid { grid-template-columns: repeat(3, 1fr); } }</style>
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -111,7 +50,7 @@
         </div>
     </nav>
     <main id="main-content">
-        <section class="hero-featured" style="background-image: url('https://cards.scryfall.io/art_crop/front/a/1/a1fc8d86-b118-46e3-92a5-8cbf2ca282f7.jpg?1752945328'); background-size: cover; background-position: center;" role="img" aria-label="Featured: How to Build a Solid Mana Base on a Budget - card art">
+        <section class="hero-featured" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568'); background-size: cover; background-position: center;" role="img" aria-label="Featured: How to Build a Solid Mana Base on a Budget - card art">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="container">
@@ -119,7 +58,7 @@
                     <h1><a href="/posts/building-solid-mana-base-commander-budget.html">How to Build a Solid Mana Base on a Budget</a></h1>
                     <p class="hero-excerpt">A robust mana base is the foundation of any successful Commander deck. Learn how to construct a reliable land base that fits your budget, your colors, and your meta, without breaking the bank.</p>
                     <a href="/posts/building-solid-mana-base-commander-budget.html" class="hero-cta">Read More &rarr;</a>
-                <p class="hero-attribution">Art: &ldquo;Glacial Fortress&rdquo; by James Paick</p>
+                <p class="hero-attribution">Art: &ldquo;Sheoldred, the Apocalypse&rdquo; by Chris Rahn</p>
                 </div>
             </div>
         </section>
@@ -145,22 +84,6 @@
                             <span class="post-category category-strategy">Strategy</span>
                             <h2 class="post-title">Murktide Regent: Mastering Tempo in Modern Murktide</h2>
                             <p class="post-excerpt">Most Modern players think they know Murktide Regent, but they're sequencing wrong. The secret? Tempo isn't about casting spells; it's about knowing when to hold 'em. Let's crack this Izzet puzzle open.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">1 week ago</span>
-                            </div>
-                            <span class="read-more">Read More &rarr;</span>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="post-card" data-category="deck-guides">
-                    <a href="/posts/mono-red-aggro-is-back-monastery-swiftspear-leads-the-charge.html" class="card-link">
-                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543'); background-size: cover; background-position: center;" role="img" aria-label="Mono-Red Aggro Is Back: Monastery Swiftspear Leads the Charge"></div>
-                        <div class="post-content">
-                            <span class="post-category category-deck-guides">Deck Guides</span>
-                            <h2 class="post-title">Mono-Red Aggro Is Back: Monastery Swiftspear Leads the Charge</h2>
-                            <p class="post-excerpt">Mono-Red Aggro has surged to tier 1 in Standard with Monastery Swiftspear and Kumano Faces Kakkazan leading the charge. Budget-friendly, fast, and surprisingly resilient—this deck is crushing it at FNM and on MTG Arena. Here's the complete guide to building and piloting the new red menace.</p>
                             <div class="post-meta">
                                 <span class="post-author">Molts MTG</span>
                                 <span class="post-date">1 week ago</span>
@@ -250,22 +173,6 @@
                     </a>
                 </article>
 
-                <article class="post-card" data-category="strategy">
-                    <a href="/posts/mastering-tempo-modern-murktide.html" class="card-link">
-                        <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/2/0/20c4aae1-7665-4df7-bd51-a1d95bf8a17d.jpg?1626094651'); background-size: cover; background-position: center;" role="img" aria-label="Mastering Tempo in Modern Murktide"></div>
-                        <div class="post-content">
-                            <span class="post-category category-strategy">Strategy</span>
-                            <h2 class="post-title">Mastering Tempo in Modern Murktide</h2>
-                            <p class="post-excerpt">You're on the play with Murktide Regent in hand-do you slam it turn 2 or wait? The answer separates FNM grinders from locals. Mastering Dragon Rage Channeler sequencing is the key to Izzet Murktide's success.</p>
-                            <div class="post-meta">
-                                <span class="post-author">Molts MTG</span>
-                                <span class="post-date">1 week ago</span>
-                            </div>
-                            <span class="read-more">Read More &rarr;</span>
-                        </div>
-                    </a>
-                </article>
-
                 <article class="post-card" data-category="deck-guides">
                     <a href="/posts/golgari-midrange-pioneer-complete-guide.html" class="card-link">
                         <div class="post-thumbnail" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d67be074-cdd4-41d9-ac89-0a0456c4e4b2.jpg?1674057568'); background-size: cover; background-position: center;" role="img" aria-label="Sheoldred the Apocalypse: Why Golgari Midrange Dominates Pioneer"></div>
@@ -341,38 +248,38 @@
                     <h3 class="widget-title">Recent Posts</h3>
                     <ul class="recent-posts">
                         <li class="recent-post-item">
+                            <div class="recent-post-thumb" style="background-image: url('https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543'); background-size: cover; background-position: center;" role="img" aria-label="Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak"></div>
+                            <div>
+                                <a href="/posts/leonardo-arena-preview-season-ninja-leak-response.html">Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak</a>
+                                <span class="recent-post-date">Today</span>
+                            </div>
+                        </li>
+                        <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Sheoldred's Arena Dream: First Limited Championship Qualifier Announced"></div>
                             <div>
                                 <a href="/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html">Sheoldred's Arena Dream: First Limited Championship Qualifier Announced</a>
-                                <span class="recent-post-date">-1 days ago</span>
+                                <span class="recent-post-date">Today</span>
                             </div>
                         </li>
                         <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List"></div>
                             <div>
                                 <a href="/posts/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb.html">Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List</a>
-                                <span class="recent-post-date">Today</span>
+                                <span class="recent-post-date">Yesterday</span>
                             </div>
                         </li>
                         <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything"></div>
                             <div>
                                 <a href="/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html">Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</a>
-                                <span class="recent-post-date">Today</span>
+                                <span class="recent-post-date">Yesterday</span>
                             </div>
                         </li>
                         <li class="recent-post-item">
                             <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'"></div>
                             <div>
                                 <a href="/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html">Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'</a>
-                                <span class="recent-post-date">Yesterday</span>
-                            </div>
-                        </li>
-                        <li class="recent-post-item">
-                            <div class="recent-post-thumb" style="background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);" role="img" aria-label="Spell Snare and the End of Friend Challenges: Arena's Big Update"></div>
-                            <div>
-                                <a href="/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html">Spell Snare and the End of Friend Challenges: Arena's Big Update</a>
-                                <span class="recent-post-date">Yesterday</span>
+                                <span class="recent-post-date">2 days ago</span>
                             </div>
                         </li>
                     </ul>
@@ -385,28 +292,28 @@
                                 <span class="category-dot" style="background: var(--pill-news);"></span>
                                 News
                             </span>
-                            <span class="category-count">27</span>
+                            <span class="category-count">25</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=strategy]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-strategy);"></span>
                                 Strategy
                             </span>
-                            <span class="category-count">7</span>
+                            <span class="category-count">6</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=spoilers]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-spoilers);"></span>
                                 Spoilers
                             </span>
-                            <span class="category-count">3</span>
+                            <span class="category-count">4</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=deck-guides]').click()">
                             <span class="category-name">
                                 <span class="category-dot" style="background: var(--pill-deck-guides);"></span>
                                 Deck Guides
                             </span>
-                            <span class="category-count">6</span>
+                            <span class="category-count">5</span>
                         </li>
                         <li onclick="document.querySelector('[data-filter=set-reviews]').click()">
                             <span class="category-name">
@@ -467,6 +374,6 @@
             if (t) { filterBtns.forEach(b => b.classList.remove('active')); document.querySelector('[data-filter="all"]').classList.add('active'); }
         }
     </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/building-solid-mana-base-commander-budget.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/murktide-regent-mastering-tempo-modern.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/mono-red-aggro-is-back-monastery-swiftspear-leads-the-charge.html"},{"@type":"ListItem","position":4,"url":"https://scrollvault.net/posts/teferi-hero-azorius-control-standard-guide.html"},{"@type":"ListItem","position":5,"url":"https://scrollvault.net/posts/grafdigger-cage-beats-standard-top-deck.html"},{"@type":"ListItem","position":6,"url":"https://scrollvault.net/posts/jeskai-lotus-combo-vintage.html"},{"@type":"ListItem","position":7,"url":"https://scrollvault.net/posts/pack-rat-draft-mind-games.html"},{"@type":"ListItem","position":8,"url":"https://scrollvault.net/posts/mono-red-aggro-is-back.html"},{"@type":"ListItem","position":9,"url":"https://scrollvault.net/posts/mastering-tempo-modern-murktide.html"},{"@type":"ListItem","position":10,"url":"https://scrollvault.net/posts/golgari-midrange-pioneer-complete-guide.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://scrollvault.net/posts/building-solid-mana-base-commander-budget.html"},{"@type":"ListItem","position":2,"url":"https://scrollvault.net/posts/murktide-regent-mastering-tempo-modern.html"},{"@type":"ListItem","position":3,"url":"https://scrollvault.net/posts/teferi-hero-azorius-control-standard-guide.html"},{"@type":"ListItem","position":4,"url":"https://scrollvault.net/posts/grafdigger-cage-beats-standard-top-deck.html"},{"@type":"ListItem","position":5,"url":"https://scrollvault.net/posts/jeskai-lotus-combo-vintage.html"},{"@type":"ListItem","position":6,"url":"https://scrollvault.net/posts/pack-rat-draft-mind-games.html"},{"@type":"ListItem","position":7,"url":"https://scrollvault.net/posts/mono-red-aggro-is-back.html"},{"@type":"ListItem","position":8,"url":"https://scrollvault.net/posts/golgari-midrange-pioneer-complete-guide.html"},{"@type":"ListItem","position":9,"url":"https://scrollvault.net/posts/mulligan-math-when-serum-visions.html"},{"@type":"ListItem","position":10,"url":"https://scrollvault.net/posts/rest-in-peace-building-better-sideboards.html"}]}</script>
 </body>
 </html>

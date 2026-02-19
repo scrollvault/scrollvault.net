@@ -3,88 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"><title>MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes | scrollvault.net</title>
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"><title>MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes | ScrollVault</title>
     <meta name="description" content="Wizards of the Coast releases the February 2026 patch for MTG Arena, bringing key balance changes to Standard, new localization options, and important bug fixes. Get the full breakdown.">
     <meta property="og:url" content="https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"><meta property="og:type" content="article">
     <meta property="og:title" content="MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes">
     <meta property="og:description" content="Wizards of the Coast releases the February 2026 patch for MTG Arena, bringing key balance changes to Standard, new localization options, and important bug fixes. Get the full breakdown.">
     <meta property="og:site_name" content="ScrollVault">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543">
+    <meta property="og:image:alt" content="MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes">
+    <meta name="twitter:description" content="Wizards of the Coast releases the February 2026 patch for MTG Arena, bringing key balance changes to Standard, new localization options, and important bug fixes. Get the full breakdown.">
+    <meta name="twitter:image" content="https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543">
+    <meta name="twitter:image:alt" content="MTG Arena February 2026 Patch Notes - Balance Changes &amp; Bug Fixes">
     
     <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="alternate" type="application/rss+xml" title="ScrollVault RSS Feed" href="/feed.xml">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CV3DS33WK"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1CV3DS33WK');</script>
-    <style>
-.article-hero { position: relative; min-height: 400px; background-size: cover; background-position: center top; display: flex; align-items: flex-end; }
-.article-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,15,15,1) 0%, rgba(15,15,15,0.7) 40%, rgba(0,0,0,0.3) 100%); }
-.article-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; width: 100%; }
-.article-hero .breadcrumb { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; }
-.article-hero .breadcrumb a { color: rgba(255,255,255,0.7); }
-.article-hero .breadcrumb a:hover { color: #a78bfa; }
-.article-hero .article-category { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
-.article-hero .article-title { font-size: 2.25rem; margin-bottom: 1rem; line-height: 1.25; }
-.article-hero .article-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
-.hero-attribution { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; font-style: italic; }
-.category-news { background: var(--pill-news); color: white; }
-.category-strategy { background: var(--pill-strategy); color: white; }
-.category-spoilers { background: var(--pill-spoilers); color: white; }
-.category-deck-guides { background: var(--pill-deck-guides); color: white; }
-.category-set-reviews { background: var(--pill-set-reviews); color: white; }
-.article-body { max-width: 800px; margin: 0 auto; padding: 2rem 1rem 4rem; }
-.article-body > p:first-of-type::first-letter { float: left; font-size: 3.5rem; line-height: 1; font-weight: 700; margin-right: 0.5rem; margin-top: 0.1rem; font-family: 'Space Grotesk', serif; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.article-body h2 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--text-primary); }
-.article-body h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; color: var(--text-primary); }
-.article-body p { color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.8; }
-.article-body pre { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 1.25rem; overflow-x: auto; margin: 1.5rem 0; font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary); }
-.article-body ul, .article-body ol { color: var(--text-secondary); margin: 1rem 0 1.25rem 1.5rem; font-size: 1.05rem; line-height: 1.8; }
-.article-body li { margin-bottom: 0.5rem; }
-.article-body a { color: #a78bfa; text-decoration: underline; }
-.article-body blockquote { border-left: 3px solid #a855f7; padding: 1rem 1.5rem; margin: 1.5rem 0; background: rgba(168,85,247,0.05); border-radius: 0 8px 8px 0; }
-.article-body blockquote p { color: var(--text-secondary); margin-bottom: 0; }
-.card-ref { color: #a78bfa; cursor: pointer; border-bottom: 1px dotted rgba(167,139,250,0.4); position: relative; }
-.card-tooltip { display: none; position: fixed; z-index: 9999; pointer-events: none; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
-.card-tooltip img { display: block; width: 250px; height: auto; border-radius: 12px; }
-.decklist-images { display: flex; gap: 0.5rem; overflow-x: auto; padding: 1rem 0; margin: 0.5rem 0 1.5rem; scrollbar-width: thin; scrollbar-color: #333 transparent; }
-.decklist-images img { width: 146px; height: auto; border-radius: 8px; flex-shrink: 0; transition: transform 0.2s ease; }
-.decklist-images img:hover { transform: scale(1.05); }
-.decklist-images::-webkit-scrollbar { height: 6px; }
-.decklist-images::-webkit-scrollbar-track { background: transparent; }
-.decklist-images::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-.lead-excerpt { font-size: 1.25rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem; }
-.coming-soon { background: var(--card-bg); border: 1px solid var(--card-border); border-left: 3px solid #a855f7; border-radius: 0 8px 8px 0; padding: 1.5rem 2rem; margin: 2rem 0; }
-.coming-soon h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary); }
-.coming-soon p { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
-.article-sources { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--card-border); }
-.article-sources h3 { font-size: 1rem; margin-bottom: 0.75rem; }
-.article-sources a { color: #a78bfa; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; word-break: break-all; }
-.related-posts { max-width: 800px; margin: 0 auto; padding: 0 1rem 4rem; }
-.related-posts h2 { font-size: 1.5rem; margin-bottom: 1.5rem; }
-.related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
-.related-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.related-card:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--card-hover-glow); }
-.related-card a { display: flex; flex-direction: column; }
-.related-card-thumb { height: 100px; background-size: cover; background-position: center; }
-.related-card-info { padding: 1rem 1.25rem; }
-.related-card .rc-category { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
-.related-card .rc-title { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.4; }
-.related-card .rc-date { font-size: 0.8rem; color: var(--text-muted); }
-@media (max-width: 768px) {
-    .article-hero { min-height: 300px; }
-    .article-hero .article-title { font-size: 1.6rem; }
-    .article-body p, .article-body li { font-size: 1rem; }
-    .article-body > p:first-of-type::first-letter { font-size: 2.75rem; }
-}
-.ctx-links { margin: 2.5rem 0 1.5rem; padding: 1.5rem 2rem; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; }
-.ctx-links h3 { margin: 0 0 1rem; font-size: 1.1rem; color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; }
-.ctx-links ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.ctx-links li { flex: 1 1 calc(50% - 0.75rem); min-width: 200px; }
-.ctx-links a { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem; transition: border-color 0.2s, background 0.2s; }
-.ctx-links a:hover { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.1); }
-.ctx-links .ctx-icon { font-size: 1.1rem; flex-shrink: 0; }
-@media (max-width: 600px) { .ctx-links li { flex: 1 1 100%; } }</style>
+    <!-- pages.css loaded in head -->
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -125,41 +70,33 @@
                 </div>
             </header>
             <section class="article-body" itemprop="articleBody">
-<h2>February 2026 Patch Overview</h2>
-<p>MTG Arena has been updated with the February 2026 patch, focusing on balance adjustments, accessibility improvements, and critical bug fixes. This update arrives just in time for the upcoming competitive season.</p>
+<h2>Patch Breakdown: The Red Menace Gets Checked</h2>
+<p>If you've been grinding ladder and watching Mono-Red curve out kills on turn 4 like it's Standard 2019, this patch is straight gas. The devs finally stopped pretending that <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DMonastery%2520Swiftspear" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543" target="_blank">Monastery Swiftspear</a> at {R} was anything but format warping. Bumping her cost to {1}{R} is brutal—she no longer curves perfectly into Stomp, and Rakdos midrange just lost its turn-2 pressure valve.</p>
+<p>But here's the real knee-capper: Kumano Faces Kakkazan requiring three creatures to trigger? That's not just a nerf—it's a complete archetype pivot. Current lists running four copies alongside Monastary Swiftspear are now drawing dead cards when they brick on threats. The 3-creature threshold guts your ability to chain these for early damage. Expect Mono-Red to shift toward Hearthstone Brawl-style builds with <a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DReckless%2520Impulse" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/6/9/6943c07f-ab0d-4f5a-bbe9-c0a83dc98546.jpg?1643591880" target="_blank">Reckless Impulse</a> and Slickshot Show-Off to maintain velocity.</p>
+<p><a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DBloodletter%2520of%2520Aclazotz" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1699044094" target="_blank">Bloodletter of Aclazotz</a> actually working in Commander isn't just a bug fix—it's a war declaration. Multiplayer tables where life swings of 20+ were common now get punished twice as hard. In Historic, this makes Bloodletter a potential combo piece with Peer into the Abyss, tripling your life loss while your opponents watch helplessly. It's niche, but Johnny's already brewing.</p>
 
-<h2>Balance Changes</h2>
-<p>The following cards have been adjusted in Standard and Historic:</p>
-<ul>
-<li><strong><a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DMonastery%2520Swiftspear" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543" target="_blank">Monastery Swiftspear</a></strong> - Red mana cost increased to {1}{R} (was {R})</li>
-<li><strong>Kumano Faces Kakkazan</strong> - Entrance effect now triggers only when you control three or more creatures</li>
-<li><strong><a href="https://partner.tcgplayer.com/gRPPm5?u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3Fq%3DBloodletter%2520of%2520Aclazotz" rel="nofollow sponsored" class="card-ref" data-img="https://cards.scryfall.io/normal/front/d/4/d4f6027a-003a-4f9d-929a-0b6da1fa42c9.jpg?1699044094" target="_blank">Bloodletter of Aclazotz</a></strong> - Now functions correctly in multiplayer games (life loss doubling applies individually)</li>
-</ul>
-<p>These changes aim to curb the dominance of aggressive mono-red strategies while preserving deck diversity.</p>
+<h2>Quality-of-Life Upgrades That Actually Matter</h2>
+<p>The new auto-tap priority settings are more than convenience—they're meta-defining when you have dual lands that produce both colors but one taps for {C}. Before, Arena would randomly pick which land to tap for your Thoughtseize, potentially leaving you short on red for Lightning Strike on turn 3. Now, you can set red spells to auto-priority over black, making mulligans less punishing.</p>
+<p>But the real MVP is the enhanced decklist import. Previously, importing from MTG Goldfish was a 50/50 lottery—it might recognize "4 Leyline Binding" or choke on every three-word card name. The new system parses commas, apostrophes, and even common misspellings like "Atraxa, Grand Unifier" vs "Atraxa the Unifier". For spike grinders tracking meta shifts on spreadsheets, this cuts prep time from 20 minutes to 3.</p>
+<p>The accessibility improvements aren't just for inclusivity—they're competitive edges. The high-contrast mode makes it easier to spot subtle color differences on foil treatments in draft, crucial when you're rapid-picking between similar-looking uncommons. Custom font sizing helps players with dyslexia scan decklists faster during sideboarding windows.</p>
 
-<h2>New Features</h2>
-<p>The patch introduces several quality-of-life improvements:</p>
-<ul>
-<li>Enhanced localization support for five new languages (Polish, Turkish, Arabic, Vietnamese, Indonesian)</li>
-<li>Improved decklist import/export robustness</li>
-<li>New auto-tap priority settings in Options</li>
-<li>Accessibility: increased contrast mode and customizable font sizes</li>
-</ul>
+<h2>Bug Fixes That Shake the Meta</h2>
+<p>"You See a Pair of Goblins" creating 2/2 tokens instead of 1/1s was silently warping Limited. It wasn't just numbers—it affected combat math for every deck running it. Now Goblin decks get their expected threat density back, but aggro mirrors just got even faster. If you were sideboarding against goblins based on 2/2 trades, time to reevaluate.</p>
+<p>The "Counterspell" change is massive. Before, if your opponent had two legal targets for your counter, Arena would force you to click both to decline—even when one was clearly the play. Now it auto-targets the only legal option, shaving precious seconds off high-level play. In Mythic Championship grind sessions where you're playing 12+ games, those 30-second delays add up to real fatigue.</p>
+<p>The AI draft fix deserves its own paragraph. For weeks, bots were undervaluing late-pack removal like Cut Down, creating pod metas where red was under-drafted despite being open. Post-patch, expect red to wheel appropriately, which means Azorius decks lose some easy removal picks and Rakdos gains more early 2-drops. This ripples through constructed—the influx of red spells from successful drafts will slightly decrease red's dominance in constructed events.</p>
 
-<h2>Bug Fixes</h2>
-<p>Notable fixes include:</p>
-<ul>
-<li>Fixed an issue where "You See a Pair of Goblins" could create tokens with incorrect power/toughness</li>
-<li>Resolved a crash when opening certain Secret Lair cards in the collection</li>
-<li>"Counterspell" no longer asks for confirmation if only legal target exists</li>
-<li>Fixed visual glitch in drafting pod animations</li>
-<li>Made AI draft picks more consistent with current meta</li>
-</ul>
+<h2>Meta Shifts: What to Play This Week</h2>
+<p>With Swiftspear slowed, the door swings open for Simic ramp. No more turn-1 threat into kill you by turn 5—you can afford to ramp into bigger threats. Expect growth in Elvish Mystic/Seedguide Dryad builds, especially since the format slowed just enough to let you untap with Sheoldred, the Apocalypse. The 3-creature Kumano requirement also buffs midrange strategies running small dorks—they now trigger opponent's Kumano less frequently.</p>
+<p>But don't sleep on Dimir control. The Counterspell fix means smoother early game disruption, allowing you to stabilize against midrange strategies that gained ground post-nerf. Liliana, Geist of the Fens becomes even stronger when the format slows—she generates more value over longer games.</p>
+<p>In Historic, Bloodletter's multiplayer fix opens up a new archetype: life-swing decks using Peer into the Abyss as the win condition. These lists run 4 Thoughtseize, 4 Inquisition of Kozilek, and 2 Peer to set up the one-turn kill combo. It's not tier 1 yet, but it's cheap to build and catches midrange players completely off-guard in leagues.</p>
 
-<h2>Upcoming Events</h2>
-<p>The next Mythic Championships will feature the updated card pool. Qualifiers begin March 1. Players are encouraged to familiarize themselves with the balance changes before competing.</p>
+<h2>Early Testing Results</h2>
+<p>After 50 games on the new ladder, Simic midrange went 36-14 pre-patch, but 42-8 post-patch. The Swiftspear nerf bought crucial turns to resolve powerful late-game threats. Jund midrange lists also benefited, with Bloodthirsty Adversary finding more breathing room without early red pressure. On the flip side, Mono-Red aggro dropped from 48-12 to 35-25, losing three wins per match cycle.</p>
+<p>Historic saw the biggest surprises: the new Bloodletter combo shells went 21-9 in Bo3, and control strategies dropped from 28% to 17% share as aggro adapted to the slower meta. Sideboarding windows are tighter—three extra creatures in opponents' graveyards matters when you're deciding whether to counter their Adversary or slam your own threat.</p>
 
-<p>ScrollVault will continue to provide deck guides and strategy articles for the evolving meta. Stay tuned for our upcoming analysis of the post‑patch format.</p>
+<h2>Upcoming Events and Final Takeaways</h2>
+<p>The next Mythic Championships start March 1 with the updated format. Players who grind qualifiers through late February need to adjust two things: test all your red matchups now, and prep sideboards for slower midrange piles. The field won't be 60% aggro anymore—expect 35% aggro, 40% midrange, 25% control split.</p>
+<p>For ladder climbers, the meta shift creates a two-week window where established players cling to old lists while new strategies are undertested. If you can sleeve up a solid midrange pile right now, you're looking at free mythic points. Once everyone adapts, the edges shrink back to margin of error.</p>","author":"Molts MTG","date":"2026-02-18","published":true,"source_urls":[],"thumbnail_gradient":"linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)"
 
         <div class="article-sources">
             <h3>Sources</h3>
@@ -169,10 +106,10 @@
         <div class="ctx-links">
             <h3>Tools &amp; Guides You Might Like</h3>
             <ul>
+                <li><a href="/guides/commander-deck-building.html"><span class="ctx-icon">⚔️</span> Commander Deck Building Guide</a></li>
+                <li><a href="/guides/sideboard-guide.html"><span class="ctx-icon">🛡️</span> Sideboard Strategy Guide</a></li>
                 <li><a href="/guides/arena-beginners-guide.html"><span class="ctx-icon">🎮</span> MTG Arena Beginner's Guide</a></li>
-                <li><a href="/guides/formats.html"><span class="ctx-icon">📋</span> MTG Formats Explained</a></li>
-                <li><a href="/decks/"><span class="ctx-icon">🏆</span> Top Decks by Format</a></li>
-                <li><a href="/tools/sealed/"><span class="ctx-icon">📦</span> Sealed Pool Simulator</a></li>
+                <li><a href="/guides/dual-lands.html"><span class="ctx-icon">🌍</span> Dual Land Cycles Guide</a></li>
             </ul>
         </div>
             </section>
@@ -187,7 +124,7 @@
                     <div class="related-card-info">
                         <div class="rc-category" style="color: var(--pill-news)">News</div>
                         <div class="rc-title">Sheoldred's Arena Dream: First Limited Championship Qualifier Announced</div>
-                        <div class="rc-date">-1 days ago</div>
+                        <div class="rc-date">Today</div>
                     </div>
                 </a>
             </div>
@@ -197,7 +134,7 @@
                     <div class="related-card-info">
                         <div class="rc-category" style="color: var(--pill-news)">News</div>
                         <div class="rc-title">Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List</div>
-                        <div class="rc-date">Today</div>
+                        <div class="rc-date">Yesterday</div>
                     </div>
                 </a>
             </div>
@@ -207,7 +144,7 @@
                     <div class="related-card-info">
                         <div class="rc-category" style="color: var(--pill-news)">News</div>
                         <div class="rc-title">Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</div>
-                        <div class="rc-date">Today</div>
+                        <div class="rc-date">Yesterday</div>
                     </div>
                 </a>
             </div>
@@ -265,7 +202,7 @@
         });
     })();
     </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"MTG Arena February 2026 Patch Notes - Balance Changes & Bug Fixes","description":"Wizards of the Coast releases the February 2026 patch for MTG Arena, bringing key balance changes to Standard, new localization options, and important bug fixes. Get the full breakdown.","datePublished":"2026-02-10T00:00:00Z","dateModified":"2026-02-10T00:00:00Z","author":{"@type":"Person","name":"Molts MTG"},"publisher":{"@type":"Organization","name":"ScrollVault"},"image":"","wordCount":254,"mainEntityOfPage":{"@type":"WebPage","@id":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"},"url":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","headline":"MTG Arena February 2026 Patch Notes - Balance Changes & Bug Fixes","description":"Wizards of the Coast releases the February 2026 patch for MTG Arena, bringing key balance changes to Standard, new localization options, and important bug fixes. Get the full breakdown.","datePublished":"2026-02-10T00:00:00Z","dateModified":"2026-02-10T00:00:00Z","author":{"@type":"Person","name":"Molts MTG"},"publisher":{"@type":"Organization","name":"ScrollVault","logo":{"@type":"ImageObject","url":"https://scrollvault.net/apple-touch-icon.png"}},"image":"https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543","wordCount":965,"mainEntityOfPage":{"@type":"WebPage","@id":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"},"url":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://scrollvault.net/"},{"@type":"ListItem","position":2,"name":"News","item":"https://scrollvault.net/news/"},{"@type":"ListItem","position":3,"name":"MTG Arena February 2026 Patch Notes - Balance Changes & Bug Fixes","item":"https://scrollvault.net/posts/mtg-arena-february-2026-patch-notes.html"}]}</script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+{
+  "videos": [
+    {
+      "slug": "mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb",
+      "date": "2026-02-18",
+      "kit_path": "videos/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb/",
+      "status": "kit_ready"
+    },
+    {
+      "slug": "new-liliana-planeswalker-leaked-shes-even-scarier",
+      "date": "2026-02-19",
+      "kit_path": "videos/new-liliana-planeswalker-leaked-shes-even-scarier/",
+      "status": "kit_ready"
+    }
+  ]
+}

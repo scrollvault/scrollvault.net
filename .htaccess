@@ -11,7 +11,12 @@ Options -MultiViews
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# Force HTTPS
+# Force HTTPS + non-www in one redirect (avoids double hop)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} ^www\.scrollvault\.net$ [NC]
+RewriteRule ^ https://scrollvault.net%{REQUEST_URI} [L,R=301]
+
+# Force HTTPS (non-www requests)
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
@@ -22,6 +27,17 @@ RewriteRule ^(.*)$ https://scrollvault.net/$1 [L,R=301]
 # Remove trailing slash for .html files (prevents 404 on about.html/)
 RewriteCond %{THE_REQUEST} \s/+(.+?\.html)/
 RewriteRule ^ /%1 [R=301,L]
+
+# ── 301 REDIRECTS: Duplicate content consolidation ──
+# Murktide: older version -> newer comprehensive version
+RewriteRule ^posts/mastering-tempo-modern-murktide\.html$ /posts/murktide-regent-mastering-tempo-modern.html [R=301,L]
+
+# Mono-Red: shorter version -> longer comprehensive version
+RewriteRule ^posts/mono-red-aggro-is-back-monastery-swiftspear-leads-the-charge\.html$ /posts/mono-red-aggro-is-back.html [R=301,L]
+
+# Secret Lair: two weaker articles -> strongest article
+RewriteRule ^posts/shadowheart-leads-charge-secret-lairs-dd-roll-initiative\.html$ /posts/bloodletter-of-aclazotz-secret-lair-roll-for-initiative.html [R=301,L]
+RewriteRule ^posts/secret-lair-roll-for-initiative-superdrop\.html$ /posts/bloodletter-of-aclazotz-secret-lair-roll-for-initiative.html [R=301,L]
 
 </IfModule>
 
@@ -44,6 +60,9 @@ RewriteRule ^ /%1 [R=301,L]
   ExpiresByType text/css "access plus 1 week"
   ExpiresByType application/javascript "access plus 1 week"
   ExpiresByType text/javascript "access plus 1 week"
+
+  # Video - long cache
+  ExpiresByType video/mp4 "access plus 1 month"
 
   # Images & fonts - long cache
   ExpiresByType image/jpeg "access plus 1 year"
@@ -73,6 +92,11 @@ RewriteRule ^ /%1 [R=301,L]
     Header set Cache-Control "public, max-age=604800"
   </FilesMatch>
 
+  # Video
+  <FilesMatch "\.(mp4)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
   # Images & fonts
   <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|ico|woff|woff2)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
@@ -83,6 +107,9 @@ RewriteRule ^ /%1 [R=301,L]
     Header set Cache-Control "public, max-age=3600"
   </FilesMatch>
 
+  # ── LANGUAGE ──
+  Header set Content-Language "en"
+
   # ── SECURITY HEADERS ──
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
   Header always set X-Content-Type-Options "nosniff"
@@ -90,5 +117,5 @@ RewriteRule ^ /%1 [R=301,L]
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set X-XSS-Protection "1; mode=block"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cards.scryfall.io https://c1.scryfall.com https://www.google-analytics.com data:; connect-src 'self' https://api.scryfall.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-ancestors 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cards.scryfall.io https://c1.scryfall.com https://www.google-analytics.com data:; connect-src 'self' https://api.scryfall.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; worker-src 'self'; frame-ancestors 'none'"
 </IfModule>
