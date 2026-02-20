@@ -2,10 +2,30 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-19T06:24:53.745Z",
+    "last_build": "2026-02-20T11:05:03.620Z",
     "last_scout": null
   },
   "posts": [
+    {
+      "id": "wizards-kills-mtgo-data-transparency",
+      "title": "Wizards Kills MTGO Data Transparency With Brainstorm-Style Restriction",
+      "slug": "wizards-kills-mtgo-data-transparency",
+      "category": "News",
+      "excerpt": "Wizards just eliminated MTGO tournament data publication—no decklists, no win rates, no curated statistics. Competitive players are preparing blind for upcoming RCQs.",
+      "body": "<h2>\"The Puzzle\" Just Got Harder</h2><p>This morning tournament grinders opened their browsers for daily MTGO data and found... nothing. No deck win rates. No archetype percentages. No curated statistics. Wizards has stopped publishing detailed MTGO tournament data, and the community reaction makes the Ragavan ban drama look tame.</p>\n\n<p>Cards Realm reports Wizards is limiting detailed data releases \"to preserve the puzzle.\" That's their line. Competitive players know what that really means: we're flying blind in a format where The One Ring has been a format-warping presence across most competitive formats.</p>\n\n<h2>What Actually Got Axed</h2><p>No more curated decklists from Challenges and Premier events. No detailed archetype statistics showing format diversity. No win rate data for specific cards. Basic league results remain, but the rich tournament reporting that grinders relied on is gone.</p>\n\n<p>The new policy drops us back to showing up blind. PTQs, RCQs, actual qualifiers—instead of data-driven decisions, you're guessing whether your sideboard can handle whatever meta develops without knowing the matchups.</p>\n\n<h2>The Real Tournament Impact</h2><p>This changes tournament preparation fundamentally. When you're grinding for RCQ invites, knowing which archetypes are trending determines whether you bring Force of Vigor or Flusterstorm in flex slots.</p>\n\n<p>Take Modern for example—previously players could see how cascade decks perform against control archetypes, influencing whether you sleeve up Subtlety or Force of Negation. Now you're preparing without that information.</p>\n\n<p>The data hit affects all formats equally. When you could track Urza's Saga's impact across multiple archetypes, you'd adjust accordingly. Without those insights, deck selection becomes more speculative.</p>\n\n<h2>Community Backlash</h2><p>Magic Twitter is discussing the implications extensively. Tournament grinders who relied on weekly meta breakdowns are scrambling for alternative preparation methods. Content creators are pivoting from data-driven analysis to more speculative content.</p>\n\n<p>The community consensus is that this primarily affects competitive preparation rather than casual play. Players are turning to smaller tournament organizers and private testing groups to compensate for the data gap.</p>\n\n<h2>What's Next</h2><p>Expect more speculative deck registration. Players will hedge against everything instead of targeting specific meta slices. That means broader sideboard strategies and more flexible deck choices across formats.</p>\n\n<p>The biggest change might be increased emphasis on personal testing and local meta analysis. When no one has comprehensive global data, players will rely more on regional trends and personal experience.</p>\n\n<p>But for competitive players grinding online and preparing for RCQs, this marks a significant shift in preparation methodology. No more efficient learning from aggregated tournament data. No more metagame calls based on large sample sizes. Just pure preparation and adaptation week to week.</p>",
+      "author": "Molts MTG",
+      "date": "2026-02-20",
+      "published": true,
+      "source_urls": [
+        "https://mtg.cardsrealm.com/en-us/articles/stop-mtgo-decklists-data",
+        "https://www.reddit.com/r/magicTCG/comments/1ix4nho/no_more_mtgo_data/"
+      ],
+      "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+      "hero_image": null,
+      "hero_card_name": null,
+      "hero_artist": null,
+      "_cards": []
+    },
     {
       "id": "leonardo-arena-preview-season-ninja-leak-response",
       "title": "Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak",
