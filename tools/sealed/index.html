@@ -4,13 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sealed Pool Simulator | ScrollVault</title>
-    <meta name="description" content="Open 6 virtual booster packs from any MTG set and build a sealed deck. Sort by color, type, CMC, or rarity.">
+    <title>MTG Sealed Simulator — Open Packs &amp; Build Your Deck Free | ScrollVault</title>
+    <meta name="description" content="Free MTG sealed pool simulator. Open 6 virtual booster packs from any Magic set, sort by color/type/CMC, and build your 40-card sealed deck. Practice for prerelease and sealed events.">
+    <meta name="robots" content="index, follow">
     <meta property="og:site_name" content="ScrollVault">
-    <meta property="og:title" content="Sealed Pool Simulator | ScrollVault">
-    <meta property="og:description" content="Simulate opening 6 MTG booster packs. Sort your pool and build a sealed deck.">
+    <meta property="og:title" content="MTG Sealed Simulator — Open Packs &amp; Build Your Deck Free">
+    <meta property="og:description" content="Free MTG sealed pool simulator. Open 6 virtual booster packs from any Magic set and build your 40-card sealed deck.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://scrollvault.net/tools/sealed/">
+    <meta property="og:image" content="https://scrollvault.net/og-default.png">
+    <meta property="og:image:alt" content="MTG Sealed Pool Simulator">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="MTG Sealed Simulator — Open Packs &amp; Build Your Deck Free">
+    <meta name="twitter:description" content="Free MTG sealed pool simulator. Open 6 packs, sort your pool, and build a 40-card deck.">
+    <meta name="twitter:image" content="https://scrollvault.net/og-default.png">
     <link rel="canonical" href="https://scrollvault.net/tools/sealed/">
     <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -22,12 +30,17 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Sealed Pool Simulator",
-        "description": "Open 6 virtual booster packs from any MTG set and build a sealed deck",
+        "name": "MTG Sealed Pool Simulator",
+        "description": "Free MTG sealed pool simulator. Open 6 virtual booster packs from any Magic set, sort by color/type/CMC, and build your 40-card sealed deck.",
         "url": "https://scrollvault.net/tools/sealed/",
         "applicationCategory": "GameApplication",
-        "publisher": { "@type": "Organization", "name": "ScrollVault", "url": "https://scrollvault.net" }
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@type": "Organization", "name": "ScrollVault", "url": "https://scrollvault.net", "logo": { "@type": "ImageObject", "url": "https://scrollvault.net/og-default.png" } }
     }
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many packs do you open in MTG sealed?","acceptedAnswer":{"@type":"Answer","text":"In sealed format, each player opens 6 booster packs. This gives you approximately 84-90 cards to work with (depending on the set). You then build a minimum 40-card deck from your pool plus unlimited basic lands."}},{"@type":"Question","name":"How many cards in a sealed deck?","acceptedAnswer":{"@type":"Answer","text":"A sealed deck must contain at least 40 cards, including basic lands. The standard build is 22-23 spells from your pool plus 17-18 basic lands. Any cards not in your main deck become your sideboard."}},{"@type":"Question","name":"How to build a sealed deck in Magic?","acceptedAnswer":{"@type":"Answer","text":"First, sort your pool by color. Identify your two strongest colors based on removal, bombs (powerful rares), and creature quality. Select your best 22-23 cards in those colors, then add 17 lands split proportionally to your color requirements. Aim for a smooth mana curve peaking at 2-3 mana."}},{"@type":"Question","name":"What is sealed format in MTG?","acceptedAnswer":{"@type":"Answer","text":"Sealed is a Limited format where each player receives 6 unopened booster packs. You open all 6 packs and build a 40-card minimum deck from only those cards plus basic lands. It's commonly played at Prerelease events and on MTG Arena."}},{"@type":"Question","name":"How many lands in a sealed deck?","acceptedAnswer":{"@type":"Answer","text":"Most sealed decks run 17 lands, though aggressive decks may go down to 16 and slower decks up to 18. Split your lands proportionally to your colored mana symbols. For example, if you have twice as many blue symbols as white, play roughly 11 Islands and 6 Plains."}},{"@type":"Question","name":"Can I use this to practice for prerelease?","acceptedAnswer":{"@type":"Answer","text":"Absolutely! This simulator lets you practice sealed deck building with real card data from any set. Open 6 packs, sort your pool, and build your deck just like you would at a prerelease event. Practice identifying your best colors and building consistent 40-card decks."}}]}
     </script>
 <style>
 @font-face {
@@ -196,6 +209,31 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
 /* ── Action Bar ── */
 .action-bar { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
 
+/* ── Toast ── */
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.9rem; z-index: 3000; transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0; pointer-events: none; }
+.toast.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ── Pool Stats Bar ── */
+.pool-stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; padding: 0.75rem 1rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; font-size: 0.85rem; color: var(--text-secondary); align-items: center; }
+.pool-stats .stat-label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.pool-stats .stat-value { font-weight: 600; color: var(--text-primary); }
+.pool-stats .color-bars { display: flex; gap: 2px; align-items: center; }
+.pool-stats .color-bar { height: 12px; border-radius: 2px; min-width: 3px; }
+.pool-stats .bombs-list { color: #e8b931; font-size: 0.8rem; }
+
+/* ── FAQ Section ── */
+.faq-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--card-border); }
+.faq-section h2 { font-size: 1.5rem; margin-bottom: 1.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.faq-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 800px; }
+.faq-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; }
+.faq-item summary { padding: 1rem 1.25rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-size: 1.25rem; color: var(--text-muted); flex-shrink: 0; margin-left: 1rem; transition: transform 0.2s; }
+.faq-item[open] summary::after { content: '\2212'; }
+.faq-answer { padding: 0 1.25rem 1rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
+.faq-answer p { margin-bottom: 0.5rem; }
+.faq-answer a { color: #a78bfa; text-decoration: underline; }
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
     .page-header h1 { font-size: 1.5rem; }
@@ -248,8 +286,8 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
         </div>
 
         <div class="page-header">
-            <h1>Sealed Pool Simulator</h1>
-            <p>Open 6 virtual booster packs from any Magic: The Gathering set, then build your 40-card sealed deck.</p>
+            <h1>MTG Sealed Pool Simulator</h1>
+            <p>Open 6 virtual booster packs from any Magic: The Gathering set, then build your 40-card sealed deck. Practice for prerelease and sealed events.</p>
         </div>
 
         <!-- Screen 1: Set Selection -->
@@ -275,7 +313,10 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
                     <button class="btn-secondary" data-sort="rarity" onclick="sortPool('rarity')">Rarity</button>
                 </div>
             </div>
+            <div class="pool-stats" id="poolStats" style="display:none;"></div>
             <div class="action-bar">
+                <button class="btn-secondary" onclick="autoBuildDeck()">Auto-Build Deck</button>
+                <button class="btn-secondary" onclick="exportToArena()">Export to Arena</button>
                 <button class="btn-secondary" onclick="resetDeck()">Clear Deck</button>
                 <button class="btn-secondary" onclick="newPool()">New Pool</button>
             </div>
@@ -345,8 +386,52 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
 
             <div class="deck-grid" id="deckGrid"></div>
         </div>
+        <!-- FAQ Section -->
+        <div class="faq-section" id="faqSection">
+            <h2>MTG Sealed Format FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>How many packs do you open in MTG sealed?</summary>
+                    <div class="faq-answer">
+                        <p>In sealed format, each player opens 6 booster packs. This gives you approximately 84-90 cards to work with (depending on the set and pack size). You then build a minimum 40-card deck from your pool plus unlimited basic lands. Any remaining cards form your sideboard.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>How many cards in a sealed deck?</summary>
+                    <div class="faq-answer">
+                        <p>A sealed deck must contain at least 40 cards, including basic lands. The standard build is 22-23 spells from your pool plus 17-18 basic lands. You can play more than 40 cards, but 40 is strongly recommended for consistency. Any cards not in your main deck become your sideboard, which you can swap cards from between games.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>How to build a sealed deck in Magic?</summary>
+                    <div class="faq-answer">
+                        <p>First, sort your pool by color. Identify your two strongest colors based on removal spells, bombs (powerful rares/mythics), and creature quality. Select your best 22-23 cards in those colors, then add 17 lands split proportionally to your color requirements. Aim for a smooth mana curve peaking at 2-3 mana with 14-17 creatures. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to optimize your land split.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>What is sealed format in MTG?</summary>
+                    <div class="faq-answer">
+                        <p>Sealed is a Limited format where each player receives 6 unopened booster packs. You open all 6 packs and build a 40-card minimum deck from only those cards plus basic lands. Unlike draft, there's no card passing between players. Sealed is commonly played at Prerelease events, Grand Prix Day 1, and on MTG Arena. It tests both deck-building skill and adaptability to your card pool.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>How many lands in a sealed deck?</summary>
+                    <div class="faq-answer">
+                        <p>Most sealed decks run 17 lands, though aggressive low-curve decks may go down to 16 and slower control decks up to 18. Split your lands proportionally to your colored mana symbols. For example, if you have twice as many blue symbols as white, play roughly 11 Islands and 6 Plains. Any non-basic lands from your pool that fix your mana should be included if they produce your colors.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>Can I use this to practice for prerelease?</summary>
+                    <div class="faq-answer">
+                        <p>Absolutely! This simulator lets you practice sealed deck building with real card data. Select the prerelease set, open 6 packs, and build your deck just like you would at the event. Practice identifying your best two colors, building a consistent mana curve, and making tough cuts. You can also try the <a href="/draft/">Draft Simulator</a> for booster draft practice.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
     </div>
 </main>
+
+<div class="toast" id="toast"></div>
 
 <footer>
     <div class="container">
@@ -374,12 +459,12 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
 <script>
 /* =========================================================
    Sealed Pool Simulator — ScrollVault
+   Pre-cached data from /draft/data/ with Scryfall fallback
    ========================================================= */
 
-// ── Scryfall rate-limit helper ──
+// ── Scryfall rate-limit helper (fallback only) ──
 const SCRYFALL_DELAY = 100;
 let lastScryfallCall = 0;
-
 async function scryfallFetch(url) {
     const now = Date.now();
     const wait = Math.max(0, SCRYFALL_DELAY - (now - lastScryfallCall));
@@ -390,55 +475,28 @@ async function scryfallFetch(url) {
     return res.json();
 }
 
-// ── LocalStorage cache with 24h TTL ──
-const CACHE_PREFIX = 'sv_sealed_';
-const CACHE_TTL = 24 * 60 * 60 * 1000;
-const MAX_CACHED_SETS = 3;
-
-function cacheGet(key) {
-    try {
-        const item = JSON.parse(localStorage.getItem(CACHE_PREFIX + key));
-        if (item && Date.now() - item.ts < CACHE_TTL) return item.data;
-        localStorage.removeItem(CACHE_PREFIX + key);
-    } catch {}
-    return null;
-}
-
-function cacheSet(key, data) {
-    try {
-        // Enforce max cached sets
-        const allKeys = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const k = localStorage.key(i);
-            if (k && k.startsWith(CACHE_PREFIX)) {
-                try {
-                    const item = JSON.parse(localStorage.getItem(k));
-                    allKeys.push({ key: k, ts: item.ts || 0 });
-                } catch { allKeys.push({ key: k, ts: 0 }); }
-            }
-        }
-        // Sort oldest first
-        allKeys.sort((a, b) => a.ts - b.ts);
-        while (allKeys.length >= MAX_CACHED_SETS) {
-            const oldest = allKeys.shift();
-            localStorage.removeItem(oldest.key);
-        }
-        localStorage.setItem(CACHE_PREFIX + key, JSON.stringify({ ts: Date.now(), data }));
-    } catch {}
+// ── Toast ──
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('visible');
+    setTimeout(() => t.classList.remove('visible'), 2500);
 }
 
 // ── Color helpers ──
 const COLOR_ORDER = ['W', 'U', 'B', 'R', 'G'];
 const COLOR_NAMES = { W: 'White', U: 'Blue', B: 'Black', R: 'Red', G: 'Green' };
-const COLOR_HEX = { W: '#F9FAF4', U: '#0E68AB', B: '#150B00', R: '#D3202A', G: '#00733E' };
+const COLOR_HEX = { W: '#F9FAF4', U: '#0E68AB', B: '#3d3020', R: '#D3202A', G: '#00733E' };
 const RARITY_ORDER = { mythic: 0, rare: 1, uncommon: 2, common: 3 };
+const LAND_NAMES = { W: 'Plains', U: 'Island', B: 'Swamp', R: 'Mountain', G: 'Forest' };
+const MANA_COLORS = ['W', 'U', 'B', 'R', 'G'];
 
 function getColorGroup(card) {
-    const colors = card.colors || card.color_identity || [];
+    const colors = card.colors || [];
     if (isLand(card)) return 'Land';
     if (colors.length > 1) return 'Multi';
     if (colors.length === 1) return colors[0];
-    return 'C'; // colorless
+    return 'C';
 }
 
 function colorSortKey(card) {
@@ -473,11 +531,11 @@ function isLand(card) {
 }
 
 function getImageUri(card) {
+    // Pre-cached data uses image_small; Scryfall uses image_uris.normal
+    if (card.image_small) return card.image_small;
     if (card.image_uris && card.image_uris.normal) return card.image_uris.normal;
-    // Double-faced cards: use front face
-    if (card.card_faces && card.card_faces[0] && card.card_faces[0].image_uris) {
+    if (card.card_faces && card.card_faces[0] && card.card_faces[0].image_uris)
         return card.card_faces[0].image_uris.normal;
-    }
     return '';
 }
 
@@ -491,13 +549,17 @@ function getCardColors(card) {
     return card.color_identity || [];
 }
 
+function randomPick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
 // ── State ──
-let allSets = [];
-let setCards = {}; // { code: { commons, uncommons, rares, mythics } }
-let pool = [];     // array of card objects in the pool
-let deckSet = new Set(); // indices into pool that are in the deck
+let cachedSetsIndex = null;  // Pre-cached sets from /draft/data/sets.json
+let pool = [];
+let deckSet = new Set();
 let basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
 let currentSort = 'color';
+let usingCachedData = false;
 
 // ── DOM refs ──
 const setSelect = document.getElementById('setSelect');
@@ -514,35 +576,63 @@ const deckGrid = document.getElementById('deckGrid');
 const deckCountEl = document.getElementById('deckCount');
 const deckCounter = document.getElementById('deckCounter');
 const setSelection = document.getElementById('setSelection');
+const poolStatsEl = document.getElementById('poolStats');
 
-// ── Init: Load sets ──
+// ── Init: Load sets (pre-cached first, then Scryfall for extras) ──
 (async function init() {
     try {
-        const cached = cacheGet('sets_list');
-        let setsData;
-        if (cached) {
-            setsData = cached;
-        } else {
-            const json = await scryfallFetch('https://api.scryfall.com/sets');
-            setsData = json.data;
-            cacheSet('sets_list', setsData);
+        // Load pre-cached sets first (instant)
+        let cachedSets = [];
+        try {
+            const resp = await fetch('/draft/data/sets.json');
+            cachedSetsIndex = await resp.json();
+            cachedSets = cachedSetsIndex.map(s => ({
+                code: s.set_code,
+                name: s.set_name,
+                released_at: s.released_at,
+                icon_svg_uri: s.icon_uri,
+                cached: true
+            }));
+        } catch (e) {
+            console.warn('Could not load pre-cached sets:', e);
         }
 
-        const validTypes = new Set(['core', 'expansion', 'draft_innovation', 'masters', 'funny']);
-        allSets = setsData
-            .filter(s => validTypes.has(s.set_type) && !s.digital && s.card_count > 0)
-            .sort((a, b) => new Date(b.released_at) - new Date(a.released_at));
+        // Also load Scryfall sets for broader coverage
+        let scryfallSets = [];
+        try {
+            const json = await scryfallFetch('https://api.scryfall.com/sets');
+            const validTypes = new Set(['core', 'expansion', 'draft_innovation', 'masters']);
+            scryfallSets = json.data
+                .filter(s => validTypes.has(s.set_type) && !s.digital && s.card_count > 0)
+                .map(s => ({
+                    code: s.code,
+                    name: s.name,
+                    released_at: s.released_at,
+                    icon_svg_uri: s.icon_svg_uri || '',
+                    cached: false
+                }));
+        } catch (e) {
+            console.warn('Could not load Scryfall sets:', e);
+        }
+
+        // Merge: pre-cached sets are marked with ⚡, sorted newest first
+        const cachedCodes = new Set(cachedSets.map(s => s.code));
+        const allSets = [...cachedSets];
+        scryfallSets.forEach(s => {
+            if (!cachedCodes.has(s.code)) allSets.push(s);
+        });
+        allSets.sort((a, b) => new Date(b.released_at) - new Date(a.released_at));
 
         setSelect.innerHTML = '<option value="">-- Select a set --</option>';
         allSets.forEach(s => {
             const opt = document.createElement('option');
             opt.value = s.code;
-            opt.textContent = s.name + ' (' + s.code.toUpperCase() + ', ' + (s.released_at || '').slice(0, 4) + ')';
+            const tag = s.cached ? ' \u26A1' : '';
+            opt.textContent = s.name + ' (' + s.code.toUpperCase() + ', ' + (s.released_at || '').slice(0, 4) + ')' + tag;
             opt.dataset.icon = s.icon_svg_uri || '';
+            opt.dataset.cached = s.cached ? '1' : '0';
             setSelect.appendChild(opt);
         });
-
-        // Don't enable button yet — wait for user to select a set
     } catch (e) {
         setSelect.innerHTML = '<option value="">Failed to load sets. Refresh to retry.</option>';
         console.error('Failed to load sets:', e);
@@ -558,7 +648,6 @@ setSelect.addEventListener('change', function () {
     } else {
         setIcon.style.display = 'none';
     }
-    // Enable button only when a valid set is selected
     openPacksBtn.disabled = !setSelect.value;
 });
 
@@ -567,48 +656,56 @@ openPacksBtn.addEventListener('click', () => openPacks());
 async function openPacks() {
     const code = setSelect.value;
     if (!code) return;
+    const opt = setSelect.options[setSelect.selectedIndex];
+    const isCached = opt && opt.dataset.cached === '1';
 
     openPacksBtn.disabled = true;
-    showLoading('Fetching cards from Scryfall...');
 
     try {
-        const cards = await fetchSetCards(code);
-        if (!cards) throw new Error('No cards found');
-
-        // Filter out basic lands from the pool
-        const BASICS = new Set(['plains', 'island', 'swamp', 'mountain', 'forest',
-            'snow-covered plains', 'snow-covered island', 'snow-covered swamp',
-            'snow-covered mountain', 'snow-covered forest', 'wastes']);
-        const nonBasicCards = cards.filter(c => !BASICS.has(c.name.toLowerCase()));
-
-        // Categorize by rarity
-        const commons = nonBasicCards.filter(c => c.rarity === 'common');
-        const uncommons = nonBasicCards.filter(c => c.rarity === 'uncommon');
-        const rares = nonBasicCards.filter(c => c.rarity === 'rare');
-        const mythics = nonBasicCards.filter(c => c.rarity === 'mythic');
-
-        if (commons.length < 10 || uncommons.length < 3 || rares.length < 1) {
-            throw new Error('Not enough cards of each rarity to build boosters.');
+        let cards;
+        if (isCached) {
+            // Use pre-cached data (instant!)
+            showLoading('Loading set data...');
+            const resp = await fetch('/draft/data/' + code + '.json');
+            const setData = await resp.json();
+            // setData.cards has { common: [], uncommon: [], rare: [], mythic: [] }
+            cards = { common: setData.cards.common, uncommon: setData.cards.uncommon, rare: setData.cards.rare, mythic: setData.cards.mythic };
+            usingCachedData = true;
+        } else {
+            // Fallback to Scryfall
+            showLoading('Fetching cards from Scryfall...');
+            const rawCards = await fetchScryfallCards(code);
+            if (!rawCards || rawCards.length === 0) throw new Error('No cards found');
+            const BASICS = new Set(['plains','island','swamp','mountain','forest','snow-covered plains','snow-covered island','snow-covered swamp','snow-covered mountain','snow-covered forest','wastes']);
+            const nonBasic = rawCards.filter(c => !BASICS.has(c.name.toLowerCase()));
+            cards = {
+                common: nonBasic.filter(c => c.rarity === 'common'),
+                uncommon: nonBasic.filter(c => c.rarity === 'uncommon'),
+                rare: nonBasic.filter(c => c.rarity === 'rare'),
+                mythic: nonBasic.filter(c => c.rarity === 'mythic')
+            };
+            usingCachedData = false;
         }
+
+        if (cards.common.length < 10 || cards.uncommon.length < 3 || cards.rare.length < 1)
+            throw new Error('Not enough cards of each rarity to build boosters.');
 
         // Generate 6 boosters
         pool = [];
+        const usedRares = new Set();
         for (let i = 0; i < 6; i++) {
-            const booster = generateBooster(commons, uncommons, rares, mythics);
+            const booster = generateBooster(cards, usedRares);
             pool.push(...booster);
         }
 
-        // Normalize card colors
-        pool.forEach(c => {
-            c.colors = getCardColors(c);
-        });
+        // Normalize colors
+        pool.forEach(c => { c.colors = c.colors || getCardColors(c); });
 
         // Reset deck
         deckSet.clear();
         basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
         updateLandDisplay();
 
-        // Show pool
         hideLoading();
         poolSection.classList.add('visible');
         builderSection.classList.add('visible');
@@ -617,6 +714,7 @@ async function openPacks() {
             b.classList.toggle('active', b.dataset.sort === 'color');
         });
         renderPool();
+        renderPoolStats();
         renderDeck();
         updateDeckCounter();
         updateCurve();
@@ -629,78 +727,59 @@ async function openPacks() {
     }
 }
 
-async function fetchSetCards(code) {
-    const cached = cacheGet('cards_' + code);
-    if (cached) return cached;
-
+async function fetchScryfallCards(code) {
     let allCards = [];
     let url = 'https://api.scryfall.com/cards/search?q=set:' + encodeURIComponent(code) + '+is:booster&order=set';
     let page = 1;
-
     while (url) {
         updateLoading('Fetching cards from Scryfall...', 'Page ' + page + '...');
         const json = await scryfallFetch(url);
         allCards = allCards.concat(json.data);
-        if (json.has_more && json.next_page) {
-            url = json.next_page;
-            page++;
-        } else {
-            url = null;
-        }
+        if (json.has_more && json.next_page) { url = json.next_page; page++; }
+        else url = null;
     }
-
-    // Store minimal card data to save cache space
-    const minCards = allCards.map(c => ({
-        name: c.name,
-        rarity: c.rarity,
-        cmc: c.cmc || 0,
-        colors: getCardColors(c),
-        color_identity: c.color_identity || [],
-        type_line: c.type_line || '',
+    return allCards.map(c => ({
+        name: c.name, rarity: c.rarity, cmc: c.cmc || 0,
+        colors: getCardColors(c), type_line: c.type_line || '',
+        mana_cost: c.mana_cost || '', rating: 0,
         image_uris: c.image_uris ? { normal: c.image_uris.normal } : null,
         card_faces: c.card_faces ? c.card_faces.map(f => ({
             colors: f.colors || [],
             image_uris: f.image_uris ? { normal: f.image_uris.normal } : null
-        })) : null,
-        mana_cost: c.mana_cost || ''
+        })) : null
     }));
-
-    cacheSet('cards_' + code, minCards);
-    return minCards;
 }
 
-function generateBooster(commons, uncommons, rares, mythics) {
+function generateBooster(cards, usedRares) {
     const booster = [];
-
-    // 1 Rare/Mythic (1 in 8 chance for mythic)
-    if (mythics.length > 0 && Math.random() < 1 / 8) {
-        booster.push({ ...randomPick(mythics) });
-    } else {
-        booster.push({ ...randomPick(rares) });
+    // 1 Rare/Mythic
+    let rm = null;
+    const isMythic = cards.mythic.length > 0 && Math.random() < 0.125;
+    const rmPool = isMythic ? cards.mythic : cards.rare;
+    let attempts = 0;
+    while (!rm && attempts < 50) {
+        const candidate = randomPick(rmPool);
+        const key = candidate.collector_number || candidate.name;
+        if (!usedRares.has(key)) { rm = { ...candidate }; usedRares.add(key); }
+        attempts++;
     }
+    if (!rm) rm = { ...randomPick(rmPool) };
+    booster.push(rm);
 
-    // 3 Uncommons (try to avoid duplicates within booster)
+    // 3 Uncommons
     const usedUC = new Set();
     for (let i = 0; i < 3; i++) {
-        let attempts = 0;
-        let card;
-        do {
-            card = randomPick(uncommons);
-            attempts++;
-        } while (usedUC.has(card.name) && attempts < 20);
+        let card, att = 0;
+        do { card = randomPick(cards.uncommon); att++; } while (usedUC.has(card.name) && att < 20);
         usedUC.add(card.name);
         booster.push({ ...card });
     }
 
-    // 11 Commons (try to avoid duplicates within booster)
+    // 10 Commons
     const usedC = new Set();
-    for (let i = 0; i < 11; i++) {
-        let attempts = 0;
-        let card;
-        do {
-            card = randomPick(commons);
-            attempts++;
-        } while (usedC.has(card.name) && attempts < 30);
+    for (let i = 0; i < 10; i++) {
+        let card, att = 0;
+        do { card = randomPick(cards.common); att++; } while (usedC.has(card.name) && att < 30);
         usedC.add(card.name);
         booster.push({ ...card });
     }
@@ -708,8 +787,169 @@ function generateBooster(commons, uncommons, rares, mythics) {
     return booster;
 }
 
-function randomPick(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+// ── Pool Stats ──
+function renderPoolStats() {
+    if (pool.length === 0) { poolStatsEl.style.display = 'none'; return; }
+    poolStatsEl.style.display = 'flex';
+
+    // Color distribution
+    const colorCounts = { W: 0, U: 0, B: 0, R: 0, G: 0, Multi: 0, C: 0 };
+    const rarityCounts = { mythic: 0, rare: 0, uncommon: 0, common: 0 };
+    const bombs = [];
+
+    pool.forEach(card => {
+        if (isLand(card)) return;
+        const group = getColorGroup(card);
+        if (colorCounts[group] !== undefined) colorCounts[group]++;
+        rarityCounts[card.rarity] = (rarityCounts[card.rarity] || 0) + 1;
+        if (card.rarity === 'mythic' || card.rarity === 'rare') bombs.push(card.name);
+    });
+
+    const maxColor = Math.max(...MANA_COLORS.map(c => colorCounts[c]), 1);
+
+    let html = '<div><span class="stat-label">Colors</span> <div class="color-bars" style="display:inline-flex;gap:2px;vertical-align:middle;">';
+    MANA_COLORS.forEach(c => {
+        const w = Math.max(4, (colorCounts[c] / maxColor) * 40);
+        html += `<span class="color-bar" style="background:${COLOR_HEX[c]};width:${w}px;" title="${COLOR_NAMES[c]}: ${colorCounts[c]}"></span>`;
+    });
+    html += '</div></div>';
+
+    if (colorCounts.Multi > 0) html += `<div><span class="stat-label">Multi</span> <span class="stat-value">${colorCounts.Multi}</span></div>`;
+
+    html += `<div><span class="stat-label">Mythic</span> <span class="stat-value">${rarityCounts.mythic}</span></div>`;
+    html += `<div><span class="stat-label">Rare</span> <span class="stat-value">${rarityCounts.rare}</span></div>`;
+    html += `<div><span class="stat-label">Uncommon</span> <span class="stat-value">${rarityCounts.uncommon}</span></div>`;
+
+    if (bombs.length > 0) {
+        html += `<div style="flex-basis:100%;"><span class="stat-label">Bombs</span> <span class="bombs-list">${bombs.join(', ')}</span></div>`;
+    }
+
+    poolStatsEl.innerHTML = html;
+}
+
+// ── Auto-Build Deck ──
+function autoBuildDeck() {
+    if (pool.length === 0) return;
+
+    // Score each color
+    const colorScores = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    pool.forEach((card, idx) => {
+        if (isLand(card)) return;
+        const colors = card.colors || [];
+        const score = cardPower(card);
+        colors.forEach(c => { if (colorScores[c] !== undefined) colorScores[c] += score; });
+    });
+
+    // Pick top 2 colors
+    const sorted = MANA_COLORS.slice().sort((a, b) => colorScores[b] - colorScores[a]);
+    const primaryColors = new Set([sorted[0], sorted[1]]);
+
+    // Select cards: on-color non-lands, sorted by power
+    const candidates = [];
+    pool.forEach((card, idx) => {
+        if (isLand(card)) return;
+        const colors = card.colors || [];
+        const isOnColor = colors.length === 0 || colors.some(c => primaryColors.has(c));
+        if (isOnColor) candidates.push({ idx, card, score: cardPower(card) });
+    });
+    candidates.sort((a, b) => b.score - a.score);
+
+    // Take best 23 cards
+    deckSet.clear();
+    const selected = candidates.slice(0, 23);
+    selected.forEach(c => deckSet.add(c.idx));
+
+    // Auto-suggest lands (17 total)
+    const pips = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    selected.forEach(({ card }) => {
+        const cost = card.mana_cost || '';
+        (cost.match(/\{W\}/g) || []).forEach(() => pips.W++);
+        (cost.match(/\{U\}/g) || []).forEach(() => pips.U++);
+        (cost.match(/\{B\}/g) || []).forEach(() => pips.B++);
+        (cost.match(/\{R\}/g) || []).forEach(() => pips.R++);
+        (cost.match(/\{G\}/g) || []).forEach(() => pips.G++);
+    });
+
+    const totalPips = Object.values(pips).reduce((a, b) => a + b, 0) || 1;
+    basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
+    const landMap = { W: 'Plains', U: 'Island', B: 'Swamp', R: 'Mountain', G: 'Forest' };
+    let assigned = 0;
+    MANA_COLORS.forEach(c => {
+        if (pips[c] > 0) {
+            basicLands[landMap[c]] = Math.round((pips[c] / totalPips) * 17);
+            assigned += basicLands[landMap[c]];
+        }
+    });
+    // Adjust to exactly 17
+    const activeColors = MANA_COLORS.filter(c => pips[c] > 0).sort((a, b) => pips[b] - pips[a]);
+    while (assigned < 17 && activeColors.length > 0) {
+        basicLands[landMap[activeColors[0]]]++; assigned++;
+    }
+    while (assigned > 17 && activeColors.length > 0) {
+        const smallest = activeColors[activeColors.length - 1];
+        if (basicLands[landMap[smallest]] > 0) { basicLands[landMap[smallest]]--; assigned--; }
+        else break;
+    }
+
+    updateLandDisplay();
+    renderPool();
+    renderDeck();
+    updateDeckCounter();
+    updateCurve();
+    showToast('Auto-built ' + deckSet.size + ' spells + 17 lands in ' + sorted[0] + '/' + sorted[1]);
+}
+
+function cardPower(card) {
+    // Use rating if available (pre-cached data), else estimate from rarity
+    if (card.rating && card.rating > 0) return card.rating;
+    const rarityScore = { mythic: 4.5, rare: 4.0, uncommon: 3.0, common: 2.0 };
+    let score = rarityScore[card.rarity] || 2.0;
+    const tl = (card.type_line || '').toLowerCase();
+    if (tl.includes('creature')) score += 0.3;
+    const oracle = (card.oracle_text || '').toLowerCase();
+    if (oracle.includes('destroy') || oracle.includes('exile') || oracle.includes('damage')) score += 0.3;
+    if (oracle.includes('flying') || oracle.includes('menace') || oracle.includes('trample')) score += 0.2;
+    return score;
+}
+
+// ── Export to Arena ──
+function exportToArena() {
+    if (deckSet.size === 0) { showToast('Add cards to your deck first'); return; }
+
+    let text = 'Deck\n';
+    // Group and count deck cards
+    const counts = {};
+    deckSet.forEach(idx => {
+        const name = pool[idx].name;
+        counts[name] = (counts[name] || 0) + 1;
+    });
+    Object.keys(counts).sort().forEach(name => { text += counts[name] + ' ' + name + '\n'; });
+
+    // Add lands
+    Object.entries(basicLands).forEach(([type, count]) => {
+        if (count > 0) text += count + ' ' + type + '\n';
+    });
+
+    // Sideboard (everything not in deck)
+    const sideCounts = {};
+    pool.forEach((card, idx) => {
+        if (!deckSet.has(idx)) {
+            sideCounts[card.name] = (sideCounts[card.name] || 0) + 1;
+        }
+    });
+    if (Object.keys(sideCounts).length > 0) {
+        text += '\nSideboard\n';
+        Object.keys(sideCounts).sort().forEach(name => { text += sideCounts[name] + ' ' + name + '\n'; });
+    }
+
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Deck copied to clipboard (Arena format)');
+    }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        showToast('Deck copied to clipboard (Arena format)');
+    });
 }
 
 // ── Sorting ──
@@ -738,13 +978,10 @@ function renderPool() {
     const sorted = getSortedIndices();
     poolGrid.innerHTML = '';
     poolCount.textContent = '(' + pool.length + ' cards)';
-
     sorted.forEach(idx => {
         const card = pool[idx];
         const slot = createCardSlot(card, idx);
-        if (deckSet.has(idx)) {
-            slot.classList.add('in-deck');
-        }
+        if (deckSet.has(idx)) slot.classList.add('in-deck');
         poolGrid.appendChild(slot);
     });
 }
@@ -753,39 +990,30 @@ function createCardSlot(card, idx) {
     const slot = document.createElement('div');
     slot.className = 'card-slot';
     slot.dataset.idx = idx;
-
     const imgUrl = getImageUri(card);
     if (imgUrl) {
         const img = document.createElement('img');
-        img.src = imgUrl;
-        img.alt = card.name;
-        img.loading = 'lazy';
+        img.src = imgUrl; img.alt = card.name; img.loading = 'lazy';
         img.onerror = function () {
             this.style.display = 'none';
             const ph = document.createElement('div');
-            ph.className = 'card-placeholder';
-            ph.textContent = card.name;
+            ph.className = 'card-placeholder'; ph.textContent = card.name;
             slot.appendChild(ph);
         };
         slot.appendChild(img);
     } else {
         const ph = document.createElement('div');
-        ph.className = 'card-placeholder';
-        ph.textContent = card.name;
+        ph.className = 'card-placeholder'; ph.textContent = card.name;
         slot.appendChild(ph);
     }
-
     slot.addEventListener('click', () => toggleCard(idx));
     slot.title = card.name + ' (' + card.rarity + ')';
     return slot;
 }
 
 function toggleCard(idx) {
-    if (deckSet.has(idx)) {
-        deckSet.delete(idx);
-    } else {
-        deckSet.add(idx);
-    }
+    if (deckSet.has(idx)) deckSet.delete(idx);
+    else deckSet.add(idx);
     renderPool();
     renderDeck();
     updateDeckCounter();
@@ -794,18 +1022,13 @@ function toggleCard(idx) {
 
 function renderDeck() {
     deckGrid.innerHTML = '';
-
-    // Sort deck cards by CMC then color
     const deckIndices = [...deckSet].sort((a, b) => {
-        const ca = pool[a], cb = pool[b];
-        const cmcDiff = (ca.cmc || 0) - (cb.cmc || 0);
+        const cmcDiff = (pool[a].cmc || 0) - (pool[b].cmc || 0);
         if (cmcDiff !== 0) return cmcDiff;
-        return colorSortKey(ca) - colorSortKey(cb);
+        return colorSortKey(pool[a]) - colorSortKey(pool[b]);
     });
-
     deckIndices.forEach(idx => {
-        const card = pool[idx];
-        const slot = createCardSlot(card, idx);
+        const slot = createCardSlot(pool[idx], idx);
         slot.classList.add('in-deck');
         deckGrid.appendChild(slot);
     });
@@ -835,18 +1058,15 @@ function updateLandDisplay() {
 
 // ── Mana Curve ──
 function updateCurve() {
-    const buckets = new Array(8).fill(0); // 0,1,2,3,4,5,6,7+
-
+    const buckets = new Array(8).fill(0);
     deckSet.forEach(idx => {
         const card = pool[idx];
-        if (isLand(card)) return; // don't count lands in curve
+        if (isLand(card)) return;
         const cmc = Math.min(Math.floor(card.cmc || 0), 7);
         buckets[cmc]++;
     });
-
     const max = Math.max(...buckets, 1);
     const wrappers = document.getElementById('curveBars').children;
-
     for (let i = 0; i < 8; i++) {
         const wrapper = wrappers[i];
         if (!wrapper) continue;
@@ -863,19 +1083,15 @@ function resetDeck() {
     deckSet.clear();
     basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
     updateLandDisplay();
-    renderPool();
-    renderDeck();
-    updateDeckCounter();
-    updateCurve();
+    renderPool(); renderDeck(); updateDeckCounter(); updateCurve();
 }
 
 function newPool() {
     poolSection.classList.remove('visible');
     builderSection.classList.remove('visible');
-    poolGrid.innerHTML = '';
-    deckGrid.innerHTML = '';
-    pool = [];
-    deckSet.clear();
+    poolStatsEl.style.display = 'none';
+    poolGrid.innerHTML = ''; deckGrid.innerHTML = '';
+    pool = []; deckSet.clear();
     basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
     updateLandDisplay();
     openPacksBtn.disabled = false;
@@ -888,15 +1104,11 @@ function showLoading(text) {
     loadingProgress.textContent = '';
     loadingOverlay.classList.add('visible');
 }
-
 function updateLoading(text, progress) {
     if (text) loadingText.textContent = text;
     if (progress) loadingProgress.textContent = progress;
 }
-
-function hideLoading() {
-    loadingOverlay.classList.remove('visible');
-}
+function hideLoading() { loadingOverlay.classList.remove('visible'); }
 </script>
 </body>
 </html>

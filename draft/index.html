@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Draft Simulator | scrollvault.net</title>
-    <meta name="description" content="Practice your MTG draft skills with our free draft simulator. Draft from real sets with smart bot opponents.">
-    <meta property="og:title" content="Draft Simulator">
-    <meta property="og:description" content="Practice your MTG draft skills with our free draft simulator. Draft from real sets with smart bot opponents.">
+    <title>MTG Draft Simulator — Practice Draft Against AI Bots Free | ScrollVault</title>
+    <meta name="description" content="Free MTG draft simulator with smart AI opponents. Practice drafting from 14+ real sets including Aetherdrift and Foundations. 3 packs, 14 cards, 7 AI drafters. Build your deck and export to Arena.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="MTG Draft Simulator — Practice Draft Against AI Bots Free">
+    <meta property="og:description" content="Free MTG draft simulator with smart AI opponents. Practice drafting from 14+ real sets. Build your deck and export to Arena.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ScrollVault">
     <meta property="og:url" content="https://scrollvault.net/draft/">
+    <meta property="og:image" content="https://scrollvault.net/og-default.png">
+    <meta property="og:image:alt" content="MTG Draft Simulator — Practice Draft Against AI Bots">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@scrollvault">
+    <meta name="twitter:title" content="MTG Draft Simulator — Practice Draft Against AI Bots Free">
+    <meta name="twitter:description" content="Free MTG draft simulator with smart AI opponents. 14+ real sets, 7 AI drafters, Arena export.">
+    <meta name="twitter:image" content="https://scrollvault.net/og-default.png">
     <link rel="canonical" href="https://scrollvault.net/draft/">
     <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -273,6 +281,34 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
     .set-grid { grid-template-columns: 1fr; }
 }
 
+/* ── FAQ Section ── */
+.faq-section { padding: 3rem 0 2rem; }
+.faq-section h2 { font-size: 1.75rem; margin-bottom: 1.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.faq-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 800px; }
+.faq-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; }
+.faq-item summary { padding: 1rem 1.25rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-size: 1.25rem; color: var(--text-muted); flex-shrink: 0; margin-left: 1rem; transition: transform 0.2s; }
+.faq-item[open] summary::after { content: '\2212'; }
+.faq-answer { padding: 0 1.25rem 1rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
+.faq-answer p { margin-bottom: 0.5rem; }
+.faq-answer ul { margin: 0.5rem 0 0.5rem 1.5rem; }
+.faq-answer a { color: #a78bfa; text-decoration: underline; }
+
+/* ── Pick Suggestion Glow ── */
+.pack-card.suggested { outline: 2px solid rgba(255,215,0,0.5); outline-offset: 1px; }
+.suggestion-badge { position: absolute; bottom: 4px; right: 4px; background: rgba(255,215,0,0.9); color: #000; font-size: 0.6rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; pointer-events: none; }
+
+/* ── Settings Toggle ── */
+.settings-bar { display: flex; gap: 1.5rem; align-items: center; justify-content: center; margin-top: 0.75rem; }
+.toggle-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); cursor: pointer; }
+.toggle-label input[type="checkbox"] { accent-color: #a855f7; width: 14px; height: 14px; }
+
+/* ── Pool Analysis Stats ── */
+.pool-stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; padding: 0.75rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; font-size: 0.8rem; color: var(--text-secondary); }
+.pool-stats .stat-group { display: flex; align-items: center; gap: 0.35rem; }
+.pool-stats .color-bar { height: 10px; border-radius: 2px; min-width: 4px; }
+
 /* Touch devices: hide hover tooltip */
 @media (hover: none) and (pointer: coarse) {
     .card-tooltip { display: none !important; }
@@ -305,9 +341,12 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
         <div id="screenSelect" class="screen active">
             <div class="hero-section">
                 <div class="container">
-                    <h1>Draft Simulator</h1>
-                    <p class="subtitle">Practice drafting against 7 AI opponents</p>
+                    <h1>MTG Draft Simulator</h1>
+                    <p class="subtitle">Practice drafting against 7 AI opponents with real set cards</p>
                     <p class="rules-text">3 packs, 14 cards each. Pick 1, pass the rest.</p>
+                    <div class="settings-bar">
+                        <label class="toggle-label"><input type="checkbox" id="showSuggestions"> Show pick suggestions</label>
+                    </div>
                 </div>
             </div>
             <div class="container">
@@ -365,6 +404,7 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
                 <div class="builder-header">
                     <h2>Build Your Deck</h2>
                     <div class="builder-actions">
+                        <button class="btn" onclick="autoBuildDeck()">Auto-Build Deck</button>
                         <button class="btn" onclick="autoSuggestLands()">Auto-Suggest Lands</button>
                         <button class="btn btn-primary" onclick="exportDeck()">Export to Arena</button>
                         <button class="btn" onclick="draftAgain()">Draft Again</button>
@@ -409,6 +449,63 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
             </div>
         </div>
     </main>
+
+        <!-- ══════ FAQ Section ══════ -->
+        <div class="faq-section">
+            <div class="container">
+                <h2>MTG Draft Simulator FAQ</h2>
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>How does the MTG draft simulator work?</summary>
+                        <div class="faq-answer">
+                            <p>Our draft simulator replicates a real 8-player booster draft. You sit at a virtual table with 7 AI opponents. Each player opens a pack of 14 cards, picks one, and passes the rest. Packs alternate passing direction each round (left, right, left). After 3 packs and 42 total picks, you build a 40-card deck from your picks plus basic lands.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How many cards do you pick in an MTG draft?</summary>
+                        <div class="faq-answer">
+                            <p>In a standard booster draft, you make 42 picks total: 14 cards from each of 3 packs (14 &times; 3 = 42). You then build a minimum 40-card deck from those picks, adding basic lands as needed. Most players end up playing 22-24 spells and 16-18 lands.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How many packs in a Magic draft?</summary>
+                        <div class="faq-answer">
+                            <p>A standard MTG booster draft uses 3 packs per player. With 8 players, that's 24 packs total. Pack 1 passes left, Pack 2 passes right, and Pack 3 passes left again. Each pack starts with 14 draftable cards.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can I practice MTG draft for free?</summary>
+                        <div class="faq-answer">
+                            <p>Yes! This draft simulator is completely free with no account required. Practice as many drafts as you like from 14+ real Magic sets. The AI bots use intelligent pick logic based on card ratings, color signals, and curve considerations, giving you realistic practice for paper or Arena drafts.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What sets are available to draft?</summary>
+                        <div class="faq-answer">
+                            <p>We currently support 14 sets with pre-loaded card data and ratings, including recent sets like Lorwyn Eclipsed, Aetherdrift, Foundations, Duskmourn, Bloomburrow, Modern Horizons 3, and more. New sets are added regularly as they release. Each set uses real card data from Scryfall with expert-calibrated draft ratings.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How do the AI draft bots pick cards?</summary>
+                        <div class="faq-answer">
+                            <p>Each AI bot uses a scoring system that considers the card's base rating, color fit (bots develop color preferences as they draft), mana curve needs, creature density targets, and open-color signals. Early picks focus on raw power, while later picks prioritize staying on-color and filling curve gaps. A small random factor prevents bots from being too predictable.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How to export draft deck to MTG Arena?</summary>
+                        <div class="faq-answer">
+                            <p>After building your deck, click the "Export to Arena" button. This copies your decklist (mainboard, lands, and sideboard) in MTGA-compatible format to your clipboard. Open MTG Arena, go to Decks, click Import, and paste. Note that only cards legal in your Arena collection will be available for actual play.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What is the best draft strategy for beginners?</summary>
+                        <div class="faq-answer">
+                            <p>Start with the BREAD method: <strong>B</strong>ombs (powerful rares/mythics), <strong>R</strong>emoval (cards that destroy creatures), <strong>E</strong>vasion (flying, menace, trample), <strong>A</strong>ggro (efficient creatures), <strong>D</strong>uds (everything else). Stick to 2 colors, aim for 15-17 creatures, and prioritize 2-3 mana cost cards for a smooth curve. Use our <a href="/tools/manabase/">Mana Base Calculator</a> to optimize your land count.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
 
     <!-- Mobile Card Preview (bottom sheet) -->
     <div class="mobile-preview-overlay" id="mobileOverlay" onclick="closeMobilePreview()"></div>
@@ -493,13 +590,15 @@ let allPacks = []; // [seat][pack] = array of cards
 let currentPack = 0;
 let currentPick = 0;
 let humanPool = [];
-let botPools = []; // botPools[1..7]
-let botColorWeights = []; // botColorWeights[1..7]
+let humanColorWeights = { W:0, U:0, B:0, R:0, G:0 };
+let botPools = []; // botPools[0..6] for bots 1-7
+let botStates = []; // Enhanced bot state
 let undoStack = [];
 let currentBoard = 'main'; // 'main' or 'side'
 let sideboardSet = new Set(); // indices into humanPool that are sideboarded
 let lands = { W:0, U:0, B:0, R:0, G:0 };
 let draftInProgress = false;
+let showPickSuggestions = false;
 
 // ── Screens ──
 function showScreen(id) {
@@ -519,14 +618,11 @@ function showToast(msg) {
 // ══════════════════════════════════════════
 // Screen 1: Set Selection
 // ══════════════════════════════════════════
-async function loadSets() {
-    try {
-        const resp = await fetch('/draft/data/sets.json');
-        setsIndex = await resp.json();
-        renderSetGrid();
-    } catch (e) {
-        console.error('Failed to load sets:', e);
-    }
+function loadSets() {
+    return fetch('/draft/data/sets.json')
+        .then(resp => resp.json())
+        .then(data => { setsIndex = data; renderSetGrid(); })
+        .catch(e => console.error('Failed to load sets:', e));
 }
 
 function renderSetGrid() {
@@ -583,19 +679,21 @@ async function startDraft(setCode, btn) {
 
     // Reset state
     humanPool = [];
+    humanColorWeights = { W:0, U:0, B:0, R:0, G:0 };
     botPools = [];
-    botColorWeights = [];
+    botStates = [];
     undoStack = [];
     sideboardSet = new Set();
     lands = { W:0, U:0, B:0, R:0, G:0 };
     currentPack = 0;
     currentPick = 0;
     draftInProgress = true;
+    showPickSuggestions = document.getElementById('showSuggestions').checked;
 
     // Init bots
     for (let i = 1; i < NUM_SEATS; i++) {
         botPools.push([]);
-        botColorWeights.push({ W:0, U:0, B:0, R:0, G:0 });
+        botStates.push(createBotState());
     }
 
     // Generate all packs
@@ -709,28 +807,92 @@ function getBotPack(botSeat) {
     return allPacks[originSeat][currentPack];
 }
 
-// ── Scoring ──
-function scoreCard(card, colorWeights, pickNumber) {
-    let base = card.rating;
-    let colorFit = 0;
-    if (card.colors.length === 0) {
-        colorFit = 0.3;
-    } else {
-        const totalWeight = Object.values(colorWeights).reduce((a, b) => a + b, 0) || 1;
-        colorFit = card.colors.reduce((sum, c) => sum + (colorWeights[c] || 0), 0) / totalWeight;
-    }
-    const exploitFactor = Math.min(1, Math.max(0, (pickNumber - 4) / 10));
-    const colorBonus = 1.0 + (colorFit * exploitFactor * 1.5);
-    const rarityBonus = (pickNumber < 6 && card.rarity === 'rare') ? 0.3 : 0;
-    const jitter = Math.random() * 0.4;
-    return base * colorBonus + rarityBonus + jitter;
+// ── Bot State Factory ──
+function createBotState() {
+    return {
+        colorWeights: { W:0, U:0, B:0, R:0, G:0 },
+        curveCounts: [0, 0, 0, 0, 0, 0, 0, 0], // CMC 0-7+
+        creatureCount: 0,
+        spellCount: 0,
+        openColors: [] // Colors seen late in packs (signals)
+    };
 }
 
-function updateBotWeights(botIndex, card) {
-    const weights = botColorWeights[botIndex];
+// ── Enhanced Scoring ──
+function scoreCard(card, state, pickNumber) {
+    let base = card.rating;
+
+    // Color commitment (stronger as draft progresses)
+    let colorFit = 0;
+    if (card.colors.length === 0) {
+        colorFit = 0.3; // Colorless cards always decent
+    } else {
+        const totalWeight = Object.values(state.colorWeights).reduce((a, b) => a + b, 0) || 1;
+        colorFit = card.colors.reduce((sum, c) => sum + (state.colorWeights[c] || 0), 0) / totalWeight;
+    }
+    const exploitFactor = Math.min(1, Math.max(0, (pickNumber - 4) / 14));
+    const colorBonus = 1.0 + (colorFit * exploitFactor * 1.8);
+
+    // Curve needs: prefer 2-3 drops if lacking
+    let curveBonus = 0;
+    const cmc = Math.min(Math.ceil(card.cmc || 0), 7);
+    const totalPicks = state.creatureCount + state.spellCount;
+    if (totalPicks > 5) {
+        if ((cmc === 2 || cmc === 3) && state.curveCounts[cmc] < 4) curveBonus = 0.4;
+        else if (cmc === 1 && state.curveCounts[1] < 2) curveBonus = 0.2;
+        else if (cmc >= 6 && state.curveCounts[6] + state.curveCounts[7] >= 3) curveBonus = -0.3;
+    }
+
+    // Creature density: want 14-16 creatures in final deck
+    let creatureBonus = 0;
+    const tl = (card.type_line || '').toLowerCase();
+    const isCreature = tl.includes('creature');
+    if (totalPicks > 10) {
+        const creatureRatio = state.creatureCount / Math.max(1, totalPicks);
+        if (isCreature && creatureRatio < 0.55) creatureBonus = 0.3;
+        else if (!isCreature && creatureRatio > 0.65) creatureBonus = 0.2;
+    }
+
+    // Removal bonus
+    let removalBonus = 0;
+    const oracle = (card.oracle_text || '').toLowerCase();
+    if (oracle.includes('destroy target') || oracle.includes('exile target') ||
+        oracle.match(/deals?\s+\d+\s+damage\s+to\s+(target|any)/)) {
+        removalBonus = 0.3;
+    }
+
+    // Signal reading: open colors get a small boost
+    let signalBonus = 0;
+    if (card.colors.length > 0 && state.openColors.length > 0) {
+        const onSignal = card.colors.some(c => state.openColors.includes(c));
+        if (onSignal) signalBonus = 0.2;
+    }
+
+    // Early pick rarity bonus (don't pass bombs)
+    const rarityBonus = (pickNumber < 6 && (card.rarity === 'rare' || card.rarity === 'mythic')) ? 0.4 : 0;
+
+    const jitter = Math.random() * 0.3;
+    return base * colorBonus + curveBonus + creatureBonus + removalBonus + signalBonus + rarityBonus + jitter;
+}
+
+function updateBotState(botState, card) {
     card.colors.forEach(c => {
-        if (weights[c] !== undefined) {
-            weights[c] += card.rating;
+        if (botState.colorWeights[c] !== undefined) {
+            botState.colorWeights[c] += card.rating;
+        }
+    });
+    const cmc = Math.min(Math.ceil(card.cmc || 0), 7);
+    botState.curveCounts[cmc]++;
+    const tl = (card.type_line || '').toLowerCase();
+    if (tl.includes('creature')) botState.creatureCount++;
+    botState.spellCount++;
+}
+
+// ── Human color weight tracking ──
+function updateHumanWeights(card) {
+    card.colors.forEach(c => {
+        if (humanColorWeights[c] !== undefined) {
+            humanColorWeights[c] += card.rating;
         }
     });
 }
@@ -754,6 +916,7 @@ function humanPick(cardIndex) {
     // Remove from pack
     pack.splice(cardIndex, 1);
     humanPool.push(card);
+    updateHumanWeights(card);
 
     // Animate pick
     const packGrid = document.getElementById('packGrid');
@@ -810,7 +973,7 @@ function doBotPicks() {
         let bestIdx = 0;
         let bestScore = -Infinity;
         for (let i = 0; i < pack.length; i++) {
-            const s = scoreCard(pack[i], botColorWeights[b], globalPick);
+            const s = scoreCard(pack[i], botStates[b], globalPick);
             if (s > bestScore) {
                 bestScore = s;
                 bestIdx = i;
@@ -819,7 +982,20 @@ function doBotPicks() {
 
         const picked = pack.splice(bestIdx, 1)[0];
         botPools[b].push(picked);
-        updateBotWeights(b, picked);
+        updateBotState(botStates[b], picked);
+
+        // Signal reading: if a good card (rating > 3) wheels late, its colors are open
+        if (currentPick >= 6) {
+            pack.forEach(card => {
+                if (card.rating >= 3.0) {
+                    card.colors.forEach(c => {
+                        if (!botStates[b].openColors.includes(c)) {
+                            botStates[b].openColors.push(c);
+                        }
+                    });
+                }
+            });
+        }
     }
 }
 
@@ -872,12 +1048,34 @@ function renderCurrentPack() {
     const grid = document.getElementById('packGrid');
     grid.innerHTML = '';
 
+    // Calculate suggestion if enabled
+    let suggestedIdx = -1;
+    if (showPickSuggestions && pack.length > 0) {
+        const globalPick = currentPack * CARDS_PER_PACK + currentPick;
+        const humanState = {
+            colorWeights: humanColorWeights,
+            curveCounts: getHumanCurveCounts(),
+            creatureCount: humanPool.filter(c => (c.type_line || '').toLowerCase().includes('creature')).length,
+            spellCount: humanPool.length,
+            openColors: []
+        };
+        let bestScore = -Infinity;
+        pack.forEach((card, i) => {
+            const s = scoreCard(card, humanState, globalPick);
+            if (s > bestScore) { bestScore = s; suggestedIdx = i; }
+        });
+    }
+
     pack.forEach((card, i) => {
         const div = document.createElement('div');
         div.className = 'pack-card';
+        if (i === suggestedIdx) div.classList.add('suggested');
+        let badge = '';
+        if (i === suggestedIdx) badge = '<span class="suggestion-badge">TOP</span>';
         div.innerHTML = `
             <img src="${card.image_small}" alt="${card.name}" loading="lazy">
             <span class="card-number">${i + 1}</span>
+            ${badge}
         `;
         if (isTouchDevice) {
             div.addEventListener('click', (e) => {
@@ -929,7 +1127,9 @@ function showTooltip(card, e) {
         ptText = `Loyalty: ${card.loyalty}`;
     }
     tip.querySelector('.tt-pt').textContent = ptText;
-    tip.querySelector('.tt-rating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}`;
+    let ratingText = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}`;
+    if (card.gih_wr) ratingText += ` \u2022 ${card.gih_wr}% GIH WR`;
+    tip.querySelector('.tt-rating').textContent = ratingText;
 
     tip.classList.add('visible');
     moveTooltip(e);
@@ -1049,7 +1249,7 @@ function openMobilePreview(card, index) {
     if (card.power !== null && card.toughness !== null) ptText = `${card.power}/${card.toughness}`;
     else if (card.loyalty !== null) ptText = `Loyalty: ${card.loyalty}`;
     document.getElementById('mpPt').textContent = ptText;
-    document.getElementById('mpRating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}`;
+    document.getElementById('mpRating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}` + (card.gih_wr ? ` \u2022 ${card.gih_wr}% GIH WR` : '');
 
     // Show pick button and panel
     document.getElementById('mpPickBtn').style.display = '';
@@ -1083,7 +1283,7 @@ function showPoolCardPreview(poolIndex) {
     if (card.power !== null && card.toughness !== null) ptText = `${card.power}/${card.toughness}`;
     else if (card.loyalty !== null) ptText = `Loyalty: ${card.loyalty}`;
     document.getElementById('mpPt').textContent = ptText;
-    document.getElementById('mpRating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}`;
+    document.getElementById('mpRating').textContent = `Rating: ${card.rating.toFixed(1)} \u2022 ${card.rarity}` + (card.gih_wr ? ` \u2022 ${card.gih_wr}% GIH WR` : '');
     // Hide pick button for pool view
     document.getElementById('mpPickBtn').style.display = 'none';
     mobileSelectedIndex = -1;
@@ -1424,18 +1624,20 @@ function exportDeck() {
 function draftAgain() {
     if (setData) {
         humanPool = [];
+        humanColorWeights = { W:0, U:0, B:0, R:0, G:0 };
         botPools = [];
-        botColorWeights = [];
+        botStates = [];
         undoStack = [];
         sideboardSet = new Set();
         lands = { W:0, U:0, B:0, R:0, G:0 };
         currentPack = 0;
         currentPick = 0;
         draftInProgress = true;
+        showPickSuggestions = document.getElementById('showSuggestions').checked;
 
         for (let i = 1; i < NUM_SEATS; i++) {
             botPools.push([]);
-            botColorWeights.push({ W:0, U:0, B:0, R:0, G:0 });
+            botStates.push(createBotState());
         }
 
         generateAllPacks();
@@ -1451,13 +1653,121 @@ function changeSet() {
     showScreen('screenSelect');
 }
 
+// ── Helper: human curve counts for suggestion scoring ──
+function getHumanCurveCounts() {
+    const counts = [0, 0, 0, 0, 0, 0, 0, 0];
+    humanPool.forEach(card => {
+        const cmc = Math.min(Math.ceil(card.cmc || 0), 7);
+        counts[cmc]++;
+    });
+    return counts;
+}
+
+// ── Auto-Build Deck ──
+function autoBuildDeck() {
+    if (humanPool.length === 0) return;
+
+    // Score each color
+    const colorScores = { W:0, U:0, B:0, R:0, G:0 };
+    humanPool.forEach(card => {
+        if ((card.type_line || '').toLowerCase().includes('land')) return;
+        const score = card.rating || 2.0;
+        (card.colors || []).forEach(c => { if (colorScores[c] !== undefined) colorScores[c] += score; });
+    });
+
+    // Pick top 2 colors
+    const sortedColors = MANA_COLORS.slice().sort((a, b) => colorScores[b] - colorScores[a]);
+    const primaryColors = new Set([sortedColors[0], sortedColors[1]]);
+
+    // Select on-color cards, sorted by power
+    const candidates = [];
+    humanPool.forEach((card, idx) => {
+        if ((card.type_line || '').toLowerCase().includes('land')) return;
+        const colors = card.colors || [];
+        const isOnColor = colors.length === 0 || colors.some(c => primaryColors.has(c));
+        if (isOnColor) candidates.push({ idx, card, score: card.rating || 2.0 });
+    });
+    candidates.sort((a, b) => b.score - a.score);
+
+    // Take best 23 spells, sideboard the rest
+    sideboardSet = new Set();
+    const selected = new Set(candidates.slice(0, 23).map(c => c.idx));
+    humanPool.forEach((_, idx) => {
+        if (!selected.has(idx)) sideboardSet.add(idx);
+    });
+
+    // Auto-suggest lands for the selected cards
+    const pips = { W:0, U:0, B:0, R:0, G:0 };
+    candidates.slice(0, 23).forEach(({ card }) => {
+        const cost = card.mana_cost || '';
+        (cost.match(/\{W\}/g) || []).forEach(() => pips.W++);
+        (cost.match(/\{U\}/g) || []).forEach(() => pips.U++);
+        (cost.match(/\{B\}/g) || []).forEach(() => pips.B++);
+        (cost.match(/\{R\}/g) || []).forEach(() => pips.R++);
+        (cost.match(/\{G\}/g) || []).forEach(() => pips.G++);
+    });
+
+    const totalPips = Object.values(pips).reduce((a, b) => a + b, 0) || 1;
+    lands = { W:0, U:0, B:0, R:0, G:0 };
+    let assigned = 0;
+    MANA_COLORS.forEach(c => {
+        if (pips[c] > 0) {
+            lands[c] = Math.round((pips[c] / totalPips) * 17);
+            assigned += lands[c];
+        }
+    });
+    const activeColors = MANA_COLORS.filter(c => pips[c] > 0).sort((a, b) => pips[b] - pips[a]);
+    while (assigned < 17 && activeColors.length > 0) { lands[activeColors[0]]++; assigned++; }
+    while (assigned > 17) {
+        const smallest = activeColors.filter(c => lands[c] > 0).sort((a, b) => lands[a] - lands[b])[0];
+        if (smallest) { lands[smallest]--; assigned--; } else break;
+    }
+
+    MANA_COLORS.forEach(c => {
+        const el = document.getElementById(`land-${c}`);
+        if (el) el.textContent = lands[c];
+    });
+    document.getElementById('landTotal').textContent = `Total: ${Object.values(lands).reduce((a, b) => a + b, 0)} lands`;
+
+    currentBoard = 'main';
+    document.querySelectorAll('.board-tab').forEach(t => t.classList.toggle('active', t.dataset.board === 'main'));
+    renderDeckColumns();
+    renderHistogram();
+    updateDeckStats();
+    showToast(`Auto-built ${23} spells + 17 lands in ${sortedColors[0]}/${sortedColors[1]}`);
+}
+
+// ── Settings toggle listener ──
+document.getElementById('showSuggestions').addEventListener('change', function() {
+    showPickSuggestions = this.checked;
+    if (draftInProgress) renderCurrentPack();
+});
+
+// ── URL param support: ?set=xxx ──
+function getSetParam() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('set');
+}
+
 // ══════════════════════════════════════════
 // Init
 // ══════════════════════════════════════════
-loadSets();
+loadSets().then(() => {
+    const setParam = getSetParam();
+    if (setParam) {
+        // Auto-start draft for the specified set
+        const matchingSet = setsIndex.find(s => s.set_code === setParam.toLowerCase());
+        if (matchingSet) {
+            startDraft(matchingSet.set_code, document.querySelector('.btn-start') || document.createElement('button'));
+        }
+    }
+});
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"MTG Draft Simulator","url":"https://scrollvault.net/draft/","applicationCategory":"GameApplication","description":"Practice your MTG draft skills with our free draft simulator. Draft from real sets with smart bot opponents.","isPartOf":{"@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"MTG Draft Simulator","url":"https://scrollvault.net/draft/","applicationCategory":"GameApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free MTG draft simulator with smart AI opponents. Practice drafting from 14+ real sets including Aetherdrift and Foundations. 3 packs, 14 cards, 7 AI drafters. Build your deck and export to Arena.","isPartOf":{"@type":"WebSite","name":"ScrollVault","url":"https://scrollvault.net"},"publisher":{"@type":"Organization","name":"ScrollVault","url":"https://scrollvault.net","logo":{"@type":"ImageObject","url":"https://scrollvault.net/og-default.png"}}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does the MTG draft simulator work?","acceptedAnswer":{"@type":"Answer","text":"Our draft simulator replicates a real 8-player booster draft. You sit at a virtual table with 7 AI opponents. Each player opens a pack of 14 cards, picks one, and passes the rest. Packs alternate passing direction each round (left, right, left). After 3 packs and 42 total picks, you build a 40-card deck from your picks plus basic lands."}},{"@type":"Question","name":"How many cards do you pick in an MTG draft?","acceptedAnswer":{"@type":"Answer","text":"In a standard booster draft, you make 42 picks total: 14 cards from each of 3 packs (14 × 3 = 42). You then build a minimum 40-card deck from those picks, adding basic lands as needed. Most players end up playing 22-24 spells and 16-18 lands."}},{"@type":"Question","name":"How many packs in a Magic draft?","acceptedAnswer":{"@type":"Answer","text":"A standard MTG booster draft uses 3 packs per player. With 8 players, that's 24 packs total. Pack 1 passes left, Pack 2 passes right, and Pack 3 passes left again. Each pack starts with 14 draftable cards."}},{"@type":"Question","name":"Can I practice MTG draft for free?","acceptedAnswer":{"@type":"Answer","text":"Yes! This draft simulator is completely free with no account required. Practice as many drafts as you like from 14+ real Magic sets. The AI bots use intelligent pick logic based on card ratings, color signals, and curve considerations."}},{"@type":"Question","name":"What sets are available to draft?","acceptedAnswer":{"@type":"Answer","text":"We currently support 14 sets with pre-loaded card data and ratings, including recent sets like Lorwyn Eclipsed, Aetherdrift, Foundations, Duskmourn, Bloomburrow, Modern Horizons 3, and more. New sets are added regularly."}},{"@type":"Question","name":"How do the AI draft bots pick cards?","acceptedAnswer":{"@type":"Answer","text":"Each AI bot uses a scoring system that considers the card's base rating, color fit, mana curve needs, creature density targets, and open-color signals. Early picks focus on raw power, while later picks prioritize staying on-color and filling curve gaps."}},{"@type":"Question","name":"How to export draft deck to MTG Arena?","acceptedAnswer":{"@type":"Answer","text":"After building your deck, click the Export to Arena button. This copies your decklist in MTGA-compatible format to your clipboard. Open MTG Arena, go to Decks, click Import, and paste."}},{"@type":"Question","name":"What is the best draft strategy for beginners?","acceptedAnswer":{"@type":"Answer","text":"Start with the BREAD method: Bombs (powerful rares/mythics), Removal (cards that destroy creatures), Evasion (flying, menace, trample), Aggro (efficient creatures), Duds (everything else). Stick to 2 colors, aim for 15-17 creatures, and prioritize 2-3 mana cost cards."}}]}
 </script>
 </body>
 </html>
