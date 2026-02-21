@@ -18,6 +18,7 @@
     <meta name="twitter:title" content="MTG Draft Simulator — Practice Draft Against AI Bots Free">
     <meta name="twitter:description" content="Free MTG draft simulator with smart AI opponents. 14+ real sets, 7 AI drafters, Arena export.">
     <meta name="twitter:image" content="https://scrollvault.net/og-default.png">
+    <meta name="twitter:image:alt" content="MTG Draft Simulator — Practice Draft Against AI Bots">
     <link rel="canonical" href="https://scrollvault.net/draft/">
     <link rel="preload" href="/css/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -52,7 +53,7 @@
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
     --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
     --color-W: #F9FAF4; --color-U: #0E68AB; --color-B: #150B00; --color-R: #D3202A; --color-G: #00733E;
-    --color-M: #C5A F46; --color-C: #9E9E9E;
+    --color-M: #C5AF46; --color-C: #9E9E9E;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -309,6 +310,18 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
 .pool-stats .stat-group { display: flex; align-items: center; gap: 0.35rem; }
 .pool-stats .color-bar { height: 10px; border-radius: 2px; min-width: 4px; }
 
+/* ── Color Filters ── */
+.color-filters { display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+.color-filter { width: auto; min-width: 32px; height: 32px; border-radius: 16px; border: 2px solid transparent; background: var(--card-bg); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.15s; padding: 0 0.5rem; display: flex; align-items: center; justify-content: center; }
+.color-filter.cf-mana { width: 32px; padding: 0; border-radius: 50%; }
+.color-filter:hover { border-color: rgba(168,85,247,0.5); }
+.color-filter.active { border-color: #a855f7; box-shadow: 0 0 8px rgba(168,85,247,0.4); }
+
+/* ── Rarity Glow ── */
+.rarity-mythic { box-shadow: 0 0 0 2px #f97316, 0 0 12px rgba(249,115,22,0.5); }
+.rarity-rare { box-shadow: 0 0 0 2px #eab308, 0 0 10px rgba(234,179,8,0.4); }
+.rarity-uncommon { box-shadow: 0 0 0 1px #94a3b8, 0 0 8px rgba(148,163,184,0.25); }
+
 /* Touch devices: hide hover tooltip */
 @media (hover: none) and (pointer: coarse) {
     .card-tooltip { display: none !important; }
@@ -407,9 +420,21 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
                         <button class="btn" onclick="autoBuildDeck()">Auto-Build Deck</button>
                         <button class="btn" onclick="autoSuggestLands()">Auto-Suggest Lands</button>
                         <button class="btn btn-primary" onclick="exportDeck()">Export to Arena</button>
+                        <button class="btn" onclick="viewBotDecks()">View Bot Decks</button>
                         <button class="btn" onclick="draftAgain()">Draft Again</button>
                         <button class="btn" onclick="changeSet()">Change Set</button>
                     </div>
+                </div>
+
+                <div class="color-filters" id="builderColorFilters">
+                    <button class="color-filter active" data-color="all" onclick="filterBuilder('all')">All</button>
+                    <button class="color-filter cf-mana" data-color="W" onclick="filterBuilder('W')" style="background:var(--color-W);color:#333;">W</button>
+                    <button class="color-filter cf-mana" data-color="U" onclick="filterBuilder('U')" style="background:var(--color-U);color:#fff;">U</button>
+                    <button class="color-filter cf-mana" data-color="B" onclick="filterBuilder('B')" style="background:var(--color-B);color:#fff;border:1px solid rgba(255,255,255,0.3);">B</button>
+                    <button class="color-filter cf-mana" data-color="R" onclick="filterBuilder('R')" style="background:var(--color-R);color:#fff;">R</button>
+                    <button class="color-filter cf-mana" data-color="G" onclick="filterBuilder('G')" style="background:var(--color-G);color:#fff;">G</button>
+                    <button class="color-filter" data-color="M" onclick="filterBuilder('M')">Multi</button>
+                    <button class="color-filter" data-color="C" onclick="filterBuilder('C')">C</button>
                 </div>
 
                 <div class="deck-stats" id="deckStats">
@@ -599,6 +624,7 @@ let sideboardSet = new Set(); // indices into humanPool that are sideboarded
 let lands = { W:0, U:0, B:0, R:0, G:0 };
 let draftInProgress = false;
 let showPickSuggestions = false;
+let activeBuilderFilters = new Set(['all']);
 
 // ── Screens ──
 function showScreen(id) {
@@ -693,8 +719,11 @@ async function startDraft(setCode, btn) {
     // Init bots
     for (let i = 1; i < NUM_SEATS; i++) {
         botPools.push([]);
-        botStates.push(createBotState());
+        botStates.push(createBotState(i));
     }
+
+    // Init WASM worker
+    initDraftWorker();
 
     // Generate all packs
     generateAllPacks();
@@ -808,13 +837,18 @@ function getBotPack(botSeat) {
 }
 
 // ── Bot State Factory ──
-function createBotState() {
+function createBotState(seatIndex) {
     return {
+        seat: seatIndex || 1,
         colorWeights: { W:0, U:0, B:0, R:0, G:0 },
         curveCounts: [0, 0, 0, 0, 0, 0, 0, 0], // CMC 0-7+
         creatureCount: 0,
         spellCount: 0,
-        openColors: [] // Colors seen late in packs (signals)
+        removalCount: 0,
+        openColors: [], // Colors seen late in packs (signals)
+        picks: [], // DraftCard objects for get_bot_deck
+        signalStrength: [0.5, 0.5, 0.5, 0.5, 0.5], // WUBRG openness
+        keywordsSeen: [] // keyword clustering
     };
 }
 
@@ -886,6 +920,25 @@ function updateBotState(botState, card) {
     const tl = (card.type_line || '').toLowerCase();
     if (tl.includes('creature')) botState.creatureCount++;
     botState.spellCount++;
+
+    // Track picks for WASM get_bot_deck
+    botState.picks.push(card);
+
+    // Track removal
+    const oracle = (card.oracle_text || '').toLowerCase();
+    if (oracle.includes('destroy target') || oracle.includes('exile target') ||
+        oracle.match(/deals?\s+\d+\s+damage\s+to\s+(target|any)/)) {
+        botState.removalCount++;
+    }
+
+    // Track keywords
+    if (card.keywords && card.keywords.length > 0) {
+        card.keywords.forEach(function(kw) {
+            if (botState.keywordsSeen.indexOf(kw) === -1) {
+                botState.keywordsSeen.push(kw);
+            }
+        });
+    }
 }
 
 // ── Human color weight tracking ──
@@ -925,10 +978,14 @@ function humanPick(cardIndex) {
         cardEls[cardIndex].classList.add('picked');
     }
 
-    // Bot picks
+    // Bot picks (WASM async or JS sync)
     doBotPicks();
 
-    // Advance
+    // Advance pick/pack state
+    advanceDraftState();
+}
+
+function advanceDraftState() {
     currentPick++;
 
     if (currentPick >= CARDS_PER_PACK) {
@@ -939,7 +996,7 @@ function humanPick(cardIndex) {
         if (currentPack >= PACKS_PER_DRAFT) {
             // Draft complete
             draftInProgress = false;
-            setTimeout(() => {
+            setTimeout(function() {
                 showScreen('screenBuild');
                 renderDeckBuilder();
             }, 400);
@@ -956,13 +1013,21 @@ function humanPick(cardIndex) {
     }
 
     // Re-render with delay for animation
-    setTimeout(() => {
+    setTimeout(function() {
         renderCurrentPack();
         renderPool();
     }, 350);
 }
 
 function doBotPicks() {
+    if (wasmDraftWorker && wasmDraftReady) {
+        doBotPicksWasm();
+    } else {
+        doBotPicksJS();
+    }
+}
+
+function doBotPicksJS() {
     const globalPick = currentPack * CARDS_PER_PACK + currentPick;
 
     for (let b = 0; b < NUM_SEATS - 1; b++) {
@@ -997,6 +1062,72 @@ function doBotPicks() {
             });
         }
     }
+}
+
+function doBotPicksWasm() {
+    // Capture live pack references BEFORE advanceDraftState changes currentPick
+    var savedGlobalPick = currentPack * CARDS_PER_PACK + currentPick;
+    var botDataArr = [];
+    var packDataArr = [];
+    var packRefs = []; // live array refs for splicing on callback
+    for (var b = 0; b < NUM_SEATS - 1; b++) {
+        var botSeat = b + 1;
+        var pack = getBotPack(botSeat);
+        packRefs.push(pack);
+        botDataArr.push({
+            seat: botSeat,
+            colorWeights: botStates[b].colorWeights,
+            curveCounts: Array.from(botStates[b].curveCounts),
+            creatureCount: botStates[b].creatureCount,
+            spellCount: botStates[b].spellCount,
+            removalCount: botStates[b].removalCount,
+            picks: botStates[b].picks,
+            signalStrength: Array.from(botStates[b].signalStrength),
+            keywordsSeen: botStates[b].keywordsSeen.slice(),
+            primaryColors: [],
+            creatureRatio: botStates[b].creatureCount / Math.max(1, botStates[b].spellCount)
+        });
+        packDataArr.push(pack.slice());
+    }
+
+    wasmDraftWorker.postMessage({ type: 'bot_picks', bots: botDataArr, packs: packDataArr });
+
+    // Store refs so onmessage can apply picks to the correct pack arrays
+    pendingBotPicks = { packRefs: packRefs, globalPick: savedGlobalPick };
+}
+
+var pendingBotPicks = null;
+
+function applyWasmBotPicks(pickIndices) {
+    if (!pendingBotPicks) return;
+    var packRefs = pendingBotPicks.packRefs;
+    var globalPick = pendingBotPicks.globalPick;
+
+    for (var b = 0; b < NUM_SEATS - 1; b++) {
+        var pack = packRefs[b];
+        if (!pack || pack.length === 0) continue;
+
+        var bestIdx = pickIndices[b] || 0;
+        if (bestIdx >= pack.length) bestIdx = 0;
+
+        var picked = pack.splice(bestIdx, 1)[0];
+        botPools[b].push(picked);
+        updateBotState(botStates[b], picked);
+
+        // Signal reading: if late in pack, note open colors
+        if (globalPick >= 6) {
+            pack.forEach(function(card) {
+                if (card.rating >= 3.0) {
+                    card.colors.forEach(function(c) {
+                        if (!botStates[b].openColors.includes(c)) {
+                            botStates[b].openColors.push(c);
+                        }
+                    });
+                }
+            });
+        }
+    }
+    pendingBotPicks = null;
 }
 
 // ── Undo ──
@@ -1048,7 +1179,7 @@ function renderCurrentPack() {
     const grid = document.getElementById('packGrid');
     grid.innerHTML = '';
 
-    // Calculate suggestion if enabled
+    // Calculate suggestion if enabled (JS fallback, WASM async overlay)
     let suggestedIdx = -1;
     if (showPickSuggestions && pack.length > 0) {
         const globalPick = currentPack * CARDS_PER_PACK + currentPick;
@@ -1059,16 +1190,41 @@ function renderCurrentPack() {
             spellCount: humanPool.length,
             openColors: []
         };
+        // JS fallback suggestion
         let bestScore = -Infinity;
         pack.forEach((card, i) => {
             const s = scoreCard(card, humanState, globalPick);
             if (s > bestScore) { bestScore = s; suggestedIdx = i; }
         });
+        // Fire WASM suggestion async (will overlay if different)
+        if (wasmDraftReady) {
+            requestWasmSuggestion(pack, function(scores) {
+                var wasmBest = 0;
+                var wasmBestScore = -Infinity;
+                for (var i = 0; i < scores.length; i++) {
+                    if (scores[i] > wasmBestScore) { wasmBestScore = scores[i]; wasmBest = i; }
+                }
+                // Update suggestion highlight if different from JS
+                var cards = document.querySelectorAll('#packGrid .pack-card');
+                cards.forEach(function(el, idx) {
+                    el.classList.remove('suggested');
+                    var badge = el.querySelector('.suggestion-badge');
+                    if (badge) badge.remove();
+                });
+                if (cards[wasmBest]) {
+                    cards[wasmBest].classList.add('suggested');
+                    var badge = document.createElement('span');
+                    badge.className = 'suggestion-badge';
+                    badge.textContent = 'TOP';
+                    cards[wasmBest].appendChild(badge);
+                }
+            });
+        }
     }
 
     pack.forEach((card, i) => {
         const div = document.createElement('div');
-        div.className = 'pack-card';
+        div.className = 'pack-card rarity-' + (card.rarity || 'common');
         if (i === suggestedIdx) div.classList.add('suggested');
         let badge = '';
         if (i === suggestedIdx) badge = '<span class="suggestion-badge">TOP</span>';
@@ -1317,6 +1473,10 @@ function renderDeckBuilder() {
     sideboardSet = new Set();
     lands = { W:0, U:0, B:0, R:0, G:0 };
     currentBoard = 'main';
+    activeBuilderFilters = new Set(['all']);
+    document.querySelectorAll('#builderColorFilters .color-filter').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.color === 'all');
+    });
 
     renderLandControls();
     renderDeckColumns();
@@ -1342,6 +1502,33 @@ function toggleSideboard(poolIndex) {
     renderDeckColumns();
     renderHistogram();
     updateDeckStats();
+}
+
+function filterBuilder(color) {
+    if (color === 'all') {
+        activeBuilderFilters = new Set(['all']);
+    } else {
+        activeBuilderFilters.delete('all');
+        if (activeBuilderFilters.has(color)) activeBuilderFilters.delete(color);
+        else activeBuilderFilters.add(color);
+        if (activeBuilderFilters.size === 0) activeBuilderFilters = new Set(['all']);
+    }
+    document.querySelectorAll('#builderColorFilters .color-filter').forEach(btn => {
+        btn.classList.toggle('active', activeBuilderFilters.has(btn.dataset.color));
+    });
+    renderDeckColumns();
+}
+
+function cardMatchesBuilderFilter(card) {
+    if (activeBuilderFilters.has('all')) return true;
+    const colors = card.colors || [];
+    const tl = (card.type_line || '').toLowerCase();
+    if (activeBuilderFilters.has('C') && colors.length === 0 && !tl.includes('land')) return true;
+    if (activeBuilderFilters.has('M') && colors.length > 1) return true;
+    for (const c of colors) {
+        if (activeBuilderFilters.has(c)) return true;
+    }
+    return false;
 }
 
 function renderDeckColumns() {
@@ -1389,6 +1576,7 @@ function renderDeckColumns() {
             const entry = document.createElement('div');
             entry.className = 'deck-card-entry';
             if (sideboardSet.has(index)) entry.classList.add('sideboarded');
+            if (!cardMatchesBuilderFilter(card)) entry.style.display = 'none';
             entry.innerHTML = `
                 <div class="entry-img"><img src="${card.image_small}" alt="${card.name}" loading="lazy"></div>
                 <span class="entry-name">${card.name}</span>
@@ -1637,8 +1825,9 @@ function draftAgain() {
 
         for (let i = 1; i < NUM_SEATS; i++) {
             botPools.push([]);
-            botStates.push(createBotState());
+            botStates.push(createBotState(i));
         }
+        initDraftWorker();
 
         generateAllPacks();
         preloadPackImages(0);
@@ -1735,6 +1924,203 @@ function autoBuildDeck() {
     renderHistogram();
     updateDeckStats();
     showToast(`Auto-built ${23} spells + 17 lands in ${sortedColors[0]}/${sortedColors[1]}`);
+}
+
+// ══════════════════════════════════════════
+// WASM Draft Worker
+// ══════════════════════════════════════════
+var wasmDraftWorker = null;
+var wasmDraftReady = false;
+var wasmSuggestionCallback = null;
+
+function initDraftWorker() {
+    if (wasmDraftWorker) return; // already initialized
+    try {
+        wasmDraftWorker = new Worker('/draft/draft-worker.js', { type: 'module' });
+        wasmDraftWorker.onmessage = function(e) {
+            var data = e.data;
+            if (data.type === 'ready') {
+                wasmDraftReady = true;
+                console.log('[Draft] WASM worker ready');
+            } else if (data.type === 'bot_results') {
+                // Apply WASM bot picks — arrives before 350ms render timeout
+                applyWasmBotPicks(data.picks);
+            } else if (data.type === 'scores') {
+                // Pick suggestion scores arrived
+                if (wasmSuggestionCallback) {
+                    wasmSuggestionCallback(data.scores);
+                    wasmSuggestionCallback = null;
+                }
+            } else if (data.type === 'bot_deck_result') {
+                if (botDeckCallback) {
+                    botDeckCallback(data.seat, data.deck);
+                }
+            } else if (data.type === 'error') {
+                console.warn('[Draft WASM]', data.message);
+            }
+        };
+        wasmDraftWorker.onerror = function(err) {
+            console.warn('[Draft] WASM worker failed:', err.message);
+            wasmDraftWorker = null;
+            wasmDraftReady = false;
+        };
+    } catch (err) {
+        console.warn('[Draft] Cannot create WASM worker:', err.message);
+    }
+}
+
+// ── WASM pick suggestions ──
+function requestWasmSuggestion(pack, callback) {
+    if (!wasmDraftWorker || !wasmDraftReady) return;
+    var humanState = {
+        seat: 0,
+        colorWeights: humanColorWeights,
+        curveCounts: Array.from(getHumanCurveCounts()),
+        creatureCount: humanPool.filter(function(c) { return (c.type_line || '').toLowerCase().includes('creature'); }).length,
+        spellCount: humanPool.length,
+        removalCount: 0,
+        picks: humanPool.slice(),
+        signalStrength: [0.5, 0.5, 0.5, 0.5, 0.5],
+        keywordsSeen: [],
+        primaryColors: [],
+        creatureRatio: 0
+    };
+    wasmSuggestionCallback = callback;
+    wasmDraftWorker.postMessage({ type: 'score_pack', state: humanState, pack: pack, reqId: 'suggest' });
+}
+
+// ── Bot Deck Viewer ──
+var botDeckCallback = null;
+var botDeckResults = {};
+
+function viewBotDecks() {
+    if (!wasmDraftWorker || !wasmDraftReady) {
+        showToast('WASM not available — cannot build bot decks');
+        return;
+    }
+    botDeckResults = {};
+    var draftState = {
+        bots: [],
+        current_pack: currentPack,
+        current_pick: currentPick
+    };
+    // Build DraftState with all 8 seats (seat 0 = human, seats 1-7 = bots)
+    // Human seat
+    draftState.bots.push({
+        seat: 0,
+        picks: humanPool.slice(),
+        color_weights: [humanColorWeights.W, humanColorWeights.U, humanColorWeights.B, humanColorWeights.R, humanColorWeights.G],
+        primary_colors: [],
+        curve_counts: Array.from(getHumanCurveCounts()),
+        creature_count: humanPool.filter(function(c) { return (c.type_line || '').toLowerCase().includes('creature'); }).length,
+        removal_count: 0,
+        creature_ratio: 0,
+        signal_strength: [0.5, 0.5, 0.5, 0.5, 0.5],
+        keywords_seen: []
+    });
+    // Bot seats
+    for (var b = 0; b < botStates.length; b++) {
+        var bs = botStates[b];
+        draftState.bots.push({
+            seat: b + 1,
+            picks: bs.picks.slice(),
+            color_weights: [bs.colorWeights.W, bs.colorWeights.U, bs.colorWeights.B, bs.colorWeights.R, bs.colorWeights.G],
+            primary_colors: [],
+            curve_counts: Array.from(bs.curveCounts),
+            creature_count: bs.creatureCount,
+            removal_count: bs.removalCount,
+            creature_ratio: bs.creatureCount / Math.max(1, bs.spellCount),
+            signal_strength: Array.from(bs.signalStrength),
+            keywords_seen: bs.keywordsSeen.slice()
+        });
+    }
+    var remaining = NUM_SEATS - 1;
+    botDeckCallback = function(seat, deck) {
+        botDeckResults[seat] = deck;
+        remaining--;
+        if (remaining <= 0) {
+            botDeckCallback = null;
+            renderBotDecks();
+        }
+    };
+    for (var s = 1; s < NUM_SEATS; s++) {
+        wasmDraftWorker.postMessage({ type: 'bot_deck', draft: draftState, seat: s });
+    }
+    showToast('Building bot decks...');
+}
+
+function renderBotDecks() {
+    var overlay = document.getElementById('botDeckOverlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'botDeckOverlay';
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;overflow-y:auto;padding:2rem;';
+        overlay.innerHTML = '<div style="max-width:1200px;margin:0 auto;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;"><h2 style="font-family:Space Grotesk,sans-serif;font-size:1.5rem;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Bot Decks (WASM AI)</h2><button onclick="document.getElementById(\'botDeckOverlay\').style.display=\'none\'" style="background:none;border:1px solid rgba(255,255,255,0.2);color:white;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-family:inherit;">Close</button></div><div id="botDeckGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;"></div></div>';
+        document.body.appendChild(overlay);
+    }
+    overlay.style.display = 'block';
+    var grid = document.getElementById('botDeckGrid');
+    grid.innerHTML = '';
+
+    // Build image lookup from botPools (WASM strips image fields from DraftCard)
+    var imgLookup = {};
+    for (var bp = 0; bp < botPools.length; bp++) {
+        for (var bc = 0; bc < botPools[bp].length; bc++) {
+            var poolCard = botPools[bp][bc];
+            if (poolCard.image_small && !imgLookup[poolCard.name]) {
+                imgLookup[poolCard.name] = { small: poolCard.image_small, normal: poolCard.image_normal };
+            }
+        }
+    }
+    // Also check humanPool in case cards overlap
+    for (var hc = 0; hc < humanPool.length; hc++) {
+        var hCard = humanPool[hc];
+        if (hCard.image_small && !imgLookup[hCard.name]) {
+            imgLookup[hCard.name] = { small: hCard.image_small, normal: hCard.image_normal };
+        }
+    }
+
+    var colorNames = { W: 'White', U: 'Blue', B: 'Black', R: 'Red', G: 'Green' };
+    for (var seat = 1; seat < NUM_SEATS; seat++) {
+        var deck = botDeckResults[seat];
+        if (!deck) continue;
+        var panel = document.createElement('div');
+        panel.style.cssText = 'background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:1.25rem;';
+
+        var colorStr = '';
+        if (deck.lands) {
+            var landNames = [];
+            if (deck.lands.plains > 0) landNames.push(deck.lands.plains + ' Plains');
+            if (deck.lands.island > 0) landNames.push(deck.lands.island + ' Island');
+            if (deck.lands.swamp > 0) landNames.push(deck.lands.swamp + ' Swamp');
+            if (deck.lands.mountain > 0) landNames.push(deck.lands.mountain + ' Mountain');
+            if (deck.lands.forest > 0) landNames.push(deck.lands.forest + ' Forest');
+            colorStr = landNames.join(', ');
+        }
+
+        var mainCount = deck.maindeck ? deck.maindeck.length : 0;
+        var landTotal = deck.lands ? (deck.lands.plains + deck.lands.island + deck.lands.swamp + deck.lands.mountain + deck.lands.forest) : 0;
+
+        panel.innerHTML = '<h3 style="font-size:1rem;margin-bottom:0.5rem;font-family:Space Grotesk,sans-serif;">Bot ' + seat + '</h3>' +
+            '<div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;">' + mainCount + ' spells + ' + landTotal + ' lands = ' + (mainCount + landTotal) + ' cards</div>' +
+            '<div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.75rem;">' + colorStr + '</div>' +
+            '<div class="bot-deck-cards" style="display:flex;flex-wrap:wrap;gap:3px;"></div>';
+
+        if (deck.maindeck) {
+            var cardsDiv = panel.querySelector('.bot-deck-cards');
+            deck.maindeck.forEach(function(card) {
+                var imgs = imgLookup[card.name];
+                var imgUrl = (card.image_small) || (imgs && imgs.small) || '';
+                var img = document.createElement('div');
+                img.style.cssText = 'width:40px;height:56px;border-radius:2px;overflow:hidden;';
+                img.title = card.name + ' (' + (card.mana_cost || 'land') + ')';
+                img.innerHTML = '<img src="' + imgUrl + '" alt="' + card.name + '" style="width:100%;height:100%;object-fit:cover;" loading="lazy">';
+                cardsDiv.appendChild(img);
+            });
+        }
+
+        grid.appendChild(panel);
+    }
 }
 
 // ── Settings toggle listener ──

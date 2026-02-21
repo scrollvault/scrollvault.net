@@ -221,6 +221,57 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
 .pool-stats .color-bar { height: 12px; border-radius: 2px; min-width: 3px; }
 .pool-stats .bombs-list { color: #e8b931; font-size: 0.8rem; }
 
+/* ── Pack Opening Ceremony ── */
+.pack-opening { display: none; margin-bottom: 2rem; }
+.pack-opening.visible { display: block; }
+.po-title { font-size: 1.5rem; margin-bottom: 0.25rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.po-subtitle { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+.packs-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.pack-wrapper { width: 120px; height: 168px; background: linear-gradient(145deg, #2a1f3d, #1a1025); border: 2px solid rgba(168,85,247,0.3); border-radius: 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; position: relative; }
+.pack-wrapper:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(168,85,247,0.4); border-color: #a855f7; }
+.pack-wrapper .pack-icon { width: 36px; height: 36px; filter: invert(1) brightness(0.8); }
+.pack-wrapper .pack-num { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); font-family: 'Space Grotesk', sans-serif; }
+.pack-wrapper.opened { opacity: 0.4; pointer-events: none; border-color: rgba(52,211,153,0.4); }
+.pack-wrapper.opened::after { content: '\2713'; position: absolute; top: 8px; right: 10px; background: #34d399; color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; }
+.pack-reveal { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; min-height: 200px; margin-bottom: 1.5rem; }
+.pack-reveal .card-slot { animation: revealCard 0.3s ease both; }
+@keyframes revealCard { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.pack-reveal .card-slot.is-mythic { animation: revealCard 0.3s ease both; box-shadow: 0 0 0 2px #f97316, 0 0 12px rgba(249,115,22,0.5); }
+.pack-reveal .card-slot.is-rare { animation: revealCard 0.3s ease both; box-shadow: 0 0 0 2px #eab308, 0 0 10px rgba(234,179,8,0.4); }
+.po-continue { margin: 1rem auto 0; display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 768px) {
+    .packs-row { gap: 0.75rem; }
+    .pack-wrapper { width: 100px; height: 140px; }
+    .pack-reveal { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+}
+
+/* ── Color Filters ── */
+.color-filters { display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center; }
+.color-filter { width: auto; min-width: 32px; height: 32px; border-radius: 16px; border: 2px solid transparent; background: var(--card-bg); color: var(--text-secondary); font-size: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.15s; padding: 0 0.5rem; display: flex; align-items: center; justify-content: center; }
+.color-filter.cf-mana { width: 32px; padding: 0; border-radius: 50%; }
+.color-filter:hover { border-color: rgba(168,85,247,0.5); }
+.color-filter.active { border-color: #a855f7; box-shadow: 0 0 8px rgba(168,85,247,0.4); }
+
+/* ── Tooltip ── */
+.card-tooltip { position: fixed; z-index: 2000; background: #222; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.75rem; max-width: 280px; pointer-events: none; opacity: 0; transition: opacity 0.15s ease; font-size: 0.8rem; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+.card-tooltip.visible { opacity: 1; }
+.card-tooltip .tt-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.card-tooltip .tt-cost { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 0.25rem; }
+.card-tooltip .tt-type { color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.4rem; }
+.card-tooltip .tt-oracle { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.5; }
+.card-tooltip .tt-pt { color: var(--text-primary); font-weight: 600; font-size: 0.8rem; margin-top: 0.4rem; text-align: right; }
+.card-tooltip .tt-rating { color: #a855f7; font-size: 0.7rem; margin-top: 0.25rem; }
+@media (hover: none) and (pointer: coarse) { .card-tooltip { display: none !important; } }
+
+/* ── Rarity Glow ── */
+.rarity-mythic { box-shadow: 0 0 0 2px #f97316, 0 0 12px rgba(249,115,22,0.5); }
+.rarity-rare { box-shadow: 0 0 0 2px #eab308, 0 0 10px rgba(234,179,8,0.4); }
+.rarity-uncommon { box-shadow: 0 0 0 1px #94a3b8, 0 0 8px rgba(148,163,184,0.25); }
+.card-slot.in-deck.rarity-mythic { box-shadow: 0 0 0 3px #a855f7, 0 0 0 5px #f97316, 0 4px 15px rgba(168,85,247,0.4); }
+.card-slot.in-deck.rarity-rare { box-shadow: 0 0 0 3px #a855f7, 0 0 0 5px #eab308, 0 4px 15px rgba(168,85,247,0.4); }
+.card-slot.in-deck.rarity-uncommon { box-shadow: 0 0 0 3px #a855f7, 0 0 0 5px #94a3b8, 0 4px 15px rgba(168,85,247,0.4); }
+
 /* ── FAQ Section ── */
 .faq-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--card-border); }
 .faq-section h2 { font-size: 1.5rem; margin-bottom: 1.5rem; background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -302,6 +353,15 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
             </div>
         </div>
 
+        <!-- Screen 1.5: Pack Opening Ceremony -->
+        <div class="pack-opening" id="packOpening">
+            <h2 class="po-title">Your Sealed Pool</h2>
+            <p class="po-subtitle">Click each pack to open it</p>
+            <div class="packs-row" id="packsRow"></div>
+            <div class="pack-reveal" id="packReveal"></div>
+            <button class="btn-primary po-continue" id="continueBtn" style="display:none;" onclick="continueToDeckBuilding()">Continue to Deck Building &rarr;</button>
+        </div>
+
         <!-- Screen 2: Pool View -->
         <div class="pool-section" id="poolSection">
             <div class="pool-controls">
@@ -312,14 +372,26 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
                     <button class="btn-secondary" data-sort="cmc" onclick="sortPool('cmc')">CMC</button>
                     <button class="btn-secondary" data-sort="rarity" onclick="sortPool('rarity')">Rarity</button>
                 </div>
+                <div class="color-filters" id="colorFilters">
+                    <button class="color-filter active" data-color="all" onclick="filterPool('all')">All</button>
+                    <button class="color-filter cf-mana" data-color="W" onclick="filterPool('W')" style="background:var(--color-W);color:#333;">W</button>
+                    <button class="color-filter cf-mana" data-color="U" onclick="filterPool('U')" style="background:var(--color-U);color:#fff;">U</button>
+                    <button class="color-filter cf-mana" data-color="B" onclick="filterPool('B')" style="background:var(--color-B);color:#fff;border:1px solid rgba(255,255,255,0.3);">B</button>
+                    <button class="color-filter cf-mana" data-color="R" onclick="filterPool('R')" style="background:var(--color-R);color:#fff;">R</button>
+                    <button class="color-filter cf-mana" data-color="G" onclick="filterPool('G')" style="background:var(--color-G);color:#fff;">G</button>
+                    <button class="color-filter" data-color="M" onclick="filterPool('M')">Multi</button>
+                    <button class="color-filter" data-color="C" onclick="filterPool('C')">C</button>
+                </div>
             </div>
             <div class="pool-stats" id="poolStats" style="display:none;"></div>
             <div class="action-bar">
                 <button class="btn-secondary" onclick="autoBuildDeck()">Auto-Build Deck</button>
+                <button class="btn-secondary" onclick="optimizeWithWasm()" id="wasmOptBtn" style="display:none;">Optimize with AI</button>
                 <button class="btn-secondary" onclick="exportToArena()">Export to Arena</button>
                 <button class="btn-secondary" onclick="resetDeck()">Clear Deck</button>
                 <button class="btn-secondary" onclick="newPool()">New Pool</button>
             </div>
+            <div id="wasmOptResult" style="display:none;margin-bottom:1rem;padding:0.75rem 1rem;background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;font-size:0.85rem;color:var(--text-secondary);"></div>
             <div class="pool-grid" id="poolGrid"></div>
         </div>
 
@@ -431,6 +503,16 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
     </div>
 </main>
 
+<!-- Tooltip (desktop only) -->
+<div class="card-tooltip" id="cardTooltip">
+    <div class="tt-name"></div>
+    <div class="tt-cost"></div>
+    <div class="tt-type"></div>
+    <div class="tt-oracle"></div>
+    <div class="tt-pt"></div>
+    <div class="tt-rating"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <footer>
@@ -461,6 +543,9 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding: 2rem 0 3rem; }
    Sealed Pool Simulator — ScrollVault
    Pre-cached data from /draft/data/ with Scryfall fallback
    ========================================================= */
+
+// ── Touch Detection ──
+const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
 // ── Scryfall rate-limit helper (fallback only) ──
 const SCRYFALL_DELAY = 100;
@@ -560,6 +645,9 @@ let deckSet = new Set();
 let basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
 let currentSort = 'color';
 let usingCachedData = false;
+let activeFilters = new Set(['all']);
+let generatedPacks = []; // 6 arrays of ~14 cards each
+let packsOpened = 0;
 
 // ── DOM refs ──
 const setSelect = document.getElementById('setSelect');
@@ -577,6 +665,10 @@ const deckCountEl = document.getElementById('deckCount');
 const deckCounter = document.getElementById('deckCounter');
 const setSelection = document.getElementById('setSelection');
 const poolStatsEl = document.getElementById('poolStats');
+const packOpening = document.getElementById('packOpening');
+const packsRow = document.getElementById('packsRow');
+const packReveal = document.getElementById('packReveal');
+const continueBtn = document.getElementById('continueBtn');
 
 // ── Init: Load sets (pre-cached first, then Scryfall for extras) ──
 (async function init() {
@@ -692,9 +784,12 @@ async function openPacks() {
 
         // Generate 6 boosters
         pool = [];
+        generatedPacks = [];
+        packsOpened = 0;
         const usedRares = new Set();
         for (let i = 0; i < 6; i++) {
             const booster = generateBooster(cards, usedRares);
+            generatedPacks.push(booster);
             pool.push(...booster);
         }
 
@@ -707,18 +802,12 @@ async function openPacks() {
         updateLandDisplay();
 
         hideLoading();
-        poolSection.classList.add('visible');
-        builderSection.classList.add('visible');
-        currentSort = 'color';
-        document.querySelectorAll('.sort-buttons .btn-secondary').forEach(b => {
-            b.classList.toggle('active', b.dataset.sort === 'color');
-        });
-        renderPool();
-        renderPoolStats();
-        renderDeck();
-        updateDeckCounter();
-        updateCurve();
-        poolSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Show pack opening ceremony
+        packOpening.classList.add('visible');
+        continueBtn.style.display = 'none';
+        renderPackWrappers();
+        packOpening.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (e) {
         hideLoading();
         openPacksBtn.disabled = false;
@@ -742,6 +831,10 @@ async function fetchScryfallCards(code) {
         name: c.name, rarity: c.rarity, cmc: c.cmc || 0,
         colors: getCardColors(c), type_line: c.type_line || '',
         mana_cost: c.mana_cost || '', rating: 0,
+        oracle_text: c.oracle_text || (c.card_faces ? c.card_faces[0].oracle_text : '') || '',
+        power: c.power || null,
+        toughness: c.toughness || null,
+        loyalty: c.loyalty || null,
         image_uris: c.image_uris ? { normal: c.image_uris.normal } : null,
         card_faces: c.card_faces ? c.card_faces.map(f => ({
             colors: f.colors || [],
@@ -973,6 +1066,34 @@ function getSortedIndices() {
     return indices;
 }
 
+// ── Color Filtering ──
+function filterPool(color) {
+    if (color === 'all') {
+        activeFilters = new Set(['all']);
+    } else {
+        activeFilters.delete('all');
+        if (activeFilters.has(color)) activeFilters.delete(color);
+        else activeFilters.add(color);
+        if (activeFilters.size === 0) activeFilters = new Set(['all']);
+    }
+    document.querySelectorAll('#colorFilters .color-filter').forEach(btn => {
+        btn.classList.toggle('active', activeFilters.has(btn.dataset.color));
+    });
+    renderPool();
+}
+
+function cardMatchesFilter(card) {
+    if (activeFilters.has('all')) return true;
+    const colors = card.colors || [];
+    const cardIsLand = isLand(card);
+    if (activeFilters.has('C') && colors.length === 0 && !cardIsLand) return true;
+    if (activeFilters.has('M') && colors.length > 1) return true;
+    for (const c of colors) {
+        if (activeFilters.has(c)) return true;
+    }
+    return false;
+}
+
 // ── Rendering ──
 function renderPool() {
     const sorted = getSortedIndices();
@@ -982,6 +1103,7 @@ function renderPool() {
         const card = pool[idx];
         const slot = createCardSlot(card, idx);
         if (deckSet.has(idx)) slot.classList.add('in-deck');
+        if (!cardMatchesFilter(card)) slot.style.display = 'none';
         poolGrid.appendChild(slot);
     });
 }
@@ -1006,7 +1128,13 @@ function createCardSlot(card, idx) {
         ph.className = 'card-placeholder'; ph.textContent = card.name;
         slot.appendChild(ph);
     }
+    slot.classList.add('rarity-' + (card.rarity || 'common'));
     slot.addEventListener('click', () => toggleCard(idx));
+    if (!isTouchDevice) {
+        slot.addEventListener('mouseenter', (e) => showTooltip(card, e));
+        slot.addEventListener('mousemove', (e) => moveTooltip(e));
+        slot.addEventListener('mouseleave', hideTooltip);
+    }
     slot.title = card.name + ' (' + card.rarity + ')';
     return slot;
 }
@@ -1089,13 +1217,97 @@ function resetDeck() {
 function newPool() {
     poolSection.classList.remove('visible');
     builderSection.classList.remove('visible');
+    packOpening.classList.remove('visible');
     poolStatsEl.style.display = 'none';
     poolGrid.innerHTML = ''; deckGrid.innerHTML = '';
     pool = []; deckSet.clear();
+    generatedPacks = []; packsOpened = 0;
+    activeFilters = new Set(['all']);
+    document.querySelectorAll('#colorFilters .color-filter').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.color === 'all');
+    });
     basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
     updateLandDisplay();
     openPacksBtn.disabled = false;
     setSelection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Pack Opening Ceremony ──
+function renderPackWrappers() {
+    packsRow.innerHTML = '';
+    const iconUrl = setIcon.src || '';
+    for (let i = 0; i < 6; i++) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'pack-wrapper';
+        wrapper.innerHTML = (iconUrl ? '<img class="pack-icon" src="' + iconUrl + '" alt="" onerror="this.style.display=\'none\'">' : '') +
+            '<span class="pack-num">Pack ' + (i + 1) + '</span>';
+        wrapper.addEventListener('click', () => openSinglePack(i));
+        packsRow.appendChild(wrapper);
+    }
+}
+
+function openSinglePack(packIdx) {
+    const wrappers = packsRow.querySelectorAll('.pack-wrapper');
+    if (wrappers[packIdx].classList.contains('opened')) return;
+    wrappers[packIdx].classList.add('opened');
+
+    // Clear reveal area and show this pack's cards
+    packReveal.innerHTML = '';
+    const packCards = generatedPacks[packIdx];
+    packCards.forEach((card, i) => {
+        const slot = document.createElement('div');
+        slot.className = 'card-slot';
+        slot.style.animationDelay = (i * 30) + 'ms';
+        if (card.rarity === 'mythic') slot.classList.add('is-mythic');
+        else if (card.rarity === 'rare') slot.classList.add('is-rare');
+        const imgUrl = getImageUri(card);
+        if (imgUrl) {
+            const img = document.createElement('img');
+            img.src = imgUrl; img.alt = card.name; img.loading = 'lazy';
+            img.onerror = function() {
+                this.style.display = 'none';
+                const ph = document.createElement('div');
+                ph.className = 'card-placeholder'; ph.textContent = card.name;
+                slot.appendChild(ph);
+            };
+            slot.appendChild(img);
+        } else {
+            const ph = document.createElement('div');
+            ph.className = 'card-placeholder'; ph.textContent = card.name;
+            slot.appendChild(ph);
+        }
+        if (!isTouchDevice) {
+            slot.addEventListener('mouseenter', (e) => showTooltip(card, e));
+            slot.addEventListener('mousemove', (e) => moveTooltip(e));
+            slot.addEventListener('mouseleave', hideTooltip);
+        }
+        packReveal.appendChild(slot);
+    });
+
+    packsOpened++;
+    if (packsOpened >= 6) {
+        continueBtn.style.display = '';
+    }
+}
+
+function continueToDeckBuilding() {
+    packOpening.classList.remove('visible');
+    poolSection.classList.add('visible');
+    builderSection.classList.add('visible');
+    currentSort = 'color';
+    activeFilters = new Set(['all']);
+    document.querySelectorAll('#colorFilters .color-filter').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.color === 'all');
+    });
+    document.querySelectorAll('.sort-buttons .btn-secondary').forEach(b => {
+        b.classList.toggle('active', b.dataset.sort === 'color');
+    });
+    renderPool();
+    renderPoolStats();
+    renderDeck();
+    updateDeckCounter();
+    updateCurve();
+    poolSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── Loading helpers ──
@@ -1109,6 +1321,156 @@ function updateLoading(text, progress) {
     if (progress) loadingProgress.textContent = progress;
 }
 function hideLoading() { loadingOverlay.classList.remove('visible'); }
+
+// ── Tooltip ──
+function showTooltip(card, e) {
+    const tip = document.getElementById('cardTooltip');
+    tip.querySelector('.tt-name').textContent = card.name;
+    tip.querySelector('.tt-cost').textContent = card.mana_cost || '';
+    tip.querySelector('.tt-type').textContent = card.type_line || '';
+    tip.querySelector('.tt-oracle').textContent = card.oracle_text || '';
+    let ptText = '';
+    if (card.power !== null && card.power !== undefined && card.toughness !== null && card.toughness !== undefined) {
+        ptText = card.power + '/' + card.toughness;
+    } else if (card.loyalty !== null && card.loyalty !== undefined) {
+        ptText = 'Loyalty: ' + card.loyalty;
+    }
+    tip.querySelector('.tt-pt').textContent = ptText;
+    let ratingText = (card.rating ? 'Rating: ' + card.rating.toFixed(1) + ' \u2022 ' : '') + (card.rarity || '');
+    if (card.gih_wr) ratingText += ' \u2022 ' + card.gih_wr + '% GIH WR';
+    tip.querySelector('.tt-rating').textContent = ratingText;
+    tip.classList.add('visible');
+    moveTooltip(e);
+}
+
+function moveTooltip(e) {
+    const tip = document.getElementById('cardTooltip');
+    const pad = 15;
+    let x = e.clientX + pad;
+    let y = e.clientY + pad;
+    const rect = tip.getBoundingClientRect();
+    if (x + 280 > window.innerWidth) x = e.clientX - 280 - pad;
+    if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - pad;
+    tip.style.left = x + 'px';
+    tip.style.top = y + 'px';
+}
+
+function hideTooltip() {
+    document.getElementById('cardTooltip').classList.remove('visible');
+}
+
+// ══════════════════════════════════════════
+// WASM Sealed Optimizer
+// ══════════════════════════════════════════
+var wasmSealedWorker = null;
+var wasmSealedReady = false;
+
+(function initSealedWorker() {
+    try {
+        wasmSealedWorker = new Worker('/tools/sealed/sealed-worker.js', { type: 'module' });
+        wasmSealedWorker.onmessage = function(e) {
+            var data = e.data;
+            if (data.type === 'ready') {
+                wasmSealedReady = true;
+                var btn = document.getElementById('wasmOptBtn');
+                if (btn) btn.style.display = '';
+                console.log('[Sealed] WASM worker ready');
+            } else if (data.type === 'complete') {
+                applySealedBuild(data.build);
+            } else if (data.type === 'error') {
+                console.warn('[Sealed WASM]', data.message);
+                showToast('Optimization failed: ' + data.message);
+            }
+        };
+        wasmSealedWorker.onerror = function(err) {
+            console.warn('[Sealed] WASM worker failed:', err.message);
+            wasmSealedWorker = null;
+        };
+    } catch (err) {
+        console.warn('[Sealed] Cannot create WASM worker:', err.message);
+    }
+})();
+
+function toDraftCard(card) {
+    return {
+        name: card.name || '',
+        mana_cost: card.mana_cost || '',
+        cmc: card.cmc || 0,
+        type_line: card.type_line || '',
+        colors: card.colors || [],
+        rarity: (card.rarity || 'common').toLowerCase(),
+        rating: card.rating || 0,
+        gih_wr: card.gih_wr || null,
+        power: card.power || null,
+        toughness: card.toughness || null,
+        keywords: card.keywords || []
+    };
+}
+
+function optimizeWithWasm() {
+    if (!wasmSealedWorker || !wasmSealedReady) {
+        showToast('WASM not available — use Auto-Build instead');
+        autoBuildDeck();
+        return;
+    }
+    if (pool.length === 0) return;
+
+    var draftCards = pool.map(toDraftCard);
+    wasmSealedWorker.postMessage({ type: 'optimize', pool: draftCards });
+    showToast('Optimizing sealed pool...');
+}
+
+function applySealedBuild(build) {
+    if (!build || !build.maindeck) {
+        showToast('Optimization returned no result');
+        return;
+    }
+
+    // Map maindeck card names back to pool indices
+    deckSet.clear();
+    var usedIndices = new Set();
+    build.maindeck.forEach(function(deckCard) {
+        for (var i = 0; i < pool.length; i++) {
+            if (!usedIndices.has(i) && pool[i].name === deckCard.name) {
+                deckSet.add(i);
+                usedIndices.add(i);
+                break;
+            }
+        }
+    });
+
+    // Apply land distribution
+    basicLands = { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 };
+    if (build.lands) {
+        basicLands.Plains = build.lands.plains || 0;
+        basicLands.Island = build.lands.island || 0;
+        basicLands.Swamp = build.lands.swamp || 0;
+        basicLands.Mountain = build.lands.mountain || 0;
+        basicLands.Forest = build.lands.forest || 0;
+    }
+
+    updateLandDisplay();
+    renderPool();
+    renderDeck();
+    updateDeckCounter();
+    updateCurve();
+
+    // Show result info
+    var colorNames = { W: 'White', U: 'Blue', B: 'Black', R: 'Red', G: 'Green' };
+    var colors = (build.colors || []).map(function(c) { return colorNames[c] || c; });
+    var totalLands = Object.values(basicLands).reduce(function(a, b) { return a + b; }, 0);
+    var info = 'AI Optimized: ' + deckSet.size + ' spells + ' + totalLands + ' lands';
+    if (colors.length > 0) info += ' (' + colors.join('/') + ')';
+    if (build.score) info += ' — Quality score: ' + build.score.toFixed(1);
+    if (build.creature_count) info += ' — ' + build.creature_count + ' creatures, ' + build.spell_count + ' non-creatures';
+
+    var resultEl = document.getElementById('wasmOptResult');
+    if (resultEl) {
+        resultEl.textContent = info;
+        resultEl.style.display = 'block';
+    }
+    showToast('AI optimization complete');
+}
 </script>
 </body>
 </html>
