@@ -3,13 +3,13 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://scrollvault.net/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/news/</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -180,6 +180,12 @@
     <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://scrollvault.net/posts/wizards-kills-mtgo-data-transparency.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://scrollvault.net/posts/leonardo-arena-preview-season-ninja-leak-response.html</loc>

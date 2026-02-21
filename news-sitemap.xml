@@ -3,59 +3,14 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://scrollvault.net/posts/leonardo-arena-preview-season-ninja-leak-response.html</loc>
+    <loc>https://scrollvault.net/posts/wizards-kills-mtgo-data-transparency.html</loc>
     <news:news>
       <news:publication>
         <news:name>ScrollVault</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-02-18T12:00:00Z</news:publication_date>
-      <news:title>Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak</news:title>
+      <news:publication_date>2026-02-20T12:00:00Z</news:publication_date>
+      <news:title>Wizards Kills MTGO Data Transparency With Brainstorm-Style Restriction</news:title>
     </news:news>
-    <image:image>
-      <image:loc>https://cards.scryfall.io/art_crop/front/d/6/d6bfa227-4309-40ed-952c-279595eab17e.jpg?1701690543</image:loc>
-      <image:title>Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://scrollvault.net/posts/sheoldreds-arena-dream-first-limited-championship-qualifier-announced.html</loc>
-    <news:news>
-      <news:publication>
-        <news:name>ScrollVault</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-02-18T12:00:00Z</news:publication_date>
-      <news:title>Sheoldred's Arena Dream: First Limited Championship Qualifier Announced</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://scrollvault.net/posts/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb.html</loc>
-    <news:news>
-      <news:publication>
-        <news:name>ScrollVault</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-02-17T12:00:00Z</news:publication_date>
-      <news:title>Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List</news:title>
-    </news:news>
-    <image:image>
-      <image:loc>https://cards.scryfall.io/art_crop/front/c/c/cc4bbbb5-4218-4b2a-9ca2-de4d5f5dda19.jpg?1562368244</image:loc>
-      <image:title>Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://scrollvault.net/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html</loc>
-    <news:news>
-      <news:publication>
-        <news:name>ScrollVault</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-02-17T12:00:00Z</news:publication_date>
-      <news:title>Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</news:title>
-    </news:news>
-    <image:image>
-      <image:loc>https://cards.scryfall.io/art_crop/front/1/7/17d1a10f-ce21-4914-9984-c7c559161230.jpg?1770634935</image:loc>
-      <image:title>Biorhythm Is Back: February 2026's Massive B&amp;R Update Shakes Everything</image:title>
-    </image:image>
   </url>
 </urlset>

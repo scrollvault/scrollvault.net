@@ -5,8 +5,16 @@
   <link>https://scrollvault.net</link>
   <description>The latest Magic: The Gathering news, strategy guides, deck techs, set reviews, and spoilers.</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 19 Feb 2026 06:24:53 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 21 Feb 2026 05:54:04 GMT</lastBuildDate>
   <atom:link href="https://scrollvault.net/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>Wizards Kills MTGO Data Transparency With Brainstorm-Style Restriction</title>
+    <link>https://scrollvault.net/posts/wizards-kills-mtgo-data-transparency.html</link>
+    <guid isPermaLink="true">https://scrollvault.net/posts/wizards-kills-mtgo-data-transparency.html</guid>
+    <pubDate>Fri, 20 Feb 2026 12:00:00 GMT</pubDate>
+    <category>News</category>
+    <description>Wizards just eliminated MTGO tournament data publication—no decklists, no win rates, no curated statistics. Competitive players are preparing blind for upcoming RCQs.</description>
+  </item>
   <item>
     <title>Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak</title>
     <link>https://scrollvault.net/posts/leonardo-arena-preview-season-ninja-leak-response.html</link>
@@ -158,14 +166,6 @@
     <pubDate>Sat, 07 Feb 2026 12:00:00 GMT</pubDate>
     <category>News</category>
     <description>Arena is finally getting Pioneer! Wizards just announced a curated Pioneer set with Nykthos Shrine to Nyx and Collected Company among the reprints. Modern players are already salivating.</description>
-  </item>
-  <item>
-    <title>Mana Crypt Finally Banned in Commander - The RC Actually Did Something</title>
-    <link>https://scrollvault.net/posts/mana-crypt-banned-commander-rc-update.html</link>
-    <guid isPermaLink="true">https://scrollvault.net/posts/mana-crypt-banned-commander-rc-update.html</guid>
-    <pubDate>Sat, 07 Feb 2026 12:00:00 GMT</pubDate>
-    <category>News</category>
-    <description>The Commander Rules Committee actually pulled the trigger. Mana Crypt is banned effective immediately, and the community is losing its collective mind. I've been saying this card needed to go for years - let's talk about what this means for the format.</description>
   </item>
 </channel>
 </rss>

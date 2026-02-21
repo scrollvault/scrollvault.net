@@ -14258,5 +14258,121 @@
   "three decks": {
     "name": "Three Decks",
     "not_found": true
+  },
+  "wizards kills": {
+    "name": "Wizards Kills",
+    "not_found": true
+  },
+  "wizards kills mtgo": {
+    "name": "Wizards Kills MTGO",
+    "not_found": true
+  },
+  "wizards kills mtgo data": {
+    "name": "Wizards Kills MTGO Data",
+    "not_found": true
+  },
+  "kills mtgo": {
+    "name": "Kills MTGO",
+    "not_found": true
+  },
+  "kills mtgo data": {
+    "name": "Kills MTGO Data",
+    "not_found": true
+  },
+  "kills mtgo data transparency": {
+    "name": "Kills MTGO Data Transparency",
+    "not_found": true
+  },
+  "mtgo data": {
+    "name": "MTGO Data",
+    "not_found": true
+  },
+  "mtgo data transparency": {
+    "name": "MTGO Data Transparency",
+    "not_found": true
+  },
+  "mtgo data transparency with": {
+    "name": "MTGO Data Transparency With",
+    "not_found": true
+  },
+  "data transparency": {
+    "name": "Data Transparency",
+    "not_found": true
+  },
+  "data transparency with": {
+    "name": "Data Transparency With",
+    "not_found": true
+  },
+  "data transparency with brainstorm-style": {
+    "name": "Data Transparency With Brainstorm-Style",
+    "not_found": true
+  },
+  "transparency with": {
+    "name": "Transparency With",
+    "not_found": true
+  },
+  "transparency with brainstorm-style": {
+    "name": "Transparency With Brainstorm-Style",
+    "not_found": true
+  },
+  "transparency with brainstorm-style restriction": {
+    "name": "Transparency With Brainstorm-Style Restriction",
+    "not_found": true
+  },
+  "brainstorm-style restriction": {
+    "name": "Brainstorm-Style Restriction",
+    "not_found": true
+  },
+  "brainstorm-style restriction wizards": {
+    "name": "Brainstorm-Style Restriction Wizards",
+    "not_found": true
+  },
+  "restriction wizards": {
+    "name": "Restriction Wizards",
+    "not_found": true
+  },
+  "puzzle just": {
+    "name": "Puzzle Just",
+    "not_found": true
+  },
+  "puzzle just got": {
+    "name": "Puzzle Just Got",
+    "not_found": true
+  },
+  "puzzle just got harder": {
+    "name": "Puzzle Just Got Harder",
+    "not_found": true
+  },
+  "got harder": {
+    "name": "Got Harder",
+    "not_found": true
+  },
+  "got harder this": {
+    "name": "Got Harder This",
+    "not_found": true
+  },
+  "harder this": {
+    "name": "Harder This",
+    "not_found": true
+  },
+  "actually got": {
+    "name": "Actually Got",
+    "not_found": true
+  },
+  "actually got axed": {
+    "name": "Actually Got Axed",
+    "not_found": true
+  },
+  "actually got axed no": {
+    "name": "Actually Got Axed No",
+    "not_found": true
+  },
+  "got axed": {
+    "name": "Got Axed",
+    "not_found": true
+  },
+  "got axed no": {
+    "name": "Got Axed No",
+    "not_found": true
   }
 }
