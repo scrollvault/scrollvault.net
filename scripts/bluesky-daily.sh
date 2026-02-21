@@ -90,6 +90,45 @@ function pickHook(category) {
     return list[Math.floor(Math.random() * list.length)];
 }
 
+// Hashtag generation — category + format detection from title
+function buildHashtags(title, category) {
+    const tags = ['#MTG', '#MagicTheGathering'];
+
+    // Category tags
+    const catTags = {
+        'News': '#MTGNews',
+        'Strategy': '#MTGStrategy',
+        'Deck Guides': '#MTGDecks',
+        'Spoilers': '#MTGSpoilers',
+        'Set Reviews': '#MTGSpoilers'
+    };
+    if (catTags[category]) tags.push(catTags[category]);
+
+    // Format detection from title
+    const t = title.toLowerCase();
+    if (t.includes('arena')) tags.push('#MTGArena');
+    if (t.includes('modern')) tags.push('#MTGModern');
+    if (t.includes('pioneer')) tags.push('#MTGPioneer');
+    if (t.includes('standard')) tags.push('#MTGStandard');
+    if (t.includes('commander') || t.includes('edh')) tags.push('#MTGCommander');
+    if (t.includes('legacy')) tags.push('#MTGLegacy');
+    if (t.includes('draft')) tags.push('#MTGDraft');
+    if (t.includes('sealed') || t.includes('prerelease')) tags.push('#MTGSealed');
+    if (t.includes('pauper')) tags.push('#MTGPauper');
+    if (t.includes('historic')) tags.push('#MTGArena');
+    if (t.includes('vintage')) tags.push('#MTGVintage');
+    if (t.includes('secret lair')) tags.push('#SecretLair');
+
+    // Set-specific tags
+    if (t.includes('tmnt') || t.includes('ninja turtle') || t.includes('teenage mutant')) tags.push('#MTGTMNT');
+    if (t.includes('aetherdrift')) tags.push('#MTGAetherdrift');
+    if (t.includes('foundations')) tags.push('#MTGFoundations');
+    if (t.includes('lorwyn')) tags.push('#MTGLorwyn');
+
+    // Deduplicate and limit to 4 tags max (Bluesky is feed-driven, fewer is better)
+    return [...new Set(tags)].slice(0, 4).join(' ');
+}
+
 // Priority 1: Today's article
 const todayPost = posts.find(p => p.date === '$TODAY');
 if (todayPost) {
@@ -100,6 +139,7 @@ if (todayPost) {
         excerpt: todayPost.excerpt,
         category: todayPost.category,
         hook: hook,
+        hashtags: buildHashtags(todayPost.title, todayPost.category),
         reason: 'today'
     }));
     process.exit(0);
@@ -117,6 +157,7 @@ if (neverPosted.length > 0) {
         excerpt: pick.excerpt,
         category: pick.category,
         hook: hook,
+        hashtags: buildHashtags(pick.title, pick.category),
         reason: 'never-posted'
     }));
     process.exit(0);
@@ -146,6 +187,7 @@ console.log(JSON.stringify({
     excerpt: pick.excerpt,
     category: pick.category,
     hook: hook,
+    hashtags: buildHashtags(pick.title, pick.category),
     reason: 'reshare'
 }));
 " 2>/dev/null)
@@ -159,17 +201,23 @@ SLUG=$(echo "$PICK" | jq -r '.slug')
 TITLE=$(echo "$PICK" | jq -r '.title')
 EXCERPT=$(echo "$PICK" | jq -r '.excerpt')
 HOOK=$(echo "$PICK" | jq -r '.hook')
+HASHTAGS=$(echo "$PICK" | jq -r '.hashtags')
 REASON=$(echo "$PICK" | jq -r '.reason')
 URL="https://scrollvault.net/posts/${SLUG}.html"
 
 log "Picked: $TITLE (reason: $REASON)"
+log "Hashtags: $HASHTAGS"
 
 # Build post text — keep under 300 chars
-# Format: Hook + title + excerpt snippet
+# Format: Hook + title + excerpt + hashtags
+# Reserve space for hashtags at the end (they go on their own line)
+HASHTAG_LEN=${#HASHTAGS}
+BUDGET=$((275 - HASHTAG_LEN))
+
 TEXT="${HOOK} ${TITLE}"
 
-# Add excerpt if we have room (300 char Bluesky limit)
-REMAINING=$((280 - ${#TEXT}))
+# Add excerpt if we have room
+REMAINING=$((BUDGET - ${#TEXT}))
 if [ $REMAINING -gt 30 ] && [ -n "$EXCERPT" ]; then
     SNIP=$(echo "$EXCERPT" | cut -c1-${REMAINING})
     # Don't cut mid-word
@@ -178,6 +226,11 @@ if [ $REMAINING -gt 30 ] && [ -n "$EXCERPT" ]; then
 
 ${SNIP}..."
 fi
+
+# Append hashtags
+TEXT="${TEXT}
+
+${HASHTAGS}"
 
 log "Posting: $TEXT"
 

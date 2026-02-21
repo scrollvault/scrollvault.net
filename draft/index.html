@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTG Draft Simulator — Practice Draft Against AI Bots Free | ScrollVault</title>
-    <meta name="description" content="Free MTG draft simulator with smart AI opponents. Practice drafting from 14+ real sets including Aetherdrift and Foundations. 3 packs, 14 cards, 7 AI drafters. Build your deck and export to Arena.">
+    <meta name="description" content="Free MTG draft simulator with smart AI opponents. Practice drafting TMNT, Aetherdrift, Foundations and 15+ real sets. 3 packs, 14 cards, 7 AI drafters. Build your deck and export to Arena.">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="MTG Draft Simulator — Practice Draft Against AI Bots Free">
     <meta property="og:description" content="Free MTG draft simulator with smart AI opponents. Practice drafting from 14+ real sets. Build your deck and export to Arena.">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="ScrollVault">
     <meta property="og:url" content="https://scrollvault.net/draft/">
     <meta property="og:image" content="https://scrollvault.net/og-default.png">
@@ -219,9 +220,9 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
 /* Mana curve histogram */
 .curve-section { margin-bottom: 2rem; }
 .curve-section h3 { font-size: 1rem; margin-bottom: 1rem; }
-.histogram { display: flex; align-items: flex-end; gap: 6px; height: 100px; padding: 0 1rem; }
+.histogram { display: flex; align-items: flex-end; gap: 6px; height: 120px; padding: 0 1rem; }
 .histo-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 60px; }
-.histo-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 0; transition: height 0.3s ease; }
+.histo-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 0; transition: height 0.3s ease; background: var(--gradient-purple); position: relative; z-index: 1; }
 .histo-label { font-size: 0.7rem; color: var(--text-muted); }
 .histo-count { font-size: 0.7rem; color: var(--text-secondary); }
 
@@ -329,6 +330,225 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
     .pack-card.selected { transform: scale(1.04); box-shadow: 0 0 20px rgba(168,85,247,0.5); z-index: 10; }
     .pool-mini-card:hover { transform: none; z-index: auto; }
 }
+
+/* ── Feature 1: Pack Card Entrance Animation ── */
+@keyframes packReveal {
+    from { opacity: 0; transform: translateY(12px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pack-card.pack-entering { opacity: 0; animation: packReveal 0.32s ease forwards; }
+
+/* ── Feature 2: Pack Transition Banner ── */
+@keyframes bannerSlide {
+    0% { opacity: 0; transform: translate(-50%, -20px); }
+    15% { opacity: 1; transform: translate(-50%, 0); }
+    80% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+.pack-transition {
+    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+    background: rgba(30,30,30,0.95); border: 1px solid rgba(168,85,247,0.4);
+    border-radius: 10px; padding: 0.6rem 1.5rem; z-index: 1200;
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600;
+    color: #e2e2e2; text-align: center; pointer-events: none;
+    animation: bannerSlide 0.8s ease forwards;
+    box-shadow: 0 4px 24px rgba(168,85,247,0.25);
+}
+
+/* ── Feature 3: Draft Complete Celebration ── */
+@keyframes celebShimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+@keyframes celebPulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    40% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.draft-complete-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+    z-index: 1300; display: none; align-items: center; justify-content: center; flex-direction: column;
+}
+.draft-complete-overlay.visible { display: flex; }
+.draft-complete-overlay h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700;
+    background: linear-gradient(90deg, #ffd700, #ffaa00, #ffd700, #fff5cc, #ffd700);
+    background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    animation: celebShimmer 1.8s linear infinite, celebPulse 0.6s ease forwards;
+}
+.draft-complete-overlay .celeb-stats {
+    color: var(--text-secondary); font-size: 1rem; margin-top: 0.75rem;
+    animation: celebPulse 0.6s ease 0.2s forwards; opacity: 0;
+}
+
+/* ── Feature 4: Color Signal Dots ── */
+.draft-signals { display: none; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border-radius: 6px; }
+.draft-signals.visible { display: flex; }
+.draft-signals-label { font-size: 0.65rem; color: var(--text-muted); margin-right: 0.25rem; }
+.signal-dot {
+    width: 18px; height: 18px; border-radius: 50%; position: relative;
+    border: 1.5px solid rgba(255,255,255,0.15); transition: all 0.3s ease;
+}
+.signal-dot .signal-fill {
+    position: absolute; inset: 2px; border-radius: 50%;
+    opacity: 0.15; transition: opacity 0.3s ease;
+}
+.signal-dot.open { box-shadow: 0 0 6px 2px rgba(255,215,0,0.4); border-color: rgba(255,215,0,0.5); }
+.signal-fill-W { background: var(--color-W); }
+.signal-fill-U { background: var(--color-U); }
+.signal-fill-B { background: #6b5b3a; }
+.signal-fill-R { background: var(--color-R); }
+.signal-fill-G { background: var(--color-G); }
+
+/* ── Feature 5: Draft Stats in Pool Sidebar ── */
+.pool-draft-stats { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.75rem; font-size: 0.75rem; color: var(--text-muted); }
+
+/* ── Feature 6: Card Rating Display ── */
+.entry-rating {
+    font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;
+    flex-shrink: 0; margin-left: auto; margin-right: 0.25rem;
+}
+.rating-good { background: rgba(34,197,94,0.2); color: #4ade80; }
+.rating-ok { background: rgba(234,179,8,0.2); color: #facc15; }
+.rating-bad { background: rgba(239,68,68,0.2); color: #f87171; }
+
+/* ── Feature 7: Sort Toggle Buttons ── */
+.builder-sort-buttons { display: flex; gap: 0.25rem; align-items: center; }
+.sort-label { font-size: 0.7rem; color: var(--text-muted); margin-right: 0.25rem; }
+.sort-btn {
+    padding: 0.3rem 0.6rem; font-size: 0.7rem; font-weight: 600; font-family: inherit;
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 4px;
+    color: var(--text-muted); cursor: pointer; transition: all 0.15s ease;
+}
+.sort-btn:hover { border-color: rgba(168,85,247,0.4); color: var(--text-secondary); }
+.sort-btn.active { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.5); color: var(--text-primary); }
+
+/* ── Feature 8: Sideboard Button ── */
+.entry-sb-btn {
+    font-size: 0.6rem; font-weight: 700; font-family: inherit;
+    padding: 1px 4px; border-radius: 3px; cursor: pointer;
+    background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3);
+    color: #c4b5fd; flex-shrink: 0; opacity: 0; transition: opacity 0.15s ease;
+}
+.deck-card-entry:hover .entry-sb-btn { opacity: 1; }
+.deck-card-entry.sideboarded .entry-sb-btn { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); color: #86efac; }
+@media (hover: none) and (pointer: coarse) {
+    .entry-sb-btn { opacity: 0.6; }
+}
+
+/* ── Deck Lightbox ── */
+.deck-lightbox-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2500;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+}
+.deck-lightbox-overlay.visible { opacity: 1; pointer-events: auto; }
+.deck-lightbox {
+    position: fixed; z-index: 2600; background: #1e1e1e;
+    border: 1px solid rgba(255,255,255,0.12); overflow-y: auto;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.25s ease;
+}
+.deck-lightbox.visible { opacity: 1; pointer-events: auto; }
+/* Desktop: centered modal */
+@media (hover: hover) and (pointer: fine) {
+    .deck-lightbox {
+        top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95);
+        border-radius: 12px; width: 560px; max-width: 94vw; max-height: 85vh;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+    }
+    .deck-lightbox.visible { transform: translate(-50%, -50%) scale(1); }
+}
+/* Mobile: bottom sheet */
+@media (hover: none) and (pointer: coarse) {
+    .deck-lightbox {
+        bottom: 0; left: 0; right: 0; transform: translateY(100%);
+        border-radius: 16px 16px 0 0; max-height: 80vh;
+    }
+    .deck-lightbox.visible { transform: translateY(0); }
+}
+.deck-lightbox-close {
+    position: absolute; top: 10px; right: 12px; width: 32px; height: 32px;
+    border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08); color: var(--text-secondary);
+    font-size: 1.1rem; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; z-index: 1; transition: all 0.15s ease;
+}
+.deck-lightbox-close:hover { background: rgba(255,255,255,0.15); color: var(--text-primary); }
+.deck-lightbox-handle { width: 36px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; margin: 10px auto 8px; display: none; }
+@media (hover: none) and (pointer: coarse) { .deck-lightbox-handle { display: block; } }
+/* Desktop prev/next arrows (outside body) */
+.deck-lightbox-nav {
+    position: absolute; top: 50%; width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08);
+    color: var(--text-secondary); font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transform: translateY(-50%);
+    transition: all 0.15s ease; z-index: 1;
+}
+.deck-lightbox-nav:hover { background: rgba(255,255,255,0.15); color: var(--text-primary); }
+.deck-lightbox-nav:disabled { opacity: 0.3; cursor: default; }
+.deck-lightbox-nav.dl-prev { left: 12px; }
+.deck-lightbox-nav.dl-next { right: 12px; }
+@media (hover: none) and (pointer: coarse) { .deck-lightbox-nav { display: none; } }
+/* Mobile inline nav row */
+.deck-lightbox-nav-row { display: none; justify-content: center; gap: 1.5rem; padding: 0.5rem 0 0; }
+@media (hover: none) and (pointer: coarse) { .deck-lightbox-nav-row { display: flex; } }
+.deck-lightbox-nav-row button {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08);
+    color: var(--text-secondary); font-size: 1.2rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.15s ease;
+}
+.deck-lightbox-nav-row button:hover { background: rgba(255,255,255,0.15); color: var(--text-primary); }
+.deck-lightbox-nav-row button:disabled { opacity: 0.3; cursor: default; }
+/* Body layout */
+.deck-lightbox-body { display: flex; gap: 1.25rem; padding: 1.25rem; align-items: flex-start; }
+@media (hover: none) and (pointer: coarse) {
+    .deck-lightbox-body { flex-direction: column; align-items: center; padding: 0.75rem 1rem 1rem; }
+}
+.deck-lightbox-img { flex-shrink: 0; border-radius: 6px; overflow: hidden; }
+@media (hover: hover) and (pointer: fine) { .deck-lightbox-img { width: 220px; } }
+@media (hover: none) and (pointer: coarse) { .deck-lightbox-img { width: 160px; } }
+.deck-lightbox-img img { width: 100%; display: block; border-radius: 6px; }
+.deck-lightbox-info { flex: 1; min-width: 0; }
+.dl-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.15rem; margin-bottom: 0.25rem; }
+.dl-cost { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.2rem; }
+.dl-type { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--card-border); }
+.dl-oracle { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.5rem; white-space: pre-line; }
+.dl-pt { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.dl-rating { color: #a855f7; font-size: 0.8rem; margin-bottom: 0.75rem; }
+.deck-lightbox-actions { margin-top: 0.5rem; }
+.dl-sb-btn {
+    padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem;
+    font-family: inherit; cursor: pointer; transition: all 0.15s ease;
+    background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4); color: #c4b5fd;
+}
+.dl-sb-btn:hover { background: rgba(168,85,247,0.25); border-color: rgba(168,85,247,0.6); }
+.dl-sb-btn.in-sideboard { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.4); color: #86efac; }
+.dl-sb-btn.in-sideboard:hover { background: rgba(34,197,94,0.25); border-color: rgba(34,197,94,0.6); }
+.stat-hint { color: var(--text-muted); font-size: 0.8rem; }
+
+/* ── Feature 9: Ideal Curve Overlay ── */
+.histo-bar-area { position: relative; width: 100%; height: 80px; display: flex; align-items: flex-end; }
+.histo-ideal {
+    position: absolute; bottom: 0; left: -2px; right: -2px;
+    border: 1.5px dashed rgba(255,255,255,0.18); border-bottom: none;
+    border-radius: 3px 3px 0 0; pointer-events: none; transition: height 0.3s ease;
+}
+
+/* ── Feature 10: Deck Quality Feedback ── */
+.deck-feedback { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+.feedback-item {
+    font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.6rem;
+    border-radius: 12px; display: inline-block;
+}
+.feedback-item.warn { background: rgba(234,179,8,0.15); color: #fbbf24; }
+.feedback-item.good { background: rgba(34,197,94,0.15); color: #4ade80; }
+
+@media (max-width: 600px) {
+    .draft-complete-overlay h2 { font-size: 1.75rem; }
+    .draft-signals { gap: 0.35rem; }
+    .signal-dot { width: 15px; height: 15px; }
+    .builder-sort-buttons { width: 100%; justify-content: center; }
+}
     </style>
 </head>
 <body>
@@ -393,6 +613,15 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
                             <h3>Your Picks</h3>
                             <span class="pool-count" id="poolCount">0 cards</span>
                         </div>
+                        <div class="draft-signals" id="draftSignals">
+                            <span class="draft-signals-label">Signals</span>
+                            <div class="signal-dot" data-color="W"><div class="signal-fill signal-fill-W"></div></div>
+                            <div class="signal-dot" data-color="U"><div class="signal-fill signal-fill-U"></div></div>
+                            <div class="signal-dot" data-color="B"><div class="signal-fill signal-fill-B"></div></div>
+                            <div class="signal-dot" data-color="R"><div class="signal-fill signal-fill-R"></div></div>
+                            <div class="signal-dot" data-color="G"><div class="signal-fill signal-fill-G"></div></div>
+                        </div>
+                        <div class="pool-draft-stats" id="poolDraftStats"></div>
                         <div class="pool-colors" id="poolColors">
                             <!-- Populated by JS -->
                         </div>
@@ -424,6 +653,12 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
                         <button class="btn" onclick="draftAgain()">Draft Again</button>
                         <button class="btn" onclick="changeSet()">Change Set</button>
                     </div>
+                    <div class="builder-sort-buttons">
+                        <span class="sort-label">Sort:</span>
+                        <button class="sort-btn active" data-sort="cmc" onclick="sortBuilderBy('cmc')">CMC</button>
+                        <button class="sort-btn" data-sort="rating" onclick="sortBuilderBy('rating')">Rating</button>
+                        <button class="sort-btn" data-sort="name" onclick="sortBuilderBy('name')">Name</button>
+                    </div>
                 </div>
 
                 <div class="color-filters" id="builderColorFilters">
@@ -442,8 +677,9 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
                     <span class="stat"><strong id="statSpells">0</strong> spells</span>
                     <span class="stat"><strong id="statLands">0</strong> lands</span>
                     <span class="stat"><strong id="statSide">0</strong> sideboard</span>
-                    <span class="stat" style="color: var(--text-muted); font-size:0.8rem;">Click a card to move it to sideboard</span>
+                    <span class="stat stat-hint">Click card for details · SB to sideboard</span>
                 </div>
+                <div class="deck-feedback" id="deckFeedback"></div>
 
                 <!-- Lands -->
                 <div class="lands-section">
@@ -566,6 +802,39 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); }
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
+    <!-- Deck Lightbox -->
+    <div class="deck-lightbox-overlay" id="deckLightboxOverlay"></div>
+    <div class="deck-lightbox" id="deckLightbox">
+        <div class="deck-lightbox-handle"></div>
+        <button class="deck-lightbox-close" id="dlClose">&times;</button>
+        <button class="deck-lightbox-nav dl-prev" id="dlPrevDesktop">&#8249;</button>
+        <button class="deck-lightbox-nav dl-next" id="dlNextDesktop">&#8250;</button>
+        <div class="deck-lightbox-body">
+            <div class="deck-lightbox-img"><img id="dlImg" src="" alt=""></div>
+            <div class="deck-lightbox-info">
+                <div class="dl-name" id="dlName"></div>
+                <div class="dl-cost" id="dlCost"></div>
+                <div class="dl-type" id="dlType"></div>
+                <div class="dl-oracle" id="dlOracle"></div>
+                <div class="dl-pt" id="dlPt"></div>
+                <div class="dl-rating" id="dlRating"></div>
+                <div class="deck-lightbox-actions">
+                    <button class="dl-sb-btn" id="dlSbBtn"></button>
+                </div>
+            </div>
+        </div>
+        <div class="deck-lightbox-nav-row">
+            <button id="dlPrevMobile">&#8249;</button>
+            <button id="dlNextMobile">&#8250;</button>
+        </div>
+    </div>
+
+    <!-- Draft Complete Celebration -->
+    <div class="draft-complete-overlay" id="draftCompleteOverlay">
+        <h2>Draft Complete!</h2>
+        <div class="celeb-stats" id="celebStats"></div>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -625,6 +894,11 @@ let lands = { W:0, U:0, B:0, R:0, G:0 };
 let draftInProgress = false;
 let showPickSuggestions = false;
 let activeBuilderFilters = new Set(['all']);
+let humanOpenSignals = { W:0, U:0, B:0, R:0, G:0 };
+let builderSortBy = 'cmc';
+let deckLightboxOpen = false;
+let deckLightboxList = [];
+let deckLightboxCurrent = -1;
 
 // ── Screens ──
 function showScreen(id) {
@@ -715,6 +989,9 @@ async function startDraft(setCode, btn) {
     currentPick = 0;
     draftInProgress = true;
     showPickSuggestions = document.getElementById('showSuggestions').checked;
+    humanOpenSignals = { W:0, U:0, B:0, R:0, G:0 };
+    builderSortBy = 'cmc';
+    deckLightboxOpen = false; deckLightboxList = []; deckLightboxCurrent = -1;
 
     // Init bots
     for (let i = 1; i < NUM_SEATS; i++) {
@@ -971,6 +1248,19 @@ function humanPick(cardIndex) {
     humanPool.push(card);
     updateHumanWeights(card);
 
+    // Track color signals: remaining high-rated cards late in pack indicate open colors
+    if (currentPick >= 5) {
+        pack.forEach(function(c) {
+            if (c.rating >= 3.0) {
+                c.colors.forEach(function(col) {
+                    if (humanOpenSignals[col] !== undefined) {
+                        humanOpenSignals[col] += (currentPick >= 9) ? 2 : 1;
+                    }
+                });
+            }
+        });
+    }
+
     // Animate pick
     const packGrid = document.getElementById('packGrid');
     const cardEls = packGrid.querySelectorAll('.pack-card');
@@ -994,17 +1284,38 @@ function advanceDraftState() {
         currentPick = 0;
 
         if (currentPack >= PACKS_PER_DRAFT) {
-            // Draft complete
+            // Draft complete — show celebration overlay
             draftInProgress = false;
+            var creatureCount = humanPool.filter(function(c) { return (c.type_line || '').toLowerCase().includes('creature'); }).length;
+            var overlay = document.getElementById('draftCompleteOverlay');
+            document.getElementById('celebStats').textContent = humanPool.length + ' cards picked \u00b7 ' + creatureCount + ' creatures';
+            overlay.classList.add('visible');
             setTimeout(function() {
+                overlay.classList.remove('visible');
                 showScreen('screenBuild');
                 renderDeckBuilder();
-            }, 400);
+            }, 2200);
             return;
         }
 
+        // Pack transition banner
+        var packNum = currentPack + 1;
+        var passDir = (currentPack % 2 === 0) ? 'Passing Left \u2192' : 'Passing Right \u2190';
+        var banner = document.createElement('div');
+        banner.className = 'pack-transition';
+        banner.textContent = 'Pack ' + packNum + ' \u2014 ' + passDir;
+        document.body.appendChild(banner);
+        setTimeout(function() { if (banner.parentNode) banner.parentNode.removeChild(banner); }, 900);
+
         // Preload next pack images
         preloadPackImages(currentPack);
+
+        // Slightly longer delay for pack transitions
+        setTimeout(function() {
+            renderCurrentPack();
+            renderPool();
+        }, 500);
+        return;
     } else {
         // Preload next pack's images in background
         if (currentPick === 0) {
@@ -1224,7 +1535,8 @@ function renderCurrentPack() {
 
     pack.forEach((card, i) => {
         const div = document.createElement('div');
-        div.className = 'pack-card rarity-' + (card.rarity || 'common');
+        div.className = 'pack-card rarity-' + (card.rarity || 'common') + ' pack-entering';
+        div.style.animationDelay = (i * 28) + 'ms';
         if (i === suggestedIdx) div.classList.add('suggested');
         let badge = '';
         if (i === suggestedIdx) badge = '<span class="suggestion-badge">TOP</span>';
@@ -1246,6 +1558,11 @@ function renderCurrentPack() {
         }
         grid.appendChild(div);
     });
+
+    // Remove entrance animation class after animations complete
+    setTimeout(function() {
+        grid.querySelectorAll('.pack-entering').forEach(function(el) { el.classList.remove('pack-entering'); });
+    }, pack.length * 28 + 320);
 
     // Preload next pack in background
     if (currentPick < CARDS_PER_PACK - 1) {
@@ -1365,6 +1682,10 @@ function renderPool() {
 
     // Update mini mana curve
     updateMiniCurve();
+
+    // Update draft signals and stats
+    renderDraftSignals();
+    renderDraftStats();
 }
 
 function updateMiniCurve() {
@@ -1383,6 +1704,40 @@ function updateMiniCurve() {
         bar.style.height = Math.max(2, h) + 'px';
         bar.querySelector('.curve-bar-count').textContent = counts[i] || '';
     });
+}
+
+// ── Draft Signal Dots ──
+function renderDraftSignals() {
+    var container = document.getElementById('draftSignals');
+    if (humanPool.length < 3) { container.classList.remove('visible'); return; }
+    container.classList.add('visible');
+
+    var maxWeight = Math.max.apply(null, MANA_COLORS.map(function(c) { return humanColorWeights[c]; })) || 1;
+    var maxSignal = Math.max.apply(null, MANA_COLORS.map(function(c) { return humanOpenSignals[c]; })) || 1;
+
+    container.querySelectorAll('.signal-dot').forEach(function(dot) {
+        var c = dot.dataset.color;
+        var commitment = humanColorWeights[c] / maxWeight;
+        var openness = humanOpenSignals[c] / maxSignal;
+        dot.querySelector('.signal-fill').style.opacity = Math.max(0.1, commitment * 0.9);
+        dot.classList.toggle('open', openness > 0.4 && humanOpenSignals[c] >= 2);
+    });
+}
+
+// ── Draft Stats (Creatures / Spells / Removal) ──
+function renderDraftStats() {
+    var el = document.getElementById('poolDraftStats');
+    if (humanPool.length === 0) { el.textContent = ''; return; }
+    var creatures = 0, removal = 0;
+    humanPool.forEach(function(card) {
+        var tl = (card.type_line || '').toLowerCase();
+        if (tl.includes('creature')) creatures++;
+        var oracle = (card.oracle_text || '').toLowerCase();
+        if (oracle.includes('destroy target') || oracle.includes('exile target') ||
+            oracle.match(/deals?\s+\d+\s+damage\s+to\s+(target|any)/)) removal++;
+    });
+    var noncreature = humanPool.length - creatures;
+    el.textContent = creatures + ' creatures \u00b7 ' + noncreature + ' noncreature \u00b7 ' + removal + ' removal';
 }
 
 // ── Mobile Preview ──
@@ -1556,8 +1911,16 @@ function renderDeckColumns() {
         groups[group].push({ card, index });
     });
 
-    // Sort by CMC within group
-    Object.values(groups).forEach(arr => arr.sort((a, b) => a.card.cmc - b.card.cmc || a.card.name.localeCompare(b.card.name)));
+    // Sort within group based on builderSortBy
+    Object.values(groups).forEach(function(arr) {
+        if (builderSortBy === 'rating') {
+            arr.sort(function(a, b) { return (b.card.rating || 0) - (a.card.rating || 0) || a.card.name.localeCompare(b.card.name); });
+        } else if (builderSortBy === 'name') {
+            arr.sort(function(a, b) { return a.card.name.localeCompare(b.card.name); });
+        } else {
+            arr.sort(function(a, b) { return a.card.cmc - b.card.cmc || a.card.name.localeCompare(b.card.name); });
+        }
+    });
 
     COLOR_ORDER.forEach(color => {
         if (groups[color].length === 0) return;
@@ -1577,12 +1940,25 @@ function renderDeckColumns() {
             entry.className = 'deck-card-entry';
             if (sideboardSet.has(index)) entry.classList.add('sideboarded');
             if (!cardMatchesBuilderFilter(card)) entry.style.display = 'none';
+
+            // Rating badge
+            var r = card.rating || 0;
+            var ratingClass = r >= 3.5 ? 'rating-good' : (r >= 2.5 ? 'rating-ok' : 'rating-bad');
+            var sbLabel = sideboardSet.has(index) ? 'MB' : 'SB';
+
             entry.innerHTML = `
                 <div class="entry-img"><img src="${card.image_small}" alt="${card.name}" loading="lazy"></div>
                 <span class="entry-name">${card.name}</span>
+                <span class="entry-rating ${ratingClass}">${r.toFixed(1)}</span>
                 <span class="entry-cmc">${card.cmc > 0 ? card.mana_cost : ''}</span>
+                <button class="entry-sb-btn" title="${sbLabel === 'SB' ? 'Move to sideboard' : 'Move to mainboard'}">${sbLabel}</button>
             `;
-            entry.addEventListener('click', () => toggleSideboard(index));
+
+            // SB button click handler (stopPropagation)
+            var sbBtn = entry.querySelector('.entry-sb-btn');
+            sbBtn.addEventListener('click', function(e) { e.stopPropagation(); toggleSideboard(index); });
+
+            entry.addEventListener('click', () => openDeckLightbox(index));
             if (!isTouchDevice) {
                 entry.addEventListener('mouseenter', (e) => showTooltip(card, e));
                 entry.addEventListener('mousemove', (e) => moveTooltip(e));
@@ -1594,6 +1970,151 @@ function renderDeckColumns() {
         container.appendChild(col);
     });
 }
+
+// ── Deck Lightbox ──
+function buildDeckLightboxList() {
+    var mainCards = [];
+    var sideCards = [];
+    humanPool.forEach(function(card, i) {
+        if (sideboardSet.has(i)) { sideCards.push({ card: card, poolIndex: i }); }
+        else { mainCards.push({ card: card, poolIndex: i }); }
+    });
+    var displayCards = currentBoard === 'main' ? mainCards : sideCards;
+    var groups = {};
+    COLOR_ORDER.forEach(function(c) { groups[c] = []; });
+    displayCards.forEach(function(item) {
+        var group = getCardColorGroup(item.card);
+        if (!cardMatchesBuilderFilter(item.card)) return;
+        groups[group].push(item);
+    });
+    Object.values(groups).forEach(function(arr) {
+        if (builderSortBy === 'rating') {
+            arr.sort(function(a, b) { return (b.card.rating || 0) - (a.card.rating || 0) || a.card.name.localeCompare(b.card.name); });
+        } else if (builderSortBy === 'name') {
+            arr.sort(function(a, b) { return a.card.name.localeCompare(b.card.name); });
+        } else {
+            arr.sort(function(a, b) { return a.card.cmc - b.card.cmc || a.card.name.localeCompare(b.card.name); });
+        }
+    });
+    var flat = [];
+    COLOR_ORDER.forEach(function(color) { flat = flat.concat(groups[color]); });
+    return flat;
+}
+
+function openDeckLightbox(poolIndex) {
+    deckLightboxList = buildDeckLightboxList();
+    deckLightboxCurrent = -1;
+    for (var i = 0; i < deckLightboxList.length; i++) {
+        if (deckLightboxList[i].poolIndex === poolIndex) { deckLightboxCurrent = i; break; }
+    }
+    if (deckLightboxCurrent === -1) return;
+    deckLightboxOpen = true;
+    populateDeckLightbox();
+    document.getElementById('deckLightboxOverlay').classList.add('visible');
+    document.getElementById('deckLightbox').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+}
+
+function populateDeckLightbox() {
+    var item = deckLightboxList[deckLightboxCurrent];
+    if (!item) return;
+    var card = item.card;
+    document.getElementById('dlImg').src = card.image_normal || card.image_small;
+    document.getElementById('dlImg').alt = card.name;
+    document.getElementById('dlName').textContent = card.name;
+    document.getElementById('dlCost').textContent = card.mana_cost || '';
+    document.getElementById('dlType').textContent = card.type_line || '';
+    document.getElementById('dlOracle').textContent = card.oracle_text || '';
+    var ptText = '';
+    if (card.power !== null && card.power !== undefined && card.toughness !== null && card.toughness !== undefined) {
+        ptText = card.power + '/' + card.toughness;
+    } else if (card.loyalty !== null && card.loyalty !== undefined) {
+        ptText = 'Loyalty: ' + card.loyalty;
+    }
+    document.getElementById('dlPt').textContent = ptText;
+    var r = card.rating || 0;
+    var ratingText = 'Rating: ' + r.toFixed(1) + ' \u2022 ' + (card.rarity || '');
+    if (card.gih_wr) ratingText += ' \u2022 ' + card.gih_wr + '% GIH WR';
+    document.getElementById('dlRating').textContent = ratingText;
+    // SB button
+    var sbBtn = document.getElementById('dlSbBtn');
+    var isSB = sideboardSet.has(item.poolIndex);
+    sbBtn.textContent = isSB ? 'Move to Mainboard' : 'Move to Sideboard';
+    sbBtn.className = 'dl-sb-btn' + (isSB ? ' in-sideboard' : '');
+    // Nav buttons
+    var hasPrev = deckLightboxCurrent > 0;
+    var hasNext = deckLightboxCurrent < deckLightboxList.length - 1;
+    document.getElementById('dlPrevDesktop').disabled = !hasPrev;
+    document.getElementById('dlNextDesktop').disabled = !hasNext;
+    document.getElementById('dlPrevMobile').disabled = !hasPrev;
+    document.getElementById('dlNextMobile').disabled = !hasNext;
+}
+
+function closeDeckLightbox() {
+    deckLightboxOpen = false;
+    document.getElementById('deckLightboxOverlay').classList.remove('visible');
+    document.getElementById('deckLightbox').classList.remove('visible');
+    document.body.style.overflow = '';
+}
+
+function navigateDeckLightbox(delta) {
+    var next = deckLightboxCurrent + delta;
+    if (next < 0 || next >= deckLightboxList.length) return;
+    deckLightboxCurrent = next;
+    populateDeckLightbox();
+}
+
+// Lightbox event wiring
+(function() {
+    document.getElementById('deckLightboxOverlay').addEventListener('click', closeDeckLightbox);
+    document.getElementById('dlClose').addEventListener('click', closeDeckLightbox);
+    document.getElementById('dlPrevDesktop').addEventListener('click', function() { navigateDeckLightbox(-1); });
+    document.getElementById('dlNextDesktop').addEventListener('click', function() { navigateDeckLightbox(1); });
+    document.getElementById('dlPrevMobile').addEventListener('click', function() { navigateDeckLightbox(-1); });
+    document.getElementById('dlNextMobile').addEventListener('click', function() { navigateDeckLightbox(1); });
+    document.getElementById('dlSbBtn').addEventListener('click', function() {
+        var item = deckLightboxList[deckLightboxCurrent];
+        if (!item) return;
+        toggleSideboard(item.poolIndex);
+        // Rebuild list since board changed; card may have moved boards
+        deckLightboxList = buildDeckLightboxList();
+        // Try to stay on same card
+        var found = -1;
+        for (var i = 0; i < deckLightboxList.length; i++) {
+            if (deckLightboxList[i].poolIndex === item.poolIndex) { found = i; break; }
+        }
+        if (found >= 0) {
+            deckLightboxCurrent = found;
+            populateDeckLightbox();
+        } else {
+            closeDeckLightbox();
+        }
+    });
+    // Keyboard
+    document.addEventListener('keydown', function(e) {
+        if (!deckLightboxOpen) return;
+        if (e.key === 'Escape') { e.preventDefault(); closeDeckLightbox(); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); navigateDeckLightbox(-1); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); navigateDeckLightbox(1); }
+    });
+    // Touch swipe on lightbox
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var lb = document.getElementById('deckLightbox');
+    lb.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    lb.addEventListener('touchend', function(e) {
+        if (!deckLightboxOpen) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            if (dx < 0) navigateDeckLightbox(1);   // swipe left = next
+            else navigateDeckLightbox(-1);          // swipe right = prev
+        }
+    }, { passive: true });
+})();
 
 function renderHistogram() {
     const container = document.getElementById('histogram');
@@ -1622,16 +2143,21 @@ function renderHistogram() {
         }
     });
 
-    const max = Math.max(...counts, 1);
+    const idealCurve = [0, 2, 6, 5, 4, 2, 1]; // ideal limited creature curve
+    const max = Math.max(Math.max.apply(null, counts), Math.max.apply(null, idealCurve), 1);
     const labels = ['0', '1', '2', '3', '4', '5', '6+'];
 
     labels.forEach((label, i) => {
         const col = document.createElement('div');
         col.className = 'histo-col';
         const h = (counts[i] / max) * 80;
+        const idealH = (idealCurve[i] / max) * 80;
         col.innerHTML = `
             <span class="histo-count">${counts[i] || ''}</span>
-            <div class="histo-bar" style="height:${Math.max(0, h)}px; background: var(--gradient-purple);"></div>
+            <div class="histo-bar-area">
+                <div class="histo-ideal" style="height:${Math.max(0, idealH)}px"></div>
+                <div class="histo-bar" style="height:${Math.max(0, h)}px"></div>
+            </div>
             <span class="histo-label">${label}</span>
         `;
         container.appendChild(col);
@@ -1749,6 +2275,91 @@ function updateDeckStats() {
     document.getElementById('statSpells').textContent = mainCards.length;
     document.getElementById('statLands').textContent = totalLands;
     document.getElementById('statSide').textContent = sideCards.length;
+
+    renderDeckFeedback();
+}
+
+// ── Sort Builder Toggle ──
+function sortBuilderBy(mode) {
+    builderSortBy = mode;
+    document.querySelectorAll('.builder-sort-buttons .sort-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.sort === mode);
+    });
+    renderDeckColumns();
+}
+
+// ── Deck Quality Feedback ──
+function renderDeckFeedback() {
+    var el = document.getElementById('deckFeedback');
+    if (!el) return;
+    el.innerHTML = '';
+
+    var mainCards = humanPool.filter(function(c, i) { return !sideboardSet.has(i); });
+    var totalLands = Object.values(lands).reduce(function(a, b) { return a + b; }, 0);
+    var deckSize = mainCards.length + totalLands;
+
+    var creatures = 0, removal = 0, totalCmc = 0, nonlandCount = 0;
+    mainCards.forEach(function(card) {
+        var tl = (card.type_line || '').toLowerCase();
+        if (tl.includes('creature')) creatures++;
+        var oracle = (card.oracle_text || '').toLowerCase();
+        if (oracle.includes('destroy target') || oracle.includes('exile target') ||
+            oracle.match(/deals?\s+\d+\s+damage\s+to\s+(target|any)/)) removal++;
+        if (!tl.includes('land')) { totalCmc += card.cmc || 0; nonlandCount++; }
+    });
+
+    var avgCmc = nonlandCount > 0 ? totalCmc / nonlandCount : 0;
+    var items = [];
+
+    // Creature count
+    if (creatures >= 14 && creatures <= 16) {
+        items.push({ text: 'Creature count looks good (' + creatures + ')', good: true });
+    } else if (creatures < 14) {
+        items.push({ text: 'Low creatures (' + creatures + ', want 14\u201316)', good: false });
+    } else {
+        items.push({ text: 'High creatures (' + creatures + ', want 14\u201316)', good: false });
+    }
+
+    // Removal
+    if (removal >= 3 && removal <= 5) {
+        items.push({ text: 'Removal looks good (' + removal + ')', good: true });
+    } else if (removal < 3) {
+        items.push({ text: 'Low removal (' + removal + ', want 3\u20135)', good: false });
+    } else {
+        items.push({ text: 'Lots of removal (' + removal + ')', good: true });
+    }
+
+    // Avg CMC
+    if (avgCmc > 0) {
+        if (avgCmc <= 3.0) {
+            items.push({ text: 'Avg CMC ' + avgCmc.toFixed(1), good: true });
+        } else {
+            items.push({ text: 'High avg CMC (' + avgCmc.toFixed(1) + ', want \u22643.0)', good: false });
+        }
+    }
+
+    // Deck size
+    if (deckSize === 40) {
+        items.push({ text: 'Deck is 40 cards', good: true });
+    } else if (deckSize > 0) {
+        items.push({ text: 'Deck is ' + deckSize + ' cards (want 40)', good: deckSize >= 39 && deckSize <= 41 });
+    }
+
+    // Land count
+    if (totalLands >= 16 && totalLands <= 18) {
+        items.push({ text: totalLands + ' lands', good: true });
+    } else if (totalLands > 0 && totalLands < 16) {
+        items.push({ text: 'Low lands (' + totalLands + ', want 16\u201318)', good: false });
+    } else if (totalLands > 18) {
+        items.push({ text: 'High lands (' + totalLands + ', want 16\u201318)', good: false });
+    }
+
+    items.forEach(function(item) {
+        var span = document.createElement('span');
+        span.className = 'feedback-item ' + (item.good ? 'good' : 'warn');
+        span.textContent = item.text;
+        el.appendChild(span);
+    });
 }
 
 // ── Export ──
@@ -1822,6 +2433,9 @@ function draftAgain() {
         currentPick = 0;
         draftInProgress = true;
         showPickSuggestions = document.getElementById('showSuggestions').checked;
+        humanOpenSignals = { W:0, U:0, B:0, R:0, G:0 };
+        builderSortBy = 'cmc';
+        deckLightboxOpen = false; deckLightboxList = []; deckLightboxCurrent = -1;
 
         for (let i = 1; i < NUM_SEATS; i++) {
             botPools.push([]);
