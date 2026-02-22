@@ -1,2 +1,0 @@
-[09:02:13] Attempt 1/3: /usr/bin/openclaw
-I'll publish this edited blog post by adding it to the posts data file and rebuilding the blog.

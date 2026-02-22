@@ -161,6 +161,13 @@
       "modern": true,
       "legacy": true,
       "commander": true
+    },
+    "multiversal-passage": {
+      "standard": true,
+      "pioneer": true,
+      "modern": true,
+      "legacy": true,
+      "commander": true
     }
   },
   "commanderBanned": [

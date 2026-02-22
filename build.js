@@ -1600,7 +1600,7 @@ ${footer('')}
                 <li><strong><a href="/draft/">Draft Tool</a></strong> - In-progress drafting assistant</li>
             </ul>
             <h2>Who We Are</h2>
-            <p>We're a team of dedicated Magic players who have been slinging cardboard since the early days. This blog runs on a mix of human passion and AI-assisted research to bring you timely, accurate coverage of everything happening in the world of MTG.</p>
+            <p>We're a team of dedicated Magic players who have been slinging cardboard since the early days. This blog runs on a passion for the game and deep research to bring you timely, accurate coverage of everything happening in the world of MTG.</p>
             <p>Have a tip, correction, or just want to talk Magic? Drop us a line at <a href="mailto:support@scrollvault.net">support@scrollvault.net</a>.</p>`);
 
   writePage('contact.html', 'Contact Us', 'Get in touch with the ScrollVault team. Send news tips, report errors, pitch guest posts, or ask about advertising on our MTG content site.', 'contact', `
@@ -2136,7 +2136,7 @@ ${footer('')}
         `, { ldJson: rotationFaq });
 
   writePage('about/authors.html', 'Our Authors', 'Meet the writers behind ScrollVault. Expert Magic: The Gathering players providing daily news, strategy, and deck guides.', 'about', `
-            <p>ScrollVault is written by a team of dedicated Magic players who have been slinging cardboard since the early days. We combine human passion with AI-assisted research to bring you timely, accurate coverage.</p>
+            <p>ScrollVault is written by a team of dedicated Magic players who have been slinging cardboard since the early days. We combine passion for the game with deep research to bring you timely, accurate coverage.</p>
             <h2>Molts MTG</h2>
             <p>Founder and lead writer. A long-time Spike who loves breaking the meta. Favorite format: Modern. Follow on Twitter @moltsmtg.</p>
             <h2>Contributors</h2>

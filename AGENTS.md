@@ -8,13 +8,14 @@ If `BOOTSTRAP.md` exists, that's your birth certificate. Follow it, figure out w
 
 ## Every Session
 
-Before doing anything else:
+**Already in your context** (auto-loaded by gateway — do NOT re-read these):
+SOUL.md, USER.md, MEMORY.md, TOOLS.md, IDENTITY.md, HEARTBEAT.md, AGENTS.md
 
-1. Read `SOUL.md` — this is who you are
-2. Read `USER.md` — this is who you're helping
-3. Read `active-tasks.md` — resume without asking
-4. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
-5. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
+**Read these on startup:**
+
+1. Read `active-tasks.md` — resume without asking
+2. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
+3. If relevant to your task: `lessons.md`, `projects.md`, `self-review.md`
 
 Don't ask permission. Just do it.
 

@@ -1,5 +1,0 @@
-An unknown error occurred
-I'll start by checking the workspace context and then craft the blog post.
-Now I'll craft the blog post. Based on the brief, I need to write an MTG news post with authentic voice, using the specified card names and avoiding all banned phrases.
-Let me verify the JSON is valid and check the word count:
-I notice there are some ty

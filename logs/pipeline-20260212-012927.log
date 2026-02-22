@@ -1,8 +1,0 @@
-[01:29:27] === ScrollVault Pipeline - 2026-02-12 ===
-[01:29:27] Recent posts loaded (1327 chars of titles)
-[01:29:27] --- STEP 1: Scout ---
-[01:29:27] Attempt 1/3: /usr/bin/openclaw
-[01:30:10] Scout completed
-[01:30:11] Top story selected: Wizards of the Coast Faces $500M Lawsuit Over Alleged Card Overprinting
-[01:30:11] --- STEP 2: Writer ---
-[01:30:16] Attempt 1/3: /usr/bin/openclaw

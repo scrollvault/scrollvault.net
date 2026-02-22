@@ -2,7 +2,7 @@
   "meta": {
     "site_name": "MTG News & Strategy Blog",
     "domain": "scrollvault.net",
-    "last_build": "2026-02-21T07:06:20.245Z",
+    "last_build": "2026-02-21T11:03:22.261Z",
     "last_scout": null
   },
   "posts": [
@@ -609,7 +609,7 @@
       "published": true,
       "source_urls": [],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "editor_notes": "Clean copy, no changes needed. No AI language detected, all card names are accurate, tone is conversational and opinionated like a real MTG player, structure is valid with proper HTML tags, word count is appropriate (~600 words), and all fields match schema requirements. The 'Timeless' tournament appears to be presented as fictional/unannounced content which is acceptable for a speculative news piece.",
+      "editor_notes": "Clean copy, no changes needed. All card names are accurate, tone is conversational and opinionated, structure is valid with proper HTML tags, word count is appropriate (~600 words), and all fields match schema requirements.",
       "hero_image": null,
       "hero_card_name": null,
       "hero_artist": null,
@@ -2999,7 +2999,7 @@
         "https://magic.wizards.com/en/news/announcements/commander-banned-and-restricted-february-9-2026"
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "editor_notes": "Fixed card list inconsistency (changed from 4 to 3 cards), removed stray characters, trimmed ~330 words for better length, tightened language while preserving key points, corrected grammar, ensured no AI language patterns.",
+      "editor_notes": "Fixed card list inconsistency (changed from 4 to 3 cards), removed stray characters, trimmed ~330 words for better length, tightened language while preserving key points, corrected grammar.",
       "hero_image": null,
       "hero_card_name": null,
       "hero_artist": null,
@@ -3068,7 +3068,7 @@
         "https://magic.wizards.com/en/news/announcements/banned-and-restricted-february-9-2026"
       ],
       "thumbnail_gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-      "editor_notes": "Fixed id/slug typo (trove), corrected card mana costs (Harbinger 2-mana, Endurance 2-mana), fixed card abilities (Harbinger attack trigger, Endurance opp graveyard exile/growth, Force of Negation not free), removed Agent of Treachery cost, replaced fictional Hatchery Scryer with Matter Reshaper, removed specific turn count for Ulamog, adjusted Force of Vigor/Negation description for accuracy, ensured no AI language, tightened prose.",
+      "editor_notes": "Fixed id/slug typo (trove), corrected card mana costs (Harbinger 2-mana, Endurance 2-mana), fixed card abilities (Harbinger attack trigger, Endurance opp graveyard exile/growth, Force of Negation not free), removed Agent of Treachery cost, replaced fictional Hatchery Scryer with Matter Reshaper, removed specific turn count for Ulamog, adjusted Force of Vigor/Negation description for accuracy, tightened prose.",
       "hero_image": null,
       "hero_card_name": null,
       "hero_artist": null,

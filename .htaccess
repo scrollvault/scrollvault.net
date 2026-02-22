@@ -5,6 +5,9 @@
 </IfModule>
 # php -- END cPanel-generated handler, do not edit
 
+# WASM MIME type (required for WebAssembly.instantiateStreaming)
+AddType application/wasm .wasm
+
 # Disable MultiViews to prevent 406 Not Acceptable errors
 Options -MultiViews
 
@@ -117,5 +120,5 @@ RewriteRule ^posts/secret-lair-roll-for-initiative-superdrop\.html$ /posts/blood
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set X-XSS-Protection "1; mode=block"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cards.scryfall.io https://c1.scryfall.com https://www.google-analytics.com data:; connect-src 'self' https://api.scryfall.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; worker-src 'self'; frame-ancestors 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://api.scryfall.com https://cards.scryfall.io https://c1.scryfall.com https://www.google-analytics.com https://www.googletagmanager.com data:; connect-src 'self' https://api.scryfall.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; worker-src 'self'; frame-ancestors 'none'"
 </IfModule>

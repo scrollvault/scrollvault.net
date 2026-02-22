@@ -45,6 +45,7 @@ High-level view of all active workstreams.
 - Do NOT re-add Compute3 as a provider or fallback.
 
 ## Activity Log
+- 2026-02-20: Published 1 post(s) – [Wizards Kills MTGO Data Transparency With Brainstorm-Style Restriction](/posts/wizards-kills-mtgo-data-transparency.html)
 - 2026-02-18: Published 1 post(s) – [Leonardo Cracks the Meta: TMNT Preview Season Kicks Off After Leak](/posts/leonardo-arena-preview-season-ninja-leak-response.html)
 - 2026-02-17: Published 2 post(s) – [Lutri Spikes to $72 and Gilt-Leaf Palace Surges: February Hot/Cold List](/posts/mtg-news-roundup-february-2026-lutri-spike-gilt-leaf-torpor-orb.html) and [Biorhythm Is Back: February 2026's Massive B&R Update Shakes Everything](/posts/mtg-news-roundup-february-2026-biorhythm-arena-pride-tmnt.html)
 - 2026-02-16: Published 3 post(s) – [Gilded Lotus Returns: Magic Pride 2026 Rocks 'Every Commander Has Partner'](/posts/magic-pride-2026-gilded-lotus-partner-commander-event.html), [Spell Snare and the End of Friend Challenges: Arena's Big Update](/posts/mtg-arena-challenge-lobbies-tmnt-bundles-spell-snare-february.html), and [All Facts Verified: No News, Just Editorial Philosophy](/posts/no-news-today-what-to-do-when-the-scout-comes-up-empty.html)

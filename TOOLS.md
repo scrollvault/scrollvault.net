@@ -2,7 +2,7 @@
 
 ## CRITICAL: File Hygiene
 
-**NEVER write large files to the workspace root** (`/home/degenai/.openclaw/workspace/`). Every file there gets loaded into agent context. Large files cause "prompt too large" errors.
+**NEVER write large files to the workspace root** (`/home/degenai/scrollvault/`). Every file there gets loaded into agent context. Large files cause "prompt too large" errors.
 
 - Temporary artifacts (JSON, HTML, raw data): save to `drafts/` subdirectory or `/home/degenai/scrollvault/data/drafts/`
 - Workspace root = small docs only (under 10KB)
@@ -94,7 +94,12 @@ bash /home/degenai/scrollvault/scripts/gsc-query.sh indexed
 bash /home/degenai/scrollvault/scripts/gsc-query.sh inspect https://scrollvault.net/posts/some-article.html
 ```
 
+## Gmail
+
+- Account: hexmolt@gmail.com
+- Read: `GOG_KEYRING_PASSWORD=moltbot /usr/local/bin/gog gmail search "newer_than:1d" --account=hexmolt@gmail.com`
+- Send: `GOG_KEYRING_PASSWORD=moltbot /usr/local/bin/gog gmail send --account=hexmolt@gmail.com --to="..." --subject="..." --body="..." --force --no-input`
+
 ## Logs
 
 - Pipeline logs: `/home/degenai/scrollvault/logs/pipeline-*.log`
-- Gateway log: `/tmp/openclaw-gateway.log`

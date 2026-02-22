@@ -348,6 +348,17 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
                                 <div class="hand-stat-label">Colors</div>
                             </div>
                         </div>
+
+                        <div id="mulliganStats" style="display:none;margin-top:1rem;padding:0.75rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:8px;">
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;font-weight:600;">Mulligan Statistics (WASM &mdash; 50,000 hands)</div>
+                            <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;font-size:0.85rem;">
+                                <span>Keep 7: <strong id="mullKeep7" style="color:#22c55e;">-</strong></span>
+                                <span>Mull to 6: <strong id="mullKeep6" style="color:#eab308;">-</strong></span>
+                                <span>Mull to 5: <strong id="mullKeep5" style="color:#f97316;">-</strong></span>
+                                <span>Mull to 4: <strong id="mullKeep4" style="color:#ef4444;">-</strong></span>
+                            </div>
+                            <div style="font-size:0.8rem;color:var(--text-secondary);margin-top:0.35rem;">Avg starting hand: <strong id="mullAvgSize">-</strong> cards</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -939,6 +950,151 @@ document.addEventListener('keydown', (e) => {
             break;
     }
 });
+
+// ══════════════════════════════════════════
+// WASM Mulligan Statistics
+// ══════════════════════════════════════════
+var wasmMulliganWorker = null;
+var wasmMulliganReady = false;
+
+(function initMulliganWorker() {
+    try {
+        wasmMulliganWorker = new Worker('/tools/hand-simulator/mulligan-worker.js', { type: 'module' });
+        wasmMulliganWorker.onmessage = function(e) {
+            var data = e.data;
+            if (data.type === 'ready') {
+                wasmMulliganReady = true;
+                console.log('[Mulligan] WASM worker ready');
+                // If deck already loaded, run stats
+                if (deckCards.length > 0) runMulliganStats();
+            } else if (data.type === 'complete') {
+                displayMulliganStats(data.results);
+            } else if (data.type === 'error') {
+                console.warn('[Mulligan WASM]', data.message);
+            }
+        };
+        wasmMulliganWorker.onerror = function(err) {
+            console.warn('[Mulligan] WASM worker failed:', err.message);
+            wasmMulliganWorker = null;
+        };
+    } catch (err) {
+        console.warn('[Mulligan] Cannot create WASM worker:', err.message);
+    }
+})();
+
+// Basic land names mapped to colors they produce
+var BASIC_LAND_COLORS = {
+    'plains': ['W'], 'island': ['U'], 'swamp': ['B'], 'mountain': ['R'], 'forest': ['G'],
+    'snow-covered plains': ['W'], 'snow-covered island': ['U'], 'snow-covered swamp': ['B'],
+    'snow-covered mountain': ['R'], 'snow-covered forest': ['G'],
+    'wastes': []
+};
+
+function isLandCard(data) {
+    return data && (data.type_line || '').toLowerCase().indexOf('land') !== -1;
+}
+
+function extractProducedColors(name, data) {
+    var lower = name.toLowerCase();
+    if (BASIC_LAND_COLORS[lower]) return BASIC_LAND_COLORS[lower];
+    // For other lands, use color_identity as a fallback
+    if (data && data.color_identity && data.color_identity.length > 0) return data.color_identity;
+    if (data && data.colors && data.colors.length > 0) return data.colors;
+    return [];
+}
+
+function parseManaPips(manaCost) {
+    var pips = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    if (!manaCost) return pips;
+    var matches = manaCost.match(/\{([WUBRG])\}/g);
+    if (matches) {
+        matches.forEach(function(m) {
+            var c = m.charAt(1);
+            if (pips[c] !== undefined) pips[c]++;
+        });
+    }
+    return pips;
+}
+
+function buildDeckConfig() {
+    var spells = [];
+    var lands = [];
+    var spellMap = {}; // name -> {name, qty, mv, pips}
+    var landMap = {};  // name -> {name, qty, produces, enters_tapped}
+
+    for (var name in deckCounts) {
+        var data = cardDataCache[name];
+        var qty = deckCounts[name];
+
+        if (data && isLandCard(data)) {
+            landMap[name] = {
+                name: name,
+                qty: qty,
+                produces: extractProducedColors(name, data),
+                enters_tapped: false // conservative default
+            };
+        } else {
+            var mv = (data && data.cmc) ? Math.round(data.cmc) : 0;
+            var pips = parseManaPips(data ? data.mana_cost : '');
+            spellMap[name] = {
+                name: name,
+                qty: qty,
+                mv: mv,
+                pips: pips
+            };
+        }
+    }
+
+    for (var n in spellMap) spells.push(spellMap[n]);
+    for (var n in landMap) lands.push(landMap[n]);
+
+    return {
+        size: deckCards.length,
+        spells: spells,
+        lands: lands
+    };
+}
+
+function runMulliganStats() {
+    if (!wasmMulliganWorker || !wasmMulliganReady) return;
+    if (deckCards.length === 0) return;
+
+    // Wait until we have card data for most cards
+    var uniqueNames = Object.keys(deckCounts);
+    var loaded = uniqueNames.filter(function(n) { return cardDataCache[n]; }).length;
+    if (loaded < uniqueNames.length * 0.8) {
+        // Schedule retry when more data is loaded
+        setTimeout(runMulliganStats, 2000);
+        return;
+    }
+
+    var config = buildDeckConfig();
+    wasmMulliganWorker.postMessage({ type: 'simulate', deck: config, iterations: 50000 });
+}
+
+function displayMulliganStats(results) {
+    var el = document.getElementById('mulliganStats');
+    if (!el) return;
+
+    var rates = results.keep_rates || [0, 0, 0, 0];
+    document.getElementById('mullKeep7').textContent = (rates[0] * 100).toFixed(1) + '%';
+    document.getElementById('mullKeep6').textContent = (rates[1] * 100).toFixed(1) + '%';
+    document.getElementById('mullKeep5').textContent = (rates[2] * 100).toFixed(1) + '%';
+    document.getElementById('mullKeep4').textContent = (rates[3] * 100).toFixed(1) + '%';
+    document.getElementById('mullAvgSize').textContent = (results.avg_hand_size || 0).toFixed(2);
+
+    el.style.display = 'block';
+}
+
+// Hook into loadDeck to trigger mulligan stats
+var _origLoadDeck = loadDeck;
+loadDeck = function() {
+    _origLoadDeck();
+    // Wait a bit for card data to arrive, then run stats
+    if (deckCards.length > 0) {
+        setTimeout(runMulliganStats, 3000);
+    }
+};
 </script>
 
 </body>

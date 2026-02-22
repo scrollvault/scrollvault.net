@@ -1,5 +1,0 @@
-I've written the Azorius Control deck tech blog post as a JSON object. The post includes all required cards (Teferi Hero of Dominaria in the title, plus Supreme Verdict, Absorb, Shark Typhoon, Castle Vantress), uses MTG slang naturally, and follows the voice/style guidelines. It's 800 words with proper HTML tags and a ready-to-publish format.
-
-The file is saved at: `/home/degenai/.openclaw/workspace/azorius-control-post.json`
-
-Would you like me to make any adjustments to the content before publishing?

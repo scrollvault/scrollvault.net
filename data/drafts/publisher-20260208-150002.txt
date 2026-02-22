@@ -1,5 +1,0 @@
-Network connection lost.
-I see the JSON was provided in the first message but the second one says "completed". I'll publish the Izzet Elementals post from the original message.
-
-Let me check if that post ID already exists in the current posts:
-The ID `izzet-elementals-end-18-year-typaldrought` doesn't exist in the current posts, so this is a new post. The post already has a proper `thumbnail_gradient` set, so I'll add it directly

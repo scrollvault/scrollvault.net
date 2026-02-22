@@ -3,6 +3,21 @@ data/drafts/
 logs/
 *.log
 
+# Operational files (not part of the site)
+agents/
+memory/
+pipeline.sh
+scripts/bluesky-*.sh
+scripts/cleanup-sessions.sh
+scripts/expand-posts.sh
+scripts/heygen-*.sh
+scripts/heygen-daily.sh
+scripts/refresh-draft-data.js
+active-tasks.md
+self-review.md
+BOOTSTRAP.md
+IDENTITY.md
+
 # Backups
 *.bak
 *.backup

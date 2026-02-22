@@ -17,6 +17,7 @@ All tools are free, client-side, and require no account.
 | Opening Hand Simulator | Simulate opening hands with London Mulligan support | [scrollvault.net/tools/hand-simulator/](https://scrollvault.net/tools/hand-simulator/) |
 | Deck Price Checker | Look up current market prices for any decklist via Scryfall | [scrollvault.net/tools/price-checker/](https://scrollvault.net/tools/price-checker/) |
 | Sealed Pool Simulator | Open virtual sealed pools and practice deck building | [scrollvault.net/tools/sealed/](https://scrollvault.net/tools/sealed/) |
+| Draft Simulator | Practice drafting with bot opponents across 15+ sets | [scrollvault.net/draft/](https://scrollvault.net/draft/) |
 
 ## Tech Stack
 
@@ -27,11 +28,7 @@ All tools are free, client-side, and require no account.
 
 ## Content Pipeline
 
-Articles are produced daily by a 13-agent AI pipeline:
-
-**Scout** (finds trending topics) --> **Writer** --> **Editor** --> **Fact Checker** --> **Publisher** (adds to posts.json, runs build) --> **QA** (validates output)
-
-Supporting agents handle SEO optimization, data analysis, video scripting, and site monitoring. The pipeline runs via scheduled automation and can be triggered manually.
+Articles are researched, written, edited, fact-checked, and published daily through a multi-step editorial pipeline.
 
 ## Building the Site
 
@@ -53,8 +50,7 @@ data/posts.json       # Article content and metadata
 data/card-cache.json  # Scryfall card art cache
 style.css             # Shared stylesheet
 tools/                # Interactive tool pages (hand-crafted HTML)
-agents/               # AI agent prompt files
-scripts/              # Pipeline and utility scripts
+scripts/              # Utility scripts
 posts/                # Generated article pages (build output)
 ```
 

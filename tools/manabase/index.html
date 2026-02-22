@@ -68,7 +68,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { /* scroll-behavior: smooth removed — causes Chrome scroll fighting on long pages */ }
 body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
 h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', -apple-system, sans-serif; font-weight: 600; line-height: 1.3; }
 a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
@@ -117,20 +117,21 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 .hero-section .subtitle { color: var(--text-secondary); font-size: 1.05rem; max-width: 640px; margin: 0 auto; }
 
 /* ── Calculator Layout ── */
-.calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; isolation: isolate; }
 @media (max-width: 960px) {
     .calc-layout { grid-template-columns: 1fr; }
 }
 
 /* ── Panels ── */
 .panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; }
+#resultsPanel { contain: layout paint; will-change: transform; }
 .panel h2 { font-size: 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
 .panel h2 .icon { font-size: 1.1rem; }
 .panel h3 { font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--text-secondary); }
 
 /* ── Format Selector ── */
 .format-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.5rem; margin-bottom: 1.5rem; }
-.format-btn { padding: 0.5rem 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); border-radius: 8px; font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; font-family: inherit; transition: all 0.2s ease; text-align: center; }
+.format-btn { padding: 0.5rem 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); border-radius: 8px; font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; font-family: inherit; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease; text-align: center; }
 .format-btn:hover { border-color: rgba(139,92,246,0.4); color: var(--text-primary); }
 .format-btn.active { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.5); color: var(--text-primary); }
 .format-btn .fmt-detail { display: block; font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
@@ -138,7 +139,7 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 
 /* ── Color Toggles ── */
 .color-toggles { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; justify-content: center; }
-.color-toggle { width: 48px; height: 48px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; font-weight: 700; font-size: 1rem; font-family: 'Space Grotesk', sans-serif; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; opacity: 0.4; position: relative; }
+.color-toggle { width: 48px; height: 48px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; font-weight: 700; font-size: 1rem; font-family: 'Space Grotesk', sans-serif; transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; display: flex; align-items: center; justify-content: center; opacity: 0.4; position: relative; }
 .color-toggle:hover { opacity: 0.7; transform: scale(1.08); }
 .color-toggle.active { opacity: 1; border-color: rgba(168,85,247,0.7); transform: scale(1.1); box-shadow: 0 0 16px rgba(168,85,247,0.3); }
 .color-toggle[data-color="W"] { background: var(--color-W); color: #333; }
@@ -155,7 +156,7 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 .pip-color-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
 .pip-label { flex: 1; font-size: 0.85rem; color: var(--text-secondary); }
 .pip-controls { display: flex; align-items: center; gap: 0; }
-.pip-btn { width: 32px; height: 32px; background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: var(--text-primary); font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s ease; font-family: inherit; }
+.pip-btn { width: 32px; height: 32px; background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: var(--text-primary); font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s ease, border-color 0.15s ease; font-family: inherit; }
 .pip-btn:hover { background: rgba(168,85,247,0.2); border-color: rgba(168,85,247,0.4); }
 .pip-btn:first-child { border-radius: 6px 0 0 6px; }
 .pip-btn:last-child { border-radius: 0 6px 6px 0; }
@@ -179,7 +180,7 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 .curve-total strong { color: var(--text-primary); }
 
 /* ── Calculate Button ── */
-.calc-btn { display: block; width: 100%; padding: 0.85rem; background: var(--gradient-purple); border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; color: white; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all 0.2s ease; margin-top: 0.5rem; }
+.calc-btn { display: block; width: 100%; padding: 0.85rem; background: var(--gradient-purple); border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; color: white; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: opacity 0.2s ease, transform 0.2s ease; margin-top: 0.5rem; }
 .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(139,92,246,0.4); }
 .calc-btn:active { transform: translateY(0); }
 
@@ -190,7 +191,7 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 
 /* ── Land Count Cards ── */
 .land-counts { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; margin-bottom: 1.75rem; }
-.land-card { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 10px; padding: 1rem; text-align: center; transition: all 0.2s ease; position: relative; overflow: hidden; }
+.land-card { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 10px; padding: 1rem; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; position: relative; overflow: clip; }
 .land-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
 .land-card[data-color="W"]::before { background: var(--color-W); }
 .land-card[data-color="U"]::before { background: var(--color-U); }
@@ -244,16 +245,16 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
 .suggest-land .sl-count { font-weight: 700; color: var(--text-primary); }
 
 /* ── Info Box ── */
-.info-box { background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2); border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
+.info-box { background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2); border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; content-visibility: auto; contain-intrinsic-size: auto 200px; }
 .info-box h3 { font-size: 0.95rem; margin-bottom: 0.5rem; color: #a78bfa; display: flex; align-items: center; gap: 0.4rem; }
 .info-box p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.65; }
 .info-box a { color: #a78bfa; text-decoration: underline; }
 .info-box a:hover { color: #c4b5fd; }
 
 /* ── FAQ Section ── */
-.faq-section { margin-top: 2rem; }
+.faq-section { margin-top: 2rem; content-visibility: auto; contain-intrinsic-size: auto 500px; }
 .faq-section h2 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--text-primary); }
-.faq-section details { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 0.75rem; overflow: hidden; }
+.faq-section details { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 0.75rem; overflow: clip; }
 .faq-section summary { padding: 1rem 1.25rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; color: var(--text-primary); list-style: none; display: flex; justify-content: space-between; align-items: center; }
 .faq-section summary::-webkit-details-marker { display: none; }
 .faq-section summary::after { content: '+'; font-size: 1.2rem; color: var(--text-muted); flex-shrink: 0; margin-left: 1rem; }
@@ -271,9 +272,52 @@ main { margin-top: 64px; min-height: calc(100vh - 64px); padding-bottom: 2rem; }
     .format-grid { grid-template-columns: repeat(3, 1fr); }
     .size-inputs { grid-template-columns: 1fr; }
 }
+
+/* ── Sim Engine Badge ── */
+.sim-engine-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 3px; vertical-align: middle; letter-spacing: 0.5px; }
+.sim-engine-wasm { background: #2e7d32; color: #e8f5e9; }
+.sim-engine-js { background: #555; color: #ddd; }
+
+/* ── Ramp Analysis Banner ── */
+.ramp-banner { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.85rem; border-radius: 8px; font-size: 0.78rem; font-weight: 500; margin-bottom: 0.75rem; background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); color: #c4b5fd; flex-wrap: wrap; }
+.ramp-banner strong { color: #e9d5ff; }
+.ramp-adjust { color: var(--text-muted); font-size: 0.72rem; }
+.land-count-hint { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem; border-radius: 8px; font-size: 0.75rem; margin-bottom: 0.75rem; background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); color: #93c5fd; flex-wrap: wrap; }
+.land-count-hint strong { color: #bfdbfe; }
+.land-count-hint .hint-detail { color: var(--text-muted); font-size: 0.7rem; }
+
+/* ── Smart Land Optimizer ── */
+.tempo-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.85rem; border-radius: 8px; font-size: 0.78rem; font-weight: 500; margin-bottom: 1rem; }
+.optimizer-heading { font-size: 0.9rem; color: var(--text-secondary); margin: 1rem 0 0.5rem; }
+.optimizer-land-row { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem; flex-wrap: wrap; }
+.optimizer-land-row:last-child { border-bottom: none; }
+.optimizer-land-qty { font-weight: 700; color: var(--text-primary); min-width: 1.5em; text-align: right; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; }
+.optimizer-land-name { font-weight: 500; color: var(--text-primary); flex-shrink: 0; }
+.optimizer-land-tag { font-size: 0.65rem; font-weight: 600; padding: 1px 6px; border: 1px solid; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+.optimizer-land-reason { font-size: 0.68rem; color: var(--text-muted); margin-left: auto; text-align: right; }
+.source-summary { margin-top: 1rem; }
+.source-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+.source-label { font-size: 0.78rem; font-weight: 600; min-width: 3.5em; }
+.source-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+.source-bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+.source-count { font-size: 0.75rem; font-weight: 600; min-width: 3.5em; text-align: right; }
+.source-met { color: #4ade80; }
+.source-short { color: #f87171; }
+.life-estimate { margin-top: 0.75rem; font-size: 0.78rem; color: var(--text-muted); padding: 0.5rem 0.75rem; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.15); border-radius: 6px; }
+@media (max-width: 640px) {
+    .optimizer-land-reason { margin-left: 0; width: 100%; padding-left: 2em; }
+}
+/* ── Card Image Preview ── */
+.card-preview { position: fixed; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.15s ease; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.7)); }
+.card-preview.visible { opacity: 1; }
+.card-preview img { display: block; width: 240px; border-radius: 10px; }
+.card-name-link { cursor: pointer; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.15); text-underline-offset: 2px; transition: text-decoration-color 0.15s; }
+.card-name-link:hover { text-decoration-color: rgba(167,139,250,0.6); color: #c4b5fd; }
+@media (max-width: 768px) { .card-preview img { width: 200px; } }
     </style>
 </head>
 <body>
+    <div class="card-preview" id="cardPreview"><img alt="" /></div>
     <nav class="nav">
         <div class="container nav-content">
             <a href="/" class="nav-logo">ScrollVault</a>
@@ -583,6 +627,8 @@ const COLORS = ['W', 'U', 'B', 'R', 'G'];
 const COLOR_NAMES = { W: 'White', U: 'Blue', B: 'Black', R: 'Red', G: 'Green' };
 const COLOR_HEX = { W: '#F9FAF4', U: '#0E68AB', B: '#555', R: '#D3202A', G: '#00733E' };
 const COLOR_TEXT = { W: '#333', U: '#fff', B: '#ccc', R: '#fff', G: '#fff' };
+var COLOR_TO_BASIC_TYPE = { W:'Plains', U:'Island', B:'Swamp', R:'Mountain', G:'Forest' };
+var BASIC_TYPE_TO_COLOR = { 'Plains':'W', 'Island':'U', 'Swamp':'B', 'Mountain':'R', 'Forest':'G' };
 
 let state = {
     format: 'standard',
@@ -599,78 +645,372 @@ let state = {
 // Simulation worker
 var simWorker = null;
 var simWorkerFailed = false;
+var simEngine = 'js'; // 'wasm' or 'js'
 
 // ── Comprehensive Dual Land Database ──
 // Each cycle: name, short description, tier (1=premium, 2=good, 3=budget), cards per color pair
 const LAND_CYCLES = {
     // --- STANDARD-LEGAL ---
-    shockLands: { name: 'Shock Lands', desc: 'Pay 2 life or ETB tapped. Fetchable (has basic land types).', tier: 1, cards: {
+    shockLands: { name: 'Shock Lands', desc: 'Pay 2 life or ETB tapped. Fetchable (has basic land types).', tier: 1,
+        meta: { etb:'choice', conditionType:null, lifeCost:2, coloredUseCost:0, fetchable:true, isFetch:false, mdfc:false },
+        cards: {
         WU:'Hallowed Fountain', WB:'Godless Shrine', WR:'Sacred Foundry', WG:'Temple Garden',
         UB:'Watery Grave', UR:'Steam Vents', UG:'Breeding Pool', BR:'Blood Crypt', BG:'Overgrown Tomb', RG:'Stomping Ground' }},
-    surveilLands: { name: 'Surveil Lands', desc: 'ETB tapped. Surveil 1. Fetchable (has basic land types).', tier: 1, cards: {
+    surveilLands: { name: 'Surveil Lands', desc: 'ETB tapped. Surveil 1. Fetchable (has basic land types).', tier: 1,
+        meta: { etb:'tapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:true, isFetch:false, mdfc:false },
+        cards: {
         WU:'Meticulous Archive', WB:'Shadowy Backstreet', WR:'Elegant Parlor', WG:'Lush Portico',
         UB:'Undercity Sewers', UR:'Thundering Falls', UG:'Hedge Maze', BR:'Raucous Theater', BG:'Underground Mortuary', RG:'Commercial District' }},
-    fastLandsEnemy: { name: 'Fast Lands (Enemy)', desc: 'ETB untapped if you control 2 or fewer lands.', tier: 1, cards: {
+    fastLandsEnemy: { name: 'Fast Lands (Enemy)', desc: 'ETB untapped if you control 2 or fewer lands.', tier: 1,
+        meta: { etb:'conditional', conditionType:'fast', lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WB:'Concealed Courtyard', UR:'Spirebluff Canal', BG:'Blooming Marsh', WR:'Inspiring Vantage', UG:'Botanical Sanctum' }},
-    vergeLands: { name: 'Verge Lands', desc: 'ETB untapped. Second color requires matching basic land type.', tier: 1, cards: {
+    vergeLands: { name: 'Verge Lands', desc: 'ETB untapped. Second color requires matching basic land type.', tier: 1,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Floodfarm Verge', UB:'Gloomlake Verge', BR:'Blazemire Verge', RG:'Thornspire Verge', WG:'Hushwood Verge',
         WB:'Bleachbone Verge', UR:'Riverpyre Verge', BG:'Wastewood Verge', WR:'Sunbillow Verge', UG:'Willowrush Verge' }},
-    hauntLands: { name: 'Haunt Lands', desc: 'ETB tapped unless a player has 13 or less life.', tier: 2, cards: {
+    hauntLands: { name: 'Haunt Lands', desc: 'ETB tapped unless a player has 13 or less life.', tier: 2,
+        meta: { etb:'conditional', conditionType:'haunt', lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Abandoned Campground', UB:'Murky Sewer', BR:'Razortrap Gorge', RG:'Bleeding Woods', WG:'Etched Cornfield',
         WB:'Neglected Manor', UR:'Peculiar Lighthouse', BG:'Strangled Cemetery', WR:'Raucous Carnival', UG:'Lakeside Shack' }},
-    restlessLands: { name: 'Restless Creature Lands', desc: 'ETB tapped. Can animate into a creature.', tier: 2, cards: {
+    restlessLands: { name: 'Restless Creature Lands', desc: 'ETB tapped. Can animate into a creature.', tier: 2,
+        meta: { etb:'tapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Restless Anchorage', WB:'Restless Fortress', WR:'Restless Bivouac', WG:'Restless Prairie',
         UB:'Restless Reef', UR:'Restless Spire', UG:'Restless Vinestalk', BR:'Restless Vents', BG:'Restless Cottage', RG:'Restless Ridgeline' }},
-    scryTemples: { name: 'Scry Temples', desc: 'ETB tapped. Scry 1.', tier: 3, cards: {
+    scryTemples: { name: 'Scry Temples', desc: 'ETB tapped. Scry 1.', tier: 3,
+        meta: { etb:'tapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Temple of Enlightenment', WB:'Temple of Silence', WR:'Temple of Triumph', WG:'Temple of Plenty',
         UB:'Temple of Deceit', UR:'Temple of Epiphany', UG:'Temple of Mystery', BR:'Temple of Malice', BG:'Temple of Malady', RG:'Temple of Abandon' }},
-    gainLands: { name: 'Gain Lands', desc: 'ETB tapped. Gain 1 life.', tier: 3, cards: {
+    gainLands: { name: 'Gain Lands', desc: 'ETB tapped. Gain 1 life.', tier: 3,
+        meta: { etb:'tapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Tranquil Cove', WB:'Scoured Barrens', WR:'Wind-Scarred Crag', WG:'Blossoming Sands',
         UB:'Dismal Backwater', UR:'Swiftwater Cliffs', UG:'Thornwood Falls', BR:'Bloodfell Caves', BG:'Jungle Hollow', RG:'Rugged Highlands' }},
-    guildgates: { name: 'Guildgates', desc: 'ETB tapped. Gate subtype.', tier: 3, cards: {
+    guildgates: { name: 'Guildgates', desc: 'ETB tapped. Gate subtype.', tier: 3,
+        meta: { etb:'tapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Azorius Guildgate', WB:'Orzhov Guildgate', WR:'Boros Guildgate', WG:'Selesnya Guildgate',
         UB:'Dimir Guildgate', UR:'Izzet Guildgate', UG:'Simic Guildgate', BR:'Rakdos Guildgate', BG:'Golgari Guildgate', RG:'Gruul Guildgate' }},
 
     // --- PIONEER-ONLY (not in current Standard) ---
-    checkLands: { name: 'Check Lands', desc: 'ETB untapped if you control a matching basic land type.', tier: 1, cards: {
+    checkLands: { name: 'Check Lands', desc: 'ETB untapped if you control a matching basic land type.', tier: 1,
+        meta: { etb:'conditional', conditionType:'check', lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Glacial Fortress', WB:'Isolated Chapel', WR:'Clifftop Retreat', WG:'Sunpetal Grove',
         UB:'Drowned Catacomb', UR:'Sulfur Falls', UG:'Hinterland Harbor', BR:'Dragonskull Summit', BG:'Woodland Cemetery', RG:'Rootbound Crag' }},
-    pathwayLands: { name: 'Pathway Lands', desc: 'MDFC. Choose a side (untapped, one color once played).', tier: 2, cards: {
+    pathwayLands: { name: 'Pathway Lands', desc: 'MDFC. Choose a side (untapped, one color once played).', tier: 2,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:true },
+        cards: {
         WU:'Hengegate Pathway', WB:'Brightclimb Pathway', WR:'Needleverge Pathway', WG:'Branchloft Pathway',
         UB:'Clearwater Pathway', UR:'Riverglide Pathway', UG:'Barkchannel Pathway', BR:'Blightstep Pathway', BG:'Darkbore Pathway', RG:'Cragcrown Pathway' }},
-    slowLands: { name: 'Slow Lands', desc: 'ETB untapped if you control 2+ other lands.', tier: 1, cards: {
+    slowLands: { name: 'Slow Lands', desc: 'ETB untapped if you control 2+ other lands.', tier: 1,
+        meta: { etb:'conditional', conditionType:'slow', lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Deserted Beach', WB:'Shattered Sanctum', WR:'Sundown Pass', WG:'Overgrown Farmland',
         UB:'Shipwreck Marsh', UR:'Stormcarved Coast', UG:'Dreamroot Cascade', BR:'Haunted Ridge', BG:'Deathcap Glade', RG:'Rockfall Vale' }},
-    painLands: { name: 'Pain Lands', desc: 'ETB untapped. 1 damage for colored mana, free colorless.', tier: 1, cards: {
+    painLands: { name: 'Pain Lands', desc: 'ETB untapped. 1 damage for colored mana, free colorless.', tier: 1,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:1, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Adarkar Wastes', WB:'Caves of Koilos', WR:'Battlefield Forge', WG:'Brushland',
         UB:'Underground River', UR:'Shivan Reef', UG:'Yavimaya Coast', BR:'Sulfurous Springs', BG:'Llanowar Wastes', RG:'Karplusan Forest' }},
-    revealLands: { name: 'Reveal Lands', desc: 'ETB untapped if you reveal a matching basic from hand.', tier: 2, cards: {
+    revealLands: { name: 'Reveal Lands', desc: 'ETB untapped if you reveal a matching basic from hand.', tier: 2,
+        meta: { etb:'conditional', conditionType:'reveal', lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Port Town', WB:'Shineshadow Snarl', WR:'Furycalm Snarl', WG:'Fortified Village',
         UB:'Choked Estuary', UR:'Frostboil Snarl', UG:'Vineglimmer Snarl', BR:'Foreboding Ruins', BG:'Necroblossom Snarl', RG:'Game Trail' }},
 
     // --- MODERN-ONLY ---
-    fetchLands: { name: 'Fetch Lands', desc: 'Pay 1 life, sac: search for a land with basic land type.', tier: 1, cards: {
+    fetchLands: { name: 'Fetch Lands', desc: 'Pay 1 life, sac: search for a land with basic land type.', tier: 1,
+        meta: { etb:'untapped', conditionType:null, lifeCost:1, coloredUseCost:0, fetchable:false, isFetch:true, mdfc:false },
+        cards: {
         WU:'Flooded Strand', WB:'Marsh Flats', WR:'Arid Mesa', WG:'Windswept Heath',
         UB:'Polluted Delta', UR:'Scalding Tarn', UG:'Misty Rainforest', BR:'Bloodstained Mire', BG:'Verdant Catacombs', RG:'Wooded Foothills' }},
-    fastLands: { name: 'Fast Lands', desc: 'ETB untapped if you control 2 or fewer lands.', tier: 1, cards: {
+    fastLands: { name: 'Fast Lands', desc: 'ETB untapped if you control 2 or fewer lands.', tier: 1,
+        meta: { etb:'conditional', conditionType:'fast', lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Seachrome Coast', WB:'Concealed Courtyard', WR:'Inspiring Vantage', WG:'Razorverge Thicket',
         UB:'Darkslick Shores', UR:'Spirebluff Canal', UG:'Botanical Sanctum', BR:'Blackcleave Cliffs', BG:'Blooming Marsh', RG:'Copperline Gorge' }},
-    horizonLands: { name: 'Horizon Lands', desc: 'Tap for color (1 dmg). Sac + pay 1 life: draw a card.', tier: 1, cards: {
+    horizonLands: { name: 'Horizon Lands', desc: 'Tap for color (1 dmg). Sac + pay 1 life: draw a card.', tier: 1,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:1, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WB:'Silent Clearing', WG:'Horizon Canopy', WR:'Sunbaked Canyon', UR:'Fiery Islet', UG:'Waterlogged Grove', BG:'Nurturing Peatland' }},
-    filterLands: { name: 'Filter Lands', desc: 'Tap for colorless. Or pay {1} color to get 2 mana in combo.', tier: 2, cards: {
+    filterLands: { name: 'Filter Lands', desc: 'Tap for colorless. Or pay {1} color to get 2 mana in combo.', tier: 2,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Mystic Gate', WB:'Fetid Heath', WR:'Rugged Prairie', WG:'Wooded Bastion',
         UB:'Sunken Ruins', UR:'Cascade Bluffs', UG:'Flooded Grove', BR:'Graven Cairns', BG:'Twilight Mire', RG:'Fire-Lit Thicket' }},
 
     // --- LEGACY-ONLY ---
-    originalDuals: { name: 'Original Dual Lands', desc: 'No drawback. Two basic land types. Reserved List.', tier: 1, cards: {
+    originalDuals: { name: 'Original Dual Lands', desc: 'No drawback. Two basic land types. Reserved List.', tier: 1,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:true, isFetch:false, mdfc:false },
+        cards: {
         WU:'Tundra', WB:'Scrubland', WR:'Plateau', WG:'Savannah',
         UB:'Underground Sea', UR:'Volcanic Island', UG:'Tropical Island', BR:'Badlands', BG:'Bayou', RG:'Taiga' }},
 
     // --- COMMANDER ---
-    bondLands: { name: 'Bond Lands', desc: 'ETB untapped if you have 2+ opponents.', tier: 1, cards: {
+    bondLands: { name: 'Bond Lands', desc: 'ETB untapped if you have 2+ opponents.', tier: 1,
+        meta: { etb:'conditional', conditionType:'bond', lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false },
+        cards: {
         WU:'Sea of Clouds', WB:'Vault of Champions', WR:'Spectator Seating', WG:'Bountiful Promenade',
         UB:'Morphic Pool', UR:'Training Center', UG:'Rejuvenating Springs', BR:'Luxury Suite', BG:'Undergrowth Stadium', RG:'Spire Garden' }}
 };
+
+// Flexible "any-color" lands — not dual lands, choose 1 color per game
+// For deckbuilding source math: counts as a source for ALL your colors
+var FLEXIBLE_LANDS = {
+    multiversalPassage: {
+        name: 'Multiversal Passage',
+        desc: 'Choose a basic land type. Pay 2 life or ETB tapped. Fetchable (gains chosen basic type).',
+        tier: 1,
+        maxCopies: 4,
+        condition: null,
+        meta: { etb:'choice', conditionType:null, lifeCost:2, coloredUseCost:0, fetchable:true, isFetch:false, mdfc:false }
+    },
+    startingTown: {
+        name: 'Starting Town',
+        desc: 'Any color. ETB untapped turns 1-3, tapped afterwards. 1 life for colored mana.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'turnGated',
+        meta: { etb:'conditional', conditionType:'startingTown', lifeCost:0, coloredUseCost:1, fetchable:false, isFetch:false, mdfc:false }
+    },
+    plazaOfHeroes: {
+        name: 'Plaza of Heroes',
+        desc: 'Any color for legendary spells. Untapped, no life cost. Hexproof ability.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'legendary',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    cavernOfSouls: {
+        name: 'Cavern of Souls',
+        desc: 'Any color for chosen creature type. Untapped. Makes creatures uncounterable.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'tribal',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    secludedCourtyard: {
+        name: 'Secluded Courtyard',
+        desc: 'Any color for chosen creature type spells and abilities. Untapped.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'tribal',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    unclaimedTerritory: {
+        name: 'Unclaimed Territory',
+        desc: 'Any color for chosen creature type spells only. Untapped.',
+        tier: 2,
+        maxCopies: 4,
+        condition: 'tribal',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    cityOfBrass: {
+        name: 'City of Brass',
+        desc: 'Any color. Deals 1 damage to you when tapped.',
+        tier: 1,
+        maxCopies: 4,
+        condition: null,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:1, fetchable:false, isFetch:false, mdfc:false }
+    },
+    manaConfluence: {
+        name: 'Mana Confluence',
+        desc: 'Any color. Pay 1 life to tap for color.',
+        tier: 1,
+        maxCopies: 4,
+        condition: null,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:1, fetchable:false, isFetch:false, mdfc:false }
+    },
+    reflectingPool: {
+        name: 'Reflecting Pool',
+        desc: 'Any color your other lands could produce. Untapped, no cost.',
+        tier: 1,
+        maxCopies: 4,
+        condition: null,
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    commandTower: {
+        name: 'Command Tower',
+        desc: 'Any color in your commander\'s color identity. Untapped, no cost.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'commander',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    exoticOrchard: {
+        name: 'Exotic Orchard',
+        desc: 'Any color an opponent\'s land could produce. Untapped.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'commander',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    pathOfAncestry: {
+        name: 'Path of Ancestry',
+        desc: 'Any color. ETB tapped. Scry 1 when casting commander\'s type.',
+        tier: 2,
+        maxCopies: 4,
+        condition: 'commander',
+        meta: { etb:'tapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    spireOfIndustry: {
+        name: 'Spire of Industry',
+        desc: 'Any color if you control an artifact. Pay 1 life. Untapped.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'artifact',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:1, fetchable:false, isFetch:false, mdfc:false }
+    },
+    ancientZiggurat: {
+        name: 'Ancient Ziggurat',
+        desc: 'Any color for creature spells only. Untapped, no cost.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'creatureSpell',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    },
+    pillarOfTheParuns: {
+        name: 'Pillar of the Paruns',
+        desc: 'Any color for multicolor spells only. Untapped, no cost.',
+        tier: 1,
+        maxCopies: 4,
+        condition: 'multicolor',
+        meta: { etb:'untapped', conditionType:null, lifeCost:0, coloredUseCost:0, fetchable:false, isFetch:false, mdfc:false }
+    }
+};
+
+// Which flexible lands are available per format
+var FLEXIBLE_LAND_FORMATS = {
+    standard:  ['multiversalPassage','startingTown','cavernOfSouls','secludedCourtyard'],
+    pioneer:   ['multiversalPassage','startingTown','manaConfluence','plazaOfHeroes','cavernOfSouls','secludedCourtyard','unclaimedTerritory','spireOfIndustry'],
+    modern:    ['multiversalPassage','startingTown','cityOfBrass','manaConfluence','reflectingPool','plazaOfHeroes','cavernOfSouls','secludedCourtyard','unclaimedTerritory','spireOfIndustry','ancientZiggurat','pillarOfTheParuns'],
+    legacy:    ['multiversalPassage','startingTown','cityOfBrass','manaConfluence','reflectingPool','plazaOfHeroes','cavernOfSouls','secludedCourtyard','unclaimedTerritory','spireOfIndustry','ancientZiggurat','pillarOfTheParuns'],
+    commander: ['multiversalPassage','startingTown','cityOfBrass','manaConfluence','reflectingPool','commandTower','exoticOrchard','pathOfAncestry','plazaOfHeroes','cavernOfSouls','secludedCourtyard','unclaimedTerritory','spireOfIndustry','ancientZiggurat','pillarOfTheParuns'],
+    limited:   [],
+    custom:    []
+};
+
+// Utility lands for mono-color and colorless slots (Commander only)
+var UTILITY_LANDS = {
+    W: [
+        { name: 'Castle Ardenvale', desc: 'Creates 1/1 tokens', category: 'token', condition: 'creature', tier: 1 },
+        { name: 'Eiganjo, Seat of the Empire', desc: 'Channel: removal spell', category: 'removal', condition: null, tier: 1 },
+        { name: 'Emeria, the Sky Ruin', desc: 'Recur creatures from graveyard', category: 'recursion', condition: 'creature', tier: 2 },
+        { name: 'Windbrisk Heights', desc: 'Hideaway — free spell on attack', category: 'advantage', condition: 'creature', tier: 2 },
+        { name: 'Nykthos, Shrine to Nyx', desc: 'Massive mana from devotion', category: 'ramp', condition: null, tier: 1 },
+        { name: "Hall of Heliod's Generosity", desc: 'Recur enchantment to top of library', category: 'recursion', condition: 'enchantment', tier: 1 },
+        { name: "Serra's Sanctum", desc: 'Tap for W equal to enchantments you control', category: 'ramp', condition: 'enchantment', tier: 1 },
+        { name: 'Kor Haven', desc: 'Prevent all combat damage from target creature', category: 'utility', condition: null, tier: 2 }
+    ],
+    U: [
+        { name: 'Castle Vantress', desc: 'Scry 2 at instant speed', category: 'selection', condition: null, tier: 1 },
+        { name: 'Otawara, Soaring City', desc: 'Channel: bounce permanent', category: 'removal', condition: null, tier: 1 },
+        { name: 'Mystic Sanctuary', desc: 'Recur instant/sorcery to top', category: 'recursion', condition: null, tier: 1 },
+        { name: 'Tolaria West', desc: 'Transmute for any 0-cost card', category: 'tutor', condition: null, tier: 2 },
+        { name: 'Nykthos, Shrine to Nyx', desc: 'Massive mana from devotion', category: 'ramp', condition: null, tier: 2 },
+        { name: 'Academy Ruins', desc: 'Recur artifact to top of library', category: 'recursion', condition: 'artifact', tier: 1 },
+        { name: 'Minamo, School at Water\'s Edge', desc: 'Untap target legendary permanent', category: 'utility', condition: 'legendary', tier: 2 }
+    ],
+    B: [
+        { name: 'Castle Locthwain', desc: 'Draw a card (pay life)', category: 'draw', condition: null, tier: 1 },
+        { name: 'Takenuma, Abandoned Mire', desc: 'Channel: recur creature or planeswalker', category: 'recursion', condition: null, tier: 1 },
+        { name: 'Urborg, Tomb of Yawgmoth', desc: 'All lands tap for black', category: 'fixing', condition: null, tier: 1 },
+        { name: 'Phyrexian Tower', desc: 'Sacrifice creature for 2 black mana', category: 'ramp', condition: 'creature', tier: 1 },
+        { name: 'Cabal Coffers', desc: 'Massive mana with Swamps', category: 'ramp', condition: null, tier: 1 },
+        { name: 'Nykthos, Shrine to Nyx', desc: 'Massive mana from devotion', category: 'ramp', condition: null, tier: 2 },
+        { name: 'Bojuka Bog', desc: 'ETB: exile target player\'s graveyard', category: 'removal', condition: null, tier: 1 },
+        { name: "Volrath's Stronghold", desc: 'Recur creature to top of library', category: 'recursion', condition: 'creature', tier: 1 },
+        { name: "Shizo, Death's Storehouse", desc: 'Legendary creature gains fear', category: 'evasion', condition: 'legendary', tier: 1 }
+    ],
+    R: [
+        { name: 'Castle Embereth', desc: 'Pump all creatures +1/+0', category: 'pump', condition: 'creature', tier: 1 },
+        { name: 'Sokenzan, Crucible of Defiance', desc: 'Channel: create haste tokens', category: 'token', condition: null, tier: 1 },
+        { name: 'Valakut, the Molten Pinnacle', desc: 'Burn with 5+ Mountains', category: 'damage', condition: null, tier: 2 },
+        { name: 'War Room', desc: 'Draw a card (pay life = colors)', category: 'draw', condition: null, tier: 1 },
+        { name: 'Nykthos, Shrine to Nyx', desc: 'Massive mana from devotion', category: 'ramp', condition: null, tier: 1 },
+        { name: 'Arena of Glory', desc: 'Creature gains haste', category: 'utility', condition: null, tier: 1 },
+        { name: 'Hanweir Battlements', desc: 'Give target creature haste', category: 'utility', condition: 'creature', tier: 2 }
+    ],
+    G: [
+        { name: 'Castle Garenbrig', desc: 'Add 6 green for creatures', category: 'ramp', condition: 'creature', tier: 1 },
+        { name: 'Boseiju, Who Endures', desc: 'Channel: destroy artifact/enchantment/nonbasic', category: 'removal', condition: null, tier: 1 },
+        { name: 'Yavimaya, Cradle of Growth', desc: 'All lands tap for green', category: 'fixing', condition: null, tier: 1 },
+        { name: "Gaea's Cradle", desc: 'Tap for mana equal to creatures', category: 'ramp', condition: 'creature', tier: 1 },
+        { name: 'Nykthos, Shrine to Nyx', desc: 'Massive mana from devotion', category: 'ramp', condition: null, tier: 1 },
+        { name: 'Yavimaya Hollow', desc: 'Regenerate target creature', category: 'utility', condition: 'creature', tier: 1 },
+        { name: 'Shifting Woodland', desc: 'Delirium: copy permanent in your graveyard', category: 'utility', condition: null, tier: 2 },
+        { name: 'Mosswort Bridge', desc: 'Hideaway: free spell with 10+ creature power', category: 'advantage', condition: 'creature', tier: 2 }
+    ],
+    C: [
+        { name: 'War Room', desc: 'Draw a card (pay life = colors)', category: 'draw', condition: 'fewColors', tier: 1 },
+        { name: "Rogue's Passage", desc: 'Make creature unblockable', category: 'evasion', condition: 'creature', tier: 2 },
+        { name: 'Myriad Landscape', desc: 'Fetch two basics (tapped)', category: 'ramp', condition: null, tier: 2 },
+        { name: 'Reliquary Tower', desc: 'No maximum hand size', category: 'utility', condition: null, tier: 2 },
+        { name: 'Strip Mine', desc: 'Destroy any land', category: 'removal', condition: null, tier: 1 },
+        { name: 'Ancient Tomb', desc: 'Add 2 colorless (2 life)', category: 'ramp', condition: null, tier: 1 },
+        { name: 'Buried Ruin', desc: 'Recur artifact from graveyard', category: 'recursion', condition: 'artifact', tier: 2 },
+        { name: 'Treasure Vault', desc: 'Create Treasure tokens', category: 'ramp', condition: 'artifact', tier: 2 },
+        { name: "Inventors' Fair", desc: 'Tutor for artifact (3+ artifacts)', category: 'tutor', condition: 'artifact', tier: 2 },
+        { name: 'Blast Zone', desc: 'Scalable board wipe for nonlands', category: 'removal', condition: null, tier: 2 },
+        { name: 'Command Beacon', desc: 'Put commander from command zone to hand', category: 'utility', condition: null, tier: 1 },
+        { name: "Urza's Saga", desc: 'Tutor artifact with MV 0-1 to battlefield', category: 'tutor', condition: 'artifact', tier: 1 },
+        { name: 'Wasteland', desc: 'Destroy target nonbasic land', category: 'removal', condition: null, tier: 1 },
+        { name: 'Maze of Ith', desc: 'Prevent all combat damage to/from target creature', category: 'utility', condition: null, tier: 1 },
+        { name: 'Homeward Path', desc: 'Each player gains control of creatures they own', category: 'utility', condition: 'creature', tier: 2 },
+        { name: 'Emergence Zone', desc: 'Sacrifice: cast spells as though they had flash', category: 'utility', condition: null, tier: 2 },
+        { name: 'Field of the Dead', desc: 'Create 2/2 Zombie when land ETBs (7+ diff. lands)', category: 'token', condition: null, tier: 2 },
+        { name: 'Scavenger Grounds', desc: 'Exile each player\'s graveyard', category: 'removal', condition: null, tier: 2 },
+        { name: 'High Market', desc: 'Sacrifice creature: gain 1 life', category: 'utility', condition: 'creature', tier: 2 },
+        { name: "Karn's Bastion", desc: 'Proliferate', category: 'utility', condition: null, tier: 2 },
+        { name: "Thespian's Stage", desc: 'Copy any land on battlefield', category: 'ramp', condition: null, tier: 2 },
+        { name: 'Tyrite Sanctum', desc: '+1/+1 counter or indestructible for legendary', category: 'pump', condition: 'legendary', tier: 2 }
+    ],
+    WB: [
+        { name: 'Vault of the Archangel', desc: 'Creatures gain deathtouch + lifelink', category: 'pump', condition: 'creature', tier: 1 }
+    ],
+    WG: [
+        { name: 'Gavony Township', desc: '+1/+1 counter on each creature you control', category: 'pump', condition: 'creature', tier: 1 }
+    ],
+    RG: [
+        { name: 'Kessig Wolf Run', desc: 'Trample and +X/+0 to creature', category: 'pump', condition: 'creature', tier: 1 }
+    ],
+    UG: [
+        { name: "Alchemist's Refuge", desc: 'Cast spells as though they had flash', category: 'utility', condition: null, tier: 2 }
+    ],
+    RW: [
+        { name: "Slayers' Stronghold", desc: '+2/+0, vigilance, and haste', category: 'pump', condition: 'creature', tier: 2 },
+        { name: 'Sunhome, Fortress of the Legion', desc: 'Creature gains double strike', category: 'pump', condition: 'creature', tier: 2 }
+    ]
+};
+
+// Build utility land name lookup for deduplication
+var UTILITY_LAND_NAMES = {};
+(function() {
+    for (var color in UTILITY_LANDS) {
+        for (var i = 0; i < UTILITY_LANDS[color].length; i++) {
+            UTILITY_LAND_NAMES[UTILITY_LANDS[color][i].name.toLowerCase()] = true;
+        }
+    }
+})();
+
+// Build reverse lookup: card name (lowercase) -> { cycleKey, pair }
+var LAND_NAME_TO_CYCLE = {};
+(function() {
+    for (var key in LAND_CYCLES) {
+        var cycle = LAND_CYCLES[key];
+        for (var pair in cycle.cards) {
+            LAND_NAME_TO_CYCLE[cycle.cards[pair].toLowerCase()] = { cycleKey: key, pair: pair };
+        }
+    }
+})();
+for (var _fk in FLEXIBLE_LANDS) {
+    LAND_NAME_TO_CYCLE[FLEXIBLE_LANDS[_fk].name.toLowerCase()] = { cycleKey: '_flex_' + _fk, pair: 'ALL', isFlex: true };
+}
 
 // Which cycles are available in each format, in priority order (best first)
 const FORMAT_CYCLE_KEYS = {
@@ -772,6 +1112,301 @@ function findMostDemandingCard(color, cards) {
     return best;
 }
 
+function analyzeDeckContext(cards) {
+    var result = {
+        legendaryDensity: 0, tribalDensity: 0, dominantType: null,
+        creatureCount: 0, totalSpells: 0, typeCounts: {},
+        artifactDensity: 0, creatureSpellDensity: 0, multicolorDensity: 0,
+        enchantmentDensity: 0, instantSorceryDensity: 0,
+        // Ramp analysis fields
+        rampCount: 0, cheapRampCount: 0, fastManaCount: 0,
+        rampByType: { dork: 0, rock: 0, landRamp: 0, fast: 0, fastOneShot: 0, treasure: 0, etbMana: 0, extraLand: 0 },
+        rampSources: { W: 0, U: 0, B: 0, R: 0, G: 0 },
+        rampDetails: [],  // [{rampType, mv, weight, colors, qty}]
+        cheapDrawCount: 0
+    };
+    if (!cards || cards.length === 0) return result;
+
+    var totalSpells = 0;
+    var legendarySpells = 0;
+    var creatureCount = 0;
+    var artifactCount = 0;
+    var multicolorCount = 0;
+    var enchantmentCount = 0;
+    var instantSorceryCount = 0;
+    var typeCounts = {};
+
+    // Karsten weight coefficients per ramp type
+    // fast = repeatable MV0 mana (Mana Crypt, Mox Diamond)
+    // fastOneShot = single-use MV0 or exile-from-hand (Lotus Petal, Simian Spirit Guide)
+    // dork = repeatable creature tap (Birds of Paradise, Llanowar Elves)
+    // rock = repeatable artifact tap (Sol Ring, Arcane Signet)
+    // landRamp = puts land onto battlefield (Cultivate, Rampant Growth)
+    // treasure = creates Treasure tokens (Smothering Tithe, Dockside Extortionist)
+    // etbMana = one-shot ETB mana creature (Burning-Tree Emissary, Priest of Gix)
+    // extraLand = additional land drops (Exploration, Azusa)
+    var RAMP_WEIGHTS = {
+        fast: 1.0, fastOneShot: 0.4, dork: 0.5, rock: 0.75,
+        landRamp: 0.75, treasure: 0.25, etbMana: 0.1, extraLand: 0.5
+    };
+
+    for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        if (card.isLand) continue;
+        totalSpells += card.qty;
+        if (card.isLegendary) legendarySpells += card.qty;
+        if (card.isArtifact) artifactCount += card.qty;
+        if (card.isMulticolor) multicolorCount += card.qty;
+        if (card.isEnchantment) enchantmentCount += card.qty;
+        if (card.isInstantSorcery) instantSorceryCount += card.qty;
+        if (card.creatureTypes && card.creatureTypes.length > 0) {
+            creatureCount += card.qty;
+            for (var t = 0; t < card.creatureTypes.length; t++) {
+                var ct = card.creatureTypes[t];
+                typeCounts[ct] = (typeCounts[ct] || 0) + card.qty;
+            }
+        }
+
+        // Ramp aggregation
+        if (card.rampType) {
+            result.rampCount += card.qty;
+            result.rampByType[card.rampType] = (result.rampByType[card.rampType] || 0) + card.qty;
+            if (card.mv <= 2) result.cheapRampCount += card.qty;
+            if (card.rampType === 'fast') result.fastManaCount += card.qty;
+
+            var weight = RAMP_WEIGHTS[card.rampType] || 0;
+            var rampColors = card.rampColors || [];
+            var isAny = rampColors.indexOf('any') >= 0;
+
+            result.rampDetails.push({ rampType: card.rampType, mv: card.mv, weight: weight, colors: rampColors, qty: card.qty });
+
+            // Accumulate weighted source contributions per color
+            COLORS.forEach(function(col) {
+                if (isAny || rampColors.indexOf(col) >= 0) {
+                    result.rampSources[col] += weight * card.qty;
+                }
+            });
+        }
+
+        // Cheap card draw detection (MV <= 2, non-land, non-ramp, draws cards)
+        if (!card.rampType && card.mv <= 2 && card.mv > 0) {
+            // We need oracle text, but we only have pips/name in perCardData
+            // Mark as cheap draw based on name heuristics stored during import
+            if (card.isCheapDraw) {
+                result.cheapDrawCount += card.qty;
+            }
+        }
+    }
+
+    result.totalSpells = totalSpells;
+    result.creatureCount = creatureCount;
+    result.typeCounts = typeCounts;
+
+    if (totalSpells > 0) {
+        result.legendaryDensity = legendarySpells / totalSpells;
+        result.artifactDensity = artifactCount / totalSpells;
+        result.creatureSpellDensity = creatureCount / totalSpells;
+        result.multicolorDensity = multicolorCount / totalSpells;
+        result.enchantmentDensity = enchantmentCount / totalSpells;
+        result.instantSorceryDensity = instantSorceryCount / totalSpells;
+    }
+
+    // Find dominant creature type
+    var bestType = null, bestCount = 0;
+    for (var type in typeCounts) {
+        if (typeCounts[type] > bestCount) {
+            bestCount = typeCounts[type];
+            bestType = type;
+        }
+    }
+    result.dominantType = bestType;
+    if (creatureCount > 0) {
+        result.tribalDensity = bestCount / creatureCount;
+    }
+
+    return result;
+}
+
+function computeBasicMattersFloor(cards, activeColors) {
+    var result = { totalBasicFloor: 0, perColorFloor: {} };
+    COLORS.forEach(function(c) { result.perColorFloor[c] = 0; });
+    if (!cards || cards.length === 0) return result;
+
+    // Cards that want a high total basic count
+    var totalBasicCards = {
+        'land tax': 8,
+        'weathered wayfarer': 5,
+        'oath of lieges': 6,
+        'keeper of the accord': 6,
+        "archaeomancer's map": 6,
+        'tithe': 5,
+        'gift of estates': 5,
+        'burnished hart': 4
+    };
+    // Cards that want basics of a specific color
+    var perColorCards = {
+        'emeria, the sky ruin': { color: 'W', floor: 7 },
+        'emeria shepherd': { color: 'W', floor: 7 },
+        'knight of the white orchid': { color: 'W', floor: 5 },
+        'cabal coffers': { color: 'B', floor: 6 },
+        'cabal stronghold': { color: 'B', floor: 5 },
+        'crypt ghast': { color: 'B', floor: 5 },
+        'nirkana revenant': { color: 'B', floor: 5 },
+        'valakut, the molten pinnacle': { color: 'R', floor: 6 },
+        'dread presence': { color: 'B', floor: 5 },
+        'nissa, who shakes the world': { color: 'G', floor: 5 }
+    };
+
+    for (var i = 0; i < cards.length; i++) {
+        var name = cards[i].name.toLowerCase();
+        if (totalBasicCards[name] !== undefined) {
+            result.totalBasicFloor = Math.max(result.totalBasicFloor, totalBasicCards[name]);
+        }
+        if (perColorCards[name] !== undefined) {
+            var entry = perColorCards[name];
+            if (activeColors.indexOf(entry.color) >= 0) {
+                result.perColorFloor[entry.color] = Math.max(result.perColorFloor[entry.color], entry.floor);
+            }
+        }
+    }
+    return result;
+}
+
+function flexLandEffectiveness(flexKey, deckContext) {
+    var flex = FLEXIBLE_LANDS[flexKey];
+    if (!flex) return 1.0;
+    var condition = flex.condition || null;
+    if (!condition || condition === 'turnGated') return 1.0;
+    if (condition === 'commander') return (deckContext.isCommander) ? 1.0 : 0.0;
+    if (condition === 'legendary') return deckContext.legendaryDensity || 0;
+    if (condition === 'tribal') {
+        var matchingCreatures = (deckContext.creatureCount || 0) * (deckContext.tribalDensity || 0);
+        return matchingCreatures / Math.max(1, deckContext.totalSpells || 1);
+    }
+    if (condition === 'artifact') return deckContext.artifactDensity || 0;
+    if (condition === 'creatureSpell') return deckContext.creatureSpellDensity || 0;
+    if (condition === 'multicolor') return deckContext.multicolorDensity || 0;
+    return 1.0;
+}
+
+// Recommend specific utility lands for Commander decks
+// Returns array of { name, desc, category, score } sorted by score descending
+function recommendUtilityLands(activeList, slots, deckContext, tempoProfile) {
+    if (slots <= 0 || state.format !== 'commander') return [];
+
+    var archetype = tempoProfile ? tempoProfile.archetype : 'midrange';
+    var isMono = activeList.length === 1;
+
+    // Collect candidates from color-specific + colorless pools
+    var candidates = [];
+    var seen = {};
+
+    // Color-specific lands
+    for (var i = 0; i < activeList.length; i++) {
+        var colorLands = UTILITY_LANDS[activeList[i]];
+        if (!colorLands) continue;
+        for (var j = 0; j < colorLands.length; j++) {
+            var land = colorLands[j];
+            var key = land.name.toLowerCase();
+            if (seen[key]) continue;
+            seen[key] = true;
+            candidates.push({ name: land.name, desc: land.desc, category: land.category, condition: land.condition, tier: land.tier, colorSpecific: true });
+        }
+    }
+
+    // Colorless utility lands
+    var colorlessLands = UTILITY_LANDS.C || [];
+    for (var k = 0; k < colorlessLands.length; k++) {
+        var cl = colorlessLands[k];
+        var clKey = cl.name.toLowerCase();
+        if (seen[clKey]) continue;
+        seen[clKey] = true;
+        candidates.push({ name: cl.name, desc: cl.desc, category: cl.category, condition: cl.condition, tier: cl.tier, colorSpecific: false });
+    }
+
+    // Multicolor utility lands — only if both colors in pair are active
+    for (var a = 0; a < activeList.length; a++) {
+        for (var b = a + 1; b < activeList.length; b++) {
+            [activeList[a] + activeList[b], activeList[b] + activeList[a]].forEach(function(pk) {
+                var pairLands = UTILITY_LANDS[pk];
+                if (!pairLands) return;
+                for (var p = 0; p < pairLands.length; p++) {
+                    var pl = pairLands[p];
+                    var plKey = pl.name.toLowerCase();
+                    if (seen[plKey]) continue;
+                    seen[plKey] = true;
+                    candidates.push({ name: pl.name, desc: pl.desc, category: pl.category, condition: pl.condition, tier: pl.tier, colorSpecific: true });
+                }
+            });
+        }
+    }
+
+    // Filter out cards already in imported decklist
+    if (state.mode === 'imported' && state.cards) {
+        var importedNames = {};
+        for (var m = 0; m < state.cards.length; m++) {
+            importedNames[state.cards[m].name.toLowerCase()] = true;
+        }
+        candidates = candidates.filter(function(c) { return !importedNames[c.name.toLowerCase()]; });
+    }
+
+    // Score each candidate
+    var creatureDensity = deckContext.creatureSpellDensity || 0;
+    var artifactDensity = deckContext.artifactDensity || 0;
+
+    candidates.forEach(function(c) {
+        var score = 0;
+
+        // Base score from tier (tier 1 = 10, tier 2 = 6, tier 3 = 3)
+        score += c.tier === 1 ? 10 : (c.tier === 2 ? 6 : 3);
+
+        // Mono-color bonus for color-specific lands
+        if (isMono && c.colorSpecific) score += 3;
+
+        // Condition bonuses
+        if (c.condition === 'creature' && creatureDensity > 0.3) score += 4;
+        if (c.condition === 'creature' && creatureDensity > 0.5) score += 2;
+        if (c.condition === 'artifact' && artifactDensity > 0.2) score += 4;
+        if (c.condition === 'artifact' && artifactDensity > 0.4) score += 2;
+        if (c.condition === 'fewColors' && isMono) score += 3;
+        if (c.condition === 'enchantment' && (deckContext.enchantmentDensity || 0) > 0.2) score += 4;
+        if (c.condition === 'enchantment' && (deckContext.enchantmentDensity || 0) > 0.4) score += 2;
+        if (c.condition === 'legendary' && (deckContext.legendaryDensity || 0) > 0.15) score += 4;
+        if (c.condition === 'legendary' && (deckContext.legendaryDensity || 0) > 0.35) score += 2;
+
+        // Archetype match
+        if (archetype === 'aggro') {
+            if (c.category === 'pump' || c.category === 'evasion' || c.category === 'damage' || c.category === 'token') score += 3;
+            if (c.category === 'ramp') score -= 1;
+        } else if (archetype === 'control') {
+            if (c.category === 'draw' || c.category === 'selection' || c.category === 'recursion' || c.category === 'removal') score += 3;
+            if (c.category === 'pump') score -= 1;
+        } else {
+            // Midrange likes a bit of everything
+            if (c.category === 'ramp' || c.category === 'draw' || c.category === 'removal') score += 2;
+        }
+
+        // Spellslinger bonus
+        if ((deckContext.instantSorceryDensity || 0) > 0.4) {
+            if (c.category === 'selection' || c.category === 'recursion' || c.category === 'draw') score += 2;
+        }
+        // Enchantress bonus
+        if ((deckContext.enchantmentDensity || 0) > 0.3) {
+            if (c.condition === 'enchantment') score += 3;
+        }
+
+        c.score = score;
+    });
+
+    // Sort by score descending, then tier ascending for ties
+    candidates.sort(function(a, b) {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.tier - b.tier;
+    });
+
+    return candidates.slice(0, slots);
+}
+
 function recommendedSources(color, deckSize, totalLands, cards) {
     // Per-card Karsten method: find the most demanding card for this color
     var demand = findMostDemandingCard(color, cards);
@@ -809,65 +1444,112 @@ function recommendedSourcesFromPips(totalPips, deckSize, totalLands) {
 // UI Initialization
 // ══════════════════════════════════════════
 
-// Slug → JS cycle key mapping (JSON uses slugs, JS uses camelCase)
-const SLUG_TO_KEYS = {
-  'shock-lands':    ['shockLands'],
-  'survey-lands':   ['surveilLands'],
-  'fast-lands':     ['fastLandsEnemy', 'fastLands'],
-  'verge-lands':    ['vergeLands'],
-  'haunt-lands':    ['hauntLands'],
-  'restless-lands': ['restlessLands'],
-  'scry-lands':     ['scryTemples'],
-  'gain-lands':     ['gainLands'],
-  'guildgates':     ['guildgates'],
-  'check-lands':    ['checkLands'],
-  'pathway-lands':  ['pathwayLands'],
-  'slow-lands':     ['slowLands'],
-  'pain-lands':     ['painLands'],
-  'reveal-lands':   ['revealLands'],
-  'fetch-lands':    ['fetchLands'],
-  'horizon-lands':  ['horizonLands'],
-  'filter-lands':   ['filterLands'],
-  'original-duals': ['originalDuals'],
-  'bond-lands':     ['bondLands']
-};
 // Tier-priority ordering: premium first, budget last
-const TIER_ORDER = [
+var TIER_ORDER = [
   'fetchLands','originalDuals','shockLands','fastLands','fastLandsEnemy',
   'horizonLands','bondLands','painLands','checkLands','slowLands',
   'vergeLands','filterLands','surveilLands','pathwayLands','revealLands',
-  'hauntLands','restlessLands','scryTemples','gainLands','guildgates'
+  'hauntLands','restlessLands','scryTemples','gainLands','guildgates',
+  'desertLands','avatarLands','spiderManLands','finalFantasyLands'
 ];
 
-function loadLandLegality() {
-  fetch('/data/land-legality.json')
+function rebuildLandNameLookup() {
+    LAND_NAME_TO_CYCLE = {};
+    for (var key in LAND_CYCLES) {
+        var cycle = LAND_CYCLES[key];
+        for (var pair in cycle.cards) {
+            LAND_NAME_TO_CYCLE[cycle.cards[pair].toLowerCase()] = { cycleKey: key, pair: pair };
+        }
+    }
+    for (var fk in FLEXIBLE_LANDS) {
+        LAND_NAME_TO_CYCLE[FLEXIBLE_LANDS[fk].name.toLowerCase()] = { cycleKey: '_flex_' + fk, pair: 'ALL', isFlex: true };
+    }
+}
+
+function loadLandDatabase() {
+  fetch('/data/land-database.json')
     .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
     .then(function(data) {
-      if (!data || !data.cycles) return;
-      // Build reverse map: JS key → legal formats
-      var keyLegal = {};
-      for (var slug in data.cycles) {
-        var jsKeys = SLUG_TO_KEYS[slug];
-        if (!jsKeys) continue;
-        for (var i = 0; i < jsKeys.length; i++) {
-          keyLegal[jsKeys[i]] = data.cycles[slug];
+      if (!data) return;
+
+      // Update tier order if provided
+      if (data.tierOrder && data.tierOrder.length > 0) {
+        TIER_ORDER = data.tierOrder;
+      }
+
+      // Update/add cycle definitions and collect legality
+      if (data.cycles) {
+        for (var cycleKey in data.cycles) {
+          var src = data.cycles[cycleKey];
+          if (!LAND_CYCLES[cycleKey]) {
+            // New cycle discovered — add it
+            LAND_CYCLES[cycleKey] = {
+              name: src.name, desc: src.desc, tier: src.tier,
+              meta: src.meta, cards: src.cards
+            };
+          } else {
+            // Existing cycle — update cards and metadata
+            var existing = LAND_CYCLES[cycleKey];
+            if (src.name) existing.name = src.name;
+            if (src.desc) existing.desc = src.desc;
+            if (src.tier !== undefined) existing.tier = src.tier;
+            if (src.meta) existing.meta = src.meta;
+            if (src.cards) {
+              for (var pair in src.cards) {
+                existing.cards[pair] = src.cards[pair];
+              }
+            }
+          }
         }
       }
-      // Rebuild FORMAT_CYCLE_KEYS for each format
+
+      // Update/add flexible land definitions
+      if (data.flexibleLands) {
+        for (var flexKey in data.flexibleLands) {
+          var fsrc = data.flexibleLands[flexKey];
+          FLEXIBLE_LANDS[flexKey] = {
+            name: fsrc.name, desc: fsrc.desc, tier: fsrc.tier,
+            maxCopies: fsrc.maxCopies || 4, condition: fsrc.condition || null, meta: fsrc.meta
+          };
+        }
+      }
+
+      // Rebuild reverse lookup with any new cards
+      rebuildLandNameLookup();
+
+      // Rebuild FORMAT_CYCLE_KEYS from legality data
       var fmts = ['standard','pioneer','modern','legacy','commander'];
       for (var f = 0; f < fmts.length; f++) {
         var fmt = fmts[f];
         var keys = [];
         for (var t = 0; t < TIER_ORDER.length; t++) {
           var k = TIER_ORDER[t];
-          if (LAND_CYCLES[k] && keyLegal[k] && keyLegal[k][fmt]) {
+          var legal = data.cycles && data.cycles[k] && data.cycles[k].legality;
+          if (LAND_CYCLES[k] && legal && legal[fmt]) {
             keys.push(k);
           }
         }
+        // Also check for cycles in TIER_ORDER that aren't in the JSON but exist in LAND_CYCLES
+        // (backward compat with hardcoded data)
         if (keys.length > 0) FORMAT_CYCLE_KEYS[fmt] = keys;
       }
+
+      // Rebuild FLEXIBLE_LAND_FORMATS from legality data
+      for (var ff = 0; ff < fmts.length; ff++) {
+        FLEXIBLE_LAND_FORMATS[fmts[ff]] = [];
+      }
+      var flexSource = data.flexibleLands || {};
+      for (var fk2 in flexSource) {
+        var fLegal = flexSource[fk2].legality;
+        if (!fLegal) continue;
+        for (var ff2 = 0; ff2 < fmts.length; ff2++) {
+          if (fLegal[fmts[ff2]]) {
+            FLEXIBLE_LAND_FORMATS[fmts[ff2]].push(fk2);
+          }
+        }
+      }
     })
-    .catch(function() {}); // Keep hardcoded fallback
+    .catch(function() {}); // Keep hardcoded fallback on network error
 }
 
 function init() {
@@ -877,7 +1559,7 @@ function init() {
     renderPipInputs();
     setupCurveListeners();
     updateCurveTotal();
-    loadLandLegality();
+    loadLandDatabase();
 }
 
 function setupFormatButtons() {
@@ -1035,6 +1717,895 @@ function updateCurveTotal() {
 }
 
 // ══════════════════════════════════════════
+// Tempo Profile & Smart Land Optimizer
+// ══════════════════════════════════════════
+
+function computeTempoProfile() {
+    var curve = state.curve;
+    var totalSpells = 0, weightedMV = 0;
+    var oneDropCount = 0, twoDropCount = 0;
+
+    if (state.mode === 'imported' && state.cards) {
+        state.cards.forEach(function(card) {
+            if (card.isLand) return;
+            totalSpells += card.qty;
+            weightedMV += card.mv * card.qty;
+            if (card.mv === 1) oneDropCount += card.qty;
+            if (card.mv === 2) twoDropCount += card.qty;
+        });
+    } else {
+        for (var mv = 0; mv <= 7; mv++) {
+            var count = curve[mv] || 0;
+            totalSpells += count;
+            weightedMV += mv * count;
+            if (mv === 1) oneDropCount = count;
+            if (mv === 2) twoDropCount = count;
+        }
+    }
+
+    var avgMV = totalSpells > 0 ? weightedMV / totalSpells : 2.5;
+
+    // tempoSensitivity: 0.0 (control) to 1.0 (hyper-aggro)
+    var tempoSensitivity = Math.max(0, Math.min(1, (3.5 - avgMV) / 2.0));
+
+    var archetype;
+    if (avgMV < 2.2) archetype = 'aggro';
+    else if (avgMV <= 3.2) archetype = 'midrange';
+    else archetype = 'control';
+
+    // Turn weights: how important is untapped mana on each turn?
+    var turnWeights;
+    if (archetype === 'aggro') {
+        turnWeights = [0, 0.30, 0.30, 0.20, 0.10, 0.05, 0.05];
+    } else if (archetype === 'midrange') {
+        turnWeights = [0, 0.10, 0.20, 0.30, 0.20, 0.10, 0.10];
+    } else {
+        turnWeights = [0, 0.05, 0.10, 0.20, 0.25, 0.20, 0.20];
+    }
+
+    return {
+        avgMV: avgMV,
+        oneDropCount: oneDropCount,
+        twoDropCount: twoDropCount,
+        tempoSensitivity: tempoSensitivity,
+        archetype: archetype,
+        turnWeights: turnWeights,
+        totalSpells: totalSpells
+    };
+}
+
+function untappedProbability(meta, turn, deckContext) {
+    if (!meta) return 0.5;
+    var etb = meta.etb;
+    if (etb === 'untapped') return 1.0;
+    if (etb === 'tapped') return 0.0;
+    if (etb === 'choice') return 1.0; // player pays life
+    if (etb !== 'conditional') return 0.5;
+
+    var ct = meta.conditionType;
+    if (ct === 'startingTown') return turn <= 3 ? 1.0 : 0.0;
+    if (ct === 'fast') return turn <= 3 ? 1.0 : 0.0;
+    if (ct === 'slow') return turn <= 2 ? 0.0 : 1.0;
+    if (ct === 'bond') return deckContext.isCommander ? 1.0 : 0.0;
+    if (ct === 'haunt') {
+        // ~10% turns 1-2, ~30% turn 3, ~50% turn 4+
+        if (turn <= 2) return 0.1;
+        if (turn === 3) return 0.3;
+        return 0.5;
+    }
+    if (ct === 'check') {
+        // P(matching basic in play) ~ hypergeometric approximation
+        // Approximate: with B basics in N cards, drawing turn+6 cards, P(>=1 basic in play by turn T) ~ 1-(1-B/N)^(T+6)
+        var basicCount = deckContext.totalBasics || Math.round(state.totalLands * 0.4);
+        var deckN = state.deckSize;
+        var cardsSeenByTurn = Math.min(turn + 6, deckN);
+        // But we need a basic in play, not just drawn. If it's turn T, we've played T-1 lands before this one.
+        // Approximate: P(at least 1 matching basic among T-1 land drops from ~T+5 cards seen)
+        var pNoBasic = 1;
+        for (var i = 0; i < Math.min(turn + 5, deckN); i++) {
+            pNoBasic *= (deckN - basicCount - i) / (deckN - i);
+            if (pNoBasic < 0) { pNoBasic = 0; break; }
+        }
+        return Math.max(0, Math.min(1, 1 - pNoBasic));
+    }
+    if (ct === 'reveal') {
+        // P(matching basic in hand) ~ similar to check but in hand specifically
+        var basicCount2 = deckContext.totalBasics || Math.round(state.totalLands * 0.4);
+        var handSize = Math.min(turn + 6, state.deckSize);
+        var pNoReveal = 1;
+        for (var j = 0; j < handSize; j++) {
+            pNoReveal *= (state.deckSize - basicCount2 - j) / (state.deckSize - j);
+            if (pNoReveal < 0) { pNoReveal = 0; break; }
+        }
+        return Math.max(0, Math.min(1, 1 - pNoReveal));
+    }
+    return 0.5;
+}
+
+function scoreLand(cycleKey, pair, deckContext, tempoProfile, currentAllocation) {
+    var cycle = LAND_CYCLES[cycleKey];
+    if (!cycle) return -999;
+    var meta = cycle.meta;
+    var score = 0;
+
+    var c1 = pair[0], c2 = pair[1];
+    var colorContrib = meta.mdfc ? 0.5 : 1.0;
+
+    // 1. Color Contribution (0-40 pts) — weighted by source deficiency
+    var maxDeficiency = Math.max.apply(null, Object.values(deckContext.needed).map(function(n, i) {
+        var col = Object.keys(deckContext.needed)[i];
+        return Math.max(0, n - (currentAllocation.sources[col] || 0));
+    }));
+    if (maxDeficiency <= 0) maxDeficiency = 1;
+
+    if (meta.isFetch) {
+        // Fetch lands: score based on effective colors (what they can actually find)
+        var activeList = Object.keys(deckContext.needed);
+        var effColors = computeFetchEffectiveColors(pair, activeList, currentAllocation);
+        var fetchColorScore = 0;
+        for (var ec = 0; ec < effColors.length; ec++) {
+            var def = Math.max(0, (deckContext.needed[effColors[ec]] || 0) - (currentAllocation.sources[effColors[ec]] || 0));
+            fetchColorScore += (def / maxDeficiency) * 20;
+        }
+        score += Math.min(40, fetchColorScore);
+        // Small penalty if fetch only produces 1 or 0 effective colors
+        if (effColors.length < 2) score -= 3;
+        // On-color bonus: prefer fetches where both printed colors are active
+        var onColorCount = 0;
+        for (var oc = 0; oc < activeList.length; oc++) {
+            if (pair[0] === activeList[oc] || pair[1] === activeList[oc]) onColorCount++;
+        }
+        if (onColorCount >= 2) score += 3; // Both colors active → more reliable targets
+    } else {
+        var deficiency1 = Math.max(0, (deckContext.needed[c1] || 0) - (currentAllocation.sources[c1] || 0));
+        var deficiency2 = Math.max(0, (deckContext.needed[c2] || 0) - (currentAllocation.sources[c2] || 0));
+        score += (deficiency1 / maxDeficiency) * 20 * colorContrib;
+        score += (deficiency2 / maxDeficiency) * 20 * colorContrib;
+    }
+
+    // 2. Tempo Score (0-30 pts)
+    var tempoScore = 0;
+    for (var t = 1; t <= 6; t++) {
+        var prob = untappedProbability(meta, t, deckContext);
+        tempoScore += prob * (tempoProfile.turnWeights[t] || 0);
+    }
+    score += tempoScore * 30;
+
+    // 3. Life Cost Penalty (0 to -10 pts)
+    var lifePenalty = meta.lifeCost * tempoProfile.tempoSensitivity * 2;
+    lifePenalty += meta.coloredUseCost * 3 * tempoProfile.tempoSensitivity;
+    score -= Math.min(10, lifePenalty);
+
+    // 4. Fetch Synergy Bonus (0-15 pts)
+    if (meta.fetchable && currentAllocation.fetchCount > 0) {
+        score += Math.min(15, currentAllocation.fetchCount * 2.5);
+    }
+    if (meta.isFetch) {
+        // Count only targets THIS specific fetch can find (matching basic land types)
+        var fetchType1 = COLOR_TO_BASIC_TYPE[pair[0]];
+        var fetchType2 = COLOR_TO_BASIC_TYPE[pair[1]];
+        var reachableTargets = 0;
+        COLORS.forEach(function(c) {
+            var bType = COLOR_TO_BASIC_TYPE[c];
+            if ((bType === fetchType1 || bType === fetchType2) && (currentAllocation.basics[c] || 0) > 0) {
+                reachableTargets += currentAllocation.basics[c];
+            }
+        });
+        if (currentAllocation.duals) {
+            for (var di = 0; di < currentAllocation.duals.length; di++) {
+                var dd = currentAllocation.duals[di];
+                if (dd.isFlex || !dd.meta || !dd.meta.fetchable) continue;
+                var dType1 = COLOR_TO_BASIC_TYPE[dd.pair[0]];
+                var dType2 = COLOR_TO_BASIC_TYPE[dd.pair[1]];
+                if (fetchType1 === dType1 || fetchType1 === dType2 ||
+                    fetchType2 === dType1 || fetchType2 === dType2) {
+                    reachableTargets += dd.qty;
+                }
+            }
+        }
+        score += Math.min(15, reachableTargets * 1.5);
+    }
+
+    // 5. Utility Bonus (0-5 pts)
+    if (cycleKey === 'horizonLands') score += 4; // card draw
+    if (cycleKey === 'restlessLands') score += 3; // creature land
+    if (cycleKey === 'surveilLands') score += 2; // surveil
+    if (cycleKey === 'scryTemples') score += 1.5; // scry
+
+    // 6. Diminishing Returns (-0 to -8 pts) — penalty for 3rd+ copy of same cycle
+    if (meta.isFetch) {
+        // Per-pair: standard diminishing returns (3rd+ copy of same specific fetch)
+        var fetchPairCount = 0;
+        for (var fp = 0; fp < currentAllocation.duals.length; fp++) {
+            if (currentAllocation.duals[fp].cycleKey === cycleKey && currentAllocation.duals[fp].pair === pair) {
+                fetchPairCount = currentAllocation.duals[fp].qty;
+                break;
+            }
+        }
+        if (fetchPairCount >= 3) score -= (fetchPairCount - 2) * 4;
+        else if (fetchPairCount >= 2) score -= 1;
+        // Aggregate: mild penalty to cap total fetch density (~8-10 max)
+        var totalFetches = currentAllocation.fetchCount || 0;
+        if (totalFetches >= 4) score -= (totalFetches - 3) * 1.5;
+    } else {
+        var cycleCount = currentAllocation.cycleCounts[cycleKey] || 0;
+        if (cycleCount >= 3) score -= (cycleCount - 2) * 4;
+        else if (cycleCount >= 2) score -= 1;
+    }
+
+    return score;
+}
+
+function scoreFlexibleLand(flexKey, deckContext, tempoProfile, currentAllocation, activeList) {
+    var flex = FLEXIBLE_LANDS[flexKey];
+    if (!flex) return -999;
+    var meta = flex.meta;
+    var score = 0;
+
+    // Effectiveness multiplier for conditional lands
+    // Minimum 15% threshold — below that, the land is too situational to justify a slot
+    var effectiveness = flexLandEffectiveness(flexKey, deckContext);
+    if (effectiveness < 0.15) return -999;
+
+    // 1. Color Contribution — helps ALL active colors, scaled by effectiveness
+    var maxDeficiency = 0;
+    activeList.forEach(function(c) {
+        var def = Math.max(0, (deckContext.needed[c] || 0) - (currentAllocation.sources[c] || 0));
+        if (def > maxDeficiency) maxDeficiency = def;
+    });
+    if (maxDeficiency <= 0) maxDeficiency = 1;
+
+    var colorScore = 0;
+    activeList.forEach(function(c) {
+        var def = Math.max(0, (deckContext.needed[c] || 0) - (currentAllocation.sources[c] || 0));
+        colorScore += (def / maxDeficiency) * 20;
+    });
+    score += Math.min(40, colorScore) * effectiveness;
+
+    // 2. Tempo Score
+    var tempoScore = 0;
+    for (var t = 1; t <= 6; t++) {
+        var prob = untappedProbability(meta, t, deckContext);
+        tempoScore += prob * (tempoProfile.turnWeights[t] || 0);
+    }
+    score += tempoScore * 30;
+
+    // 3. Life Cost Penalty
+    var lifePenalty = meta.lifeCost * tempoProfile.tempoSensitivity * 2;
+    lifePenalty += meta.coloredUseCost * 3 * tempoProfile.tempoSensitivity;
+    score -= Math.min(10, lifePenalty);
+
+    // 4. Fetch Synergy (it's fetchable)
+    if (meta.fetchable && currentAllocation.fetchCount > 0) {
+        score += Math.min(15, currentAllocation.fetchCount * 2.5);
+    }
+
+    // 5. Diminishing Returns
+    var copies = currentAllocation.flexCopies ? (currentAllocation.flexCopies[flexKey] || 0) : 0;
+    if (copies >= 3) score -= (copies - 2) * 4;
+    else if (copies >= 2) score -= 1;
+
+    // 6. Slight penalty vs true dual lands — can only produce 1 color per game
+    score -= 2;
+
+    // 7. Cavern of Souls bonus for uncounterable (scaled by effectiveness)
+    if (flexKey === 'cavernOfSouls') score += 5 * effectiveness;
+
+    return score;
+}
+
+function optimizeManaBase(activeList, recommended, cachedDeckAnalysis) {
+    var tempoProfile = computeTempoProfile();
+    var formatKey = state.format;
+    var cycleKeys = FORMAT_CYCLE_KEYS[formatKey] || FORMAT_CYCLE_KEYS['custom'];
+    var isCommander = (formatKey === 'commander');
+    var copiesPerCycle = isCommander ? 1 : (formatKey === 'limited' ? 1 : 4);
+
+    // Per-color source targets
+    var needed = {};
+    activeList.forEach(function(c) { needed[c] = recommended[c]; });
+
+    // Analyze deck composition for conditional lands (reuse cached if available)
+    var deckAnalysis = cachedDeckAnalysis || ((state.mode === 'imported' && state.cards) ? analyzeDeckContext(state.cards) : analyzeDeckContext(null));
+
+    // Deck context for scoring
+    var deckContext = {
+        needed: needed,
+        isCommander: isCommander,
+        totalBasics: 0,
+        legendaryDensity: deckAnalysis.legendaryDensity,
+        tribalDensity: deckAnalysis.tribalDensity,
+        dominantType: deckAnalysis.dominantType,
+        creatureCount: deckAnalysis.creatureCount,
+        totalSpells: deckAnalysis.totalSpells,
+        artifactDensity: deckAnalysis.artifactDensity,
+        creatureSpellDensity: deckAnalysis.creatureSpellDensity,
+        multicolorDensity: deckAnalysis.multicolorDensity
+    };
+
+    // Minimum basics per color
+    var minBasicsPerColor = isCommander ? 2 : 1;
+
+    // Basic-matters floor: cards like Land Tax, Emeria, Cabal Coffers need more basics
+    var basicMatters = (state.mode === 'imported' && state.cards)
+        ? computeBasicMattersFloor(state.cards, activeList)
+        : { totalBasicFloor: 0, perColorFloor: {} };
+
+    // Initialize allocation state
+    var allocation = {
+        duals: [],        // [{cycleKey, pair, name, qty, meta}]
+        basics: {},       // {W:4, U:3, ...}
+        sources: {},      // current source count per color
+        fetchCount: 0,
+        fetchableCount: 0,
+        cycleCounts: {},  // cycleKey -> total copies allocated
+        totalDuals: 0
+    };
+    activeList.forEach(function(c) {
+        allocation.basics[c] = Math.max(minBasicsPerColor, basicMatters.perColorFloor[c] || 0);
+        allocation.sources[c] = allocation.basics[c];
+    });
+
+    // If totalBasicFloor exceeds sum of per-color basics, distribute extra to most-needed colors
+    var reservedBasicsTotal = 0;
+    activeList.forEach(function(c) { reservedBasicsTotal += allocation.basics[c]; });
+    if (basicMatters.totalBasicFloor > reservedBasicsTotal) {
+        var extraBasics = basicMatters.totalBasicFloor - reservedBasicsTotal;
+        for (var eb = 0; eb < extraBasics; eb++) {
+            var worstC = null, worstDef = -Infinity;
+            activeList.forEach(function(c) {
+                var deficit = (needed[c] || 0) - (allocation.sources[c] || 0);
+                if (deficit > worstDef) { worstDef = deficit; worstC = c; }
+            });
+            if (worstC) {
+                allocation.basics[worstC]++;
+                allocation.sources[worstC]++;
+                reservedBasicsTotal++;
+            }
+        }
+    }
+    deckContext.totalBasics = reservedBasicsTotal;
+
+    // Calculate slots available for duals
+    var reservedBasics = reservedBasicsTotal;
+    var colorlessLands = Math.max(0, state.totalLands - activeList.reduce(function(s, c) { return s + recommended[c]; }, 0));
+    var maxDuals = Math.max(0, state.totalLands - colorlessLands - reservedBasics);
+
+    // Build candidate list: all available duals for our color pairs
+    var pairs = [];
+    for (var i = 0; i < activeList.length; i++) {
+        for (var j = i + 1; j < activeList.length; j++) {
+            pairs.push(getColorPair(activeList[i], activeList[j]));
+        }
+    }
+
+    // All 10 possible color pairs (for off-color fetch evaluation)
+    var allPairs = ['WU','WB','WR','WG','UB','UR','UG','BR','BG','RG'];
+
+    var candidates = [];
+    cycleKeys.forEach(function(key) {
+        var cycle = LAND_CYCLES[key];
+        if (!cycle) return;
+
+        if (cycle.meta.isFetch) {
+            // For fetch lands: include any fetch where at least one basic type matches an active color
+            allPairs.forEach(function(pair) {
+                if (!cycle.cards[pair]) return;
+                var type1 = COLOR_TO_BASIC_TYPE[pair[0]];
+                var type2 = COLOR_TO_BASIC_TYPE[pair[1]];
+                var hasActiveType = false;
+                for (var ai = 0; ai < activeList.length; ai++) {
+                    var activeType = COLOR_TO_BASIC_TYPE[activeList[ai]];
+                    if (activeType === type1 || activeType === type2) {
+                        hasActiveType = true;
+                        break;
+                    }
+                }
+                if (hasActiveType) {
+                    var isOnColor = pairs.indexOf(pair) >= 0;
+                    candidates.push({ cycleKey: key, pair: pair, name: cycle.cards[pair], isOffColorFetch: !isOnColor });
+                }
+            });
+        } else {
+            // Non-fetch cycles: only on-color pairs
+            pairs.forEach(function(pair) {
+                if (cycle.cards[pair]) {
+                    candidates.push({ cycleKey: key, pair: pair, name: cycle.cards[pair] });
+                }
+            });
+        }
+    });
+
+    // Track per-candidate allocation
+    var candidateQty = {}; // "cycleKey:pair" -> qty allocated
+    candidates.forEach(function(c) { candidateQty[c.cycleKey + ':' + c.pair] = 0; });
+
+    // Flexible "any-color" land candidates
+    var flexKeys = FLEXIBLE_LAND_FORMATS[formatKey] || [];
+    var flexCandidates = [];
+    flexKeys.forEach(function(fKey) {
+        if (!FLEXIBLE_LANDS[fKey]) return;
+        // Skip commander-only lands in non-Commander formats (they produce no mana)
+        if (FLEXIBLE_LANDS[fKey].condition === 'commander' && !isCommander) return;
+        flexCandidates.push({ flexKey: fKey, name: FLEXIBLE_LANDS[fKey].name, isFlex: true });
+    });
+    allocation.flexCopies = {};
+
+    // Greedy single-copy allocation loop
+    for (var slot = 0; slot < maxDuals; slot++) {
+        var bestScore = -Infinity;
+        var bestCandidate = null;
+
+        for (var ci = 0; ci < candidates.length; ci++) {
+            var cand = candidates[ci];
+            var cKey = cand.cycleKey + ':' + cand.pair;
+            var currentQty = candidateQty[cKey] || 0;
+            if (currentQty >= copiesPerCycle) continue; // max copies reached
+
+            var sc = scoreLand(cand.cycleKey, cand.pair, deckContext, tempoProfile, allocation);
+            if (sc > bestScore) {
+                bestScore = sc;
+                bestCandidate = cand;
+            }
+        }
+
+        // Also score flexible land candidates
+        for (var fi = 0; fi < flexCandidates.length; fi++) {
+            var fc = flexCandidates[fi];
+            var flexLand = FLEXIBLE_LANDS[fc.flexKey];
+            var fCopies = allocation.flexCopies[fc.flexKey] || 0;
+            var fMax = isCommander ? 1 : flexLand.maxCopies;
+            if (fCopies >= fMax) continue;
+
+            var fScore = scoreFlexibleLand(fc.flexKey, deckContext, tempoProfile, allocation, activeList);
+            if (fScore > bestScore) {
+                bestScore = fScore;
+                bestCandidate = fc;
+            }
+        }
+
+        if (!bestCandidate) break; // no more candidates
+
+        if (bestCandidate.isFlex) {
+            // Flexible land: allocate and update ALL active colors
+            var fKey = bestCandidate.flexKey;
+            allocation.flexCopies[fKey] = (allocation.flexCopies[fKey] || 0) + 1;
+            allocation.totalDuals++;
+            var fMeta = FLEXIBLE_LANDS[fKey].meta;
+
+            // Source credit: fractional for conditional lands, full for unconditional
+            var sourceContrib = flexLandEffectiveness(fKey, deckContext);
+            activeList.forEach(function(c) {
+                allocation.sources[c] = (allocation.sources[c] || 0) + sourceContrib;
+            });
+            if (fMeta.fetchable) allocation.fetchableCount++;
+
+            // Add to duals array for display
+            var existingFlex = null;
+            for (var d = 0; d < allocation.duals.length; d++) {
+                if (allocation.duals[d].name === bestCandidate.name && allocation.duals[d].isFlex) {
+                    existingFlex = allocation.duals[d];
+                    break;
+                }
+            }
+            if (existingFlex) {
+                existingFlex.qty++;
+            } else {
+                allocation.duals.push({
+                    cycleKey: '_flex_' + fKey,
+                    pair: 'ALL',
+                    name: bestCandidate.name,
+                    qty: 1,
+                    meta: fMeta,
+                    isFlex: true,
+                    flexKey: fKey
+                });
+            }
+        } else {
+            // Dual land allocation
+            var bKey = bestCandidate.cycleKey + ':' + bestCandidate.pair;
+            candidateQty[bKey] = (candidateQty[bKey] || 0) + 1;
+            var bcMeta = LAND_CYCLES[bestCandidate.cycleKey].meta;
+
+            allocation.totalDuals++;
+            allocation.cycleCounts[bestCandidate.cycleKey] = (allocation.cycleCounts[bestCandidate.cycleKey] || 0) + 1;
+
+            if (bcMeta.isFetch) {
+                // Fetch lands: credit effective colors (what they can actually find)
+                var fetchEffColors = computeFetchEffectiveColors(bestCandidate.pair, activeList, allocation);
+                for (var fe = 0; fe < fetchEffColors.length; fe++) {
+                    allocation.sources[fetchEffColors[fe]] = (allocation.sources[fetchEffColors[fe]] || 0) + 1;
+                }
+                allocation.fetchCount++;
+            } else {
+                var p0 = bestCandidate.pair[0], p1 = bestCandidate.pair[1];
+                var contrib = bcMeta.mdfc ? 0.5 : 1;
+                allocation.sources[p0] = (allocation.sources[p0] || 0) + contrib;
+                allocation.sources[p1] = (allocation.sources[p1] || 0) + contrib;
+            }
+            if (bcMeta.fetchable) allocation.fetchableCount++;
+
+            var existingDual = null;
+            for (var d = 0; d < allocation.duals.length; d++) {
+                if (allocation.duals[d].cycleKey === bestCandidate.cycleKey && allocation.duals[d].pair === bestCandidate.pair) {
+                    existingDual = allocation.duals[d];
+                    break;
+                }
+            }
+            if (existingDual) {
+                existingDual.qty++;
+            } else {
+                var dualEntry = {
+                    cycleKey: bestCandidate.cycleKey,
+                    pair: bestCandidate.pair,
+                    name: bestCandidate.name,
+                    qty: 1,
+                    meta: bcMeta
+                };
+                if (bcMeta.isFetch) {
+                    dualEntry.effectiveColors = computeFetchEffectiveColors(bestCandidate.pair, activeList, allocation);
+                }
+                allocation.duals.push(dualEntry);
+            }
+        }
+    }
+
+    // Distribute remaining basic land slots — fill most deficient color first
+    var basicTotal = state.totalLands - allocation.totalDuals - colorlessLands;
+    var basicsToDistribute = basicTotal - reservedBasics;
+
+    for (var b = 0; b < basicsToDistribute; b++) {
+        var worstColor = null, worstDeficit = -Infinity;
+        activeList.forEach(function(c) {
+            var deficit = (needed[c] || 0) - (allocation.sources[c] || 0);
+            if (deficit > worstDeficit) {
+                worstDeficit = deficit;
+                worstColor = c;
+            }
+        });
+        if (worstColor) {
+            allocation.basics[worstColor]++;
+            allocation.sources[worstColor]++;
+            deckContext.totalBasics++;
+        }
+    }
+
+    // Compute life cost estimate
+    var expectedLifeLoss = 0;
+    allocation.duals.forEach(function(d) {
+        var m = d.meta;
+        // Shock lands: ~70% of the time you pay the 2 life in a typical game
+        if (m.etb === 'choice' && m.lifeCost > 0) {
+            expectedLifeLoss += d.qty * m.lifeCost * 0.7;
+        }
+        // Fetch lands: always pay 1 life
+        if (m.isFetch) {
+            expectedLifeLoss += d.qty * m.lifeCost * 0.85;
+        }
+        // Pain/Horizon: colored activation used ~60% of the time
+        if (m.coloredUseCost > 0) {
+            expectedLifeLoss += d.qty * m.coloredUseCost * 0.6;
+        }
+    });
+
+    return {
+        duals: allocation.duals,
+        basics: allocation.basics,
+        sources: allocation.sources,
+        tempoProfile: tempoProfile,
+        totalDuals: allocation.totalDuals,
+        totalBasics: basicTotal,
+        colorlessLands: colorlessLands,
+        expectedLifeLoss: Math.round(expectedLifeLoss * 10) / 10,
+        fetchCount: allocation.fetchCount,
+        fetchableCount: allocation.fetchableCount,
+        deckAnalysis: deckAnalysis,
+        deckContext: deckContext
+    };
+}
+
+function landReasonText(cycleKey, meta, flexKey) {
+    if (!meta) return '';
+    var reasons = [];
+
+    // Flexible land condition descriptions
+    if (flexKey) {
+        var flex = FLEXIBLE_LANDS[flexKey];
+        var condition = flex ? (flex.condition || null) : null;
+        if (condition === 'legendary') {
+            reasons.push('Any color for legendary spells');
+        } else if (condition === 'tribal') {
+            reasons.push('Any color for chosen creature type');
+            if (flexKey === 'cavernOfSouls') reasons.push('Uncounterable');
+        } else if (condition === 'artifact') {
+            reasons.push('Any color with artifact in play');
+        } else if (condition === 'creatureSpell') {
+            reasons.push('Any color for creature spells');
+        } else if (condition === 'multicolor') {
+            reasons.push('Any color for multicolor spells');
+        } else if (condition === 'commander') {
+            reasons.push('Any color (Commander)');
+        } else if (condition === 'turnGated') {
+            reasons.push('Any color T1-3, tapped later');
+        } else {
+            if (meta.etb === 'choice' && meta.fetchable) reasons.push('Untapped for ' + meta.lifeCost + ' life, fetchable');
+            else reasons.push('Any color');
+        }
+        if (meta.etb === 'tapped') reasons.push('ETB tapped');
+        if (meta.coloredUseCost > 0) reasons.push('1 life per tap');
+        return reasons.join(' · ');
+    }
+
+    if (meta.etb === 'untapped' && meta.lifeCost === 0 && meta.coloredUseCost === 0) {
+        if (meta.fetchable) reasons.push('Always untapped, fetchable');
+        else if (meta.mdfc) reasons.push('Untapped, one color per side');
+        else reasons.push('Always untapped, no cost');
+    } else if (meta.etb === 'choice') {
+        reasons.push('Untapped for ' + meta.lifeCost + ' life, fetchable');
+    } else if (meta.etb === 'tapped') {
+        if (meta.fetchable) reasons.push('ETB tapped, fetchable');
+        else reasons.push('ETB tapped');
+    } else if (meta.etb === 'conditional') {
+        var ct = meta.conditionType;
+        if (ct === 'startingTown') reasons.push('Untapped T1-3');
+        else if (ct === 'fast') reasons.push('Untapped T1-3');
+        else if (ct === 'slow') reasons.push('Untapped T3+');
+        else if (ct === 'check') reasons.push('Untapped with basic');
+        else if (ct === 'reveal') reasons.push('Untapped if basic in hand');
+        else if (ct === 'haunt') reasons.push('Untapped below 14 life');
+        else if (ct === 'bond') reasons.push('Untapped in multiplayer');
+        else reasons.push('Conditional untapped');
+    }
+    if (meta.isFetch) reasons.push('Finds any fetchable land');
+    if (meta.coloredUseCost > 0 && cycleKey === 'horizonLands') reasons.push('Sac to draw');
+    else if (meta.coloredUseCost > 0) reasons.push('1 dmg per colored tap');
+    if (cycleKey === 'restlessLands') reasons.push('Creature land');
+    if (cycleKey === 'surveilLands') reasons.push('Surveil 1');
+    if (cycleKey === 'scryTemples') reasons.push('Scry 1');
+    return reasons.join(' · ');
+}
+
+function renderOptimizedManaBase(result, activeList, rampInfo) {
+    var tp = result.tempoProfile;
+    var html = '';
+
+    // Tempo Profile Badge
+    var badgeColor = tp.archetype === 'aggro' ? '#ef4444' : (tp.archetype === 'midrange' ? '#f59e0b' : '#3b82f6');
+    html += '<div class="tempo-badge" style="background:' + badgeColor + '20;border:1px solid ' + badgeColor + '40;color:' + badgeColor + '">';
+    html += '<strong>' + tp.archetype.charAt(0).toUpperCase() + tp.archetype.slice(1) + '</strong>';
+    html += ' · Avg MV ' + tp.avgMV.toFixed(1);
+    if (tp.oneDropCount > 0) html += ' · ' + tp.oneDropCount + ' one-drops';
+    html += '</div>';
+
+    // Optimized Land List
+    html += '<h4 class="optimizer-heading">Optimized Land Selection</h4>';
+
+    if (result.duals.length > 0) {
+        result.duals.forEach(function(d) {
+            var cycle = d.isFlex ? FLEXIBLE_LANDS[d.flexKey] : LAND_CYCLES[d.cycleKey];
+            var tagColor;
+            var cycleName;
+            if (d.isFlex && d.flexKey) {
+                var flexCond = FLEXIBLE_LANDS[d.flexKey] ? (FLEXIBLE_LANDS[d.flexKey].condition || null) : null;
+                var condLabels = {
+                    legendary: 'Legendary Fixing', tribal: 'Tribal Fixing',
+                    artifact: 'Artifact Fixing', creatureSpell: 'Creature Fixing',
+                    multicolor: 'Multicolor Fixing', commander: 'Commander Staple'
+                };
+                if (condLabels[flexCond]) {
+                    tagColor = flexCond === 'commander' ? '#38bdf8' : '#c084fc'; // blue for commander, purple for deck-dependent
+                    cycleName = condLabels[flexCond];
+                } else if (flexCond === 'turnGated') {
+                    tagColor = '#facc15';
+                    cycleName = 'Turn-Gated Fixing';
+                } else {
+                    tagColor = '#4ade80'; // green for unconditional
+                    cycleName = cycle ? cycle.name : 'Any Color';
+                }
+            } else {
+                tagColor = d.meta.etb === 'tapped' ? '#71717a' :
+                              (d.meta.etb === 'untapped' || d.meta.etb === 'choice' ? '#4ade80' : '#facc15');
+                cycleName = cycle ? cycle.name : 'Unknown';
+            }
+            var reason = landReasonText(d.cycleKey, d.meta, d.flexKey || null);
+
+            html += '<div class="optimizer-land-row">';
+            html += '<span class="optimizer-land-qty">' + d.qty + '</span>';
+            html += '<span class="optimizer-land-name card-name-link" data-card="' + d.name + '">' + d.name + '</span>';
+            html += '<span class="optimizer-land-tag" style="color:' + tagColor + ';border-color:' + tagColor + '40">' + cycleName + '</span>';
+            if (reason) html += '<span class="optimizer-land-reason">' + reason + '</span>';
+            html += '</div>';
+        });
+    }
+
+    // Basics
+    activeList.forEach(function(c) {
+        if (result.basics[c] > 0) {
+            html += '<div class="optimizer-land-row">';
+            html += '<span class="optimizer-land-qty">' + result.basics[c] + '</span>';
+            html += '<span class="optimizer-land-name" style="color:' + COLOR_HEX[c] + '">' + basicLandName(c) + '</span>';
+            html += '<span class="optimizer-land-tag" style="color:#71717a;border-color:rgba(113,113,122,0.4)">Basic</span>';
+            html += '</div>';
+        }
+    });
+
+    if (result.colorlessLands > 0) {
+        // Try to show named utility land recommendations for Commander
+        var multiUtilRecs = recommendUtilityLands(activeList, result.colorlessLands, result.deckContext || {}, result.tempoProfile);
+        if (multiUtilRecs.length > 0) {
+            for (var mu = 0; mu < multiUtilRecs.length; mu++) {
+                html += '<div class="optimizer-land-row">';
+                html += '<span class="optimizer-land-qty">1</span>';
+                html += '<span class="optimizer-land-name card-name-link" data-card="' + multiUtilRecs[mu].name + '">' + multiUtilRecs[mu].name + '</span>';
+                html += '<span class="optimizer-land-tag" style="color:#a78bfa;border-color:rgba(167,139,250,0.4)">Utility</span>';
+                html += '<span class="optimizer-land-reason">' + multiUtilRecs[mu].desc + '</span>';
+                html += '</div>';
+            }
+            var remainingUtil = result.colorlessLands - multiUtilRecs.length;
+            if (remainingUtil > 0) {
+                html += '<div class="optimizer-land-row">';
+                html += '<span class="optimizer-land-qty">' + remainingUtil + '</span>';
+                html += '<span class="optimizer-land-name">Utility / Colorless</span>';
+                html += '<span class="optimizer-land-tag" style="color:#71717a;border-color:rgba(113,113,122,0.4)">Utility</span>';
+                html += '</div>';
+            }
+        } else {
+            html += '<div class="optimizer-land-row">';
+            html += '<span class="optimizer-land-qty">' + result.colorlessLands + '</span>';
+            html += '<span class="optimizer-land-name">Utility / Colorless</span>';
+            html += '<span class="optimizer-land-tag" style="color:#71717a;border-color:rgba(113,113,122,0.4)">Utility</span>';
+            html += '</div>';
+        }
+    }
+
+    // Source Summary
+    html += '<div class="source-summary">';
+    html += '<h4 class="optimizer-heading">Color Sources</h4>';
+    activeList.forEach(function(c) {
+        var actual = Math.round(result.sources[c] || 0);
+        var baseTarget = result.tempoProfile ? (state.mode === 'imported' ? recommendedSources(c, state.deckSize, state.totalLands, state.cards) : recommendedSourcesFromPips(state.pips[c], state.deckSize, state.totalLands)) : 14;
+        // Use ramp-adjusted target if available
+        var target = (rampInfo && rampInfo.adjusted[c] !== undefined) ? rampInfo.adjusted[c] : baseTarget;
+        var pct = target > 0 ? Math.min(100, Math.round((actual / target) * 100)) : 100;
+        var isMet = actual >= target;
+        var barColor = isMet ? '#4ade80' : '#f87171';
+
+        html += '<div class="source-row">';
+        html += '<span class="source-label" style="color:' + COLOR_HEX[c] + '">' + COLOR_NAMES[c] + '</span>';
+        html += '<div class="source-bar-track">';
+        html += '<div class="source-bar-fill" style="width:' + pct + '%;background:' + barColor + '"></div>';
+        html += '</div>';
+        html += '<span class="source-count ' + (isMet ? 'source-met' : 'source-short') + '">' + actual + '/' + target + '</span>';
+        html += '</div>';
+    });
+    html += '</div>';
+
+    // Life Cost Estimate
+    if (result.expectedLifeLoss > 0) {
+        html += '<div class="life-estimate">';
+        html += 'Expected life from lands: ~' + result.expectedLifeLoss.toFixed(1) + ' per game';
+        html += '</div>';
+    }
+
+    return html;
+}
+
+// ══════════════════════════════════════════
+// Ramp-Aware Source Adjustment
+// ══════════════════════════════════════════
+
+// Formats where ramp adjustments apply (Commander, Modern, Legacy)
+var RAMP_FORMATS = { commander: true, modern: true, legacy: true };
+
+function computeRampAdjustment(activeList, recommended, cards) {
+    // Only apply for imported decks with ramp, in supported formats
+    if (state.mode !== 'imported' || !cards || !RAMP_FORMATS[state.format]) {
+        return null;
+    }
+
+    var deckAnalysis = analyzeDeckContext(cards);
+    if (deckAnalysis.rampCount === 0) return null;
+
+    // Per-color: compute ramp source adjustment, considering ramp MV floor
+    var adjusted = {};
+    var adjustments = {};
+    activeList.forEach(function(c) {
+        var demand = findMostDemandingCard(c, cards);
+        var demandTurn = demand ? demand.turn : 3;
+        var demandPips = demand ? demand.pips : 1;
+
+        // Sum ramp sources that can help cast the most demanding card
+        // Ramp at MV N can only accelerate spells at MV > N
+        var rampContrib = 0;
+        for (var r = 0; r < deckAnalysis.rampDetails.length; r++) {
+            var rd = deckAnalysis.rampDetails[r];
+            if (rd.mv >= demandTurn) continue; // Ramp too slow to help this card
+            var isAny = rd.colors.indexOf('any') >= 0;
+            if (isAny || rd.colors.indexOf(c) >= 0) {
+                rampContrib += rd.weight * rd.qty;
+            }
+        }
+
+        // Floor: never reduce below minimum for that pip count
+        // Minimum = karstenLookup(1, demandTurn) scaled, as a floor
+        var minSources = Math.max(1, Math.round(karstenLookup(1, Math.max(1, demandTurn)) * (state.deckSize / 60)));
+        var adj = Math.min(rampContrib, recommended[c] - minSources);
+        adj = Math.max(0, Math.round(adj));
+
+        adjusted[c] = recommended[c] - adj;
+        adjustments[c] = adj;
+    });
+
+    // Compute suggested land count (Karsten Commander regression)
+    var suggestedLands = null;
+    if (state.format === 'commander') {
+        var totalSpells = 0, weightedMV = 0;
+        for (var i = 0; i < cards.length; i++) {
+            if (!cards[i].isLand) {
+                totalSpells += cards[i].qty;
+                weightedMV += cards[i].mv * cards[i].qty;
+            }
+        }
+        var avgMV = totalSpells > 0 ? weightedMV / totalSpells : 2.5;
+        var base = (99 / 60) * (19.59 + 1.90 * avgMV);
+        var adj = base - (0.28 * deckAnalysis.cheapRampCount) - (0.28 * deckAnalysis.cheapDrawCount) - deckAnalysis.fastManaCount - 1.35;
+        suggestedLands = { low: Math.floor(adj), high: Math.ceil(adj), avgMV: avgMV, cheapRamp: deckAnalysis.cheapRampCount, cheapDraw: deckAnalysis.cheapDrawCount, fastMana: deckAnalysis.fastManaCount };
+        // Clamp to reasonable range
+        if (suggestedLands.low < 28) suggestedLands.low = 28;
+        if (suggestedLands.high < suggestedLands.low) suggestedLands.high = suggestedLands.low;
+        if (suggestedLands.high > 42) suggestedLands.high = 42;
+    }
+
+    return {
+        adjusted: adjusted,
+        adjustments: adjustments,
+        deckAnalysis: deckAnalysis,
+        suggestedLands: suggestedLands
+    };
+}
+
+function renderRampBanner(rampInfo) {
+    if (!rampInfo) return '';
+    var da = rampInfo.deckAnalysis;
+    var html = '<div class="ramp-banner">';
+    html += '<strong>Ramp Detected:</strong> ' + da.rampCount + ' pieces';
+
+    var parts = [];
+    var fastTotal = (da.rampByType.fast || 0) + (da.rampByType.fastOneShot || 0);
+    if (fastTotal > 0) parts.push(fastTotal + ' fast mana');
+    if (da.rampByType.dork > 0) parts.push(da.rampByType.dork + ' dork' + (da.rampByType.dork > 1 ? 's' : ''));
+    if (da.rampByType.rock > 0) parts.push(da.rampByType.rock + ' rock' + (da.rampByType.rock > 1 ? 's' : ''));
+    if (da.rampByType.landRamp > 0) parts.push(da.rampByType.landRamp + ' land ramp');
+    if (da.rampByType.extraLand > 0) parts.push(da.rampByType.extraLand + ' extra land drop' + (da.rampByType.extraLand > 1 ? 's' : ''));
+    if (da.rampByType.treasure > 0) parts.push(da.rampByType.treasure + ' treasure');
+    if (da.rampByType.etbMana > 0) parts.push(da.rampByType.etbMana + ' ETB mana');
+    if (parts.length > 0) html += ' (' + parts.join(', ') + ')';
+
+    html += ' <span class="ramp-adjust">&middot; Sources adjusted by Karsten method</span>';
+    html += '</div>';
+
+    // Suggested land count (Commander only)
+    if (rampInfo.suggestedLands) {
+        var sl = rampInfo.suggestedLands;
+        html += '<div class="land-count-hint">';
+        html += '<strong>Suggested lands:</strong> ';
+        if (sl.low === sl.high) {
+            html += sl.low;
+        } else {
+            html += sl.low + '&ndash;' + sl.high;
+        }
+        html += ' (currently ' + state.totalLands + ')';
+        html += ' <span class="hint-detail">&middot; avg MV ' + sl.avgMV.toFixed(1);
+        if (sl.cheapRamp > 0) html += ', ' + sl.cheapRamp + ' cheap ramp';
+        if (sl.cheapDraw > 0) html += ', ' + sl.cheapDraw + ' card draw';
+        html += '</span>';
+        html += '</div>';
+    }
+
+    return html;
+}
+
+// ══════════════════════════════════════════
 // Calculation
 // ══════════════════════════════════════════
 
@@ -1092,8 +2663,23 @@ function calculate(fromImport) {
     // If total recommended < total lands, remaining are colorless/utility
     var colorlessLands = Math.max(0, state.totalLands - activeList.reduce(function(s, c) { return s + recommended[c]; }, 0));
 
+    // Compute ramp-adjusted source targets (Commander, Modern, Legacy only)
+    var rampInfo = computeRampAdjustment(activeList, recommended, state.cards);
+    if (rampInfo) {
+        // Apply ramp adjustments to recommended sources
+        activeList.forEach(function(c) {
+            recommended[c] = rampInfo.adjusted[c];
+        });
+        colorlessLands = Math.max(0, state.totalLands - activeList.reduce(function(s, c) { return s + recommended[c]; }, 0));
+    }
+
     // Build results HTML
     var html = '';
+
+    // ── Ramp Banner (import mode + ramp detected only) ──
+    if (rampInfo) {
+        html += renderRampBanner(rampInfo);
+    }
 
     // ── Land Count Cards ──
     html += '<h3>Recommended Land Sources</h3>';
@@ -1158,40 +2744,95 @@ function calculate(fromImport) {
     }
     html += '</div>';
 
-    // ── Suggested Mana Base ──
+    // ── Optimized Mana Base ──
+    var optimizerResult = null;
     html += '<div class="suggested-section">';
-    html += '<h3>Suggested Mana Base</h3>';
+    html += '<h3>Optimized Mana Base</h3>';
 
-    // Calculate dual land suggestions
+    // Reuse deck analysis from ramp computation if available
+    var cachedAnalysis = rampInfo ? rampInfo.deckAnalysis : null;
+
     if (activeList.length >= 2) {
-        html += buildDualSuggestions(activeList, recommended, colorlessLands);
+        optimizerResult = optimizeManaBase(activeList, recommended, cachedAnalysis);
+        html += renderOptimizedManaBase(optimizerResult, activeList, rampInfo);
     } else {
-        // Mono color
+        // Mono color — compute tempo + deck context for utility land recs
         var c = activeList[0];
-        html += '<div class="suggest-card">';
-        html += '<h4>Mono-' + COLOR_NAMES[c] + '</h4>';
-        html += '<p>With a single color, your mana base is straightforward. Run ' + recommended[c] + ' basic ' + basicLandName(c) + 's';
-        if (colorlessLands > 0) {
-            html += ' and ' + colorlessLands + ' utility lands (e.g., Castle, creature lands, or colorless utility).';
-        } else {
-            html += '.';
+        var monoTempo = computeTempoProfile();
+        var monoDeckAnalysis = cachedAnalysis || ((state.mode === 'imported' && state.cards) ? analyzeDeckContext(state.cards) : analyzeDeckContext(null));
+        var monoDeckContext = {
+            needed: {}, isCommander: (state.format === 'commander'),
+            totalBasics: recommended[c],
+            legendaryDensity: monoDeckAnalysis.legendaryDensity,
+            tribalDensity: monoDeckAnalysis.tribalDensity,
+            dominantType: monoDeckAnalysis.dominantType,
+            creatureCount: monoDeckAnalysis.creatureCount,
+            totalSpells: monoDeckAnalysis.totalSpells,
+            artifactDensity: monoDeckAnalysis.artifactDensity,
+            creatureSpellDensity: monoDeckAnalysis.creatureSpellDensity,
+            multicolorDensity: monoDeckAnalysis.multicolorDensity,
+            enchantmentDensity: monoDeckAnalysis.enchantmentDensity,
+            instantSorceryDensity: monoDeckAnalysis.instantSorceryDensity
+        };
+        monoDeckContext.needed[c] = recommended[c];
+
+        // Tempo badge
+        var monoBadgeColor = monoTempo.archetype === 'aggro' ? '#ef4444' : (monoTempo.archetype === 'midrange' ? '#f59e0b' : '#3b82f6');
+        html += '<div class="tempo-badge" style="background:' + monoBadgeColor + '20;border:1px solid ' + monoBadgeColor + '40;color:' + monoBadgeColor + '">';
+        html += '<strong>' + monoTempo.archetype.charAt(0).toUpperCase() + monoTempo.archetype.slice(1) + '</strong>';
+        html += ' · Avg MV ' + monoTempo.avgMV.toFixed(1);
+        if (monoTempo.oneDropCount > 0) html += ' · ' + monoTempo.oneDropCount + ' one-drops';
+        html += '</div>';
+
+        html += '<h4 class="optimizer-heading">Mono-' + COLOR_NAMES[c] + ' Mana Base</h4>';
+
+        var utilityRecs = recommendUtilityLands(activeList, colorlessLands, monoDeckContext, monoTempo);
+        var basicsCount = recommended[c] - (utilityRecs.length > colorlessLands ? 0 : 0);
+        // Basics = total lands minus utility recs
+        basicsCount = state.totalLands - utilityRecs.length;
+
+        // Basics row
+        html += '<div class="optimizer-land-row">';
+        html += '<span class="optimizer-land-qty">' + basicsCount + '</span>';
+        html += '<span class="optimizer-land-name" style="color:' + COLOR_HEX[c] + '">' + basicLandName(c) + '</span>';
+        html += '<span class="optimizer-land-tag" style="color:#71717a;border-color:rgba(113,113,122,0.4)">Basic</span>';
+        html += '</div>';
+
+        // Utility land rows
+        if (utilityRecs.length > 0) {
+            for (var u = 0; u < utilityRecs.length; u++) {
+                var rec = utilityRecs[u];
+                html += '<div class="optimizer-land-row">';
+                html += '<span class="optimizer-land-qty">1</span>';
+                html += '<span class="optimizer-land-name card-name-link" data-card="' + rec.name + '">' + rec.name + '</span>';
+                html += '<span class="optimizer-land-tag" style="color:#a78bfa;border-color:rgba(167,139,250,0.4)">Utility</span>';
+                html += '<span class="optimizer-land-reason">' + rec.desc + '</span>';
+                html += '</div>';
+            }
+        } else if (colorlessLands > 0) {
+            html += '<div class="optimizer-land-row">';
+            html += '<span class="optimizer-land-qty">' + colorlessLands + '</span>';
+            html += '<span class="optimizer-land-name">Utility / Colorless</span>';
+            html += '<span class="optimizer-land-tag" style="color:#71717a;border-color:rgba(113,113,122,0.4)">Utility</span>';
+            html += '</div>';
         }
-        html += '</p>';
-        html += '<div class="suggest-lands">';
-        html += '<span class="suggest-land"><span class="sl-count">' + recommended[c] + '</span> ' + basicLandName(c) + '</span>';
-        if (colorlessLands > 0) {
-            html += '<span class="suggest-land"><span class="sl-count">' + colorlessLands + '</span> Utility Lands</span>';
-        }
-        html += '</div></div>';
     }
 
     html += '</div>';
+
+    // ── Available Dual Lands Reference ──
+    if (activeList.length >= 2) {
+        html += '<div class="suggested-section">';
+        html += '<h3>Available Dual Lands</h3>';
+        html += buildDualSuggestions(activeList, recommended, colorlessLands);
+        html += '</div>';
+    }
 
     document.getElementById('resultsContent').innerHTML = html;
 
     // Launch Monte Carlo simulation (unless worker failed)
     if (!simWorkerFailed) {
-        launchSimulation(activeList, recommended);
+        launchSimulation(activeList, recommended, optimizerResult);
     }
 
     // Scroll to results on mobile
@@ -1206,19 +2847,53 @@ function calculate(fromImport) {
 
 function initWorker() {
     try {
+        simWorker = new Worker('/tools/manabase/sim-worker-wasm.js?v=4', { type: 'module' });
+        simEngine = 'wasm';
+        simWorker.onmessage = function(e) {
+            if (e.data.type === 'ready') {
+                simEngine = 'wasm';
+            } else if (e.data.type === 'error') {
+                console.warn('WASM worker error, falling back to JS:', e.data.message);
+                simWorker.terminate(); simWorker = null;
+                initJSWorker();
+            }
+        };
+        simWorker.onerror = function(e) {
+            simWorkerFailed = false;
+            if (simWorker) { simWorker.terminate(); simWorker = null; }
+            initJSWorker();
+        };
+    } catch (e) {
+        initJSWorker();
+    }
+}
+
+function initJSWorker() {
+    simEngine = 'js';
+    try {
         simWorker = new Worker('/tools/manabase/sim-worker.js');
         simWorker.onerror = function(e) {
-            console.warn('Sim worker failed:', e.message);
             simWorkerFailed = true;
             if (simWorker) { simWorker.terminate(); simWorker = null; }
         };
     } catch (e) {
-        console.warn('Cannot create Web Worker:', e.message);
         simWorkerFailed = true;
     }
 }
 
-function buildDeckSpec() {
+function landEntersTapped(meta) {
+    if (!meta) return false;
+    var etb = meta.etb;
+    if (etb === 'untapped' || etb === 'choice') return false;
+    if (etb === 'tapped') return true;
+    // Conditional: conservative estimate for sim
+    if (meta.conditionType === 'startingTown' || meta.conditionType === 'fast' || meta.conditionType === 'check' || meta.conditionType === 'reveal') return false;
+    if (meta.conditionType === 'slow' || meta.conditionType === 'haunt') return true;
+    if (meta.conditionType === 'bond') return false; // untapped in commander
+    return false;
+}
+
+function buildDeckSpec(optimizerResult) {
     var spec = { size: state.deckSize, spells: [], lands: [] };
 
     if (state.mode === 'imported' && state.cards) {
@@ -1226,23 +2901,34 @@ function buildDeckSpec() {
         for (var i = 0; i < state.cards.length; i++) {
             var card = state.cards[i];
             if (card.isLand) {
-                spec.lands.push({ name: card.name, qty: card.qty, produces: card.producesColors || [] });
+                // Look up cycle metadata for enters_tapped
+                var lookup = LAND_NAME_TO_CYCLE[card.name.toLowerCase()];
+                var etbTapped = false;
+                if (lookup) {
+                    var cycleMeta;
+                    if (lookup.isFlex) {
+                        var fk = lookup.cycleKey.substring(6); // strip '_flex_'
+                        cycleMeta = FLEXIBLE_LANDS[fk] && FLEXIBLE_LANDS[fk].meta;
+                    } else {
+                        cycleMeta = LAND_CYCLES[lookup.cycleKey] && LAND_CYCLES[lookup.cycleKey].meta;
+                    }
+                    etbTapped = landEntersTapped(cycleMeta);
+                }
+                spec.lands.push({ name: card.name, qty: card.qty, produces: card.producesColors || [], enters_tapped: etbTapped });
             } else {
                 spec.spells.push({ name: card.name, qty: card.qty, mv: card.mv, pips: card.pips });
             }
         }
-    } else {
-        // Manual mode: synthesize virtual deck from pip counts and curve
+    } else if (optimizerResult) {
+        // Use optimizer output for lands
         var activeList = COLORS.filter(function(c) { return state.activeColors.has(c) && state.pips[c] > 0; });
         var totalPipCount = 0;
         activeList.forEach(function(c) { totalPipCount += state.pips[c]; });
 
-        // Create virtual spells for each MV slot
+        // Spells from curve
         for (var mv = 1; mv <= 7; mv++) {
             var spellCount = state.curve[mv] || 0;
             if (spellCount <= 0) continue;
-
-            // Distribute pips proportionally across this MV
             var virtualPips = {};
             activeList.forEach(function(c) {
                 if (totalPipCount > 0) {
@@ -1251,43 +2937,79 @@ function buildDeckSpec() {
                     virtualPips[c] = 0;
                 }
             });
-            // Ensure at least 1 total colored pip
             var pipSum = 0;
             for (var c in virtualPips) pipSum += virtualPips[c];
             if (pipSum === 0 && activeList.length > 0) virtualPips[activeList[0]] = 1;
-
             spec.spells.push({ name: mv + '-drop', qty: spellCount, mv: mv, pips: virtualPips });
         }
-
-        // Add 0-MV spells if any
         if (state.curve[0] > 0) {
             spec.spells.push({ name: '0-drop', qty: state.curve[0], mv: 0, pips: { W:0, U:0, B:0, R:0, G:0 } });
         }
 
-        // Lands: basics from recommended sources, distribute by pip proportion
-        var totalLands = state.totalLands;
+        // Lands from optimizer
+        optimizerResult.duals.forEach(function(d) {
+            var produces = d.isFlex ? activeList.slice() : (d.effectiveColors ? d.effectiveColors : [d.pair[0], d.pair[1]]);
+            spec.lands.push({
+                name: d.name, qty: d.qty,
+                produces: produces,
+                enters_tapped: landEntersTapped(d.meta)
+            });
+        });
         activeList.forEach(function(c) {
-            var count = Math.round(totalLands * (state.pips[c] / Math.max(1, totalPipCount)));
-            if (count > 0) {
-                spec.lands.push({ name: basicLandName(c), qty: count, produces: [c] });
+            if (optimizerResult.basics[c] > 0) {
+                spec.lands.push({ name: basicLandName(c), qty: optimizerResult.basics[c], produces: [c], enters_tapped: false });
             }
         });
+        if (optimizerResult.colorlessLands > 0) {
+            spec.lands.push({ name: 'Utility Land', qty: optimizerResult.colorlessLands, produces: [], enters_tapped: false });
+        }
+    } else {
+        // Manual mode without optimizer: synthesize virtual deck
+        var activeList2 = COLORS.filter(function(c) { return state.activeColors.has(c) && state.pips[c] > 0; });
+        var totalPipCount2 = 0;
+        activeList2.forEach(function(c) { totalPipCount2 += state.pips[c]; });
 
-        // Remaining lands as colorless
+        for (var mv2 = 1; mv2 <= 7; mv2++) {
+            var spellCount2 = state.curve[mv2] || 0;
+            if (spellCount2 <= 0) continue;
+            var virtualPips2 = {};
+            activeList2.forEach(function(c) {
+                if (totalPipCount2 > 0) {
+                    virtualPips2[c] = Math.min(mv2, Math.round(state.pips[c] / totalPipCount2 * Math.min(mv2, 2)));
+                } else {
+                    virtualPips2[c] = 0;
+                }
+            });
+            var pipSum2 = 0;
+            for (var c2 in virtualPips2) pipSum2 += virtualPips2[c2];
+            if (pipSum2 === 0 && activeList2.length > 0) virtualPips2[activeList2[0]] = 1;
+            spec.spells.push({ name: mv2 + '-drop', qty: spellCount2, mv: mv2, pips: virtualPips2 });
+        }
+        if (state.curve[0] > 0) {
+            spec.spells.push({ name: '0-drop', qty: state.curve[0], mv: 0, pips: { W:0, U:0, B:0, R:0, G:0 } });
+        }
+
+        var totalLands = state.totalLands;
+        activeList2.forEach(function(c) {
+            var count = Math.round(totalLands * (state.pips[c] / Math.max(1, totalPipCount2)));
+            if (count > 0) {
+                spec.lands.push({ name: basicLandName(c), qty: count, produces: [c], enters_tapped: false });
+            }
+        });
         var assignedLands = spec.lands.reduce(function(s, l) { return s + l.qty; }, 0);
         var remaining = totalLands - assignedLands;
         if (remaining > 0) {
-            spec.lands.push({ name: 'Utility Land', qty: remaining, produces: [] });
+            spec.lands.push({ name: 'Utility Land', qty: remaining, produces: [], enters_tapped: false });
         }
     }
 
     return spec;
 }
 
-function launchSimulation(activeList, recommended) {
+function launchSimulation(activeList, recommended, optimizerResult) {
     if (!simWorker || simWorkerFailed) return;
 
-    var deckSpec = buildDeckSpec();
+    var deckSpec = buildDeckSpec(optimizerResult);
 
     // If deck spec is too small, skip simulation
     var totalCards = 0;
@@ -1305,6 +3027,15 @@ function launchSimulation(activeList, recommended) {
         } else if (e.data.type === 'complete') {
             state.simResults = e.data.results;
             renderSimResults(e.data.results, activeList, recommended);
+        } else if (e.data.type === 'error') {
+            console.warn('Sim worker error:', e.data.message);
+            if (simEngine === 'wasm') {
+                simWorker.terminate(); simWorker = null;
+                initJSWorker();
+                if (simWorker && !simWorkerFailed) {
+                    launchSimulation(activeList, recommended);
+                }
+            }
         }
     };
 
@@ -1332,30 +3063,48 @@ function renderSimResults(results, activeList, recommended) {
         }
     });
     var overallRate = overallTrials > 0 ? (overallHits / overallTrials * 100).toFixed(1) : '0.0';
-    html += '<div class="sim-summary">Simulated ' + results.iterations.toLocaleString() + ' games in ' + (results.elapsed / 1000).toFixed(1) + 's &mdash; Overall castability: <strong>' + overallRate + '%</strong></div>';
+    var engineLabel = (results.engine === 'wasm') ? 'WASM' : 'JS';
+    var elapsedStr = results.elapsed < 1000 ? results.elapsed + 'ms' : (results.elapsed / 1000).toFixed(1) + 's';
+    html += '<div class="sim-summary">Simulated ' + results.iterations.toLocaleString() + ' games in ' + elapsedStr + ' <span class="sim-engine-badge sim-engine-' + engineLabel.toLowerCase() + '">' + engineLabel + '</span> &mdash; Overall on-curve castability (lands only): <strong>' + overallRate + '%</strong></div>';
 
     // Cast rate table
     if (state.mode === 'imported' && state.cards) {
         // Per-card table
         html += '<div class="prob-table-wrapper"><table class="prob-table">';
-        html += '<thead><tr><th style="text-align:left;">Card</th><th>Cost</th><th>Turn</th><th>Cast Rate</th></tr></thead><tbody>';
+        html += '<thead><tr><th style="text-align:left;">Card</th><th>Cost</th><th>Turn</th><th>Cast Rate (Lands Only)</th></tr></thead><tbody>';
         results.perCard.forEach(function(card) {
             if (card.mv < 1) return;
-            var pctStr = (card.castRate * 100).toFixed(1) + '%';
+            var pctVal = card.castRate * 100;
+            var pctStr;
+            if (card.castRate > 0 && pctVal < 1.0) {
+                pctStr = '&lt;1%';
+            } else {
+                pctStr = pctVal.toFixed(1) + '%';
+            }
             var cls = card.castRate >= 0.9 ? 'prob-good' : (card.castRate >= 0.8 ? 'prob-ok' : 'prob-bad');
             var icon = card.castRate >= 0.9 ? ' &#10003;' : (card.castRate < 0.8 ? ' &#10007;' : '');
             html += '<tr>';
-            html += '<td class="turn-col" style="text-align:left;">' + card.name + '</td>';
+            html += '<td class="turn-col" style="text-align:left;"><span class="card-name-link" data-card="' + card.name + '">' + card.name + '</span></td>';
             html += '<td class="cast-mana">' + formatPips(card.pips) + '</td>';
             html += '<td>' + card.mv + '</td>';
             html += '<td class="' + cls + '">' + pctStr + icon + '</td>';
             html += '</tr>';
         });
         html += '</tbody></table></div>';
+        if (state.cards) {
+            var _rampCtx = analyzeDeckContext(state.cards);
+            if (_rampCtx.rampCount > 0) {
+                html += '<div style="color:var(--text-muted);font-size:0.72rem;margin-top:0.5rem;padding:0 0.5rem;">';
+                html += '* Rates reflect land-based mana only. With ' + _rampCtx.rampCount +
+                        ' ramp piece' + (_rampCtx.rampCount !== 1 ? 's' : '') +
+                        ' in your deck, actual castability will be higher.';
+                html += '</div>';
+            }
+        }
     } else {
         // Manual mode: per-color benchmark table
         html += '<div class="prob-table-wrapper"><table class="prob-table">';
-        html += '<thead><tr><th style="text-align:left;">Color</th><th>Hardest Requirement</th><th>Turn</th><th>Cast Rate</th></tr></thead><tbody>';
+        html += '<thead><tr><th style="text-align:left;">Color</th><th>Hardest Requirement</th><th>Turn</th><th>Cast Rate (Lands Only)</th></tr></thead><tbody>';
         activeList.forEach(function(c) {
             // Find the matching virtual spell for this color
             var bestCard = null;
@@ -1432,6 +3181,46 @@ function getColorPair(c1, c2) {
     return c2 + c1;
 }
 
+function computeFetchEffectiveColors(fetchPair, activeColors, allocation) {
+    // Given a fetch land's printed color pair (e.g. "WB" for Marsh Flats),
+    // compute which active colors it can effectively produce given current allocation.
+    // A fetch finds lands with basic land types matching its pair colors.
+    var fetchType1 = COLOR_TO_BASIC_TYPE[fetchPair[0]]; // e.g. Plains
+    var fetchType2 = COLOR_TO_BASIC_TYPE[fetchPair[1]]; // e.g. Swamp
+    var effectiveSet = {};
+
+    // 1. Check basics: if any active-color basic is fetchable
+    for (var i = 0; i < activeColors.length; i++) {
+        var c = activeColors[i];
+        var basicType = COLOR_TO_BASIC_TYPE[c];
+        if ((basicType === fetchType1 || basicType === fetchType2) && (allocation.basics[c] || 0) > 0) {
+            effectiveSet[c] = true;
+        }
+    }
+
+    // 2. Check allocated fetchable duals (shocks, surveil lands, original duals, etc.)
+    if (allocation.duals) {
+        for (var d = 0; d < allocation.duals.length; d++) {
+            var dual = allocation.duals[d];
+            if (dual.isFlex) continue; // flex lands don't have basic land types
+            var dMeta = dual.meta;
+            if (!dMeta || !dMeta.fetchable) continue;
+            // This dual has basic land types matching its pair
+            var dType1 = COLOR_TO_BASIC_TYPE[dual.pair[0]];
+            var dType2 = COLOR_TO_BASIC_TYPE[dual.pair[1]];
+            // Can the fetch find this dual? (shares a basic land type)
+            if (fetchType1 === dType1 || fetchType1 === dType2 ||
+                fetchType2 === dType1 || fetchType2 === dType2) {
+                // This dual's active colors are now effective
+                if (activeColors.indexOf(dual.pair[0]) >= 0) effectiveSet[dual.pair[0]] = true;
+                if (activeColors.indexOf(dual.pair[1]) >= 0) effectiveSet[dual.pair[1]] = true;
+            }
+        }
+    }
+
+    return Object.keys(effectiveSet);
+}
+
 function buildDualSuggestions(activeList, recommended, colorlessLands) {
     var html = '';
     var pairs = [];
@@ -1460,6 +3249,70 @@ function buildDualSuggestions(activeList, recommended, colorlessLands) {
         });
     });
 
+    // Flexible fixing sections — split into unconditional and conditional
+    var flexKeysForSuggest = FLEXIBLE_LAND_FORMATS[formatKey] || [];
+    if (flexKeysForSuggest.length > 0 && activeList.length >= 2) {
+        var unconditionalFlex = [];
+        var conditionalFlex = [];
+        var isCommanderFormat = (formatKey === 'commander');
+        flexKeysForSuggest.forEach(function(fKey) {
+            var flex = FLEXIBLE_LANDS[fKey];
+            if (!flex) return;
+            var cond = flex.condition || null;
+            // Commander-condition lands are useless outside Commander (no commander = no mana)
+            if (cond === 'commander' && !isCommanderFormat) return;
+            if (!cond || cond === 'turnGated' || (cond === 'commander' && isCommanderFormat)) {
+                unconditionalFlex.push(fKey);
+            } else {
+                conditionalFlex.push(fKey);
+            }
+        });
+
+        if (unconditionalFlex.length > 0) {
+            html += '<div class="suggest-card">';
+            html += '<h4>Premium Fixing \u2014 Any Color</h4>';
+            unconditionalFlex.forEach(function(fKey) {
+                var flex = FLEXIBLE_LANDS[fKey];
+                var tierLabel = flex.tier === 1 ? 'Premium' : 'Good';
+                var tierColor = flex.tier === 1 ? '#4ade80' : '#facc15';
+                html += '<span class="suggest-land" style="justify-content:space-between;width:100%;">';
+                html += '<span><strong class="card-name-link" data-card="' + flex.name + '">' + flex.name + '</strong> <span style="color:var(--text-muted);font-size:0.65rem;">(' + flex.desc + ')</span></span>';
+                html += '<span style="color:' + tierColor + ';font-size:0.65rem;font-weight:600;">' + tierLabel + '</span>';
+                html += '</span>';
+            });
+            html += '</div>';
+        }
+
+        if (conditionalFlex.length > 0) {
+            // Compute effectiveness for display — only show lands that are actually useful
+            var deckAnalysis = (state.mode === 'imported' && state.cards) ? analyzeDeckContext(state.cards) : analyzeDeckContext(null);
+            deckAnalysis.isCommander = (state.format === 'commander');
+            // Filter: in import mode, only show lands with >0% effectiveness
+            // In manual mode, hide conditional lands entirely (no deck data to evaluate)
+            var visibleConditional = conditionalFlex.filter(function(fKey) {
+                if (state.mode !== 'imported') return false;
+                var eff = flexLandEffectiveness(fKey, deckAnalysis);
+                return eff >= 0.15; // 15% minimum — below that, too situational
+            });
+            if (visibleConditional.length > 0) {
+                html += '<div class="suggest-card">';
+                html += '<h4>Conditional Fixing \u2014 Deck-Dependent</h4>';
+                visibleConditional.forEach(function(fKey) {
+                    var flex = FLEXIBLE_LANDS[fKey];
+                    var eff = flexLandEffectiveness(fKey, deckAnalysis);
+                    var effPct = Math.round(eff * 100);
+                    var effColor = effPct >= 60 ? '#4ade80' : (effPct > 0 ? '#facc15' : '#71717a');
+                    html += '<span class="suggest-land" style="justify-content:space-between;width:100%;">';
+                    html += '<span><strong class="card-name-link" data-card="' + flex.name + '">' + flex.name + '</strong> <span style="color:var(--text-muted);font-size:0.65rem;">(' + flex.desc + ')</span></span>';
+                    html += '<span style="color:' + effColor + ';font-size:0.65rem;font-weight:600;">' + effPct + '% effective</span>';
+                    html += '</span>';
+                });
+                html += '<p style="color:var(--text-muted);font-size:0.6rem;margin-top:0.3rem;">These lands only fix mana for specific spell types. Effectiveness is based on your deck composition.</p>';
+                html += '</div>';
+            }
+        }
+    }
+
     // Build suggestion: list all available dual lands per color pair
     html += '<div class="suggest-card">';
     html += '<h4>Available Dual Lands (' + formatKey.charAt(0).toUpperCase() + formatKey.slice(1) + ')</h4>';
@@ -1483,97 +3336,12 @@ function buildDualSuggestions(activeList, recommended, colorlessLands) {
             var tierLabel = land.tier === 1 ? 'Premium' : (land.tier === 2 ? 'Good' : 'Budget');
             var tierColor = land.tier === 1 ? '#4ade80' : (land.tier === 2 ? '#facc15' : '#71717a');
             html += '<span class="suggest-land" style="justify-content:space-between;width:100%;">';
-            html += '<span><strong>' + land.name + '</strong> <span style="color:var(--text-muted);font-size:0.65rem;">(' + land.cycle + ')</span></span>';
+            html += '<span><strong class="card-name-link" data-card="' + land.name + '">' + land.name + '</strong> <span style="color:var(--text-muted);font-size:0.65rem;">(' + land.cycle + ')</span></span>';
             html += '<span style="color:' + tierColor + ';font-size:0.65rem;font-weight:600;">' + tierLabel + '</span>';
             html += '</span>';
         });
         html += '</div></div>';
     });
-
-    // Suggested allocation — greedily fill duals by tier, then basics
-    var copiesPerCycle = (formatKey === 'commander') ? 1 : 4;
-    if (formatKey === 'limited') copiesPerCycle = 1;
-
-    // Minimum basics: at least 1 per color for fetch targets / consistency
-    var minBasicsPerColor = (formatKey === 'commander') ? 2 : 1;
-    var minBasics = minBasicsPerColor * activeList.length;
-    var maxDuals = Math.max(0, state.totalLands - colorlessLands - minBasics);
-
-    // Collect all available duals sorted by tier (premium first)
-    var allDuals = [];
-    pairs.forEach(function(pair) {
-        availableLands[pair].forEach(function(land) {
-            allDuals.push({ pair: pair, cycle: land.cycle, name: land.name, tier: land.tier });
-        });
-    });
-    allDuals.sort(function(a, b) { return a.tier - b.tier; });
-
-    // Greedily allocate playsets until we hit maxDuals
-    var suggestedDuals = [];
-    var totalDualCount = 0;
-    allDuals.forEach(function(d) {
-        if (totalDualCount >= maxDuals) return;
-        var qty = Math.min(copiesPerCycle, maxDuals - totalDualCount);
-        suggestedDuals.push({ name: d.name, cycle: d.cycle, tier: d.tier, qty: qty, pair: d.pair });
-        totalDualCount += qty;
-    });
-
-    // Track how many sources each color gets from duals
-    var sourcesFromDuals = {};
-    activeList.forEach(function(c) { sourcesFromDuals[c] = 0; });
-    suggestedDuals.forEach(function(d) {
-        sourcesFromDuals[d.pair[0]] += d.qty;
-        sourcesFromDuals[d.pair[1]] += d.qty;
-    });
-
-    // Remaining slots = basics, split proportionally by pip count
-    var basicTotal = state.totalLands - totalDualCount - colorlessLands;
-    var basicsPerColor = {};
-    var totalPipCount = 0;
-    activeList.forEach(function(c) { totalPipCount += state.pips[c]; });
-    activeList.forEach(function(c) {
-        if (totalPipCount > 0) {
-            basicsPerColor[c] = Math.max(minBasicsPerColor, Math.round(basicTotal * state.pips[c] / totalPipCount));
-        } else {
-            basicsPerColor[c] = Math.max(minBasicsPerColor, Math.round(basicTotal / activeList.length));
-        }
-    });
-    // Fix rounding to match basicTotal exactly
-    var assignedBasics = 0;
-    activeList.forEach(function(c) { assignedBasics += basicsPerColor[c]; });
-    var bDiff = basicTotal - assignedBasics;
-    if (bDiff !== 0) {
-        var sortedByPips = activeList.slice().sort(function(a, b) { return state.pips[b] - state.pips[a]; });
-        var idx = 0;
-        while (bDiff > 0 && idx < sortedByPips.length) { basicsPerColor[sortedByPips[idx]]++; bDiff--; idx++; }
-        while (bDiff < 0 && idx < sortedByPips.length) {
-            if (basicsPerColor[sortedByPips[idx]] > 0) { basicsPerColor[sortedByPips[idx]]--; bDiff++; }
-            idx++;
-        }
-    }
-
-    // Suggested split
-    html += '<div class="suggest-card">';
-    html += '<h4>Suggested Split (' + totalDualCount + ' duals, ' + basicTotal + ' basics)</h4>';
-    html += '<p>Fill with premium duals first for best mana consistency. Adjust based on your curve and aggression level.</p>';
-    html += '<div class="suggest-lands" style="flex-direction:column;gap:0.3rem;">';
-    suggestedDuals.forEach(function(d) {
-        var tierLabel = d.tier === 1 ? 'Premium' : (d.tier === 2 ? 'Good' : 'Budget');
-        var tierColor = d.tier === 1 ? '#4ade80' : (d.tier === 2 ? '#facc15' : '#71717a');
-        html += '<span class="suggest-land" style="justify-content:space-between;width:100%;">';
-        html += '<span><span class="sl-count">' + d.qty + '</span> ' + d.name + ' <span style="color:var(--text-muted);font-size:0.65rem;">(' + d.cycle + ')</span></span>';
-        html += '<span style="color:' + tierColor + ';font-size:0.65rem;font-weight:600;">' + tierLabel + '</span>';
-        html += '</span>';
-    });
-    activeList.forEach(function(c) {
-        if (basicsPerColor[c] > 0) {
-            html += '<span class="suggest-land"><span class="sl-count">' + basicsPerColor[c] + '</span> ' + basicLandName(c) + '</span>';
-        }
-    });
-    if (colorlessLands > 0) {
-        html += '<span class="suggest-land"><span class="sl-count">' + colorlessLands + '</span> Utility / Colorless</span>';
-    }
-    html += '</div></div>';
 
     // Triomes for 3+ color decks
     if (activeList.length >= 3 && (formatKey === 'pioneer' || formatKey === 'modern' || formatKey === 'legacy' || formatKey === 'commander')) {
@@ -1589,11 +3357,11 @@ function buildDualSuggestions(activeList, recommended, colorlessLands) {
         html += '<h4>Commander Staples</h4>';
         html += '<p>Don\'t forget Commander-specific lands that provide all your colors:</p>';
         html += '<div class="suggest-lands">';
-        html += '<span class="suggest-land"><span class="sl-count">1</span> Command Tower</span>';
-        html += '<span class="suggest-land"><span class="sl-count">1</span> Exotic Orchard</span>';
-        html += '<span class="suggest-land"><span class="sl-count">1</span> Path of Ancestry</span>';
+        html += '<span class="suggest-land"><span class="sl-count">1</span> <span class="card-name-link" data-card="Command Tower">Command Tower</span></span>';
+        html += '<span class="suggest-land"><span class="sl-count">1</span> <span class="card-name-link" data-card="Exotic Orchard">Exotic Orchard</span></span>';
+        html += '<span class="suggest-land"><span class="sl-count">1</span> <span class="card-name-link" data-card="Path of Ancestry">Path of Ancestry</span></span>';
         if (activeList.length >= 3) {
-            html += '<span class="suggest-land"><span class="sl-count">1</span> Chromatic Lantern (mana rock)</span>';
+            html += '<span class="suggest-land"><span class="sl-count">1</span> <span class="card-name-link" data-card="Chromatic Lantern">Chromatic Lantern</span> (mana rock)</span>';
         }
         html += '</div></div>';
     }
@@ -1631,32 +3399,44 @@ function hideImportStatus() {
 }
 
 function parseDecklist(text) {
+    // Normalize: split lines where multiple cards are crammed on one line
+    // e.g. "[CREATURES] 1 Accursed Marauder 1 Avenger of Zendikar" or
+    // "1 Lightning Bolt 1 Mountain" → separate lines per card
+    // Split on: letter/bracket/apostrophe followed by space(s) then qty+space+letter
+    // Avoids splitting set code contexts like "(M10) 123" or "(SLD) 1155 *F*"
+    text = text.replace(/([a-zA-Z\u00C0-\u024F*\]']) +(\d+ +[a-zA-Z\u00C0-\u024F])/g, '$1\n$2');
     var lines = text.split('\n');
     var cards = [];
-    var lineRe = /^\s*(\d+)x?\s+(.+?)(?:\s+\([A-Z0-9]+\)\s*\d+.*)?$/;
+    var lineRe = /^\s*(\d+)x?\s+(.+?)(?:\s+\(([A-Z0-9]+)\)(?:\s*(\S+).*)?)?$/;
     var sideboardRe = /^\s*(Sideboard|SB:|Companion|Maybeboard)/i;
     var skipRe = /^\s*(\/\/|Commander|Deck)/i;
+    var sectionRe = /^\s*\[.+\]\s*$/;
+    var hasSections = /^\s*\[.+\]\s*$/m.test(text);
     var startedParsing = false;
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
         // Sideboard header = stop parsing
         if (sideboardRe.test(line)) break;
         // Blank line after we've started = sideboard separator (MTGA format)
+        // But NOT if the list uses [SECTION] headers (e.g. Archidekt, Moxfield)
         if (!line) {
-            if (startedParsing) break;
+            if (startedParsing && !hasSections) break;
             continue;
         }
-        // Skip comment and section header lines
-        if (skipRe.test(line)) continue;
+        // Skip comment, section header, and bracketed category lines
+        if (skipRe.test(line) || sectionRe.test(line)) continue;
         var m = line.match(lineRe);
         if (m) {
             startedParsing = true;
             var qty = parseInt(m[1]);
             var name = m[2].trim();
-            // Handle split/MDFC — use front face
+            // Handle split/MDFC — use front face (exports use " // " or " / ")
             var slashIdx = name.indexOf(' // ');
+            if (slashIdx < 0) slashIdx = name.indexOf(' / ');
             if (slashIdx > 0) name = name.substring(0, slashIdx);
-            cards.push({ qty: qty, name: name });
+            var setCode = m[3] || null;
+            var collectorNum = m[4] || null;
+            cards.push({ qty: qty, name: name, setCode: setCode, collectorNum: collectorNum });
         }
     }
     // Deduplicate by name
@@ -1666,7 +3446,7 @@ function parseDecklist(text) {
         if (deduped[key]) {
             deduped[key].qty += c.qty;
         } else {
-            deduped[key] = { qty: c.qty, name: c.name };
+            deduped[key] = { qty: c.qty, name: c.name, setCode: c.setCode, collectorNum: c.collectorNum };
         }
     });
     return Object.values(deduped);
@@ -1713,6 +3493,10 @@ function parseManaCost(costStr) {
 }
 
 async function lookupCards(cards) {
+    // Build lookup for set+collector fallback
+    var cardsByName = {};
+    cards.forEach(function(c) { cardsByName[c.name.toLowerCase()] = c; });
+
     // Split into batches of 75
     var batches = [];
     for (var i = 0; i < cards.length; i += 75) {
@@ -1738,6 +3522,42 @@ async function lookupCards(cards) {
         if (data.data) allFound = allFound.concat(data.data);
         if (data.not_found) notFound = notFound.concat(data.not_found);
     }
+
+    // Fallback: retry not-found cards using set + collector_number
+    if (notFound.length > 0) {
+        var retryIds = [];
+        notFound.forEach(function(nf) {
+            var orig = cardsByName[(nf.name || '').toLowerCase()];
+            if (orig && orig.setCode && orig.collectorNum) {
+                retryIds.push({ set: orig.setCode.toLowerCase(), collector_number: orig.collectorNum });
+            }
+        });
+        if (retryIds.length > 0) {
+            await new Promise(function(r) { setTimeout(r, 100); });
+            var resp2 = await fetch('https://api.scryfall.com/cards/collection', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identifiers: retryIds })
+            });
+            if (resp2.ok) {
+                var data2 = await resp2.json();
+                if (data2.data && data2.data.length > 0) {
+                    allFound = allFound.concat(data2.data);
+                    // Remove successfully retried cards from notFound
+                    var retriedNames = new Set(data2.data.map(function(c) { return c.name.toLowerCase(); }));
+                    var retriedSets = new Set(data2.data.map(function(c) { return c.set + ':' + c.collector_number; }));
+                    notFound = notFound.filter(function(nf) {
+                        var orig = cardsByName[(nf.name || '').toLowerCase()];
+                        if (orig && orig.setCode && orig.collectorNum) {
+                            return !retriedSets.has(orig.setCode.toLowerCase() + ':' + orig.collectorNum);
+                        }
+                        return true;
+                    });
+                }
+            }
+        }
+    }
+
     return { found: allFound, notFound: notFound };
 }
 
@@ -1782,6 +3602,84 @@ function updateUIFromState() {
     updateCurveTotal();
 }
 
+// Classify a non-land card's ramp type from Scryfall data
+// Returns { rampType, rampColors, isCheapDraw }
+function classifyRamp(frontTypeLine, isArtifact, mainMV, producedMana, oracleText) {
+    var rampType = null;
+    var rampColors = [];
+    var isCreature = /\bCreature\b/i.test(frontTypeLine);
+
+    // Pre-checks for exclusions and sub-classifications
+    var isETBMana = /\bwhen\b.+\benters?\b/i.test(oracleText) && producedMana && producedMana.length > 0;
+    var isExileFromHand = /\bexile\b.+\bfrom\b.+\bhand\b/i.test(oracleText);
+    var createsTreasure = /\bcreate\b.+\btreasure\b|\btreasure token\b/i.test(oracleText);
+    var isSacrificeOutlet = /\bsacrifice a creature\b|\bsacrifice a permanent\b/i.test(oracleText);
+    // One-shot mana filter: sacrifice is part of the mana ability ("{T}, Sacrifice: Add...")
+    // Excludes rocks with optional sac for other effects (Commander's Sphere: "Sacrifice: Draw")
+    var isOneShotArtifact = isArtifact && /sacrifice[^.]*\badd\b/i.test(oracleText) && producedMana && producedMana.length > 0;
+
+    // Classification priority (most specific first):
+    // 1. MV 0 fast mana — split repeatable vs one-shot
+    if (mainMV === 0 && producedMana && producedMana.length > 0) {
+        if (/\bsacrifice\b/i.test(oracleText)) {
+            rampType = 'fastOneShot'; // Lotus Petal, Lion's Eye Diamond
+        } else {
+            rampType = 'fast'; // Mox Diamond, Mana Crypt, Chrome Mox
+        }
+    }
+    // 2. Treasure creators (before creature/artifact checks so Dockside hits here)
+    else if (createsTreasure && !isSacrificeOutlet) {
+        rampType = 'treasure';
+    }
+    // 3. Creature mana producers (dorks) — with exclusions
+    else if (isCreature && producedMana && producedMana.length > 0) {
+        if (isExileFromHand) {
+            rampType = 'fastOneShot'; // Simian/Elvish Spirit Guide
+        } else if (isETBMana && !/\{T\}.*\badd\b/i.test(oracleText)) {
+            // ETB-only mana (Burning-Tree Emissary, Priest of Gix)
+            // Only flag as ETB if there's no separate tap-for-mana ability
+            rampType = 'etbMana';
+        } else {
+            rampType = 'dork'; // Birds of Paradise, Llanowar Elves, Bloom Tender
+        }
+    }
+    // 4. Artifact mana producers (rocks) — with exclusions
+    else if (isArtifact && producedMana && producedMana.length > 0) {
+        if (isSacrificeOutlet) {
+            rampType = null; // Phyrexian Altar, Ashnod's Altar — combo pieces, not ramp
+        } else if (isOneShotArtifact) {
+            rampType = null; // Chromatic Star/Sphere — mana filters, net negative
+        } else {
+            rampType = 'rock'; // Sol Ring, Arcane Signet, Commander's Sphere
+        }
+    }
+    // 5. Land ramp (search YOUR library for a land/Forest/etc. + onto battlefield)
+    else if (/search your library.+(?:land|forest|plains|island|swamp|mountain).+onto the battlefield|put.+land.+onto the battlefield/i.test(oracleText)) {
+        rampType = 'landRamp';
+    }
+    // 6. Extra land drop effects (Exploration, Azusa, Oracle of Mul Daya)
+    else if (/\badditional lands?\b/i.test(oracleText)) {
+        rampType = 'extraLand';
+    }
+
+    if (rampType && producedMana) {
+        rampColors = producedMana.filter(function(m) { return 'WUBRG'.indexOf(m) >= 0 || m === 'C'; });
+        if (rampColors.length === 0 && producedMana.length > 0) {
+            rampColors = ['any'];
+        }
+    } else if (rampType === 'landRamp' || rampType === 'treasure' || rampType === 'extraLand') {
+        rampColors = ['any'];
+    }
+
+    // Detect cheap card draw (MV <= 2, not ramp, draws cards)
+    var isCheapDraw = false;
+    if (!rampType && mainMV <= 2 && mainMV > 0) {
+        isCheapDraw = /draw.+card|look at the top/i.test(oracleText);
+    }
+
+    return { rampType: rampType, rampColors: rampColors, isCheapDraw: isCheapDraw };
+}
+
 async function importDecklist() {
     var textarea = document.getElementById('decklistInput');
     var text = textarea.value.trim();
@@ -1813,9 +3711,19 @@ async function importDecklist() {
     }
 
     // Build a lookup map: lowercase name -> scryfall card object
+    // Also index by set:collector for Secret Lair reskins where names differ
     var cardMap = {};
+    var setCollectorMap = {};
     result.found.forEach(function(card) {
         cardMap[card.name.toLowerCase()] = card;
+        // Also index front face for MDFCs/split cards (Scryfall returns "Front // Back")
+        var dblSlash = card.name.indexOf(' // ');
+        if (dblSlash > 0) {
+            cardMap[card.name.substring(0, dblSlash).toLowerCase()] = card;
+        }
+        if (card.set && card.collector_number) {
+            setCollectorMap[card.set + ':' + card.collector_number] = card;
+        }
     });
 
     // Step 3: Process results — build per-card data AND aggregate state
@@ -1828,17 +3736,31 @@ async function importDecklist() {
 
     cards.forEach(function(c) {
         var scryfallCard = cardMap[c.name.toLowerCase()];
+        // Fallback: match by set + collector number (handles Secret Lair reskins)
+        if (!scryfallCard && c.setCode && c.collectorNum) {
+            scryfallCard = setCollectorMap[c.setCode.toLowerCase() + ':' + c.collectorNum];
+        }
         if (!scryfallCard) return;
 
         var typeLine = scryfallCard.type_line || '';
+        var frontTypeLine = typeLine.split('//')[0].trim();
+        var isLegendary = /\bLegendary\b/i.test(frontTypeLine);
+        var isArtifact = /\bArtifact\b/i.test(frontTypeLine);
+        var creatureTypes = [];
+        if (/\bCreature\b/i.test(frontTypeLine)) {
+            var dashIdx = frontTypeLine.indexOf('\u2014');
+            if (dashIdx >= 0) {
+                creatureTypes = frontTypeLine.substring(dashIdx + 1).trim().split(/\s+/).filter(function(t) { return t.length > 0; });
+            }
+        }
+
         if (/\bLand\b/i.test(typeLine)) {
             totalLands += c.qty;
-            // Extract produced colors from Scryfall data
             var producesColors = [];
             if (scryfallCard.produced_mana) {
                 producesColors = scryfallCard.produced_mana.filter(function(m) { return 'WUBRG'.indexOf(m) >= 0; });
             }
-            perCardData.push({ name: scryfallCard.name, qty: c.qty, mv: 0, pips: { W:0, U:0, B:0, R:0, G:0 }, isLand: true, producesColors: producesColors });
+            perCardData.push({ name: scryfallCard.name, qty: c.qty, mv: 0, pips: { W:0, U:0, B:0, R:0, G:0 }, isLand: true, producesColors: producesColors, isLegendary: isLegendary, isArtifact: isArtifact, isMulticolor: false, creatureTypes: creatureTypes, isEnchantment: /\bEnchantment\b/i.test(frontTypeLine), isInstantSorcery: /\b(?:Instant|Sorcery)\b/i.test(frontTypeLine) });
             return;
         }
 
@@ -1869,8 +3791,18 @@ async function importDecklist() {
             mainMV = mainParsed.mv;
         }
 
+        // Compute multicolor: 2+ different colored pips
+        var _colorCount = 0;
+        COLORS.forEach(function(col) { if (allPips[col] > 0) _colorCount++; });
+        var isMulticolor = _colorCount >= 2;
+
+        // Detect ramp and cheap draw via classifyRamp()
+        var producedMana = scryfallCard.produced_mana || (faces.length > 0 ? faces[0].produced_mana : null);
+        var oracleText = scryfallCard.oracle_text || (faces.length > 0 ? (faces[0].oracle_text || '') : '');
+        var rampResult = classifyRamp(frontTypeLine, isArtifact, mainMV, producedMana, oracleText);
+
         // Build per-card data
-        perCardData.push({ name: scryfallCard.name, qty: c.qty, mv: mainMV, pips: Object.assign({}, allPips), isLand: false, producesColors: null });
+        perCardData.push({ name: scryfallCard.name, qty: c.qty, mv: mainMV, pips: Object.assign({}, allPips), isLand: false, producesColors: null, isLegendary: isLegendary, isArtifact: isArtifact, isMulticolor: isMulticolor, creatureTypes: creatureTypes, rampType: rampResult.rampType, rampColors: rampResult.rampColors, isCheapDraw: rampResult.isCheapDraw, isEnchantment: /\bEnchantment\b/i.test(frontTypeLine), isInstantSorcery: /\b(?:Instant|Sorcery)\b/i.test(frontTypeLine) });
 
         // Accumulate pips * quantity
         COLORS.forEach(function(col) {
@@ -1933,6 +3865,95 @@ async function importDecklist() {
         setImportStatus(statusMsg, 'success');
     }
 }
+
+// ══════════════════════════════════════════
+// Card Image Preview (hover/tap)
+// ══════════════════════════════════════════
+if (typeof document !== 'undefined' && document.getElementById) (function() {
+    var preview = document.getElementById('cardPreview');
+    if (!preview || !preview.querySelector) return;
+    var previewImg = preview.querySelector('img');
+    if (!previewImg) return;
+    var hideTimer = null;
+    var touchShown = false;
+    var isTouchDevice = false;
+
+    function scryfallUrl(name) {
+        return 'https://api.scryfall.com/cards/named?exact=' + encodeURIComponent(name) + '&format=image&version=normal';
+    }
+
+    function positionPreview(el) {
+        var rect = el.getBoundingClientRect();
+        var imgW = window.innerWidth <= 768 ? 200 : 240;
+        var imgH = imgW * 1.4; // approx card aspect ratio
+        var pad = 12;
+        var x, y;
+
+        if (window.innerWidth <= 768) {
+            // Mobile: center above the element
+            x = rect.left + rect.width / 2 - imgW / 2;
+            y = rect.top - imgH - pad;
+            if (y < 8) y = rect.bottom + pad;
+        } else {
+            // Desktop: right of the element, fall back to left
+            x = rect.right + pad;
+            y = rect.top - 20;
+            if (x + imgW > window.innerWidth - 8) {
+                x = rect.left - imgW - pad;
+            }
+        }
+        // Clamp to viewport
+        x = Math.max(8, Math.min(x, window.innerWidth - imgW - 8));
+        y = Math.max(8, Math.min(y, window.innerHeight - imgH - 8));
+
+        preview.style.left = x + 'px';
+        preview.style.top = y + 'px';
+    }
+
+    function showPreview(el) {
+        var name = el.getAttribute('data-card');
+        if (!name) return;
+        if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+        previewImg.onload = function() { preview.classList.add('visible'); };
+        previewImg.onerror = function() { preview.classList.remove('visible'); previewImg.src = ''; };
+        previewImg.src = scryfallUrl(name);
+        positionPreview(el);
+    }
+
+    function hidePreview() {
+        preview.classList.remove('visible');
+        hideTimer = setTimeout(function() { previewImg.src = ''; }, 150);
+        touchShown = false;
+    }
+
+    document.addEventListener('mouseover', function(e) {
+        if (isTouchDevice) return;
+        var link = e.target.closest('.card-name-link');
+        if (link) showPreview(link);
+    });
+
+    document.addEventListener('mouseout', function(e) {
+        if (isTouchDevice) return;
+        var link = e.target.closest('.card-name-link');
+        if (link) hidePreview();
+    });
+
+    document.addEventListener('touchstart', function(e) {
+        isTouchDevice = true;
+        var link = e.target.closest('.card-name-link');
+        if (link) {
+            e.preventDefault();
+            if (touchShown && preview.classList.contains('visible')) {
+                hidePreview();
+            } else {
+                showPreview(link);
+                touchShown = true;
+            }
+        } else if (touchShown) {
+            hidePreview();
+        }
+    }, { passive: false });
+})();
 
 // ══════════════════════════════════════════
 // Init
